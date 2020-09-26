@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.1 확률적 데이터와 확률변수 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/07.01 확률적 데이터와 확률변수.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/07.01 확률적 데이터와 확률변수.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/07.01 확률적 데이터와 확률변수.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   확률적 데이터
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   분포
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   기술통계
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   표본평균
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   표본중앙값
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   표본최빈값
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   파이썬을 사용한 대푯값 계산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   단봉분포와 다봉분포
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 7.1.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   대칭분포
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     연습 문제 7.1.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   분산과 표준편차
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   파이썬을 사용한 표본분산 및 표본표준편차의 계산
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     연습 문제 7.1.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   표본비대칭도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
+   표본첨도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   표본모멘트
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id19">
+   확률변수
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id20">
+   이산확률변수
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id21">
+   연속확률변수
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id22">
+   확률변수는 데이터 생성기
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     연습 문제 7.1.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id24">
+   확률변수를 사용한 데이터 분석
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>7.1 확률적 데이터와 확률변수<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>여러분이 의사라고 가정하자. 여러분은 환자로부터 여러가지 숫자, 즉 데이터를 받게 된다. 한 명의 환자가 주는 데이터는 크게 두 가지로 나눌 수 있는데 하나는 생년월일처럼 한 번 물어보면 더이상 물어볼 필요가 없는 데이터, 또 하나는 혈압, 체온처럼 환자가 내원할 때마다 물어보게 되는 데이터다. 같은 환자에게 생년월일을 한 번만 묻는 이유는 누가 언제 물어보더라도 그 값이 바뀌지 않기 때문이다. 반대로 혈압과 같은 데이터는 계속 다른 값이 나올 수 있다. 이전에 100번을 측정해 보았다 하더라도 이번에 어떤 값이 나올지 100% 정확하게 예측할 수 없다. 심지어는 같은 시간에 같은 사람의 혈압을 측정해도 측정하는 사람과 장비에 따라서 다를 수도 있다. 하지만 혈압을 100% 정확하게 예측할 수 없다는 말이 혈압이라는 데이터에 대해 아무런 정보나 지식이 없다는 뜻은 아니다. 예를 들어 혈압계에서 1000이라는 값이나 -10이라는 값이 나온다면 우리는 혈압계가 고장났다고 생각할 것이다.</p>
+<p>이 절에서는 다음과 같은 질문에 대해 대답할 수 있는 방법을 생각해 본다.</p>
+<ul class="simple">
+<li><p>어떤 데이터가 생년월일처럼 변하지 않는 데이터인지 혹은 측정할 때마다 변할 수 있는 데이터인지 구분할 수 있는가?</p></li>
+<li><p>혈압과 같이 100% 정확하게 예측할 수 없는 데이터가 있을 때 이 데이터로부터 우리가 얻는 지식은 무엇인가? 그것을 어떻게 표현할 수 있는가?</p></li>
+<li><p>이러한 데이터를 수학적으로 표현하는 방법을 알아본다.</p></li>
+</ul>
+<div class="section" id="id2">
+<h2>확률적 데이터<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>실험, 측정, 조사 등을 통해 어떤 데이터값을 반복적으로 얻는 경우를 생각하자. 생년월일처럼 언제 누가 얻더라도 항상 같은 값이 나오는 데이터를 **결정론적 데이터(deterministic data)**라고 하고 혈압처럼 정확히 예측할 수 없는 값이 나오는 데이터를 **확률적 데이터(random data, probabilistic data, stochastic data)**라고 한다. 우리가 다루는 대부분의 데이터는 확률적 데이터다.</p>
+<p>데이터가 확률적이 되는 이유는</p>
+<ul class="simple">
+<li><p>여러 조건이나 상황에 따라 데이터값이 영향을 받기 때문일 수도 있고</p></li>
+<li><p>측정 시에 발생하는 오차 때문일 수도 있다.</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>분포<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>그런데 대부분의 확률적 데이터값을 살펴보면 어떤 값은 자주 등장하고 어떤 값은 드물게 나오거나 나오지 않는 경우가 많다. 확률적 데이터에서 어떠한 값이 자주 나오고 어떠한 값이 드물게 나오는가를 나타내는 정보를 **분포(distribution)**라고 한다.</p>
+<p>분포는 범주형 데이터의 경우 <strong>카운트 플롯(count plot)</strong>, 실수형 데이터의 경우  **히스토그램(histogram)**을 사용하여 시각적으로 표현할 수 있다. 예를 들어 다음과 같은 21개 데이터가 있다고 하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">21</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">c897edbb42e5</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">21</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">x</span>
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 데이터를 -4부터 4까지 0.5 크기의 구간을 가진 히스토그램으로 나타내면 다음과 같다. 시본 패키지의 <code class="docutils literal notranslate"><span class="pre">distplot</span></code> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;히스토그램으로 나타낸 데이터 분포&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.01 확률적 데이터와 확률변수_8_0.png" src="../_images/07.01 확률적 데이터와 확률변수_8_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>기술통계<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>분포를 표현하는 또다른 방법은 분포의 특징을 나타내는 여러가지 숫자를 계산하여 그 숫자로서 분포를 나타내는 것이다. 이러한 값들을 **기술통계(descriptive statistics)**라고 한다. 대표적인 기술통계는 다음과 같다.</p>
+<ul class="simple">
+<li><p>표본평균, 표본중앙값, 표본최빈값</p></li>
+<li><p>표본분산, 표본표준편차</p></li>
+<li><p>표본왜도, 표본첨도</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>표본평균<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>정상인의 최고혈압(수축기혈압, systolic blood pressure)은 얼마인가라는 질문에 하나의 숫자로 대답해야 한다면 어떻게 답할 것인가?</p>
+<p>정상인의 최고혈압은 확률적 데이터다. 즉, 사람마다 그리고 측정하는 상황에 따라 다를 수 있다. 하지만 의사에게 같은 질문을 한다면 대부분 “120 mmHg 정도입니다”라고 말할 것이다. 여기에서 120이라는 값은 정상인의 최고혈압을 대표하는 값이다. 이렇게 확률적인 데이터값을 대표하는 몇 가지 기술통계가 있는데 그중 하나가 표본평균이다.</p>
+<p>일반적으로 부르는 평균(mean, average)의 정확한 명칭은 **표본평균(sample mean, sample average)**이다. 표본평균은 데이터 분포의 대략적인 위치를 나타낸다. 표본평균의 기호로는 알파벳 <span class="math notranslate nohighlight">\(m\)</span> 또는 데이터를 나타내는 변수 기호 위에 bar를 붙인 <span class="math notranslate nohighlight">\(\bar x\)</span> 기호를 사용한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+m = \bar{x} = \dfrac{1}{N}\sum_{i=1}^{N} x_i 
+\tag{7.1.1}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(N\)</span>는 자료의 개수, <span class="math notranslate nohighlight">\(i\)</span>는 자료의 순서(index)를 뜻한다.</p>
+</div>
+<div class="section" id="id6">
+<h2>표본중앙값<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>**표본중앙값(sample median)**은 전체 자료를 크기별로 정렬했을 때 가장 중앙에 위치하는 값을 말한다. 표본 중앙값에도 몇 가지의 정의가 존재하지만 대표적인 정의는 다음과 같다.</p>
+<p>전체 표본 개수가 <span class="math notranslate nohighlight">\(N\)</span>인 경우,</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span>이 홀수이면 : 중앙값은 <span class="math notranslate nohighlight">\((N + 1)/2\)</span>번째 표본의 값</p></li>
+<li><p><span class="math notranslate nohighlight">\(N\)</span>이 짝수이면 : 중앙값은 <span class="math notranslate nohighlight">\(N/2\)</span>번째 표본의 값과 <span class="math notranslate nohighlight">\(N/2 + 1\)</span>번째 표본의 값의 평균</p></li>
+</ul>
+<p>예를 들어 99명의 최고혈압을 측정한 데이터가 가장 낮은 값부터 가장 높은 값까지 순서대로 정렬했을 때 50번째 사람의 최고혈압이 이 데이터의 표본중앙값이 된다. 사람 수가 100명이라면 50번째 데이터와 51번째 데이터의 평균값을 사용한다.</p>
+</div>
+<div class="section" id="id7">
+<h2>표본최빈값<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>**표본최빈값(most frequent value, sample mode)**은 데이터값 중 가장 빈번하게 나오는 값을 말한다. 혈액형, 나이, 남녀 구분 등 유한한 종류의 값만 있는 데이터에서는 최빈값을 쉽게 구할 수 있지만 혈압, 키, 몸무게 등 연속적인 값을 가지는 데이터에서는 (정밀도가 무한히 높다는 가정하에) 똑같은 값이 나올 확률이 아주 작기 때문에 최빈값을 구하기 어렵고 의미도 없다. 따라서 연속적인 값의 경우에는 일정한 구간 간격으로 나누어 가장 많은 데이터를 가진 구간의 대푯값을 그 데이터의 최빈값으로 가정하는 방법을 많이 사용한다. 하지만 이 방법도 구간을 어떻게 나누는가에 따라 달라질 수 있기 때문에 신뢰할 수 있는 방법이 아니다.</p>
+</div>
+<div class="section" id="id8">
+<h2>파이썬을 사용한 대푯값 계산<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>파이썬에서는 다음과 같은 NumPy 함수를 사용하여 각종 대푯값을 계산할 수 있다. 범주형 데이터는 실수로 바꾼 다음에 대푯값을 계산한다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a>: 표본평균 계산</p></li>
+<li><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.median.html"><code class="docutils literal notranslate"><span class="pre">median()</span></code></a>: 표본중앙값 계산</p></li>
+<li><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.argmax.html"><code class="docutils literal notranslate"><span class="pre">argmax()</span></code></a>: 이산데이터의 최댓값 계산</p></li>
+<li><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html"><code class="docutils literal notranslate"><span class="pre">histogram()</span></code></a>: 데이터를 구간으로 나누어 각 구간에 들어가는 데이터 개수 계산.</p></li>
+</ul>
+<p>표본평균과 표본중앙값은 다음처럼 구한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;표본평균 = </span><span class="si">{}</span><span class="s2">, 표본중앙값 = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>표본평균 = 0.4206524782418389, 표본중앙값 = 0.4001572083672233
+</pre></div>
+</div>
+</div>
+</div>
+<p>하지만 연속데이터에 대한 최빈값은 의미 없는 숫자가 나오므로 구간으로 나누어 최빈구간을 구해야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">m_bin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;최빈구간 = </span><span class="si">{}</span><span class="s2">~</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="n">m_bin</span><span class="p">],</span> <span class="n">bins</span><span class="p">[</span><span class="n">m_bin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>최빈구간 = 0.0~0.5
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>단봉분포와 다봉분포<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>분포의 모양에서 봉우리가 하나면 <strong>단봉(uni-modal)분포</strong>, 봉우리가 여럿이면 <strong>다봉(multi-modal)분포</strong>라고 한다.</p>
+<div class="section" id="id10">
+<h3>연습 문제 7.1.1<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>다음 명령으로 붓꽃의 꽃잎 길이(petal length) 데이터를 구하고 히스토그램을 그려 분포의 모양을 살핀다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">sy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<span class="n">sy</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sy</span>
+</pre></div>
+</div>
+<p>(1) 꽃잎 길이의 분포는 단봉분포인가 다봉분포인가?</p>
+<p>(2) 데이터프레임에서 종(species)이 <code class="docutils literal notranslate"><span class="pre">setosa</span></code>인 데이터만 뽑아서 히스토그램을 그려라. 이 분포는 단봉분포인가 다봉분포인가?</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>대칭분포<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>표본평균, 표본중앙값, 표본최빈값은 분포의 모양에 따라 다음과 같은 특성을 보인다.</p>
+<ul class="simple">
+<li><p>분포가 표본평균을 기준으로 대칭인 대칭(symmetric)분포이면 표본중앙값은 표본평균과 같다.</p></li>
+<li><p>분포가 대칭분포이면서 하나의 최고값만을 가지는 단봉분포이면 표본최빈값은 표본평균과 같다.</p></li>
+<li><p>대칭분포를 비대칭으로 만드는 데이터가 더해지면 표본평균이 가장 크게 영향을 받고 표본최빈값이 가장 적게 영향을 받는다.</p></li>
+</ul>
+<p>다음 히스토그램은 대칭인 분포를 비대칭으로 만드는 데이터가 더해졌을 때 표본평균, 표본중앙값, 표본최빈값이 어떻게 변하는지를 보인다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">50</span><span class="p">)])</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ns</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+
+<span class="n">sample_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sample_median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">mode_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>
+<span class="n">sample_mode</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="n">mode_index</span><span class="p">]</span> <span class="o">+</span> <span class="n">bins</span><span class="p">[</span><span class="n">mode_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">sample_mean</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;표본평균&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">sample_median</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;표본중앙값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">sample_mode</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;표본최빈값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;표본평균, 표본중앙값, 표본최빈값의 차이&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.01 확률적 데이터와 확률변수_28_0.png" src="../_images/07.01 확률적 데이터와 확률변수_28_0.png" />
+</div>
+</div>
+<div class="section" id="id12">
+<h3>연습 문제 7.1.2<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>(1) virginica 종 붓꽃의 꽃잎 길이(petal length) 데이터에 대해 표본평균, 표본중앙값, 표본최빈값을 구하고 위와 같이 그림으로 그려라. 표본최빈값을 구할 때는 0cm부터 10cm까지 1cm 간격으로 히스토그램을 그려서 표본최빈값을 구하라.</p>
+<p>(2) 히스토그램의 구간 수를 50개, 100개로 세분화하여 다시 표본최빈값을 구하라. 표본최빈값이 어떻게 달라지는가?</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>분산과 표준편차<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>앞에서 정상인의 최고혈압 대푯값은 120이라고 했다.
+그렇다면 어떤 사람의 최고혈압이 130이 나왔다면 그 사람은 정상이라고 할 수 없는 것일까?
+이러한 판단을 하려면 데이터가 얼마나 변동(variation)하고 있는지를 알아야 한다.
+이러한 정보를 알려주는 특징값이 <strong>표본분산(sample variance)</strong> 또는 **표본표준편차(sample standard deviation)**이다.
+평균이나 기댓값이 분포의 <strong>위치</strong>를 대표하는 것이라면 분산은 분포의 **폭(width)**을 대표하는 값이다. 표준편차는 분산에 대한 양의 제곱근(square root)값이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{표준편차} = \sqrt{\text{분산}}
+\tag{7.1.2}
+\end{align}
+\]</div>
+<p>표본분산은 다음처럼 구한다. 식에서 <span class="math notranslate nohighlight">\(\bar{x}\)</span>은 표본평균이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+s^2 = \dfrac{1}{N}\sum_{i=1}^{N} (x_i-\bar{x})^2 
+\tag{7.1.3}
+\end{align}
+\]</div>
+<p>다음 그림에서 볼 수 있듯이 이 식은 자료값과 평균 사이의 거리를 의미한다. 다만 자료값이 평균보다 작을 때는 음수가 나오므로 제곱을 하여 모두 양수로 만들어준 것이다.</p>
+<p>만약 분포가 하나의 대푯값 근처에 모여있다면 대부분의 데이터는 “대푯값 <span class="math notranslate nohighlight">\(\pm\)</span> 표준편차” 범위 안에 있다. 참고로 정상인의 최고혈압의 표준편차는 약 20이다. 따라서 대다수의 최고혈압 데이터는 <span class="math notranslate nohighlight">\(120 \pm 20\)</span> 범위 안에 있다고 할 수 있으므로 130이라는 숫자는 비정상이라고 보기 힘들다.</p>
+<img src="https://datascienceschool.net/upfiles/d533b6131841430c81207c9bf4cc0e02.png" style="width: 100%;"><p>그림 7.1.1 : 표본분산과 표본표준편차</p>
+<p>위 식에서 구한 표본분산은 정확하게 말하면 편향오차를 가진 **편향 표본분산(biased sample variance)**이다. 이와 대조되는 **비편향 표본분산(unbiased sample variance)**은 다음과 같이 구한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+s^2_{\text{unbiased}} = \dfrac{1}{N-1}\sum_{i=1}^{N} (x_i-\bar{x})^2
+\tag{7.1.4}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id14">
+<h2>파이썬을 사용한 표본분산 및 표본표준편차의 계산<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>파이썬에서 표본분산과 표본표준편차를 구할 때는 다음 함수를 사용한다. <code class="docutils literal notranslate"><span class="pre">ddof</span></code> 인수를 이용하면 비편향 표본분산과 표본표준편차를 구할 수 있다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.var.html"><code class="docutils literal notranslate"><span class="pre">var()</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html"><code class="docutils literal notranslate"><span class="pre">std()</span></code></a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># 평균=0, 표준편차=2 인 정규분포 데이터 생성</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 편향 표본분산, 표본표준편차</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3.896937825248617, 1.9740663173380515)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 비편향 표본분산, 표본표준편차</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3.900838663912529, 1.9750540913890255)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>연습 문제 7.1.3<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>다음 명령으로 다우지수의 일간수익률 데이터를 구할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas_datareader.data</span> <span class="k">as</span> <span class="nn">web</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="s2">&quot;DJCA&quot;</span><span class="p">,</span> <span class="n">data_source</span><span class="o">=</span><span class="s1">&#39;fred&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()[</span><span class="s2">&quot;DJCA&quot;</span><span class="p">]</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+<p>(1) 다우지수 일간수익률의 표본평균, 표본분산, 표본표준편차를 구하라.</p>
+<p>(2) 일간수익률의 표본표준편차에 대략적인 연간 거래일수 256일의 제곱근인 16을 곱해서 % 단위로 나타낸 것을 연간변동성(annual volatility)이라고 한다. 다우지수의 연간변동성을 구하라.</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>표본비대칭도<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>평균과의 거리의 세제곱을 이용하여 구한 특징값을 **표본비대칭도(sample skewness)**라고 한다. <strong>표본비대칭도가 0이면 분포가 대칭</strong>이다. 표본비대칭도가 음수면 표본평균값을 기준으로 왼쪽에 있는 값을 가진 표본이 나올 가능성이 더 많다는 뜻이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{표본비대칭도} = 
+\frac{\tfrac{1}{N} \sum_{i=1}^N (x_i-\overline{x})^3}{ \sqrt{\tfrac{1}{N-1} \sum_{i=1}^N (x_i-\overline{x})^2}^{\,3}}
+\tag{7.1.5}
+\end{align}
+\]</div>
+<img src="https://datascienceschool.net/upfiles/fbef84feab4646cf918e1b474ef07290.png" style="width=100%;"><p>그림 7.1.2 : 분포에 따른 표본비대칭도</p>
+</div>
+<div class="section" id="id17">
+<h2>표본첨도<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>평균과의 거리의 네제곱을 이용하여 구한 특징값을 **표본첨도(sample kurtosis)**라고 한다. 표본첨도는 데이터가 중앙에 몰려있는 정도를 정밀하게 비교하는데 쓰인다. 사람의 눈으로 첨도를 구별하는 것은 어렵다. 표본첨도의 기준은 나중에 설명할 정규분포다. 정규분포보다 첨도가 높으면 양수, 정규분포보다 첨도가 낮으면 음수로 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{표본첨도} = 
+\frac{\tfrac{1}{N} \sum_{i=1}^N (x_i - \overline{x})^4}{\left(\tfrac{1}{N} \sum_{i=1}^N (x_i - \overline{x})^2\right)^2} - 3
+\tag{7.1.6}
+\end{align}
+\]</div>
+<p>사이파이의 stats 서브패키지는 표본비대칭도와 표본첨도를 구하는 <code class="docutils literal notranslate"><span class="pre">skew()</span></code>, <code class="docutils literal notranslate"><span class="pre">kurtosis()</span></code> 명령을 제공한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.03385895323565712, -0.0467663244783294)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>표본모멘트<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>분산, 비대칭도, 첨도를 구하기 위해 제곱, 세제곱, 네제곱을 하는 것처럼 <span class="math notranslate nohighlight">\(k\)</span>제곱을 이용하여 구한 모멘트를 <span class="math notranslate nohighlight">\(k\)</span>차 **표본모멘트(sample moment)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{표본모멘트} = 
+\frac{1}{N}\sum_{i = 1}^{N} x^k_i
+\tag{7.1.7}
+\end{align}
+\]</div>
+<p>2차 표본모멘트 이상은 평균을 뺀 **표본중앙모멘트(sample centered moment)**값을 사용하기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{표본중앙모멘트} = 
+\frac{1}{N}\sum_{i = 1}^{N} (x_i - \bar{x})^k
+\tag{7.1.8}
+\end{align}
+\]</div>
+<p>따라서 평균은 1차 모멘트, 분산은 2차 모멘트, 비대칭도와 첨도는 3차 모멘트와 4차 모멘트에서 유도된 값이다.</p>
+<p>사이파이 stats 서브패키지는 표본모멘트를 구하는 <code class="docutils literal notranslate"><span class="pre">moment()</span></code> 명령을 제공한다.  인수로 모멘트 차수를 입력한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 3.896937825248617, 0.2604706193725514, 44.84817401965371)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>확률변수<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>확률변수는 수학적으로 확률공간의 표본을 입력으로 받아서 실수인 숫자로 바꾸어 출력하는 함수다. 출력되는 실수가 데이터의 값이다. 표본값을 굳이 실수로 바꾸는 이유는 표본이 실수가 아니면 확률분포함수를 정의할 수 없기 때문이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\omega \in \Omega \;\;\; \xrightarrow{\text{확률변수 } X} \;\; x \in \mathbf{R} 
+\tag{7.1.9}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+X(\omega) = x
+\tag{7.1.10}
+\end{align}
+\]</div>
+<p>보통은 <span class="math notranslate nohighlight">\(X\)</span> 등의 대문자 알파벳을 사용하여 확률변수를 표기한다. 확률변수에 의해 할당된 실수는 <span class="math notranslate nohighlight">\(x\)</span>와 같이 소문자 알파벳으로 표시한다. 경우에 따라서는 소문자 알파벳으로 확률변수를 표기하는 경우도 있다.</p>
+<img src="https://datascienceschool.net/upfiles/8b823f5f404b4f5cb8ea25b0260af851.png" style="width: 100%;"><p>그림 7.1.3 : 확률변수</p>
+</div>
+<div class="section" id="id20">
+<h2>이산확률변수<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>플레잉카드에서 나올 수 있는 모든 무늬(suit)의 집합인 표본집합 <span class="math notranslate nohighlight">\(\{\spadesuit, \heartsuit, \diamondsuit, \clubsuit\}\)</span> 내의 모든 표본에 대해 다음과 같이 숫자를 할당하면 1부터 4까지 값을 가지는 확률변수가 된다. 이렇게 확률변수값이 연속적(continuous)이지 않고 떨어져(discrete) 있도록 정의할 수 있으면 **이산확률변수(discrete random variable)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+X(\spadesuit) = 1 , \;\;
+X(\heartsuit) = 2 , \;\;
+X(\diamondsuit) = 3 , \;\;
+X(\clubsuit) = 4
+\tag{7.1.11}
+\end{align}
+\]</div>
+<p>확률공간의 표본에는 확률이 할당되어 있다. 예를 들어 모든 표본이 나올 가능성이 같다면 확률은 다음처럼 할당되어 있다는 뜻이다. 다음 식에서 <span class="math notranslate nohighlight">\(p\)</span>는 확률질량함수다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(\spadesuit) = \dfrac{1}{4}, \;\;
+p(\heartsuit) = \dfrac{1}{4}, \;\;
+p(\diamondsuit) = \dfrac{1}{4}, \;\;
+p(\clubsuit) = \dfrac{1}{4}
+\tag{7.1.12}
+\end{align}
+\]</div>
+<p>표본공간의 원소의 개수가 무한대인 경우도 이산확률변수가 될 수 있다. 예를 들어 기하 분포(geometric distribution)나 포아송 분포(Poisson distribution) 등은 양의 정수값을 가지는 이산분포지만 표본의 갯수가 무한대다.</p>
+</div>
+<div class="section" id="id21">
+<h2>연속확률변수<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<p>주사위가 아닌 원반의 각도 문제처럼 연속적이고 무한대의 실수 표본값을 가지는 확률변수를 **연속확률변수(continuous random variable)**라고 한다.
+모든 표본이 실수인 숫자로 변한다면 모든 사건은 구간사건의 조합으로 표시된다. 즉, 확률이 어떻게 할당되었는가를 나타내는 정보인 확률분포를 수학적인 확률분포함수로 나타낼 수 있다는 뜻이다.</p>
+</div>
+<div class="section" id="id22">
+<h2>확률변수는 데이터 생성기<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<p>확률적 데이터는 어떤 실험 행위에 의해 얻어지는 경우가 많다. 예를 들어</p>
+<ul class="simple">
+<li><p>주사위를 던지는 실험</p></li>
+<li><p>자동차 엔진의 출력을 측정하는 실험</p></li>
+<li><p>혈압을 측정하는 실험</p></li>
+</ul>
+<p>등을 같은 조건에서 여러 번 반복하여 확률적 데이터를 얻을 수 있다. 이 확률적 데이터들에는 데이터를 생성하게 한 주사위, 자동차 엔진, 사람 등의 데이터 생성기가 명확하게 존재한다. 우리가 가진 데이터가 어떤 과정을 통해 얻어졌는지 구체적으로 알지 못한다고 해도 앞에서 예로 든 주사위, 자동차 엔진처럼 이 데이터를 생성한 무언가가 존재한다고 가정할 수 있다.</p>
+<p>확률변수는 실수인 데이터를 생성하는 데이터생성기다. 몇 가지 확률변수의 예를 들어보자.</p>
+<ul class="simple">
+<li><p>공정한 주사위에서 나오는 숫자는 1부터 6까지의 숫자가 나오고 균일분포 확률분포함수를 가진 이산확률변수다.</p></li>
+<li><p>정상인의 최고혈압은 실수가 나오고 120 mmHg 근처에서 기댓값을 가지는 단봉분포 모양의 확률분포함수를 가진 연속확률변수다.</p></li>
+</ul>
+<div class="section" id="id23">
+<h3>연습 문제 7.1.4<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>위에서 구한 붓꽃 데이터에서는 몇 개의 확률변수를 정의할 수 있는가?</p>
+<p>현실 세계의 데이터는 확률변수가 가진 확률분포에 따라 실수 표본공간에서 선택된 표본이다. 이렇게 확률분포함수에 따라 표본공간의 표본이 현실 세계의 데이터로 선택되는 것을 <strong>실현(realization)</strong> 혹은 **표본화(sampling)**라고 한다. 표본화는 다른 의미로도 사용되는데 많은 수의 데이터 집합에서 일부 데이터만 선택하는 과정도 표본화라고 한다.</p>
+<p>실현은 이상적이고(ideal), 추상적이며(abstract), 수학적인(mathematical) 세계에서 현실로 넘어가는 과정이다. 확률변수라는 데이터 모형에 따르면 현실의 표본 데이터는 이러한 수학적인 세계가 현실 세계에 투영된 그림자에 지나지 않는다. 따라서 히스토그램이나 기술통계 등 분포의 특성이 깨끗한 형태를 지니지 않지만 이는 실현 혹은 표본화 과정에서 생긴 잡음일 뿐이며 그 내면에는 원래의 수학적 특성을 내포하고 있다.</p>
+<p>따라서 확률변수와 실제 데이터는 다음과 같은 관계가 있다.</p>
+<ul class="simple">
+<li><p>확률변수로부터 데이터를 여러 번 생성하는 경우 실제 데이터값은 매번 달라질 수 있지만 확률변수 자체는 변하지 않는다.</p></li>
+<li><p>확률변수의 확률분포함수는 우리가 직접 관찰할 수 없다. 다만 확률변수에서 만들어지는 실제 데이터값을 이용하여 확률분포함수가 이러한 것일 거라고 추정할 뿐이다.</p></li>
+<li><p>확률변수에서 만들어지는 실제 데이터값은 확률변수가 가진 특성을 반영하고 있다. 데이터 개수가 적을수록 확률변수가 가진 특징을 정확하게 표현하지 못하지만 데이터 개수가 증가하면 보다 정확하게 확률분포함수를 묘사할 수 있게 된다.</p></li>
+</ul>
+<img src="https://datascienceschool.net/upfiles/5c6f256eb4aa4e8c9459e779b88936a9.png" style="width: 100%;"><p>그림 7.1.4 : 확률변수와 데이터</p>
+</div>
+</div>
+<div class="section" id="id24">
+<h2>확률변수를 사용한 데이터 분석<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p>확률변수를 사용하게 되면 데이터 분석은 보통 다음과 같은 순서로 이루어진다.</p>
+<ol class="simple">
+<li><p>데이터를 수집한다.</p></li>
+<li><p>수집한 데이터가 어떤 확률변수의 표본 데이터라고 가정한다.</p></li>
+<li><p>데이터를 사용하여 해당 확률변수의 확률분포함수의 모양을 결정한다.</p></li>
+<li><p>결정된 확률변수로부터 다음에 생성될 데이터나 데이터 특성을 예측한다.</p></li>
+</ol>
+<p>이 과정 중 가장 중요한 것이 데이터값에서 확률변수의 확률분포함수를 역설계(reverse-engineering)하여 만들어내는 세 번째 단계다. 데이터에서 확률분포함수의 모양을 구하는 방법은 여러 가지가 있는데 가장 간단한 방법은 다음과 같이 기술통계값을 이용하는 것이다.</p>
+<ol class="simple">
+<li><p>데이터 분포가 가지는 표본평균, 표본분산 등의 기술통계값을 구한다.</p></li>
+<li><p>이 값과 같은 기술통계값을 가지는 확률분포함수를 찾는다.</p></li>
+</ol>
+<p>위와 같은 방법을 쓰려면 표본 데이터가 없는 확률분포함수의 기술통계값을 구하는 방법을 알아야 한다. 다음 절부터는 확률분포함수의 기술통계값인 기댓값, 분산 등에 대해 공부한다.</p>
+<img src="https://datascienceschool.net/upfiles/d847bea789e14949af527a72d266cf6c.png" style="width: 100%;"><p>그림 7.1.5 : 확률분포함수의 추정</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

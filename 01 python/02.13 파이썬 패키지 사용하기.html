@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파이썬 패키지 사용하기 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/02.13 파이썬 패키지 사용하기.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/02.13 파이썬 패키지 사용하기.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/02.13 파이썬 패키지 사용하기.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   패키지 임포트
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   패키지 내용 살펴보기
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   패키지에 포함된 함수 등을 사용하기
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   선택적 임포트
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>파이썬 패키지 사용하기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>패키지 임포트<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>패키지가 설치되어 있다고 바로 파이썬에서 사용할 수 있는 것은 아니다. 패키지를 사용하려면 해당 패키지를 파이썬에서 사용할 수 있도록 설정하는 명령을 실행해야 한다. 파이썬에서 패키지를 사용하도록 설정하는 것을 패키지 임포트(import)라고 한다.
+패키지를 임포트하려면 다음 명령을 실행한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">패키지이름</span>
+</pre></div>
+</div>
+<p>또는</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">패키지이름</span> <span class="k">as</span> <span class="nn">패키지별명</span>
+</pre></div>
+</div>
+<p>이 때 주의할 점은 임포트할 때 사용하는 패키지 이름은 일반적으로 부르는 패키지 이름과 다를 수 있다. 예를 들어 Scikit-Learn 패키지는 <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>이라는 이름으로 임포트해야 한다. 패키지 이름은 추후 패키지 안의 함수들을 사용할 때 계속 쓰인다. 그래서 패키지 이름이 너무 길면 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">~</span> <span class="pre">as</span> <span class="pre">~</span></code> 명령을 사용하여 짧은 패키지 별명을 사용할 수도 있다.</p>
+<p>예를 들어 Scikit-Learn 은 보통 <code class="docutils literal notranslate"><span class="pre">sk</span></code>라는 별명으로 임포트한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn</span> <span class="k">as</span> <span class="nn">sk</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>패키지 내용 살펴보기<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>임포트된 패키지 안의 내용을 살펴보려면 다음 명령을 사용한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">패키지이름</span> <span class="n">또는</span> <span class="n">패키지별명</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>예를 들어 Scikit-Learn 패키지를 <code class="docutils literal notranslate"><span class="pre">sk</span></code>라는 별명으로 임포트하였으면 다음처럼 패키지 안에 포함된 함수 등을 출력할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">sk</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;__SKLEARN_SETUP__&#39;,
+ &#39;__all__&#39;,
+ &#39;__builtins__&#39;,
+ &#39;__cached__&#39;,
+ &#39;__check_build&#39;,
+ &#39;__doc__&#39;,
+ &#39;__file__&#39;,
+ &#39;__loader__&#39;,
+ &#39;__name__&#39;,
+ &#39;__package__&#39;,
+ &#39;__path__&#39;,
+ &#39;__spec__&#39;,
+ &#39;__version__&#39;,
+ &#39;_config&#39;,
+ &#39;_distributor_init&#39;,
+ &#39;base&#39;,
+ &#39;clone&#39;,
+ &#39;config_context&#39;,
+ &#39;exceptions&#39;,
+ &#39;get_config&#39;,
+ &#39;logger&#39;,
+ &#39;logging&#39;,
+ &#39;os&#39;,
+ &#39;set_config&#39;,
+ &#39;setup_module&#39;,
+ &#39;show_versions&#39;,
+ &#39;sys&#39;,
+ &#39;utils&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>대부분의 패키지는 그 안에 하위 패키지를 가지고 있다. 이러한 하위 패키지 중에는 상위 패키지를 임포트할 때 자동으로 임포트되는 것도 있지만 자동으로 임포트되지 않는 것도 있다. 자동으로 임포트되지 않는 하위 패키지는 다음처럼 수동으로 임포트 해야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.preprocessing</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Binarizer&#39;,
+ &#39;FunctionTransformer&#39;,
+ &#39;KBinsDiscretizer&#39;,
+ &#39;KernelCenterer&#39;,
+ &#39;LabelBinarizer&#39;,
+ &#39;LabelEncoder&#39;,
+ &#39;MaxAbsScaler&#39;,
+ &#39;MinMaxScaler&#39;,
+ &#39;MultiLabelBinarizer&#39;,
+ &#39;Normalizer&#39;,
+ &#39;OneHotEncoder&#39;,
+ &#39;OrdinalEncoder&#39;,
+ &#39;PolynomialFeatures&#39;,
+ &#39;PowerTransformer&#39;,
+ &#39;QuantileTransformer&#39;,
+ &#39;RobustScaler&#39;,
+ &#39;StandardScaler&#39;,
+ &#39;__all__&#39;,
+ &#39;__builtins__&#39;,
+ &#39;__cached__&#39;,
+ &#39;__doc__&#39;,
+ &#39;__file__&#39;,
+ &#39;__loader__&#39;,
+ &#39;__name__&#39;,
+ &#39;__package__&#39;,
+ &#39;__path__&#39;,
+ &#39;__spec__&#39;,
+ &#39;_csr_polynomial_expansion&#39;,
+ &#39;_data&#39;,
+ &#39;_discretization&#39;,
+ &#39;_encoders&#39;,
+ &#39;_function_transformer&#39;,
+ &#39;_label&#39;,
+ &#39;add_dummy_feature&#39;,
+ &#39;binarize&#39;,
+ &#39;label_binarize&#39;,
+ &#39;maxabs_scale&#39;,
+ &#39;minmax_scale&#39;,
+ &#39;normalize&#39;,
+ &#39;power_transform&#39;,
+ &#39;quantile_transform&#39;,
+ &#39;robust_scale&#39;,
+ &#39;scale&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>패키지에 포함된 함수 등을 사용하기<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>패키지에 포함된 함수 등을 사용할 때는 앞에 패키지 이름(<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">~</span> <span class="pre">as</span> <span class="pre">~</span></code> 명령을 사용하였을 때는 패키지 별명)과 마침표(.)을  붙인 후 사용해야 한다. IPython이나 Jupyter 등을 사용할 때는 마침표까지만 입력하고 탭(TAB)키를 누르면 자동 완성 기능을 지원한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>선택적 임포트<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>패키지를 임포트할 때 다음과 같이 특정한 명령어들만 선택적으로 임포트할 수도 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">패키지이름</span> <span class="kn">import</span> <span class="n">명령어</span>
+</pre></div>
+</div>
+<p>또는</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">패키지이름</span> <span class="kn">import</span> <span class="n">명령어1</span><span class="p">,</span> <span class="n">명령어2</span><span class="p">,</span> <span class="n">명령어3</span>
+</pre></div>
+</div>
+<p>선택적으로 임포트했을 때는 패키지 이름과 마침표 없이 바로 명령어를 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span>
+<span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+</pre></div>
+</div>
+</div>
+</div>
+<p>패키지 안의 모든 명령을 선택적 임포트할 때는 명령어 이름 대신 * 기호를 사용하는데 이를 와일드 임포트(wild import)라고 한다. 와일드 임포트할 때는 뜻하지 않게 기존의 변수나 함수를 덮어 쓸 때가 있을 수 있으므로 특별한 상황이 아니면 사용하지 말아야 한다.</p>
+<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">f</span></code>라는 이름의 함수를 정의한 후에 SciPy 패키지를 와일드 임포트하면 F 분포를 나타내는 <code class="docutils literal notranslate"><span class="pre">f</span></code> 명령이 새롭게 임포트되면서 기존의 함수를 없애버릴 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I am f function!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I am f function!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">c43e34e6d405</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">f</span><span class="p">()</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">__call__</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">778</span> 
+<span class="g g-Whitespace">    </span><span class="mi">779</span>     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">780</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">freeze</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="fm">__call__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">freeze</span><span class="o">.</span><span class="vm">__doc__</span>
+<span class="g g-Whitespace">    </span><span class="mi">782</span> 
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">freeze</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">775</span> 
+<span class="g g-Whitespace">    </span><span class="mi">776</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">777</span><span class="s2">         return rv_frozen(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">778</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">779</span><span class="s2">     def __call__(self, *args, **kwds):</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">__init__</span><span class="nt">(self, dist, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">422</span><span class="s2">         self.dist = dist.__class__(**dist._updated_ctor_param())</span>
+<span class="g g-Whitespace">    </span><span class="mi">423</span><span class="s2"> </span>
+<span class="ne">--&gt; </span><span class="mi">424</span><span class="s2">         shapes, _, _ = self.dist._parse_args(*args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">425</span><span class="s2">         self.a, self.b = self.dist._get_support(*shapes)</span>
+<span class="g g-Whitespace">    </span><span class="mi">426</span><span class="s2"> </span>
+
+<span class="ne">TypeError</span>: _parse_args() missing 2 required positional arguments: &#39;dfn&#39; and &#39;dfd&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 그리스 문자 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/01.01 그리스 문자.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/01.01 그리스 문자.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/01.01 그리스 문자.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   연습 문제 1.1.1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   연습 문제 1.1.2
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>1.1 그리스 문자<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>수학에서는 변수의 이름으로 그리스 문자를 많이 사용하므로 그리스 문자를 읽고 쓰는 법을 알아야 한다. 다음 표에 그리스 문자와 영어 표기, 한글 표기를 나타내었다. 특히 몇몇 글자는 비슷하게 생긴 영어나 숫자와 헷갈리지 않도록 주의해야 한다. 이 표에서는 잘 쓰이지 않는 몇 글자는 제외하였다.</p>
+<p>표 1-1 : 그리스 문자</p>
+<p>| 알파벳 대문자 | 알파벳 소문자 | 영어 표기법 | 한글 표기법 | 주의점 |
+|-|-|-|-|
+| <span class="math notranslate nohighlight">\(\Huge A\)</span> | <span class="math notranslate nohighlight">\(\Huge \alpha\)</span> | alpha | 알파 | 영어 a와 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge B\)</span> | <span class="math notranslate nohighlight">\(\Huge \beta\)</span> | beta | 베타 | 영어 b와 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge \Gamma\)</span> | <span class="math notranslate nohighlight">\(\Huge \gamma\)</span> | gamma | 감마 | 영어 r과 다르므로 주의  |
+| <span class="math notranslate nohighlight">\(\Huge \Delta\)</span> | <span class="math notranslate nohighlight">\(\Huge \delta\)</span> | delta | 델타 |   |
+| <span class="math notranslate nohighlight">\(\Huge E\)</span> | <span class="math notranslate nohighlight">\(\Huge \epsilon\)</span> | epsilon | 엡실론 | 영어 e와 다르므로 주의  |
+| <span class="math notranslate nohighlight">\(\Huge Z\)</span> | <span class="math notranslate nohighlight">\(\Huge \zeta\)</span> | zeta | 제타 |  |
+| <span class="math notranslate nohighlight">\(\Huge H\)</span> | <span class="math notranslate nohighlight">\(\Huge \eta\)</span> | eta | 에타 |  |
+| <span class="math notranslate nohighlight">\(\Huge \Theta\)</span> | <span class="math notranslate nohighlight">\(\Huge \theta\)</span> | theta | 쎄타 |  |
+| <span class="math notranslate nohighlight">\(\Huge K\)</span> | <span class="math notranslate nohighlight">\(\Huge \kappa\)</span> | kappa | 카파 | 영어 k와 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge \Lambda\)</span> | <span class="math notranslate nohighlight">\(\Huge \lambda\)</span> | lambda | 람다 |  |
+| <span class="math notranslate nohighlight">\(\Huge M\)</span> | <span class="math notranslate nohighlight">\(\Huge \mu\)</span> | mu | 뮤 |  |
+| <span class="math notranslate nohighlight">\(\Huge N\)</span> | <span class="math notranslate nohighlight">\(\Huge \nu\)</span> | nu | 누 | 영어 v와 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge \Xi\)</span> | <span class="math notranslate nohighlight">\(\Huge \xi\)</span> | xi | 크싸이 |  |
+| <span class="math notranslate nohighlight">\(\Huge \Pi\)</span> | <span class="math notranslate nohighlight">\(\Huge \pi\)</span> | pi | 파이 |  |
+| <span class="math notranslate nohighlight">\(\Huge P\)</span> | <span class="math notranslate nohighlight">\(\Huge \rho\)</span> | rho | 로 |  영어 p와 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge \Sigma\)</span> | <span class="math notranslate nohighlight">\(\Huge \sigma\)</span> | sigma | 시그마 | 숫자 6과 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge T\)</span> | <span class="math notranslate nohighlight">\(\Huge \tau\)</span> | tau | 타우 | 영어 t와 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge \Phi\)</span> | <span class="math notranslate nohighlight">\(\Huge \phi\)</span> | phi | 파이/피 |  |
+| <span class="math notranslate nohighlight">\(\Huge X\)</span> | <span class="math notranslate nohighlight">\(\Huge \chi\)</span> | chi | 카이 | 영어 x와 다르므로 주의 |
+| <span class="math notranslate nohighlight">\(\Huge \Psi\)</span> | <span class="math notranslate nohighlight">\(\Huge \psi\)</span> | psi | 프사이 |  |
+| <span class="math notranslate nohighlight">\(\Huge \Omega\)</span> | <span class="math notranslate nohighlight">\(\Huge \omega\)</span> | omega | 오메가 | 영어 w와 다르므로 주의 |</p>
+<div class="section" id="id2">
+<h2>연습 문제 1.1.1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>위 표에 있는 그리스 문자를 종이에 펜으로 2번 이상 반복하여 쓰며 외우자. 특히 영어표기법은 반드시 외워야 한다.</p>
+<p>이 책에서는 모든 코드를 주피터 노트북(Jupyter notebook)으로 실행한다. 주피터 노트북에서는 TeX(택스가 아니라 텍이라고 읽는다)이라는 조판언어를 사용하여 수식을 표현할 수 있다. 우선 주피터 노트북에서 코드 셀(code cell)이 아닌 마크다운 셀(markdown cell)을 하나 생성한다. 메뉴에서 “Insert” &gt; “Insert Cell Below” 명령으로 코드 셀을 만든 뒤 해당 셀을 클릭하고 메뉴에서 “Cell” &gt; “Cell Type” &gt; “Markdown” 명령을 실행한다.</p>
+<p>이 마크다운 셀 안에서 <code class="docutils literal notranslate"><span class="pre">$</span></code>(달러) 기호를 이용하면 수식을 표현할 수 있다. 수식에서 그리스 문자를 표시하려면 그리스 문자의 영어 표기법앞에 백슬레시(<code class="docutils literal notranslate"><span class="pre">\</span></code>) 기호를 붙인다. 예를 들어 알파는 <code class="docutils literal notranslate"><span class="pre">\alpha</span></code>, 베타는 <code class="docutils literal notranslate"><span class="pre">\beta</span></code>라고 쓴다.</p>
+<p>수식에는 문장 안에서 일부 단어가 수식인 인라인(inline) 수식과 독립된 문단이 되는 디스플레이(display) 수식이 있다. <code class="docutils literal notranslate"><span class="pre">$</span></code>와 <code class="docutils literal notranslate"><span class="pre">$</span></code>사이의 수식은 문장내의 인라인 수식을 쓸 때 사용하고 <code class="docutils literal notranslate"><span class="pre">$$</span></code>와 <code class="docutils literal notranslate"><span class="pre">$$</span></code>사이의 수식은  디스플레이 수식을 쓸 때 사용한다.</p>
+<p>예를 들어 문장 내에서 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">\alpha</span> <span class="pre">=</span> <span class="pre">\beta</span> <span class="pre">$</span></code>라고 쓰면 <span class="math notranslate nohighlight">\( \alpha = \beta \)</span>로 나타난다. 독립된 수식의 경우</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$ \alpha = \beta $$
+</pre></div>
+</div>
+<p>라고 쓰면 다음처럼 독립된 문단으로 수식이 표시된다.</p>
+<div class="math notranslate nohighlight">
+\[ \alpha = \beta \]</div>
+</div>
+<div class="section" id="id3">
+<h2>연습 문제 1.1.2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>주피터 노트북을 하나 만들고 인라인 수식과 디스플레이 수식으로 알파부터 오메가까지 써본다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

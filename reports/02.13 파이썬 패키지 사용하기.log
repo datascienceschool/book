@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 1082, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/trade/anaconda3/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 535, in async_execute
+    await self.async_execute_cell(
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 827, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 735, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+f()
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-10-c43e34e6d405>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mf[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py[0m in [0;36m__call__[0;34m(self, *args, **kwds)[0m
+[1;32m    778[0m [0;34m[0m[0m
+[1;32m    779[0m     [0;32mdef[0m [0m__call__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwds[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 780[0;31m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mfreeze[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    781[0m     [0m__call__[0m[0;34m.[0m[0m__doc__[0m [0;34m=[0m [0mfreeze[0m[0;34m.[0m[0m__doc__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    782[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py[0m in [0;36mfreeze[0;34m(self, *args, **kwds)[0m
+[1;32m    775[0m [0;34m[0m[0m
+[1;32m    776[0m         """
+[0;32m--> 777[0;31m         [0;32mreturn[0m [0mrv_frozen[0m[0;34m([0m[0mself[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    778[0m [0;34m[0m[0m
+[1;32m    779[0m     [0;32mdef[0m [0m__call__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwds[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py[0m in [0;36m__init__[0;34m(self, dist, *args, **kwds)[0m
+[1;32m    422[0m         [0mself[0m[0;34m.[0m[0mdist[0m [0;34m=[0m [0mdist[0m[0;34m.[0m[0m__class__[0m[0;34m([0m[0;34m**[0m[0mdist[0m[0;34m.[0m[0m_updated_ctor_param[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    423[0m [0;34m[0m[0m
+[0;32m--> 424[0;31m         [0mshapes[0m[0;34m,[0m [0m_[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mdist[0m[0;34m.[0m[0m_parse_args[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    425[0m         [0mself[0m[0;34m.[0m[0ma[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mb[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mdist[0m[0;34m.[0m[0m_get_support[0m[0;34m([0m[0;34m*[0m[0mshapes[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    426[0m [0;34m[0m[0m
+
+[0;31mTypeError[0m: _parse_args() missing 2 required positional arguments: 'dfn' and 'dfd'
+TypeError: _parse_args() missing 2 required positional arguments: 'dfn' and 'dfd'
+

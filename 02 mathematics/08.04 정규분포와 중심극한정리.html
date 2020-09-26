@@ -1,0 +1,785 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.4 정규분포와 중심극한정리 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/08.04 정규분포와 중심극한정리.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/08.04 정규분포와 중심극한정리.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/08.04 정규분포와 중심극한정리.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   사이파이를 사용한 정규분포의 시뮬레이션
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     예제: 붓꽃 데이터
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     예제: 주식 수익률
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 8.4.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   로그정규분포
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#q-q">
+   Q-Q 플롯
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 8.4.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   중심극한정리
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   정규분포의 통계량 분포
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 8.4.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   선형회귀모형과 정규분포
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>8.4 정규분포와 중심극한정리<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><strong>정규분포(normal distribution)</strong> 혹은 가우스 정규분포(Gaussian normal distribution)라는 분포는 자연 현상에서 나타나는 숫자를 확률 모형으로 모형화할 때 많이 사용한다.</p>
+<p>정규분포는 평균 <span class="math notranslate nohighlight">\(\mu\)</span>와 분산 <span class="math notranslate nohighlight">\(\sigma^2\)</span>이라는 두 모수만으로 정의되며 확률밀도함수(pdf: probability density function)는 다음과 같은 수식으로 표현된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathcal{N}(x; \mu, \sigma^2) = \dfrac{1}{\sqrt{2\pi\sigma^2}} \exp \left(-\dfrac{(x-\mu)^2}{2\sigma^2}\right)
+\tag{8.4.1}
+\end{align}
+\]</div>
+<p>분산의 역수를 정밀도(precision) <span class="math notranslate nohighlight">\(\beta\)</span>라고 부르기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\beta = \dfrac{1}{\sigma^2}
+\tag{8.4.2}
+\end{align}
+\]</div>
+<p>정규분포 중에서도 평균이 0이고 분산이 1인 (<span class="math notranslate nohighlight">\(\mu=0\)</span>, <span class="math notranslate nohighlight">\(\sigma^2=1\)</span>) 정규분포를 **표준정규분포(standard normal distribution)**라고 한다.</p>
+<p>정규분포의 확률밀도함수는 다음과 같은 성질을 가진다.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x=\mu\)</span>일 때 확률밀도가 최대가 된다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x=\infty\)</span>로 다가가거나 <span class="math notranslate nohighlight">\(x=-\infty\)</span>로 다가갈수록 확률밀도가 작아진다.</p></li>
+</ul>
+<div class="section" id="id2">
+<h2>사이파이를 사용한 정규분포의 시뮬레이션<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>사이파이의 stats 서브패키지에 있는 <code class="docutils literal notranslate"><span class="pre">norm</span></code> 클래스가 정규분포 클래스다. <code class="docutils literal notranslate"><span class="pre">loc</span></code> 인수로 기댓값 <span class="math notranslate nohighlight">\(\mu\)</span>를 설정하고 <code class="docutils literal notranslate"><span class="pre">scale</span></code> 인수로 표준편차 <span class="math notranslate nohighlight">\(\sqrt{\sigma^2}\)</span>를 설정한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">std</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">rv</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e67b45aa5e39</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">mu</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">std</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;sp&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pdf()</span></code> 메서드를 사용하면 확률밀도함수를 계산할 수 있다. 정규분포의 확률밀도함수는 종(bell) 모양의 부드러운 단봉분포다. 종의 아랫부분이 표준편차의 4배 이상이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+          <span class="n">head_width</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+          <span class="n">head_width</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="s2">&quot;표준편차의 약 4배&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;p(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;정규분포의 확률밀도함수&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_6_0.png" src="../_images/08.04 정규분포와 중심극한정리_6_0.png" />
+</div>
+</div>
+<p>시뮬레이션을 통해 표본을 얻으려면 <code class="docutils literal notranslate"><span class="pre">rvs()</span></code> 메서드를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.76405235,  0.40015721,  0.97873798,  2.2408932 ,  1.86755799,
+       -0.97727788,  0.95008842, -0.15135721, -0.10321885,  0.4105985 ,
+        0.14404357,  1.45427351,  0.76103773,  0.12167502,  0.44386323,
+        0.33367433,  1.49407907, -0.20515826,  0.3130677 , -0.85409574])
+</pre></div>
+</div>
+</div>
+</div>
+<p>시본으로 시각화한 결과다. 여기에서는 <code class="docutils literal notranslate"><span class="pre">distplot()</span></code> 명령의 <code class="docutils literal notranslate"><span class="pre">fit</span></code> 인수를 사용하여 가장 유사한 정규분포의 확률밀도함수를 그렸다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;랜덤 표본 생성 결과&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;표본값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_10_0.png" src="../_images/08.04 정규분포와 중심극한정리_10_0.png" />
+</div>
+</div>
+<div class="section" id="id3">
+<h3>예제: 붓꽃 데이터<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>다음은 붓꽃 중 특정한 종(setosa)의 꽃잎의 길이에 대한 히스토그램이다. 정규분포와 비슷한 모양을 보인다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">setosa_sepal_length</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">setosa_sepal_length</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_12_0.png" src="../_images/08.04 정규분포와 중심극한정리_12_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>예제: 주식 수익률<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>다음은 과거 약 10년간의 미국 나스닥(Nasdaq) 주가지수를 그린 것이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas_datareader.data</span> <span class="k">as</span> <span class="nn">web</span>
+
+<span class="n">symbol</span> <span class="o">=</span> <span class="s2">&quot;NASDAQCOM&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span>
+    <span class="n">symbol</span><span class="p">,</span> <span class="n">data_source</span><span class="o">=</span><span class="s2">&quot;fred&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2009-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2018-12-31&quot;</span><span class="p">)[</span><span class="n">symbol</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;날짜&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;나스닥 지수&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_14_0.png" src="../_images/08.04 정규분포와 중심극한정리_14_0.png" />
+</div>
+</div>
+<p>10년간의 평균 일간수익률을 계산하면 약 0.06%가 나온다. 표준편차는 약 1.17%다. 주식의 수익률을 표시할 때는 표준편차라는 말 대신 **변동성(volatility)**이라는 용어를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daily_returns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">daily_returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">daily_returns</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;평균 일간수익률: </span><span class="si">{:3.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mean</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;평균 일간변동성: </span><span class="si">{:3.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">std</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>평균 일간수익률: 0.06%
+평균 일간변동성: 1.17%
+</pre></div>
+</div>
+</div>
+</div>
+<p>일간수익률의 분포를 히스토그램으로 나타냈다. 이 그림에서 다음과 같은 사실을 알 수 있다.</p>
+<ol class="simple">
+<li><p>주식의 일간수익률은 단봉분포이고 대칭적인 정규분포와 비슷한 모양을 가진다.</p></li>
+<li><p>주식 일간수익률은 0에 가까운 기댓값을 가진다.</p></li>
+<li><p>일간수익률의 값이 0에 가깝더라도 양수라면 오랜 시간후에 엄청나게 높은 수익률을 보인다.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">daily_returns</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">ymax</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;나스닥 지수의 일간수익률 분포&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;일간수익률&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_18_0.png" src="../_images/08.04 정규분포와 중심극한정리_18_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 8.4.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>주변에서 얻을 수 있는 실수값 데이터 중 정규분포 모양을 띄는 데이터를 구하여 히스토그램을 그려라.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>로그정규분포<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>주가의 수익률이 정규분포라면 주가 자체는 어떤 분포가 될까? 이 경우 주가는 **로그정규분포(log-normal distribution)**가 된다. 로그정규분포는 데이터에 로그를 한 값 또는 변화율(수익률)이 정규분포가 되는 분포를 말한다. 로그정규분포를 띄는 데이터는 항상 양수다. 따라서  로그변환한 다음 사용하는 것이 일반적이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">rv</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="n">x1</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;정규분포&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;로그정규분포&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_22_0.png" src="../_images/08.04 정규분포와 중심극한정리_22_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="q-q">
+<h2>Q-Q 플롯<a class="headerlink" href="#q-q" title="Permalink to this headline">¶</a></h2>
+<p>정규분포는 여러 연속확률분포 중에서도 가장 널리 사용되는 확률분포다. 따라서 어떤 확률변수의 분포가 정규분포인지 아닌지 확인하는 것은 중요한 통계적 분석 중 하나다.</p>
+<p><strong>Q-Q(Quantile-Quantile) 플롯</strong>은 분석할 표본 데이터의 분포와 정규분포의 분포 형태를 비교하여 표본 데이터가 정규분포를 따르는지 검사하는 간단한 시각적 도구다. Q-Q 플롯은 동일 분위수에 해당하는 정상 분포의 값과 주어진 데이터값을 한 쌍으로 만들어 그린 스캐터 플롯(scatter plot)이다. Q-Q 플롯을 그리는 방법은 다음과 같다(여기에서는 대략적인 방법론을 서술했으며 세부적인 사항은 다를 수 있다).</p>
+<ol class="simple">
+<li><p>표본 데이터를 정렬(sort, ordering)한다.</p></li>
+<li><p>하나하나의 표본 데이터가 전체 데이터 중의 몇 % 정도에 해당하는지 위칫값을 구한다. 위칫값으로는 특정 순위(order)의 값이 나타날 가능성이 높은 값을 뜻하는 순서통계량(order statistics)이라는 값을 이용한다.</p></li>
+<li><p>각 표본 데이터의 위칫값이 정규분포의 누적확률함수(cdf) 값이 되는 표준 정규분포의 표본값을 구한다. 즉 확률값에 대한 누적확률함수의 역함수 값을 구한다. 이를 표본 정규분포의 분위함수(quantile function)값이라고 한다. 예를 들어 표본 정규분포의 1%의 분위함수값은 <span class="math notranslate nohighlight">\(F^{-1}(0.01)\)</span>, 약 -2.326이다.</p></li>
+<li><p>정렬된 표본 데이터(ordered values)와 그에 대응하는 분위수(theoretical quantiles)를 하나의 쌍으로 간주하여 2차원 공간에 하나의 점(point)으로 그린다.</p></li>
+<li><p>모든 표본에 대해 2부터 4까지의 과정을 반복하여 스캐터 플롯을 완성한다.</p></li>
+</ol>
+<p>정규분포를 따르는 데이터 표본을 Q-Q 플롯으로 그리면 다음과 같이 직선의 형태로 나타난다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x_sorted</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.97727788, -0.85409574, -0.20515826, -0.15135721, -0.10321885,
+        0.12167502,  0.14404357,  0.3130677 ,  0.33367433,  0.40015721,
+        0.4105985 ,  0.44386323,  0.76103773,  0.95008842,  0.97873798,
+        1.45427351,  1.49407907,  1.76405235,  1.86755799,  2.2408932 ])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats.morestats</span> <span class="kn">import</span> <span class="n">_calc_uniform_order_statistic_medians</span>
+
+<span class="n">position</span> <span class="o">=</span> <span class="n">_calc_uniform_order_statistic_medians</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">position</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.03406367, 0.08261724, 0.13172109, 0.18082494, 0.2299288 ,
+       0.27903265, 0.32813651, 0.37724036, 0.42634422, 0.47544807,
+       0.52455193, 0.57365578, 0.62275964, 0.67186349, 0.72096735,
+       0.7700712 , 0.81917506, 0.86827891, 0.91738276, 0.96593633])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qf</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+<span class="n">qf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.8241636 , -0.38768012, -0.11829229,  0.08777425,  0.26091865,
+        0.4142824 ,  0.55493533,  0.68726332,  0.81431072,  0.93841854,
+        1.06158146,  1.18568928,  1.31273668,  1.44506467,  1.5857176 ,
+        1.73908135,  1.91222575,  2.11829229,  2.38768012,  2.8241636 ])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">qf</span><span class="p">,</span> <span class="n">x_sorted</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Q-Q 플롯&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;이론적인 위칫값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;정렬된 표본 데이터&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_29_0.png" src="../_images/08.04 정규분포와 중심극한정리_29_0.png" />
+</div>
+</div>
+<p>사이파이 패키지의 stats 서브패키지는 Q-Q 플롯을 계산하고 그리기 위한 <code class="docutils literal notranslate"><span class="pre">probplot()</span></code> 명령을 제공한다. <code class="docutils literal notranslate"><span class="pre">probplot()</span></code>은 기본적으로 인수로 보낸 데이터 표본에 대한 Q-Q 플롯 정보만을 반환하고 실제 챠트는 그리지 않는다. 만약 차트를 그리고 싶다면 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 인수에 matplotlib.pylab 모듈 객체 혹은 <code class="docutils literal notranslate"><span class="pre">Axes</span></code> 클래스 객체를 넘겨주어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_31_0.png" src="../_images/08.04 정규분포와 중심극한정리_31_0.png" />
+</div>
+</div>
+<p>정규분포를 따르지 않는 데이터 표본을 Q-Q 플롯으로 그리면 다음과 같이 직선이 아닌 휘어진 형태로 나타난다. 이 코드에서는 균일분포 데이터를 사용하였다. 이 균일분포 데이터는 0 이상 1 이하의 값만 가질 수 있기 때문에 세로축의 값이 이 구간내에 존재하게된다. 따라서 위아래로 제한된 형태의 휘어진 Q-Q 플롯이 나온다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_33_0.png" src="../_images/08.04 정규분포와 중심극한정리_33_0.png" />
+</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 8.4.2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>연습 문제 8.4.1의 데이터에 대해 Q-Q 플롯을 그려서 정규분포인지 아닌지 확인하라.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>중심극한정리<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>실세계에서 발생하는 현상 중 많은 것들이 정규분포로 모형화 가능하다. 그 이유 중의 하나는 **중심극한정리(Central Limit Theorem)**다.</p>
+<p>(주 1: 중심극한정리라는 용어는 1920년 헝가리 수학자 포여 죄르지(George Pólya)가 만들었다. 중심(central)이라는 말은 확률이론의 중심이라고 할 정도로 중요하다는 의미로 붙였다.)</p>
+<p>중심극한정리는 여러 확률변수의 합이 정규분포와 비슷한 분포를 이루는 현상을 말한다.중심극한정리를 수학적인 용어로 쓰면 다음과 같다.</p>
+<p><span class="math notranslate nohighlight">\(X_1, X_2, \ldots, X_N\)</span>가 기댓값이 <span class="math notranslate nohighlight">\(\mu\)</span>이고 분산이 <span class="math notranslate nohighlight">\(\sigma^2\)</span>으로 동일한 분포(기댓값과 분산의 값이 동일할 뿐이며 분포의 모양은 달라도 된다)이며 서로 독립인 확률변수들이라고 하자. 분포가 어떤 분포인지는 상관없다.</p>
+<p><span class="math notranslate nohighlight">\(X_1, X_2, \ldots, X_N\)</span>에서 뽑은 각각의 표본 데이터 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_N\)</span>의 표본 평균</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\bar{x}_N = \dfrac{1}{N}(x_1+\cdots+x_N)
+\tag{8.4.3}
+\end{align}
+\]</div>
+<p>도 마찬가지로 예측할 수 없는 확률변수다. 이 확률변수를 <span class="math notranslate nohighlight">\(\bar{X}_N\)</span>이라고 하자.</p>
+<p>중심극한정리는 다음과 같다.</p>
+<blockquote>
+<div><p><strong><span class="math notranslate nohighlight">\(N\)</span>개의 임의의 분포로부터 얻은 표본의 평균은 <span class="math notranslate nohighlight">\(N\)</span>이 증가할수록 기댓값이 <span class="math notranslate nohighlight">\(\mu\)</span>, 분산이 <span class="math notranslate nohighlight">\(\dfrac{\sigma^2}{N}\)</span>인 정규분포로 수렴한다.</strong></p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\bar{X}_N \xrightarrow{d}\ \mathcal{N}\left(x;\mu,\dfrac{\sigma^2}{N}\right)
+\tag{8.4.4}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\xrightarrow{d}\)</span> 기호는 표본 개수 <span class="math notranslate nohighlight">\(N\)</span>이 커질수록 분포의 모양이 특정한 분포에 수렴한다는 것을 뜻한다.
+이 표본 평균의 평균이 0, 분산이 1이 되도록 다음처럼 정규화를 하면 다음과 같이 쓸 수도 있다.</p>
+<blockquote>
+<div><p><strong><span class="math notranslate nohighlight">\(N\)</span>개의 임의의 분포로부터 얻은 표본의 평균을 정규화하면 <span class="math notranslate nohighlight">\(N\)</span>이 증가할 수록 표준정규분포로 수렴한다.</strong></p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{\bar{X}_N - \mu}{\dfrac{\sigma}{\sqrt{N}}} \xrightarrow{d}\ \mathcal{N}(x;0,1)
+\tag{8.4.5}
+\end{align}
+\]</div>
+<p>시뮬레이션을 사용하여 중심극한정리가 성립하는지 살펴보도록 하자. 다음 시뮬레이션에서는 0부터 1까지의 균일 분포(uniform distribution)의 표본을 각각 1번, 2번, 10번 생성하여 그 합의 분포를 보았다. 여기에서는 0부터 1까지의 균일 분포의 기댓값이 <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>, 분산이 <span class="math notranslate nohighlight">\(\frac{1}{12}\)</span>라는 사실을 이용했다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">N</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]):</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">Xbar</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">Xbar</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;N = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">Xbar</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.04 정규분포와 중심극한정리_39_0.png" src="../_images/08.04 정규분포와 중심극한정리_39_0.png" />
+</div>
+</div>
+<p>더하는 분포의 수가 10개 정도가 되면 그 합은 정규분포에 상당히 가까워짐을 볼 수 있다.</p>
+</div>
+<div class="section" id="id9">
+<h2>정규분포의 통계량 분포<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>그렇다면 임의의 분포가 아닌 복수의 정규분포로부터 얻은 표본 데이터로 구한 표본평균은 어떤 분포를 가지게 될까?</p>
+<blockquote>
+<div><p><strong><span class="math notranslate nohighlight">\(N\)</span>개의 정규분포로부터 얻은 표본의 합은 <span class="math notranslate nohighlight">\(N\)</span>과 상관없이 기댓값이 <span class="math notranslate nohighlight">\(N\mu\)</span>, 분산이 <span class="math notranslate nohighlight">\(N\sigma^2\)</span>인 정규분포다.</strong></p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_i \sim \mathcal{N}(\mu, \sigma^2) \;\; \rightarrow \;\; \sum_{i=1}^N x_i \sim \mathcal{N}(N\mu, N\sigma^2)
+\tag{8.4.6}
+\end{align}
+\]</div>
+<p>정규분포의 표본에 상수를 빼거나 곱해도 정규분포다. 이 경우에도 위와 같이 기댓값이 0, 표준편차가 1이 되도록 정규화를 하면 다음과 같이 쓸 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_i \sim \mathcal{N}(\mu, \sigma^2) \;\; \rightarrow \;\;  z = \dfrac{\bar{x} - \mu}{\dfrac{\sigma}{\sqrt{N}}} \sim \mathcal{N}(x;0,1)
+\tag{8.4.7}
+\end{align}
+\]</div>
+<p>정규분포 표본의 평균을 정규화한 통계량을 <span class="math notranslate nohighlight">\(z\)</span> 통계량이라고 한다. 중심극한정리와 다른 점에 주의해야 한다. <strong>중심극한정리에서는 표준정규분포로 점점 다가갈 뿐이고 표본 개수가 무한대가 되기 전에는 정확한 정규분포가 아니지만 <span class="math notranslate nohighlight">\(z\)</span> 통계량은 개수 <span class="math notranslate nohighlight">\(N\)</span>에 상관없이 항상 정확하게 표준정규분포</strong>이다.</p>
+<div class="section" id="id10">
+<h3>연습 문제 8.4.3<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>정규분포로부터 나온 <span class="math notranslate nohighlight">\(N\)</span>개의 표본의 표본평균이 정규분포가 된다는 것을 시뮬레이션과 Q-Q 플롯을 사용하여 보여라.</p>
+<p>(1) <span class="math notranslate nohighlight">\(N=2\)</span>일 때</p>
+<p>(2) <span class="math notranslate nohighlight">\(N=10\)</span>일 때</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>선형회귀모형과 정규분포<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>정규분포는 선형회귀모형에서 잡음(disturbance)을 모형화하는데 사용된다. 선형회귀모형은 입력변수 <span class="math notranslate nohighlight">\(x_1, \ldots, x_N\)</span>이 종속변수 <span class="math notranslate nohighlight">\(y\)</span>에 선형적으로 영향을 미치는 모형이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\hat{y} = w_1 x_1 +  \ldots + w_N x_N \approx y
+\tag{8.4.8}
+\end{align}
+\]</div>
+<p>이 모형은 다음과 같이 표현할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+y = w_1 x_1 +  \ldots + w_N x_N + \epsilon
+\tag{8.4.9}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\epsilon\)</span>은 <strong>잡음(disturbance)이라고 하며 우리가 값을 측정할 수 없는 양</strong>을 뜻한다. 예측값과 실제값의 차이를 뜻하는 잔차(residual)와는 다르다. 잡음은 선형회귀모형을 만들 때 하나하나의 영향력이 작거나 일일히 측정하기 힘들어서 무시하는 수많은 변수들의 영향을 하나로 합친 것이다. 즉 원래 <span class="math notranslate nohighlight">\(y\)</span> 값은 <span class="math notranslate nohighlight">\(x_1, \ldots, x_N, \ldots\)</span>의 거의 무한한 개수의 입력변수의 영향을 받는다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+y = w_1 x_1 +  \ldots + w_N x_N + w_{N+1} x_{N+1} + w_{N+2} x_{N+2} + \ldots
+\tag{8.4.10}
+\end{align}
+\]</div>
+<p>하지만 이 중에서 입력변수 <span class="math notranslate nohighlight">\(x_1, \ldots, x_N\)</span>만이 영향력이 크거나 측정이 쉽다면 다른 변수의 영향은 하나의 확률변수라고 합쳐서 표현할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\epsilon = w_{N+1} x_{N+1} + w_{N+2} x_{N+2} +  \ldots
+\tag{8.4.11}
+\end{align}
+\]</div>
+<p>중심극한정리에 의해 임의의 확률변수의 합은 정규분포와 비슷한 형태가 된다. 또한 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 기댓값이 0이 아니라면 다음처럼 상수항 <span class="math notranslate nohighlight">\(w_0 = \text{E}[\epsilon]\)</span>을 추가하는 대신 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 기댓값이 0이라고 할 수 있기 때문에</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+y = w_0 + w_1 x_1 +  \ldots + w_N x_N + \epsilon
+\tag{8.4.12}
+\end{align}
+\]</div>
+<p><strong>잡음 <span class="math notranslate nohighlight">\(\epsilon\)</span>이 기댓값이 0인 정규분포라고 가정</strong>하는 것은 합리적이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\epsilon \sim \mathcal{N}(0, \sigma^2)
+\tag{8.4.13}
+\end{align}
+\]</div>
+<img src="https://datascienceschool.net/upfiles/cddc84375f944de58e60dd4f9b3c91db.png" style="width:100%;"><p>그림 8.4.1 : 선형회귀모형과 정규분포</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

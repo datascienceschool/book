@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.5 공분산과 상관계수 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/07.05 공분산과 상관계수.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/07.05 공분산과 상관계수.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/07.05 공분산과 상관계수.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   표본공분산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   표본상관계수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 7.5.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   확률변수의 공분산과 상관계수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 7.5.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   비선형 상관관계
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   앤스콤 데이터
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   다변수 확률변수의 표본공분산
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     연습 문제 7.5.3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     연습 문제 7.5.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   다변수 확률변수의 공분산
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>7.5 공분산과 상관계수<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>다변수 확률변수 간의 상관 관계를 숫자로 나타낸 것이 공분산(covariance)과 상관계수(correlation coefficient)다.</p>
+<div class="section" id="id2">
+<h2>표본공분산<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>표본공분산(sample covariance)은 다음처럼 정의한다. 여기에서 <span class="math notranslate nohighlight">\(x_i\)</span>와 <span class="math notranslate nohighlight">\(y_i\)</span>는 각각 <span class="math notranslate nohighlight">\(i\)</span>번째의 <span class="math notranslate nohighlight">\(x\)</span> 자료와 <span class="math notranslate nohighlight">\(y\)</span>자료의 값을 가리키고, <span class="math notranslate nohighlight">\(\bar{x}\)</span>와 <span class="math notranslate nohighlight">\(\bar{y}\)</span>는 <span class="math notranslate nohighlight">\(x\)</span> 자료와 <span class="math notranslate nohighlight">\(y\)</span>자료의 표본평균을 가리킨다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+s_{xy} = \dfrac{1}{N}\sum_{i=1}^{N} (x_i-\bar{x})(y_i-\bar{y})
+\tag{7.5.1}
+\end{align}
+\]</div>
+<p>표본분산과 마찬가지로 <strong>표본공분산</strong>도 자료가 평균값으로부터 얼마나 떨어져 있는지를 나타낸 것이다. 공분산은 평균값 위치와 표본 위치를 연결하는 사각형의 면적을 사용한다. 다만 공분산의 경우에는 자료의 위치에 따라 이 값의 부호가 달라진다. 데이터가 1사분면이나 3사분면에 있는 경우에는 양수가 되고 데이터가 2사분면이나 4사분면에 있는 경우에는 음수가 된다. 따라서 공분산의 부호는 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> 데이터가 같은 부호를 가지는지 다른 부호를 가지는지에 대한 지표라고 할 수 있다.</p>
+<img src="https://datascienceschool.net/upfiles/79eb48be63cf4a8886299e27864b77bd.png" style="width: 100%;"><p>그림 7.5.1 : 표본공분산</p>
+</div>
+<div class="section" id="id3">
+<h2>표본상관계수<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>표본공분산은 평균을 중심으로 각 자료들이 어떻게 분포되어 있는지 크기와 방향성을 같이 보여준다. 그런데 분포의 크기는 공분산이 아닌 분산만으로도 알 수 있기 때문에 대부분의 경우 자료 분포의 방향성만 분리하여 보는 것이 유용하다. 이 때 필요한 것이 **표본상관계수(sample correlation coefficient)**다.</p>
+<p>표본상관계수는 다음과 같이 공분산을 각각의 표본표준편차값으로 나누어 정규화(normalize)하여 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+r_{xy} = \dfrac{s_{xy}}{\sqrt{s^2_{x} \cdot s^2_{y}}}
+\tag{7.5.2}
+\end{align}
+\]</div>
+<p>이와 다르게 정의한 상관계수도 있기 때문에 다른 종류의 상관계수와 비교하여 말하는 경우에는 <strong>피어슨(Pearson) 상관계수</strong>라고 하기도 한다.</p>
+<p>사이파이의 stats 서브패키지는 피어슨 상관계수를 계산하는 <code class="docutils literal notranslate"><span class="pre">pearsonr()</span></code> 함수를 제공한다. <code class="docutils literal notranslate"><span class="pre">pearsonr()</span></code> 함수는 상관계수와 유의확률을 반환한다. 유의확률에 대해서는 9장에서 공부한다.</p>
+<div class="section" id="id4">
+<h3>예제<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>다음 코드는 붓꽃의 꽃받침의 길이와 꽃잎의 길이 사이의 상관계수를 계산하는 코드다. 상관계수가 약 0.87임을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 꽃받침의 길이</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># 꽃받침의 폭</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># 꽃잎의 길이</span>
+<span class="n">x4</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># 꽃잎의 폭</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x3</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8717537758865832
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 7.5.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>붓꽃 데이터에서 다음 상관계수를 계산하라.</p>
+<p>(1) 꽃받침의 길이와 꽃받침의 폭 사이의 상관계수</p>
+<p>(2) 꽃잎의 길이와 꽃잎의 폭 사이의 상관계수</p>
+<p>(3) 꽃받침의 폭과 꽃잎의 폭 사이의 상관계수</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>확률변수의 공분산과 상관계수<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>의 공분산은 기댓값 연산자를 사용하여 다음과 같이 정의된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{Cov}[X, Y] = \text{E}[(X - \text{E}[X])(Y - \text{E}[Y])]
+\tag{7.5.3}
+\end{align}
+\]</div>
+<p>마찬가지로 두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>의 상관 계수도 다음과 같이 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\rho[X,Y] =  \dfrac{\text{Cov}[X, Y]}{\sqrt{\text{Var}[X] \cdot \text{Var}[Y]}}
+\tag{7.5.4}
+\end{align}
+\]</div>
+<p>확률변수의 상관계수는 다음과 같은 성질을 가진다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+-1 \leq \rho \leq 1
+\tag{7.5.5}
+\end{align}
+\]</div>
+<p>또한 <span class="math notranslate nohighlight">\(\rho\)</span>가 -1, 0, 1인 경우를 각각 다음과 같이 부른다.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho = 1\)</span> : 완전선형 상관관계</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho = 0\)</span> : 무상관 (독립과는 다름)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho = −1\)</span> : 완전선형 반상관관계</p></li>
+</ul>
+<p>이 상관계수의 부호와 크기가 의미하는 바는 다음 스캐터 플롯에서 알 수 있다. 이 스캐터 플롯은 특정한 상관계수를 가지는 데이터를 시뮬레이션을 통해 그린 것이다. 스캐터 플롯의 위에 쓰여진 숫자는 시뮬레이션에 사용된 상관계수를 나타낸다. 스캐터 플롯의 데이터가 양의 기울기를 가지는 직선 혹은 타원 모양을 가지면 상관계수는 양수이고 음의 기울기를 가지는 직선 혹은 타원 모양이 되면 상관계수가 음이 된다. 또한 직선 모양이 뚜렷할수록 상관계수의 절대값이 커지고 원에 가까워질 수록 절대값이 작아진다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">corrs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">corrs</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">corrs</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">],</span> <span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">corrs</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\rho$=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;상관계수와 스캐터 플롯의 모양&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.05 공분산과 상관계수_13_0.png" src="../_images/07.05 공분산과 상관계수_13_0.png" />
+</div>
+</div>
+<p>또한 상관계수는 스캐터 플롯의 기울기와는 아무런 상관이 없다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">slope</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slope</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slope</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">slope</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">y</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\rho$=1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\rho$=-1&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;상관계수와 스케터플롯의 기울기&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.05 공분산과 상관계수_15_0.png" src="../_images/07.05 공분산과 상관계수_15_0.png" />
+</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 7.5.2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>(1) 원소의 갯수가 10개인 두 개의 무작위 숫자 벡터를 생성하라. 이 두 벡터가 두 개의 독립적인 확률변수에서 나온 데이터라고 가정한다.</p>
+<p>(2) 두 데이터 집합의 표본상관계수를 계산하라. 독립인 확률변수의 상관계수는 0이어야 한다. 표본상관계수의 값도 0인가?</p>
+<p>(3) 원소의 갯수를 10,000개로 다시 무작위 숫자 벡터를 생성하고 표본상관계수를 계산하라. 아까와 어떻게 달라졌는가?</p>
+<p>(4) 표본상관계수가 이론적 상관계수와 같지 않은 이유는 무엇인가?</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>비선형 상관관계<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>두 확률변수가 상관관계가 있으면 두 확률변수의 값 중 하나를 알았을 때 다른 확률변수의 값에 대한 정보를 알 수 있다. 반드시 정확한 값을 알 수 있어야 하는 것은 아니다. 따라서 다음과 같은 경우도 상관관계가 있는 데이터라고 할 수 있다. 선형이 아닌 상관관계를 비선형 상관관계라고 한다. 피어슨 상관계수는 두 확률변수의 관계가 선형적일 때만 상관관계를 제대로 계산할 수 있다.</p>
+<p>다음 네가지 데이터는 모두 <span class="math notranslate nohighlight">\(x\)</span>의 값으로부터 <span class="math notranslate nohighlight">\(y\)</span>값을 알 수 있기 때문에 상관관계를 가지고 있다. 하지만 피어슨 상관계수는 모두 0으로 계산된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+<span class="n">r1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;비선형 상관관계 1: r=</span><span class="si">{:3.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;비선형 상관관계 2: r=</span><span class="si">{:3.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">)</span>
+<span class="n">r3</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;비선형 상관관계 3: r=</span><span class="si">{:3.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">x4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="p">(</span><span class="n">x4</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> \
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x4</span><span class="p">,</span> <span class="n">y4</span><span class="p">)</span>
+<span class="n">r4</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x4</span><span class="p">,</span> <span class="n">y4</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;비선형 상관관계 4: r=</span><span class="si">{:3.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.05 공분산과 상관계수_19_0.png" src="../_images/07.05 공분산과 상관계수_19_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>앤스콤 데이터<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>상관계수로 분포의 형상을 추측할 때 개별 자료가 상관계수에 미치는 영향력이 각각 다르다는 점에 유의해야 한다. 다음은 프랭크 앤스콤(Frank Anscombe)의 논문에 예시된 데이터다. 이 데이터는 서로 다른 4종류의 2차원 데이터셋을 포함하는데 4종류 데이터셋 모두 상관계수가 약 0.816로 동일하다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_rdataset</span><span class="p">(</span><span class="s2">&quot;anscombe&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span> <span class="s2">&quot;y1&quot;</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">,</span> <span class="s2">&quot;y2&quot;</span><span class="p">,</span> <span class="s2">&quot;x3&quot;</span><span class="p">,</span> <span class="s2">&quot;y3&quot;</span><span class="p">,</span> <span class="s2">&quot;x4&quot;</span><span class="p">,</span> <span class="s2">&quot;y4&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x1</th>
+      <th>y1</th>
+      <th>x2</th>
+      <th>y2</th>
+      <th>x3</th>
+      <th>y3</th>
+      <th>x4</th>
+      <th>y4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>10</td>
+      <td>8.04</td>
+      <td>10</td>
+      <td>9.14</td>
+      <td>10</td>
+      <td>7.46</td>
+      <td>8</td>
+      <td>6.58</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>8</td>
+      <td>6.95</td>
+      <td>8</td>
+      <td>8.14</td>
+      <td>8</td>
+      <td>6.77</td>
+      <td>8</td>
+      <td>5.76</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>13</td>
+      <td>7.58</td>
+      <td>13</td>
+      <td>8.74</td>
+      <td>13</td>
+      <td>12.74</td>
+      <td>8</td>
+      <td>7.71</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>9</td>
+      <td>8.81</td>
+      <td>9</td>
+      <td>8.77</td>
+      <td>9</td>
+      <td>7.11</td>
+      <td>8</td>
+      <td>8.84</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>11</td>
+      <td>8.33</td>
+      <td>11</td>
+      <td>9.26</td>
+      <td>11</td>
+      <td>7.81</td>
+      <td>8</td>
+      <td>8.47</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>14</td>
+      <td>9.96</td>
+      <td>14</td>
+      <td>8.10</td>
+      <td>14</td>
+      <td>8.84</td>
+      <td>8</td>
+      <td>7.04</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>6</td>
+      <td>7.24</td>
+      <td>6</td>
+      <td>6.13</td>
+      <td>6</td>
+      <td>6.08</td>
+      <td>8</td>
+      <td>5.25</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>4</td>
+      <td>4.26</td>
+      <td>4</td>
+      <td>3.10</td>
+      <td>4</td>
+      <td>5.39</td>
+      <td>19</td>
+      <td>12.50</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>12</td>
+      <td>10.84</td>
+      <td>12</td>
+      <td>9.13</td>
+      <td>12</td>
+      <td>8.15</td>
+      <td>8</td>
+      <td>5.56</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>7</td>
+      <td>4.82</td>
+      <td>7</td>
+      <td>7.26</td>
+      <td>7</td>
+      <td>6.42</td>
+      <td>8</td>
+      <td>7.91</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>5</td>
+      <td>5.68</td>
+      <td>5</td>
+      <td>4.74</td>
+      <td>5</td>
+      <td>5.73</td>
+      <td>8</td>
+      <td>6.89</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>첫번째 데이터셋은 평범한 데이터셋이다. 하지만 두번째 데이터셋은 비선형으로 완벽한 상관관계를 가진다. 즉 x값을 알면 y값을 완벽하게 알 수 있다. 하지만 상관계수는 약 0.816으로 1인 아닌 값을 가진다. 즉, 상관계수는 비선형 상관관계를 표현하지 못한다.</p>
+<p>세번째 데이터셋과 네번째 데이터셋에서 볼 수 있듯이 나머지 데이터의 상관계수가 1 또는 0인 경우에도 단 하나의 특이값(outlier) 자료에 의해 상관계수가 크게 달라질 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;y1&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;y2&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x3&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;y3&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x4&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;y4&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;앤스콤의 데이터&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.05 공분산과 상관계수_24_0.png" src="../_images/07.05 공분산과 상관계수_24_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>다변수 확률변수의 표본공분산<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>이번에는 스칼라가 아닌 벡터 표본값을 가지는 다변수 확률변수의 공분산에 대해 알아보자. <span class="math notranslate nohighlight">\(X_1, X_2, \cdots, X_M\)</span>이라는 <span class="math notranslate nohighlight">\(M\)</span>개의 서로 다른 확률변수가 있다고 하자. 이 확률변수들의 표본 데이터가 각각 <span class="math notranslate nohighlight">\(N\)</span>개가 있으면 <span class="math notranslate nohighlight">\(j\;(j=1,\ldots,M)\)</span>번째 확률변수의 <span class="math notranslate nohighlight">\(i\;(i=1,\ldots,N)\)</span>번째 데이터를 <span class="math notranslate nohighlight">\(x_{i,j}\)</span>로 표기한다. 이를 하나의 행렬로 묶으면 다음과 같은 특징행렬이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+X = 
+\begin{bmatrix}
+x_{1, 1} &amp; x_{1, 2} &amp; \cdots   &amp; x_{1, M} \\
+x_{2, 1} &amp; x_{2, 2} &amp; \cdots   &amp; x_{2, M} \\
+\vdots   &amp; \vdots  &amp; \ddots   &amp; \vdots   \\
+x_{N, 1} &amp; x_{N, 2} &amp; \cdots   &amp; x_{N, M} \\
+\end{bmatrix}
+\tag{7.5.6}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(M\)</span>개의 서로 다른 확률변수의 모든 조합에 대한 공분산을 한꺼번에 표기하기 위해 다음처럼 **표본공분산행렬(Sample Covariance Matrix)**을 정의한다. 대각성분은 각각의 확률변수의 분산, 비대각성분은 서로 다른 두 확률변수의 공분산으로 정의되는 행렬이다. 예를 들어 두번째 행, 세번째 열의 원소 <span class="math notranslate nohighlight">\(s_{2,3}\)</span>은 두번째 확률변수와 세번째 확률변수의 공분산이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+S =
+\begin{bmatrix}
+s_{x_1}^2  &amp; s_{x_1x_2} &amp; \cdots &amp; s_{x_1x_M} \\
+s_{x_1x_2} &amp; s_{x_2}^2  &amp; \cdots &amp; s_{x_2x_M} \\
+\vdots     &amp; \;\; \vdots&amp; \ddots &amp; \vdots \\
+s_{x_1x_M} &amp; s_{x_2x_M} &amp; \cdots &amp; s_{x_M}^2 \\
+\end{bmatrix}
+\tag{7.5.7}
+\end{align}
+\end{split}\]</div>
+<p>위 행렬의 값은 다음처럼 구한다.</p>
+<p>(1) 각 확률변수 <span class="math notranslate nohighlight">\(x_j\,(j=1, \cdots, M)\)</span>의 표본평균을 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\bar{x}_j = \dfrac{1}{N} \sum_{i=1}^N x_{i,j}
+\tag{7.5.8}
+\end{align}
+\]</div>
+<p>(2) 각 확률변수 <span class="math notranslate nohighlight">\(x_j\,(j=1, \cdots, M)\)</span>의 분산을 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+s_j^2 = \dfrac{1}{N} \sum_{i=1}^N (x_{i,j} - \bar{x}_j)^2
+\tag{7.5.9}
+\end{align}
+\]</div>
+<p>(3) 두 확률변수 <span class="math notranslate nohighlight">\(x_j, x_k\)</span>의 공분산을 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+s_{j,k} = \dfrac{1}{N} \sum_{i=1}^N (x_{i,j} - \bar{x}_j)(x_{i,k} - \bar{x}_k)
+\tag{7.5.10}
+\end{align}
+\]</div>
+<p>만약 <span class="math notranslate nohighlight">\(x_i (i=1,\ldots, N)\)</span>가 다음과 같은 <span class="math notranslate nohighlight">\(M\)</span>-차원 표본 벡터로 정의하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x_i = \begin{bmatrix}x_{i,1} \\ \vdots \\ x_{i,M} \end{bmatrix}
+\tag{7.5.11}
+\end{align}
+\end{split}\]</div>
+<p>표본공분산행렬 <span class="math notranslate nohighlight">\(S\)</span>는 다음 식으로 구할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+S = \dfrac{1}{N}\sum_{i=1}^N (x_i-\bar{x})(x_i-\bar{x})^T
+\tag{7.5.12}
+\end{align}
+\]</div>
+<div class="section" id="id11">
+<h3>연습 문제 7.5.3<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>표본공분산행렬을 다음 식으로 구할 수 있음을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+S = \dfrac{1}{N} X_0^TX_0
+\tag{7.5.13}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(\bar{x}\)</span>는 <span class="math notranslate nohighlight">\(M\)</span>-차원 평균벡터이고 <span class="math notranslate nohighlight">\(X_0\)</span>는 평균이 제거된 <span class="math notranslate nohighlight">\(N \times M\)</span> 크기의 데이터 행렬이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\bar{x} = \dfrac{1}{N} X^T\mathbf{1_N}
+\tag{7.5.14}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+X_0 = X - \mathbf{1_N}\bar{x}^T = X - \dfrac{1}{N} \mathbf{1_N}\mathbf{1_N}^TX
+\tag{7.5.15}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id12">
+<h3>연습 문제 7.5.4<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>붓꽃 데이터에서 4가지 확률변수의 표본공분산행렬을 구하라.</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>다변수 확률변수의 공분산<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(M\)</span>개의 다변수 확률변수 벡터</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+X = 
+\begin{bmatrix}
+X_1 \\
+X_2 \\
+\vdots \\
+X_M 
+\end{bmatrix}
+\tag{7.5.16}
+\end{align}
+\end{split}\]</div>
+<p>의 이론적 공분산행렬은 <span class="math notranslate nohighlight">\(\Sigma\)</span>로 표기하며 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\Sigma = \text{Cov}[X] 
+&amp;=
+\begin{bmatrix}
+\sigma_{x_1}^2  &amp;  \sigma_{x_1x_2} &amp;  \sigma_{x_1x_3} &amp;  \cdots &amp;  \sigma_{x_1x_M} \\
+\sigma_{x_1x_2} &amp;  \sigma_{x_2}^2  &amp;  \sigma_{x_2x_3} &amp;  \cdots &amp;  \sigma_{x_2x_M} \\
+\vdots          &amp;  \vdots          &amp;  \vdots          &amp;  \ddots &amp;  \vdots          \\
+\sigma_{x_1x_M} &amp;  \sigma_{x_2x_M} &amp;  \sigma_{x_3x_M} &amp;  \cdots &amp;  \sigma_{x_M}^2 \\
+\end{bmatrix} \\
+&amp;=
+\text{E} 
+\begin{bmatrix}
+(X_1 - \text{E}[X_1])^2                    &amp; \cdots &amp; (X_1 - \text{E}[X_1])(X_M - \text{E}[X_M]) \\
+(X_1 - \text{E}[X_1])(X_2 - \text{E}[X_2]) &amp; \cdots &amp; (X_2 - \text{E}[X_2])(X_M - \text{E}[X_M]) \\
+\vdots &amp; \ddots &amp;  \vdots  \\
+(X_1 - \text{E}[X_1])(X_M - \text{E}[X_M]) &amp; \cdots &amp; (X_M - \text{E}[X_M])^2 
+\end{bmatrix}
+\end{aligned}
+\tag{7.5.17}
+\end{align}
+\end{split}\]</div>
+<p>다음과 같이 표기할 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\Sigma 
+&amp;= \text{E} \left[ (X - \text{E}[X])(X - \text{E}[X])^T \right] \\
+&amp;= \text{E} 
+\left[ 
+\begin{bmatrix}
+X_1 - \text{E}[X_1] \\
+X_2 - \text{E}[X_2] \\
+\vdots \\
+X_M - \text{E}[X_M] \\
+\end{bmatrix}
+\begin{bmatrix}
+X_1 - \text{E}[X_1] &amp;
+X_2 - \text{E}[X_2] &amp;
+\cdots &amp;
+X_M - \text{E}[X_M]
+\end{bmatrix}
+\right]
+\end{aligned}
+\tag{7.5.18}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

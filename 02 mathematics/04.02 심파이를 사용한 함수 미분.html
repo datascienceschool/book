@@ -1,0 +1,1495 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.2 심파이를 사용한 함수 미분 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/04.02 심파이를 사용한 함수 미분.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/04.02 심파이를 사용한 함수 미분.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/04.02 심파이를 사용한 함수 미분.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   예측 모형의 성능
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   기울기
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     연습 문제 4.2.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   수치미분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   미분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 4.2.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   미분 가능
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   미분공식
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   기본 미분공식
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     상수
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     거듭제곱
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     로그
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     지수
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id20">
+   선형조합법칙
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id23">
+   곱셈법칙
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id24">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id25">
+   연쇄법칙
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id26">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id27">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id28">
+     연습 문제 4.2.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id29">
+   2차 도함수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id30">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id31">
+   편미분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id32">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id33">
+   다변수 함수의 연쇄법칙
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id34">
+   2차 편미분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id35">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id36">
+     연습 문제 4.2.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id37">
+   테일러 전개
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sympy">
+   심파이(SymPy)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id38">
+     연습 문제 4.2.5
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id39">
+     연습 문제 4.2.6
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>4.2 심파이를 사용한 함수 미분<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 함수의 미분에 대해 공부한다. 우선 데이터 분석을 하는데 미분이 필요한 이유에 대해 설명한다. 몇가지 간단한 미분 공식을 사용하여 손으로 미분하는 연습을 한 후에 파이썬으로 미분을 하는 방법을 알아본다.</p>
+<div class="section" id="id2">
+<h2>예측 모형의 성능<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>데이터 분석의 목표는 예측 오차가 가장 작은 최적의 예측모형을 구하는 일이다. 최적의 모형을 구하기 위해 우리가 할 수 있는 일은 예측모형 함수의 계수(coefficient)를 바꾸는 것이다. 예측모형 함수의 계수를 모수라고도 한다. 예를 들어 다음과 같은 선형예측모형을 사용하는 경우,</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\hat{y} = w_1 x_1 +  w_2 x_2 + \ldots +  w_N x_N  = w^T x 
+\tag{4.2.1}
+\end{align}
+\]</div>
+<p>우리가 결정할 수 있는 것은 선형예측모형의 가중치 <span class="math notranslate nohighlight">\(w\)</span>, 즉 <span class="math notranslate nohighlight">\(w_1, w_2, \ldots, w_N\)</span>의 값이다. 이 가중치 <span class="math notranslate nohighlight">\(w\)</span>의 값이 모수이다.</p>
+<p>모수를 어떤 숫자로 정하느냐에 따라 예측모형의 성능(performance)이 달라진다. 성능은 크기를 비교할 수 있어야 하므로 항상 스칼라인 숫자가 되어야 한다. 따라서 모수를 결정하여 성능을 측정하는 일련의 과정은 다음처럼 다변수 함수를 계산하는 것과 같다. 이 함수를 성능함수(performance function)이라고 한다.
+성능함수의 값은 클수록 좋다.</p>
+<p>이와는 반대로 모수를 입력받아 오차 혹은 오류의 크기를 출력하는 함수를 가장 작게 하는 것을 목표로 할 수도 있다. 이러한 함수는 <strong>손실함수(loss function)</strong>, <strong>비용함수(cost function)</strong>, 또는 **오차함수(error function)**라고 부른다.</p>
+<p>성능함수, 손실함수, 비용함수, 오차함수 등 최적화의 대상이 되는 함수를 통틀어 **목적함수(objective function)**라고 한다.</p>
+<p>우리가 원하는 것은 목적함수가 주어졌을 때 이 목적함수의 값을 가장 크게 혹은 적게 할 수 있는 입력값, 즉 모수를 구하는 것이다. 이를 **최적화(optmization)**라고 한다. 최적화를 하기 위해서는 입력값이 변했을 때 함수의 출력값이 어떻게 달라지는지를 정량적으로 알아야 한다. 이러한 과정이 **미분(differentiation)**이다. 따라서 미분을 모르고 올바른 데이터 분석은 불가능하다.</p>
+<img src="https://datascienceschool.net/upfiles/883f9a06faf54a2da213679b1589442a.png" style="width:100%;"><p>그림 4.2.1 : 손실 함수</p>
+<div class="section" id="id3">
+<h3>예제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>조절나사의 각도 <span class="math notranslate nohighlight">\(x\)</span>를 설정하여 출력되는 음량 <span class="math notranslate nohighlight">\(y\)</span>을 제어하는 앰프가 있다. 그런데 이 앰프가 다음 그림과 같이 조절나사의 각도와 음량이 정비례하지 않는 앰프라고 하자. 출력 음량이 최대가 되는 조절나사의 각도를 찾는 문제는 변수 <span class="math notranslate nohighlight">\(x\)</span>에 대한 최적화 문제라고 할 수 있다.</p>
+<img src="https://datascienceschool.net/upfiles/2330af56eab04a60abb081672078c236.png" style="width:100%;"><p>그림 4.2.2 : 생활 속의 최적화 예</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>기울기<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>수치적 최적화는 가장 적은 횟수로 여러가지 <span class="math notranslate nohighlight">\(x\)</span>값을 시도하여 최적의 값을 찾는 방법이다.  수치적 최적화를 하려면 어떤 <span class="math notranslate nohighlight">\(x_1\)</span>값을 시도한 후 다음 번에 다른 <span class="math notranslate nohighlight">\(x_2\)</span>값으로 어떤 값이 더 좋을지 알아야 한다.  만약 <span class="math notranslate nohighlight">\(x_1\)</span> 위치에서는 <span class="math notranslate nohighlight">\(x\)</span>를 증가시켰을 때 <span class="math notranslate nohighlight">\(y\)</span>값이 증가한다는 것을 알 고 있다면 <span class="math notranslate nohighlight">\(x_2\)</span>값은 <span class="math notranslate nohighlight">\(x_1\)</span>보다 더 큰 값을 쓰는 것이 좋다. 반대로 <span class="math notranslate nohighlight">\(x_1\)</span> 위치에서는 <span class="math notranslate nohighlight">\(x\)</span>를 증가시켰을 때 <span class="math notranslate nohighlight">\(y\)</span>값이 감소한다면 <span class="math notranslate nohighlight">\(x_2\)</span>값은 <span class="math notranslate nohighlight">\(x_1\)</span>보다 더 작은 값을 쓰는 것이 좋다. 이 정보를 <strong>기울기(slope)</strong> 혹은 **민감도(sensitivity)**라고 한다.</p>
+<p>앰프에 비유하자면 조절나사를 오른쪽으로 1도만큼 돌렸을 때 소리가 커지는지 작아지는지를 안다면 소리를 크게 하기 위해 왼쪽으로 돌릴지 오른쪽으로 돌릴지를 결정할 수 있는 것과 마찬가지다.</p>
+<p>만약 입력변수의 값이 <span class="math notranslate nohighlight">\(x\)</span>에서 <span class="math notranslate nohighlight">\(x_2\)</span>로 <span class="math notranslate nohighlight">\(\Delta x = x_2 - x\)</span>만큼 달라졌다고 가정하자. 출력변수는 <span class="math notranslate nohighlight">\(f(x)\)</span>이라는 값에서 <span class="math notranslate nohighlight">\(f(x_2)\)</span>라는 값으로 <span class="math notranslate nohighlight">\(\Delta y = f(x_2) - f(x)\)</span>만큼 달라질 것이다. 이를 비율로 나타내면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\Delta y}{\Delta x} = \dfrac{f(x_2) - f(x)}{x_2 - x} = \dfrac{f(x + \Delta x) - f(x)}{\Delta x} 
+\tag{4.2.2}
+\end{align}
+\]</div>
+<p>그런데 이 방식으로 계산한 변화율은 <span class="math notranslate nohighlight">\(x_2\)</span>가 <span class="math notranslate nohighlight">\(x_1\)</span>에서 얼마나 멀리 떨어져 있는가 즉, <span class="math notranslate nohighlight">\(\Delta x\)</span>의 크기에 따라 달라진다. 이를 해결하기 위해 **기울기(slope)**라는 개념을 사용한다. 기울기는 <span class="math notranslate nohighlight">\(dx\)</span>값이 0으로 근접할 때의 변화율을 말한다. 기호로는 다음처럼 쓴다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{slope} = \lim_{\Delta x \rightarrow 0} \dfrac{f(x + \Delta x) - f(x)}{\Delta x} 
+\tag{4.2.3}
+\end{align}
+\]</div>
+<p>이번에는 기울기를 함수의 그래프에서 살펴보자. 함수의 그래프는 앞에서 그린 것처럼 부드러운 곡선(curve)의 형태로 나타나는 경우가 많다. 이 곡선에 대해 한 점만 공통으로 가지는 접선(tangent)을 그릴 수 있는데 이 접선이 수평선과 이루는 기울기는 접선이 <span class="math notranslate nohighlight">\(x\)</span> 방향으로 이동한 거리와 <span class="math notranslate nohighlight">\(y\)</span> 방향으로 이동한 거리의 비율을 말한다.</p>
+<div class="section" id="id5">
+<h3>예제<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>다음과 같은 3차 함수를 생각하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x^3 - 3x^2 + x
+\tag{4.2.4}
+\end{align}
+\]</div>
+<p>그래프에서 <span class="math notranslate nohighlight">\(x=0\)</span>과 <span class="math notranslate nohighlight">\(x=1\)</span>에서의 기울기는 각각 <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(-2\)</span>임을 알 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x=0 \;\;\rightarrow\;\; \text{slope} = \dfrac{1}{1} = 1
+\tag{4.2.5}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x=1 \;\;\rightarrow\;\; \text{slope} = \dfrac{-2}{1} = -2
+\tag{4.2.6}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mi">1</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;g--&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;f(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;함수의 기울기&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="n">c62f11a08cb</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>연습 문제 4.2.1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>앞의 그래프를 참고하여 다음 표의 <span class="math notranslate nohighlight">\(x\)</span> 값들에 대해 기울기의 값이 얼마쯤인지 대략적으로 가늠하여 적어본다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(-0.5\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(0.5\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(1\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(1.5\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(2\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(2.5\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>기울기</p></td>
+<td><p><span class="math notranslate nohighlight">\(  \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\( \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\( \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(  \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\( \)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>수치미분<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>scipy.misc 패키지의 <code class="docutils literal notranslate"><span class="pre">derivative()</span></code> 명령을 사용하면 수치적으로 대략적인 기울기를 계산할 수 있다. 인수로는 기울기를 구하고자 하는 함수 <code class="docutils literal notranslate"><span class="pre">f</span></code>, 기울기를 구할 위치 <code class="docutils literal notranslate"><span class="pre">x</span></code>, 기울기를 구하기 위해 이동할 거리 <code class="docutils literal notranslate"><span class="pre">dx</span></code>를 받는다. 다음 수식으로 대략적인 기울기는 구한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{slope} \approx \dfrac{f\left(x + \dfrac{1}{2}dx\right) - f\left(x - \dfrac{1}{2}dx\right)}{dx} 
+\tag{4.2.7}
+\end{align}
+\]</div>
+<p>이렇게 기울기를 구하는 방법을 **수치미분(numerical differentiation)**이라고 한다. 수치 미분으로는 대략적인 기울기를 구할 뿐 정확한 값을 구할 수 없다.  <code class="docutils literal notranslate"><span class="pre">derivative()</span></code> 명령을 사용할 때는 기울기를 구하기 위해 이동할 거리 <span class="math notranslate nohighlight">\(dx\)</span>를 세 번째 인수로 넣어야 한다. 이 숫자는 작을 수록 좋지만 너무 작을 경우에는 부동소수점 연산의 오버플로우 오류로 인해 오히려 오차를 증폭할 수도 있으므로 조심하여야 한다.</p>
+<div class="section" id="id8">
+<h3>예제<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>위 예제의 3차 다항식의 기울기를 <span class="math notranslate nohighlight">\(x=0\)</span>, <span class="math notranslate nohighlight">\(x=1\)</span> 지점에서 수치미분으로 구하는 코드는 다음과 같다. <span class="math notranslate nohighlight">\(dx\)</span>값은 100만분의 1로 설정하였다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">derivative</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.000000000001
+-2.000000000002
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>미분<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>**미분(differentiation)**이란 <strong>어떤 함수로부터 그 함수 기울기를 출력하는 새로운 함수를 만들어내는 작업</strong>이다. 미분으로 만들어진 함수를 원래 함수의 **도함수(derivative)**라고 한다. 원래는 수렴(converge)과 극한(limit)이라는 수학적인 개념을 사용하여 미분을 정의하지만 여기에서는 자세한 설명을 생략한다.</p>
+<p>도함수는 원래 함수에 프라임(prime) 기호(<span class="math notranslate nohighlight">\('\)</span>)를 붙이거나 원래 함수의 앞에 <span class="math notranslate nohighlight">\(\dfrac{d}{dx}\)</span>를 붙여서 표시한다. 분수처럼 표기하기도 하는데 분모의 위치에는 미분하고자 하는 변수가 오고 분자의 위치에는 미분하는 함수 자체의 기호나 혹은 함수 계산의 결과로 얻어지는 출력 변수를 넣는다. 예를 들어 <span class="math notranslate nohighlight">\(y = f(x)\)</span>라는 함수를 미분하여 구한 도함수는 다음과 같이 여러가지 방법으로 표기할 수 있다. 도함수의 표기는 분수와 비슷하지만 분수의 기호만 빌려온 것일 뿐 분수가 아니라는 점에 주의한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f' = \dfrac{d}{dx}(f) = \dfrac{d}{dx}f = \dfrac{df}{dx}  = \dfrac{d}{dx}(y) = \dfrac{d}{dx}y = \dfrac{dy}{dx} 
+\tag{4.2.8}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(f'\)</span>는 “f 프라임(prime)”이라고 읽고 <span class="math notranslate nohighlight">\(\dfrac{df}{dx}\)</span>는 “df 오버(over) dx”라고 읽는다.</p>
+<div class="section" id="id10">
+<h3>연습 문제 4.2.2<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>앞절에서 구한 기울기 값 표를 이용하여 도함수의 그래프를 그려본다.</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>미분 가능<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>함수에 따라서는 어떤 점에서는 기울기 값을 정의하기 어려울 수가 있다. 예를 들어 다음 함수는 <span class="math notranslate nohighlight">\(x=0\)</span>인 위치에서 기울기를 정의할 수 없다. 이런 경우에는 <span class="math notranslate nohighlight">\(x=0\)</span>에서 **미분 불가능(not differentiable)**이라고 한다. 반대로 기울기를 구할 수 있으면 **미분 가능(differentiable)**이라고 한다.</p>
+<div class="section" id="id12">
+<h3>예제<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>ReLU 함수는 <span class="math notranslate nohighlight">\(x&lt;0\)</span>인 구간에서는 기울기가 0이고 <span class="math notranslate nohighlight">\(x&gt;0\)</span>인 구간에서는 기울기가 1이지만 <span class="math notranslate nohighlight">\(x=0\)</span>인 위치에서는 미분할 수 없다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">relu</span><span class="p">(</span><span class="n">xx</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ReLU&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$ReLU(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04.02 심파이를 사용한 함수 미분_24_0.png" src="../_images/04.02 심파이를 사용한 함수 미분_24_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>미분공식<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>몇가지 미분공식을 조합하면 복잡한 함수의 도함수도 쉽게 구할 수 있다.  여기에서는 가장 핵심적인 4가지 공식만을 소개한다.</p>
+<ul class="simple">
+<li><p>기본 미분공식</p></li>
+<li><p>선형조합법칙</p></li>
+<li><p>곱셈법칙</p></li>
+<li><p>연쇄법칙</p></li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h2>기본 미분공식<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>기본 미분공식은 상수, 거듭제곱, 로그함수, 지수함수 등의 간단한 함수에 대한 미분공식이다.</p>
+<div class="section" id="id15">
+<h3>상수<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>상수를 미분하면 0이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx}(c) = 0 
+\tag{4.2.9}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id16">
+<h3>거듭제곱<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(x\)</span>의 <span class="math notranslate nohighlight">\(n\)</span> 제곱을 미분하면 <span class="math notranslate nohighlight">\(n-1\)</span> 제곱으로 제곱수가 1씩 감소한다. 이 공식은 <span class="math notranslate nohighlight">\(n\)</span>이 자연수이거나 음의 정수일 때 성립한다. <span class="math notranslate nohighlight">\(n=0\)</span>일 때는 성립하지 않는다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx}(x^n) = n x^{n-1} 
+\tag{4.2.10}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id17">
+<h3>예제<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>거듭제곱공식을 응용하면 다음과 같이 미분할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\dfrac{d}{dx}&amp;\left(x^3\right) &amp;\;\;&amp;&amp;=&amp; \;\;\;\; 3 x^2 \\
+\dfrac{d}{dx}&amp;\left(x^2\right) &amp;=\;\;&amp; 2 x^1 &amp;=&amp; \;\;\;\; 2x \\
+\dfrac{d}{dx}&amp;\left(x\right)   &amp;=\;\;&amp; x^1 = 1 \cdot x^0 &amp;=&amp; \;\;\;\; 1 \\
+\dfrac{d}{dx}&amp;\left(\dfrac{1}{x}\right)   &amp;=\;\;&amp; \dfrac{d}{dx}x^{-1} = -1 x^{-2} &amp;=&amp; -\dfrac{1}{x^2} \\
+\dfrac{d}{dx}&amp;\left(\dfrac{1}{x^2}\right) &amp;=\;\;&amp; \dfrac{d}{dx}x^{-2} = -2 x^{-3} &amp;=&amp; -\dfrac{2}{x^3} \\
+\dfrac{d}{dx}&amp;\left(\dfrac{1}{x^3}\right) &amp;=\;\;&amp; \dfrac{d}{dx}x^{-3} = -3 x^{-4} &amp;=&amp; -\dfrac{3}{x^4} 
+\end{aligned}
+\tag{4.2.11}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id18">
+<h3>로그<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>로그함수를 미분하면 <span class="math notranslate nohighlight">\(x^{-1}\)</span>이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx}(\log x) = \dfrac{1}{x} 
+\tag{4.2.12}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id19">
+<h3>지수<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>밑이 오일러 수인 지수함수는 미분해도 변하지 않는다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx}(e^x) = e^x
+\tag{4.2.13}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id20">
+<h2>선형조합법칙<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>어떤 함수에 상수를 곱한 함수를 미분한 결과는 원래 함수의 도함수에 그 상수를 곱한 것과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx}(cf) = c \cdot \dfrac{df}{dx}
+\tag{4.2.14}
+\end{align}
+\]</div>
+<p>어떤 두 함수를 더한 함수를 미분한 결과는 원래 함수의 도함수를 더한 것과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx}\left(f_1 + f_2\right) = \dfrac{df_1}{dx} +  \dfrac{df_2}{dx}
+\tag{4.2.15}
+\end{align}
+\]</div>
+<p>위의 결과를 합치면 어떤 함수에 각각 상수를 곱한 후 더한 **선형조합(linear combination)**은 각 함수의 도함수를 선형조합한 것과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx}\left(c_1 f_1 + c_2 f_2 \right) = c_1 \dfrac{df_1}{dx} + c_2 \dfrac{df_2}{dx}
+\tag{4.2.16}
+\end{align}
+\]</div>
+<div class="section" id="id21">
+<h3>예제<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+y = 1 + 2x + 3x^2 + 4\exp(x) + 5\log(x)
+\tag{4.2.17}
+\end{align}
+\]</div>
+<p>답은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{dy}{dx} = 2 + 6x + 4\exp(x) + \dfrac{5}{x}
+\tag{4.2.18}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id22">
+<h3>예제<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p>같은 방법으로 위에서 그래프를 그렸던 함수의 도함수를 구하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = x^3 - 3x^2 + x
+\tag{4.2.19}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f'(x) = 3x^2 - 6x + 1
+\tag{4.2.20}
+\end{align}
+\]</div>
+<p>도함수의 값이 기울기와 일치하는 것을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fprime</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># 2차 방정식의 근</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> 
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;함수 f(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fprime</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;도함수 f&#39;(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04.02 심파이를 사용한 함수 미분_37_0.png" src="../_images/04.02 심파이를 사용한 함수 미분_37_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id23">
+<h2>곱셈법칙<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<p>어떤 함수의 형태가 두 함수를 곱한 것과 같을 때는 다음과 같이 각 개별 함수의 도함수를 사용하여 원래 함수의 도함수를 구한다. 이를 <strong>곱셈법칙</strong>이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[  
+\begin{align}
+\dfrac{d}{dx}\big( f  \cdot g \big) = f \cdot  \dfrac{dg}{dx} + \dfrac{df}{dx} \cdot g 
+\tag{4.2.21}
+\end{align}
+\]</div>
+<div class="section" id="id24">
+<h3>예제<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<p>곱셈법칙을 사용하면 다음과 같은 함수를 미분하여,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f = x e^x
+\tag{4.2.22}
+\end{align}
+\]</div>
+<p>다음과 같은 도함수를 구한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{df}{dx} = x e^x + e^x
+\tag{4.2.23}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id25">
+<h2>연쇄법칙<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<p>**연쇄법칙(chain rule)**은 미분하고자 하는 함수의 입력 변수가 다른 함수의 출력 변수인 경우 적용할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) = h(g(x))
+\tag{4.2.24}
+\end{align}
+\]</div>
+<p>인 경우 도함수는 다음과 같이 구한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{df}{dx} = \dfrac{dh}{dg} \cdot \dfrac{dg}{dx}
+\tag{4.2.25}
+\end{align}
+\]</div>
+<div class="section" id="id26">
+<h3>예제<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<p>나중에 다룰 정규분포(Gaussian normal distribution)의 확률밀도함수(probability density function)는 기본적으로 다음과 같은 형태라고 볼 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f = \exp \dfrac{(x-\mu)^2}{\sigma^2}
+\tag{4.2.26}
+\end{align}
+\]</div>
+<p>이 함수의 도함수는 다음과 같이 구할 수 있다.</p>
+<p>우선 위의 함수는 다음과 같이 세 개의 함수의 조합으로 생각할 수 있다. 여기에서 <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>라는 중간 변수를 임시로 정의하였다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f = \exp(z) \;,\;\;\;\; z = \dfrac{y^2}{\sigma^2}   \;,\;\;\;\;   y = x-\mu
+\tag{4.2.27}
+\end{align}
+\]</div>
+<p>연쇄법칙을 적용하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{df}{dx} = \dfrac{df}{dz} \cdot \dfrac{dz}{dy} \cdot \dfrac{dy}{dx}
+\tag{4.2.28}
+\end{align}
+\]</div>
+<p>연쇄법칙에 사용된 각각의 도함수는 다음과 같다. 이때 임시로 사용된 중간 변수는 없앤다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{df}{dz} = \exp(z) = \exp \dfrac{(x-\mu)^2}{\sigma^2}
+\tag{4.2.29}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{dz}{dy} =  \dfrac{2y}{\sigma^2} = \dfrac{2(x-\mu)}{\sigma^2}
+\tag{4.2.30}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{dy}{dx} =  1
+\tag{4.2.31}
+\end{align}
+\]</div>
+<p>이 결과를 연쇄법칙에 따라 곱하면 최종적인 도함수를 구할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{df}{dx} =  \dfrac{2(x-\mu)}{\sigma^2} \exp \dfrac{(x-\mu)^2}{\sigma^2}
+\tag{4.2.32}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id27">
+<h3>예제<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<p>로그 함수에 연쇄법칙을 적용하면 다음과 같은 규칙을 얻을 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{d}{dx} \log f(x) = \dfrac{f'(x)}{f(x)} 
+\tag{4.2.33}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id28">
+<h3>연습 문제 4.2.3<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수를 미분하라. 이 식에서 <span class="math notranslate nohighlight">\(k\)</span>, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>는 변수가 아니라 상수다.</p>
+<p>(1)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = x^3 - 1
+\tag{4.2.34}
+\end{align}
+\]</div>
+<p>(2)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = \log (x^{2}-3k)
+\tag{4.2.35}
+\end{align}
+\]</div>
+<p>(3)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) =\exp({ax^b})
+\tag{4.2.36}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id29">
+<h2>2차 도함수<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
+<p>도함수를 한 번 더 미분하여 만들어진 함수를 **2차 도함수(second derivative)**라고 한다. 2차 도함수는 2개의 prime 기호(<span class="math notranslate nohighlight">\(''\)</span>)를 붙이거나 <span class="math notranslate nohighlight">\(\dfrac{d^2}{dx^2}\)</span> 기호로 표시한다.</p>
+<p>예를 들어 <span class="math notranslate nohighlight">\(y = f(x)\)</span>라는 함수를 두 번 미분하여 구한 2차 도함수는 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f'' = \dfrac{d^2}{dx^2}(f) = \dfrac{d^2}{dx^2}f = \dfrac{d^2f}{dx^2} 
+= \dfrac{d^2}{dx^2}(y) = \dfrac{d^2}{dx^2}y = \dfrac{d^2y}{dx^2} 
+\tag{4.2.37}
+\end{align}
+\]</div>
+<p>2차 도함수는 도함수의 기울기를 나타낸다. 즉 도함수 값이 증가하면 2차 도함수 값은 양수이고, 도함수 값이 감소하면 2차 도함수 값은 음수다.
+<strong>2차 도함수 값이 양수인 경우를 볼록(convex)하다</strong>고 하며 2차 도함수 값이 음수인 경우를 오목(concave)하다고 한다. 이때 볼록과 오목은 아래에서 바라 본 관점이다. 그래서 2차 도함수값을 **볼록도(convexity)**라고도 부른다.</p>
+<div class="section" id="id30">
+<h3>예제<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<p>다음 그래프의 함수는 <span class="math notranslate nohighlight">\(f''(x)\)</span>가 음수인 구간(<span class="math notranslate nohighlight">\( x &lt; 1\)</span>)에서는 오목하고 <span class="math notranslate nohighlight">\(f''(x)\)</span>가 양수인 구간(<span class="math notranslate nohighlight">\( x &gt; 1\)</span>)에서는 볼록하다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fprime2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">6</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">6</span>
+
+<span class="c1"># 2차 방정식의 근</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> 
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;함수 f(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fprime</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;도함수 f&#39;(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fprime2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;2차 도함수 f&#39;(x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04.02 심파이를 사용한 함수 미분_50_0.png" src="../_images/04.02 심파이를 사용한 함수 미분_50_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id31">
+<h2>편미분<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h2>
+<p>만약 함수가 둘 이상의 독립변수를 가지는 다변수 함수인 경우에도 미분 즉, 기울기는 하나의 변수에 대해서만 구할 수 있다. 이를 **편미분(partial differentiation)**이라고 한다. 따라서 편미분의 결과로 하나의 함수에 대해 여러 개의 도함수가 나올 수 있다.</p>
+<p>편미분의 결과 즉 도함수는 독립 변수를 함수의 아랫첨자로 써서 표기하거나 <span class="math notranslate nohighlight">\(\partial\)</span>(round) 기호를 사용하여 표기한다. <span class="math notranslate nohighlight">\(x, y\)</span> 두 개의 독립 변수를 가지는 함수 <span class="math notranslate nohighlight">\(f(x,y)\)</span>의 편미분 도함수는 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f_x(x,y) = \dfrac{\partial f}{\partial x}
+\tag{4.2.38}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f_y(x,y) = \dfrac{\partial f}{\partial y} 
+\tag{4.2.39}
+\end{align}
+\]</div>
+<p>편미분을 하는 방법은 변수가 하나인 함수의 미분과 같다. 다만 <strong>어떤 하나의 독립 변수에 대해 미분할 때는 다른 독립 변수를 상수로 생각하면 된다</strong>. 예를 들어 <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> 라는 두 독립 변수를 가지는 함수에서 <span class="math notranslate nohighlight">\(x\)</span>로 편미분을 할 때는 <span class="math notranslate nohighlight">\(y\)</span>는 독립 변수가 아닌 상수로 생각한다. 마찬가지로 <span class="math notranslate nohighlight">\(y\)</span>로 편미분을 할 때는 <span class="math notranslate nohighlight">\(x\)</span>는 독립 변수가 아닌 상수로 생각한다.</p>
+<img src="https://datascienceschool.net/upfiles/816e894c32d24a458872a18b92e384c4.png" style="width:100%;"><p>그림 4.2.3 : 편미분의 방법</p>
+<div class="section" id="id32">
+<h3>예제<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<p>다음은 편미분의 간단한 예다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x,y) = x^2 + 4xy + 4y^2
+\tag{4.2.40}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f_x(x,y) = \dfrac{\partial f}{\partial x} = 2x + 4y
+\tag{4.2.41}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f_y(x,y) = \dfrac{\partial f}{\partial y} = 4x + 8y
+\tag{4.2.42}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id33">
+<h2>다변수 함수의 연쇄법칙<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h2>
+<p>다변수 함수의 미분을 구할 때도 함수가 연결되어 있으면 연쇄법칙이 적용된다. 예를 들어 변수 <span class="math notranslate nohighlight">\(x\)</span>를 입력으로 가지는 함수가 <span class="math notranslate nohighlight">\(f_1, f_2, \ldots, f_N\)</span>과 같이 <span class="math notranslate nohighlight">\(N\)</span>개가 있고 각각의 출력을 <span class="math notranslate nohighlight">\(y_1, y_2, \ldots, y_N\)</span>이라고 하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+y_1 &amp;= f_1(x) \\
+y_2 &amp;= f_2(x) \\
+ &amp; \vdots \\
+y_N &amp;= f_N(x) 
+\end{aligned}
+\tag{4.2.43}
+\end{align}
+\end{split}\]</div>
+<p>그리고 이 <span class="math notranslate nohighlight">\(y_1, y_2, \ldots, y_N\)</span>값에 의존하는 다른 함수 <span class="math notranslate nohighlight">\(g\)</span>가 있다고 하자. <span class="math notranslate nohighlight">\(g\)</span>의 출력은 <span class="math notranslate nohighlight">\(z\)</span>라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+z = g(y_1, y_2, \ldots, y_N)
+\tag{4.2.44}
+\end{align}
+\]</div>
+<p>이때 변수 <span class="math notranslate nohighlight">\(x\)</span> 값의 변화에 따른 <span class="math notranslate nohighlight">\(z\)</span> 값의 변화는 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{dz}{dx} 
+= \dfrac{\partial z}{\partial y_1}\dfrac{dy_1}{dx} + 
+  \dfrac{\partial z}{\partial y_2}\dfrac{dy_2}{dx} + \cdots
++ \dfrac{\partial z}{\partial y_N}\dfrac{dy_N}{dx} 
+\tag{4.2.45}
+\end{align}
+\]</div>
+<p>이번에는 함수 <span class="math notranslate nohighlight">\(f_1, f_2, \ldots, f_N\)</span>가 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_M\)</span>을 입력으로 가지는 다변수 함수라고 하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+y_1 &amp;= f_1(x_1, x_2, \ldots, x_M) \\
+y_2 &amp;= f_2(x_1, x_2, \ldots, x_M) \\
+ &amp; \vdots \\
+y_N &amp;= f_N(x_1, x_2, \ldots, x_M) 
+\end{aligned}
+\tag{4.2.46}
+\end{align}
+\end{split}\]</div>
+<p>이때의 변수 <span class="math notranslate nohighlight">\(x_1\)</span> 값의 변화에 따른 <span class="math notranslate nohighlight">\(z\)</span> 값의 변화도 마찬가지로 계산할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\partial z}{\partial x_1} 
+= \dfrac{\partial z}{\partial y_1}\dfrac{\partial y_1}{\partial x_1} + 
+  \dfrac{\partial z}{\partial y_2}\dfrac{\partial y_2}{\partial x_1} + \cdots
++ \dfrac{\partial z}{\partial y_N}\dfrac{\partial y_N}{\partial x_1}  
+\tag{4.2.47}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id34">
+<h2>2차 편미분<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h2>
+<p>편미분에 대해서도 2차 도함수를 정의할 수 있다. 편미분의 2차 도함수를 구할 때는 각각의 미분에 쓰이는 독립 변수를 자유롭게 선택할 수 있다.</p>
+<p>첫번째 미분과 두번째 미분에서 모두 <span class="math notranslate nohighlight">\(x\)</span>에 대해 미분하면 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f_{xx}(x,y) = \dfrac{\partial^2 f}{\partial x^2} 
+\tag{4.2.48}
+\end{align}
+\]</div>
+<p>첫번째 미분과 두번째 미분에서 모두 <span class="math notranslate nohighlight">\(y\)</span>에 대해 미분하면 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f_{yy}(x,y) = \dfrac{\partial^2 f}{\partial y^2}
+\tag{4.2.49}
+\end{align}
+\]</div>
+<p>첫번째 미분에서는 <span class="math notranslate nohighlight">\(x\)</span>에 대해 미분하고 두번째 미분에서는 <span class="math notranslate nohighlight">\(y\)</span>에 대해 미분하면 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f_{xy}(x,y) = \dfrac{\partial^2 f}{\partial y \partial x} 
+\tag{4.2.50}
+\end{align}
+\]</div>
+<p>첫번째 미분에서는 <span class="math notranslate nohighlight">\(y\)</span>에 대해 미분하고 두번째 미분에서는 <span class="math notranslate nohighlight">\(x\)</span>에 대해 미분하면 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f_{yx}(x,y) = \dfrac{\partial^2 f}{\partial x \partial y}
+\tag{4.2.51}
+\end{align}
+\]</div>
+<p>위 결과에서 <span class="math notranslate nohighlight">\(x\)</span>로 먼저 미분하고 나중에 <span class="math notranslate nohighlight">\(y\)</span>로 미분한 2차 도함수 <span class="math notranslate nohighlight">\(f_{xy}\)</span>는  <span class="math notranslate nohighlight">\(y\)</span>로 먼저 미분하고 나중에 <span class="math notranslate nohighlight">\(x\)</span>로 미분한 2차 도함수 <span class="math notranslate nohighlight">\(f_{yx}\)</span>와 같다. 만약 함수가 연속이고 미분 가능하면 미분의 순서는 상관없다. 이를 **슈와르츠 정리(Schwarz’s theorem)**라고 한다.</p>
+<div class="section" id="id35">
+<h3>예제<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<p>위 다변수 함수에 대해 일차 및 이차 편미분 도함수를 구하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f_{xx}(x,y) = 2
+\tag{4.2.52}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f_{yy}(x,y) = 8
+\tag{4.2.53}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f_{xy}(x,y) = 4
+\tag{4.2.54}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f_{yx}(x,y) = 4
+\tag{4.2.55}
+\end{align}
+\]</div>
+<p>슈와르츠 정리가 성립함을 알 수 있다.</p>
+</div>
+<div class="section" id="id36">
+<h3>연습 문제 4.2.4<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수에 대한 1차/2차 편미분 <span class="math notranslate nohighlight">\(f_x\)</span>, <span class="math notranslate nohighlight">\(f_y\)</span>, <span class="math notranslate nohighlight">\(f_{xx}\)</span>, <span class="math notranslate nohighlight">\(f_{xy}\)</span>, <span class="math notranslate nohighlight">\(f_{yx}\)</span>, <span class="math notranslate nohighlight">\(f_{yy}\)</span>를 구하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x, y) = \exp{(x^2 + 2y^2)}
+\tag{4.2.56}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id37">
+<h2>테일러 전개<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h2>
+<p>함수의 기울기(1차 미분값)를 알고 있다면 함수의 모양을 다음처럼 근사화할 수 있다. <span class="math notranslate nohighlight">\(x_0\)</span>는 함수값과 기울기를 구하는 <span class="math notranslate nohighlight">\(x\)</span> 위치이며 사용자가 마음대로 설정할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) \approx f(x_0) + \dfrac{df(x_0)}{dx}(x - x_0)
+\tag{4.2.57}
+\end{align}
+\]</div>
+<p>이를 **테일러 전개(Taylor expansion)**라고 한다. 다변수 함수의 경우에는 다음처럼 테일러 전개를 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x, y) \approx f(x_0, y_0) 
++ \dfrac{\partial f(x_0, y_0)}{\partial x}(x - x_0)
++ \dfrac{\partial f(x_0, y_0)}{\partial y}(y - y_0)
+\tag{4.2.58}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="sympy">
+<h2>심파이(SymPy)<a class="headerlink" href="#sympy" title="Permalink to this headline">¶</a></h2>
+<p>심파이는 **심볼릭 연산(symbolic operation)**을 지원하는 파이썬 패키지다. 심볼릭 연산이란 사람이 연필로 계산하는 미분/적분과 동일한 형태의 연산을 말한다. 즉, <span class="math notranslate nohighlight">\(x^2\)</span>의 미분 연산을 수행하면 그 결과가 <span class="math notranslate nohighlight">\(2x\)</span>란 형태로 출력된다. 딥 러닝(deep learning) 등에 많이 사용되는 파이썬의 tensorflow 패키지나 pytorch 패키지도 기울기 함수 계산을 위해 이러한 심볼릭 연산 기능을 갖추고 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span>
+
+<span class="c1"># Juypter 노트북에서 수학식의 LaTeX 표현을 위해 필요함</span>
+<span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s1">&#39;mathjax&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>심볼릭 연산에서 사용하는 **심볼릭 변수(symbolic variable)**는 일반 프로그래밍에서 사용하는 변수와 다르다. 일반 프로그래밍에서 사용하는 변수는 이미 메모리에 씌여 있는 어떤 숫자를 기호로 쓴 것에 지나지 않지만 심볼릭 변수는 아무런 숫자도 대입이 되어 있지 않다. 따라서 <span class="math notranslate nohighlight">\(x^2\)</span>의 미분 연산을 수행하려면 우선 SymPy의 <code class="docutils literal notranslate"><span class="pre">symbols()</span></code> 명령을 사용하여 <span class="math notranslate nohighlight">\(x\)</span>라는 기호가 단순한 숫자나 벡터 변수가 아닌 심볼(symbol)임을 알려주어야 한다. 이렇게 정의된 심볼 변수는 <code class="docutils literal notranslate"><span class="pre">Symbol</span></code> 클래스 자료형이 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sympy.core.symbol.Symbol
+</pre></div>
+</div>
+</div>
+</div>
+<p>일단 심볼 변수를 정의하면 이를 사용하여 다음과 같이 함수를 정의한다. 이때 수학 함수는 심파이 전용 함수를 사용해야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">sympy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x e^{x}\]</div>
+</div>
+</div>
+<p>함수가 정의되면 <code class="docutils literal notranslate"><span class="pre">diff()</span></code> 함수로 미분을 할 수 있다. 또한 <code class="docutils literal notranslate"><span class="pre">simplify()</span></code> 함수를 써서 소인수분해 등을 통한 수식 정리가 가능하다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x e^{x} + e^{x}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left(x + 1\right) e^{x}\]</div>
+</div>
+</div>
+<p>편미분을 하는 경우에는 어떤 변수로 미분하는지를 <code class="docutils literal notranslate"><span class="pre">diff()</span></code> 함수에 명시해야 한다. <code class="docutils literal notranslate"><span class="pre">symbols()</span></code> 명령을 사용할 때는 인수로 주는 문자열에 여러개의 심볼 변수를 동시에 넣을 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x^{2} + 4 x y + 4 y^{2}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 2 x + 4 y\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 4 x + 8 y\]</div>
+</div>
+</div>
+<p>상수 심볼을 포함하는 함수를 미분하는 경우, 심파이는 어떤 심볼이 상수이고 어떤 심볼이 변수인지 알 수 없기 때문에 편미분인 것처럼 입력 변수를 지정해야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x mu sigma&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle e^{\frac{\left(- \mu + x\right)^{2}}{\sigma^{2}}}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{\left(- 2 \mu + 2 x\right) e^{\frac{\left(- \mu + x\right)^{2}}{\sigma^{2}}}}{\sigma^{2}}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{2 \left(- \mu + x\right) e^{\frac{\left(\mu - x\right)^{2}}{\sigma^{2}}}}{\sigma^{2}}\]</div>
+</div>
+</div>
+<p>이차 도함수는 다음처럼 구한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{2 \left(1 + \frac{2 \left(\mu - x\right)^{2}}{\sigma^{2}}\right) e^{\frac{\left(\mu - x\right)^{2}}{\sigma^{2}}}}{\sigma^{2}}\]</div>
+</div>
+</div>
+<div class="section" id="id38">
+<h3>연습 문제 4.2.5<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수를 미분한 도함수를 심파이를 사용하여 구하라. 여기에서 <span class="math notranslate nohighlight">\(k\)</span>, <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>는 변수가 아니라 상수다.</p>
+<p>(1)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = x^3 - 1
+\tag{4.2.59}
+\end{align}
+\]</div>
+<p>(2)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = \log (x^{2}-3k)
+\tag{4.2.60}
+\end{align}
+\]</div>
+<p>(3)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) =\exp({ax^b})
+\tag{4.2.61}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id39">
+<h3>연습 문제 4.2.6<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수에 대한 1차/2차 편미분 <span class="math notranslate nohighlight">\(f_x\)</span>, <span class="math notranslate nohighlight">\(f_y\)</span>, <span class="math notranslate nohighlight">\(f_{xx}\)</span>, <span class="math notranslate nohighlight">\(f_{xy}\)</span>, <span class="math notranslate nohighlight">\(f_{yx}\)</span>, <span class="math notranslate nohighlight">\(f_{yy}\)</span>를 심파이로 구하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x, y) = \exp{(x^2 + 2y^2)}
+\tag{4.2.62}
+\end{align}
+\]</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

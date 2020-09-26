@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9.3 베이즈 추정법 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/09.03 베이즈 추정법.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/09.03 베이즈 추정법.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/09.03 베이즈 추정법.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   베이즈 추정법의 기본 원리
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   베르누이분포의 모수 추정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 9.3.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   카테고리분포의 모수 추정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   정규분포의 기댓값 모수 추정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 9.3.2
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>9.3 베이즈 추정법<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><strong>베이즈 추정법(Bayesian estimation)은 모숫값이 가질 수 있는 모든 가능성의 분포를 계산하는 작업</strong>이다.</p>
+<p>어떤 확률분포함수의 모수를 <span class="math notranslate nohighlight">\(\mu\)</span>라고 하자. 최대가능도 추정법에서는 모수를 미지의 상수로 보았지만 베이즈 추정법에서는 모수를 확률변수로 본다. 확률변수는 확률밀도함수를 가진다. 즉, 어떤 값이 가능성이 높고 어떤 값이 가능성이 낮은지를 펴보겠다는 뜻이다.</p>
+<p>베이즈 추정법을 사용하는 이유는 추정된 모숫값 숫자 하나만으로는 추정의 신뢰도와 신뢰구간을 구할 수 없기 때문이다. 예를 들어 인터넷 쇼핑몰에 있는 두 개의 경쟁상품에 사용자 의견이 다음과 같이 붙어 있다고  하자.</p>
+<ul class="simple">
+<li><p>상품 A: 전체 평가의견 3개, 좋아요 2개, 싫어요 1개</p></li>
+<li><p>상품 B: 전체 평가의견 100개, 좋아요 60개, 싫어요 40개</p></li>
+</ul>
+<p>내가 이 상품을 사용했을 때 평가의견이 ‘좋아요’가 나올지 ‘싫어요’가 나올지는 베르누이분포 확률변수로 모형화할 수 있다. 최대가능도 추정법에 따르면 상품 A와 상품 B에서 ‘좋아요’가 나온 비율을 사용하여 베르누이 모수를 구하면 다음과 같이 상품 A의 모수가 높다.</p>
+<ul class="simple">
+<li><p>상품 A의 모수: <span class="math notranslate nohighlight">\(\frac{2}{3} = 0.67 \)</span></p></li>
+<li><p>상품 B의 모수: <span class="math notranslate nohighlight">\(\frac{60}{100} = 0.60 \)</span></p></li>
+</ul>
+<p>상품 B의 평가의견은 100개고 상품 A의 평가의견은 3개밖에 되지 않는데 상품 A의 모수가 더 높다고 더 높은 상품이라고 확신할 수 있는가? 베이즈 추정법에서는 단순히 모수의 값을 하나의 숫자로 구하는 것이 아니므로 이러한 잘못된 결론을 내리지 않도록 도와준다.</p>
+<div class="section" id="id2">
+<h2>베이즈 추정법의 기본 원리<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>수학적으로 베이즈 추정법은 주어진 데이터 <span class="math notranslate nohighlight">\(\{x_{1},\ldots,x_{N}\}\)</span>를 기반으로 모수 <span class="math notranslate nohighlight">\(\mu\)</span>의 조건부 확률분포 <span class="math notranslate nohighlight">\(p(\mu \vert x_{1},\ldots,x_{N})\)</span>를 계산하는 작업이다. 조건부 확률분포를 구하므로 베이즈 정리를 사용한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(\mu \mid x_{1},\ldots,x_{N}) = \dfrac{p(x_{1},\ldots,x_{N} \mid \mu) \cdot p(\mu)}{p(x_{1},\ldots,x_{N})} \propto p(x_{1},\ldots,x_{N}  \mid \mu )  \cdot p(\mu)
+\tag{9.3.1}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p(\mu)\)</span>는 <strong>모수의 사전(Prior)분포</strong>다. 사전 분포는 베이지안 추정 작업을 하기 전에 이미 알고 있던 모수 <span class="math notranslate nohighlight">\(\mu\)</span>의 분포를 뜻한다.
+모수의 분포에 대해 아무런 지식이 없는 경우에는 균일(uniform) 분포 <span class="math notranslate nohighlight">\(\text{Beta}(1,1)\)</span>나 0을 중심으로 가지는 정규분포 <span class="math notranslate nohighlight">\(\mathcal{N}(0,\sigma_0^2)\)</span> 등의 **무정보분포(non-informative distribution)**를 사용할 수 있다. 무정보 분포에 대해서는 다음 장에서 공부한다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(\mu \mid x_{1},\ldots,x_{N})\)</span>는 <strong>모수의 사후(Posterior)분포</strong>다. 수학적으로는 데이터 <span class="math notranslate nohighlight">\(x_{1},\ldots,x_{N}\)</span>가 주어진 상태에서의 <span class="math notranslate nohighlight">\(\mu\)</span>에 대한 조건부 확률 분포다. 우리가 베이즈 추정법 작업을 통해 구하고자 하는 것이 바로 이 사후 분포다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x_{1},\ldots,x_{N} \mid \mu)\)</span>는 <strong>가능도(likelihood)분포</strong>다. 모수 <span class="math notranslate nohighlight">\(\mu\)</span>가 특정한 값으로 주어졌을 때 주어진 데이터 <span class="math notranslate nohighlight">\(\{x_{1},\ldots,x_{N}\}\)</span>가 나올 수 있는 확률값을 나타낸다.</p></li>
+</ul>
+<p>이때 계산된 모수의 분포는 두 가지 방법으로 표현한다.</p>
+<p>(1) 모수적(parametric) 방법</p>
+<ul class="simple">
+<li><p>다른 확률분포를 사용하여 추정된 모수의 분포를 나타낸다. **모수 분포를 표현하는 확률분포함수의 모수를 하이퍼모수(hyper-parameter)**라고 부른다. 모수적 방법을 사용한 베이즈 추정법은 결국 하이퍼모숫값을 계산하는 작업이다.</p></li>
+</ul>
+<p>(2) 비모수적(non-parametric) 방법</p>
+<ul class="simple">
+<li><p>모수의 분포와 동일한 분포를 가지는 실제 표본 집합을 생성하여 히스토그램이나 최빈값 등으로 분포를 표현한다. MCMC(Markov chain Monte Carlo)와 같은 몬테카를로(Monte Carlo) 방법이 비모수적 방법이다.</p></li>
+</ul>
+<p>여기에서는 모수적 방법의 몇 가지 간단한 예를 보인다.</p>
+</div>
+<div class="section" id="id3">
+<h2>베르누이분포의 모수 추정<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>가장 단순한 이산확률변수인 베르누이분포의 모수 <span class="math notranslate nohighlight">\(\mu\)</span>를 베이즈 추정법으로 추정해보자.</p>
+<p>베르누이 분포의 모수는 0부터 1사이의 값을 가지므로 사전 분포는 하이퍼모수 <span class="math notranslate nohighlight">\(a=b=1\)</span>인 베타분포라고 가정하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(\mu) \propto \mu^{a-1}(1-\mu)^{b-1} \;\;\; (a=1, b=1)
+\tag{9.3.2}
+\end{align}
+\]</div>
+<p>데이터는 모두 독립적인 베르누이 분포의 곱이므로 가능도 함수는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(x_{1},\ldots,x_{N} \mid \mu) = \prod_{i=1}^N  \mu^{x_i} (1 - \mu)^{1-x_i}
+\tag{9.3.3}
+\end{align}
+\]</div>
+<p>베이즈 정리를 사용하면 사후분포가 다음처럼 갱신된 하이퍼모수 <span class="math notranslate nohighlight">\(a'\)</span>, <span class="math notranslate nohighlight">\(b'\)</span>를 가지는 또다른 베타분포가 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+p(\mu \mid x_{1},\ldots,x_{N})
+&amp;\propto p(x_{1},\ldots,x_{N} \mid \mu)  p(\mu) \\
+&amp;= \prod_{i=1}^N  \mu^{x_i} (1 - \mu)^{1-x_i} \cdot \mu^{a-1}(1-\mu)^{b-1}  \\
+&amp;= \mu^{\sum_{i=1}^N x_i + a-1} (1 - \mu)^{\sum_{i=1}^N (1-x_i) + b-1 }   \\
+&amp;= \mu^{N_1 + a-1} (1 - \mu)^{N_0 + b-1 }   \\
+&amp;= \mu^{a'-1} (1 - \mu)^{b'-1}   \\
+\end{aligned}
+\tag{9.3.4}
+\end{align}
+\end{split}\]</div>
+<p>이렇게 사전분포와 사후분포가 모숫값만 다르고 함수 형태가 같은 확률밀도함수로 표현될 수 있도록 해주는 사전분포를 **켤레 사전확률분포(conjugate prior)**라고 한다.</p>
+<p>갱신된 하이퍼모숫값은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+a' &amp;= N_1 + a \\
+b' &amp;= N_0 + b 
+\end{aligned}
+\tag{9.3.5}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id4">
+<h3>예제<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>동전을 10번 던져서 앞면이 6번 나왔다. 이 때 사전분포가 하이퍼모수 <span class="math notranslate nohighlight">\(a=b=1\)</span>인 베타분포라면 사후분포는 다음과 같은 하이퍼모수를 가지는 베타분포가 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+a' &amp;= 6 + 1 = 7 \\
+b' &amp;= 4 + 1 = 5
+\end{aligned}
+\tag{9.3.6}
+\end{align}
+\end{split}\]</div>
+<p>참고로 최대가능도 추정법으로 구한 베르누이 모수의 값은 0.6이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">a0</span><span class="p">,</span> <span class="n">b0</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">b0</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;사전분포&quot;</span><span class="p">)</span>
+<span class="n">a1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">b1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;사후분포&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;베이즈 추정법으로 계산한 베르누이분포 모수의 분포&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e1cef04c26b9</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">a0</span><span class="p">,</span> <span class="n">b0</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">b0</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;사전분포&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">a1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">b1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;사후분포&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 9.3.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>위에서 예로 든 상품 A와 상품 B의 베르누이 모수의 사후분포의 하이퍼파라미터를 구하고 각각 사후분포 확률밀도함수를 그려라.</p>
+<p>베이즈 추정법의 장점은 <strong>순차적(sequential)</strong> 계산이 가능하다는 점이다. 예를 들어 매 50개의 데이터를 수집하는 경우를 생각하자. 베이즈 추정법법을 사용하면 첫날 50개의 데이터로 모수를 추정한 뒤 다음날에는 추가적인 데이터 50개를 사용하여 모숫값을 더 정확하게 수정할 수 있다. 이 과정에서 계산량은 증가하지 않는다. 그다음 날도 마찬가지다.</p>
+<p>하지만 최대가능도 추정법을 사용하면 첫날에는 데이터 50개를 이용하여 모수를 추정하지만 둘째 날에는 100개의 데이터를 사용하여 모수를 추정해야다. 그다음 날에는 150개의 데이터를 사용하여 계산을 해야 한다. 데이터가 더 수집되면 점점 추정에 사용되는 데이터의 수가 증가하고 그에 따라 계산량도 증가한다.</p>
+<p>다음 그림에서는 실제 모숫값이 0.65인 베르누이분포에 대해 베이즈 추정법을 한 결과를 보이고 있다. 처음에는 데이터 50개로 모수를 추정했으며 다음에는 데이터 50개를 추가했다. 이러한 방식으로 데이터 개수가 200개까지 증가할 때 추정 결과가 어떻게 달라지는지를 보인다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu0</span> <span class="o">=</span> <span class="mf">0.65</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;초기 추정: 모드 = 모름&quot;</span><span class="p">)</span>
+
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;초기 추정&quot;</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">mu0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">N0</span><span class="p">,</span> <span class="n">N1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">N1</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="n">N0</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">차 추정&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">차 추정: 모드 = </span><span class="si">{:4.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)))</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;베르누이분포의 모수를 베이즈 추정법으로 추정한 결과&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>초기 추정: 모드 = 모름
+0차 추정: 모드 = 0.64
+1차 추정: 모드 = 0.69
+2차 추정: 모드 = 0.65
+</pre></div>
+</div>
+<img alt="../_images/09.03 베이즈 추정법_12_1.png" src="../_images/09.03 베이즈 추정법_12_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>카테고리분포의 모수 추정<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>다음으로 클래스 개수가 <span class="math notranslate nohighlight">\(K\)</span>인 카테고리분포의 모수 <span class="math notranslate nohighlight">\(\mu\)</span> 벡터를 베이즈 추정법으로 추정해보자.</p>
+<p>카테고리분포의 모수의 각 원소는 모두 0부터 1사이의 값을 가지므로 사전 분포는 하이퍼모수 <span class="math notranslate nohighlight">\(\alpha_k=1\)</span>인 디리클리 분포라고 가정한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(\mu) \propto \prod_{k=1}^K \mu_k^{\alpha_k - 1} \;\;\; (\alpha_k = 1, \; \text{ for all } k)
+\tag{9.3.7}
+\end{align}
+\]</div>
+<p>데이터는 모두 독립적인 카테고리 분포의 곱이므로 가능도 함수는 다음처럼 다항 분포다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(x_{1},\ldots,x_{N} \mid \mu) = \prod_{i=1}^N  \prod_{k=1}^K \mu_k^{x_{i,k}}
+\tag{9.3.8}
+\end{align}
+\]</div>
+<p>베이즈 정리로 사후 분포를 구하면 다음과 같이 갱신된 하이퍼모수 <span class="math notranslate nohighlight">\(\alpha'_i\)</span>를 가지는 디리클리 분포가 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+p(\mu \mid x_{1},\ldots,x_{N})
+&amp;\propto p(x_{1},\ldots,x_{N} \mid \mu)  p(\mu) \\
+&amp;= \prod_{i=1}^N  \prod_{k=1}^K \mu_k^{x_{i,k}} \cdot \prod_{k=1}^K \mu_k^{\alpha_k - 1}  \\
+&amp;= \prod_{k=1}^K  \mu^{\sum_{i=1}^N x_{i,k} + \alpha_k - 1}   \\
+&amp;= \prod_{k=1}^K  \mu^{N_k + \alpha_k -1}   \\
+&amp;= \prod_{k=1}^K  \mu^{\alpha'_k -1}   \\
+\end{aligned}
+\tag{9.3.9}
+\end{align}
+\end{split}\]</div>
+<p>이 경우에도 마찬가지로 디리클리분포는 켤레 분포임을 알 수 있다.
+갱신된 하이퍼 모숫값은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\alpha'_k = N_k + \alpha_k
+\tag{9.3.10}
+\end{align}
+\]</div>
+<div class="section" id="id7">
+<h3>예제<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>어떤 식물원에 세 종류의 붓꽃이 있다. 이 세 붓꽃의 비율을 카테고리분포로 나타내고자 한다. 카테고리분포의 모수는 디리클리분포로 표현한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_dirichlet</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">project</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">n3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">n12</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">m2</span> <span class="o">=</span> <span class="n">n3</span> <span class="o">-</span> <span class="n">n12</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="n">m1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+        <span class="n">m2</span> <span class="o">=</span> <span class="n">m2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">m2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([(</span><span class="n">x</span><span class="o">-</span><span class="n">n12</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">m1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">n12</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">m2</span><span class="p">)])[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">project_reverse</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">n3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">n12</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">m2</span> <span class="o">=</span> <span class="n">n3</span> <span class="o">-</span> <span class="n">n12</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="n">m1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+        <span class="n">m2</span> <span class="o">=</span> <span class="n">m2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">m2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">][:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">m2</span> <span class="o">+</span> <span class="n">n12</span>
+
+    <span class="n">eps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">project</span><span class="p">([[</span><span class="mi">1</span><span class="o">-</span><span class="n">eps</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">eps</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">eps</span><span class="p">]])</span>
+
+    <span class="kn">import</span> <span class="nn">matplotlib.tri</span> <span class="k">as</span> <span class="nn">mtri</span>
+
+    <span class="n">triang</span> <span class="o">=</span> <span class="n">mtri</span><span class="o">.</span><span class="n">Triangulation</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+    <span class="n">refiner</span> <span class="o">=</span> <span class="n">mtri</span><span class="o">.</span><span class="n">UniformTriRefiner</span><span class="p">(</span><span class="n">triang</span><span class="p">)</span>
+    <span class="n">triang2</span> <span class="o">=</span> <span class="n">refiner</span><span class="o">.</span><span class="n">refine_triangulation</span><span class="p">(</span><span class="n">subdiv</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">XYZ</span> <span class="o">=</span> <span class="n">project_reverse</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">triang2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">triang2</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">triang2</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">triang2</span><span class="o">.</span><span class="n">y</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">pdf</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">dirichlet</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">XYZ</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tricontourf</span><span class="p">(</span><span class="n">triang2</span><span class="p">,</span> <span class="n">pdf</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;정규분포 확률변수의 모수를 베이즈 추정법으로 추정한 결과: </span><span class="si">{}</span><span class="s2"> 추정&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">mu0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>아무런 데이터도 없을 때는 카테고리분포의 모수는 모든 경우에 같다. 이 때 디리클리분포의 하이퍼모수는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\alpha_1 = \alpha_1 = \alpha_1 = 1
+\tag{9.3.11}
+\end{align}
+\]</div>
+<p>이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plot_dirichlet</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="s2">&quot;초기&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/09.03 베이즈 추정법_18_0.png" src="../_images/09.03 베이즈 추정법_18_0.png" />
+</div>
+</div>
+<p>만약 1차로 측정한 종류별 붓꽃의 수가 각각 9, 29, 12개였다면 디리클리분포의 하이퍼모수는 다음과 같다. 모수의 위치도 그림으로 표현하였다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">mu0</span><span class="p">)</span>
+<span class="n">N1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">a0</span> <span class="o">+</span> <span class="n">N1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;종류별 붓꽃의 수 =</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1차 추정 하이퍼모수:&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a1</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">plot_dirichlet</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="s2">&quot;1차&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>종류별 붓꽃의 수 =[10 32  8]
+1차 추정 하이퍼모수: [0.2  0.64 0.16]
+</pre></div>
+</div>
+<img alt="../_images/09.03 베이즈 추정법_20_1.png" src="../_images/09.03 베이즈 추정법_20_1.png" />
+</div>
+</div>
+<p>2차로 추가측정한 종류별 붓꽃의 수가 각각 21, 26, 3개였다면 디리클리분포의 하이퍼모수는 다음과 같다. 모수의 위치도 그림으로 표현하였다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">mu0</span><span class="p">)</span>
+<span class="n">N2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">a1</span> <span class="o">+</span> <span class="n">N2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;종류별 붓꽃의 수 =</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2차 추정 하이퍼모수:&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">a2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a2</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">plot_dirichlet</span><span class="p">(</span><span class="n">a2</span><span class="p">,</span> <span class="s2">&quot;2차&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>종류별 붓꽃의 수 =[24 19  7]
+2차 추정 하이퍼모수: [0.34 0.51 0.15]
+</pre></div>
+</div>
+<img alt="../_images/09.03 베이즈 추정법_22_1.png" src="../_images/09.03 베이즈 추정법_22_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>정규분포의 기댓값 모수 추정<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>이번에는 정규분포의 기댓값 모수를 베이지안 방법으로 추정한다. 분산 모수 <span class="math notranslate nohighlight">\(\sigma^2\)</span>은 알고 있다고 가정한다.</p>
+<p>기댓값은 <span class="math notranslate nohighlight">\(-\infty\)</span>부터 <span class="math notranslate nohighlight">\(\infty\)</span>까지의 모든 수가 가능하기 때문에 모수의 사전 분포로는 정규분포를 사용한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(\mu) = N(\mu_0, \sigma^2_0) = \dfrac{1}{\sqrt{2\pi\sigma_0^2}} \exp \left(-\dfrac{(\mu-\mu_0)^2}{2\sigma_0^2}\right)
+\tag{9.3.12}
+\end{align}
+\]</div>
+<p>데이터는 모두 독립적인 정규분포의 곱이므로 가능도 함수는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(x_{1},\ldots,x_{N} \mid \mu) = \prod_{i=1}^N N(x_i \mid \mu )  = \prod_{i=1}^N  \dfrac{1}{\sqrt{2\pi\sigma^2}} \exp \left(-\dfrac{(x_i-\mu)^2}{2\sigma^2}\right)
+\tag{9.3.13}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+p(\mu \mid x_{1},\ldots,x_{N})  
+&amp;\propto p(x_{1},\ldots,x_{N} \mid \mu) p(\mu) \\
+&amp;\propto \exp \left(-\dfrac{(\mu-\mu'_0)^2}{2\sigma_0^{'2}}\right) \\
+\end{aligned}
+\tag{9.3.14}
+\end{align}
+\end{split}\]</div>
+<p>베이즈 정리를 이용하여 사후 분포를 구하면 다음과 같이 갱신된 하이퍼모수를 가지는 정규분포가 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\mu'_0 &amp;= \dfrac{\sigma^2}{N\sigma_0^2 + \sigma^2}\mu_0 + \dfrac{N\sigma_0^2}{N\sigma_0^2 + \sigma^2} \dfrac{\sum x_i}{N} \\
+\dfrac{1}{\sigma_0^{'2}} &amp;= \dfrac{1}{\sigma_0^{2}} + \dfrac{N}{\sigma^{2}}
+\end{aligned}
+\tag{9.3.15}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id9">
+<h3>예제<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>다음은 실제 기댓값이 2, 분산이 4인 정규분포에서 나온 데이터를 이용하여 기댓값 모수를 순차적 베이즈 추정한 결과다. 각 차수별로 100개의 데이터를 사용하였다. 초기 추정값 즉, 사전확률분포로는 기댓값이 0, 분산이 1인 정규분포를 사용하였다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span>
+<span class="n">mu0</span><span class="p">,</span> <span class="n">sigma20</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-.&quot;</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">mu0</span> <span class="o">=</span> <span class="n">sigma2</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="n">sigma20</span> <span class="o">+</span> <span class="n">sigma2</span><span class="p">)</span> <span class="o">*</span> <span class="n">mu0</span> <span class="o">+</span> \
+        <span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="n">sigma20</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="n">sigma20</span> <span class="o">+</span> <span class="n">sigma2</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">sigma20</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">sigma20</span> <span class="o">+</span> <span class="n">N</span><span class="o">/</span><span class="n">sigma2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu0</span><span class="p">,</span> <span class="n">sigma20</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">차 추정&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">차 추정: </span><span class="si">{:4.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">mu0</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;정규분포의 기댓값을 베이즈 추정법으로 추정한 결과&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0차 추정: 1.98
+1차 추정: 2.07
+2차 추정: 2.05
+3차 추정: 2.03
+</pre></div>
+</div>
+<img alt="../_images/09.03 베이즈 추정법_26_1.png" src="../_images/09.03 베이즈 추정법_26_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>연습 문제 9.3.2<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>사이킷런에서 제공하는 붓꽃데이터 중 꽃받침의 길이를 정규분포라고 가정하고 베이즈 추정법을 사용하여 기댓값을 추정하라. 단, 정규분포의 분산으로는 표본분산을 사용하고 사전분포로 기댓값 1, 분산 1인 정규분포를 사용한다.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

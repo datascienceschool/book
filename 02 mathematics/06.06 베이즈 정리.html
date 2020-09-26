@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.6 베이즈 정리 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/06.06 베이즈 정리.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/06.06 베이즈 정리.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/06.06 베이즈 정리.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   베이즈 정리
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   베이즈 정리의 확장 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   검사 시약 문제
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>6.6 베이즈 정리<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>베이즈 정리는 데이터라는 조건이 주어졌을 때의 조건부확률을 구하는 공식이다. 베이즈 정리를 쓰면 데이터가 주어지기 전의 사전확률값이 데이터가 주어지면서 어떻게 변하는지 계산할 수 있다. 따라서 데이터가 주어지기 전에 이미 어느 정도 확률값을 예측하고 있을 때 이를 새로 수집한 데이터와 합쳐서 최종 결과에 반영할 수 있다. 데이터의 개수가 부족한 경우 아주 유용하다. 데이터를 매일 추가적으로 얻는 상황에서도 매일  전체 데이터를 대상으로 새로 분석작업을 할 필요없이 어제 분석결과에 오늘 들어온 데이터를 합쳐서 업데이트만 하면 되므로 유용하게 활용할 수 있다.</p>
+<div class="section" id="id2">
+<h2>베이즈 정리<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>조건부확률을 구하는 다음 공식을 **베이즈 정리(Bayesian rule)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A|B) = \dfrac{P(B|A)P(A)}{P(B)} 
+\tag{6.6.1}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B) = \dfrac{P(A,B)}{P(B)} \;\; \rightarrow \;\; P(A,B) = P(A|B)P(B)
+\tag{6.6.2}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(B|A) = \dfrac{P(A,B)}{P(A)} \;\; \rightarrow \;\; P(A,B) = P(B|A)P(A)
+\tag{6.6.3}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B) = P(A|B)P(B) = P(B|A)P(A)
+\tag{6.6.4}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B) = \dfrac{P(B|A)P(A)}{P(B)}
+\tag{6.6.5}
+\end{align}
+\]</div>
+<p>여기에서 <span class="math notranslate nohighlight">\(P(A)\)</span>는 **사전확률(prior)**이라고 하며 사건 B가 발생하기 전에 가지고 있던 사건 A의 확률이다. 만약 사건 B가 발생하면 이 정보를 반영하여 사건 <span class="math notranslate nohighlight">\(A\)</span>의 확률은 <span class="math notranslate nohighlight">\(P(A|B)\)</span>라는 값으로 변하게 되며 이를 **사후확률(posterior)**이라고 한다.</p>
+<p>사후확률값은 사전확률에 <span class="math notranslate nohighlight">\(\dfrac{P(B|A)}{P(B)}\)</span>라는 값을 곱하면 얻을 수 있다. 곱하는 <span class="math notranslate nohighlight">\(P(B|A)\)</span>는 **가능도(likelihood)**라고 하고 나누는 <span class="math notranslate nohighlight">\(P(B)\)</span>는 <strong>정규화 상수(normalizing constant)</strong> 혹은 **증거(evidence)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B) = \dfrac{P(B|A)P(A)}{P(B)}
+\tag{6.6.6}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P(A|B)\)</span>: 사후확률(posterior). 사건 B가 발생한 후 갱신된 사건 A의 확률</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(A)\)</span>: 사전확률(prior). 사건 B가 발생하기 전에 가지고 있던 사건 A의 확률</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(B|A)\)</span>: 가능도(likelihood). 사건 A가 발생한 경우 사건 B의 확률</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(B)\)</span>: 정규화 상수(normalizing constant) 또는 증거(evidence). 확률의 크기 조정</p></li>
+</ul>
+<p>베이즈 정리는 사건 <span class="math notranslate nohighlight">\(B\)</span>가 발생함으로써(사건 <span class="math notranslate nohighlight">\(B\)</span>가 진실이라는 것을 알게 됨으로써, 즉 사건 <span class="math notranslate nohighlight">\(B\)</span>의 확률 <span class="math notranslate nohighlight">\(P(B)=1\)</span>이라는 것을 알게 됨으로써) 사건 <span class="math notranslate nohighlight">\(A\)</span>의 확률이 어떻게 변화하는지를 표현한 정리다. 따라서 베이즈 정리는 새로운 정보가 기존의 추론에 어떻게 영향을 미치는지를 나타낸다.</p>
+</div>
+<div class="section" id="id3">
+<h2>베이즈 정리의 확장 1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>만약 사건 <span class="math notranslate nohighlight">\(A_i\)</span>가 서로 배타적이고 완전하다고 하자.</p>
+<ul class="simple">
+<li><p>서로 배타적(교집합이 없다)</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A_i \cap A_j = \emptyset
+\tag{6.6.7}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>완전(합집합이 표본공간)</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A_1 \cup A_2 \cup \cdots = \Omega
+\tag{6.6.8}
+\end{align}
+\]</div>
+<p>전체 확률의 법칙을 이용하여 다음과 같이 베이즈 정리를 확장할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+P(A_1|B) 
+&amp;= \dfrac{P(B|A_1)P(A_1)}{P(B)} \\
+&amp;= \dfrac{P(B|A_1)P(A_1)}{\sum_i P(A_i, B)} \\
+&amp;= \dfrac{P(B|A_1)P(A_1)}{\sum_i P(B|A_i)P(A_i)} 
+\end{aligned}
+\tag{6.6.9}
+\end{align}
+\end{split}\]</div>
+<p>이 식은 멀티-클래스 분류(multi-class classification) 문제에서 베이즈 정리가 어떻게 사용되는지를 보여주는 수식이다. 멀티-클래스 분류 문제는 여러 배타적이고 완전한 사건 중에서 가장 확률이 높은 하나의 사건을 고르는 문제다. 예를 들어 <span class="math notranslate nohighlight">\(B\)</span>라는 힌트를 주고 1번부터 4번까지의 보기 중 하나를 골라야 하는 4지선다형 문제는 4개의 <span class="math notranslate nohighlight">\(A_1\)</span>, <span class="math notranslate nohighlight">\(A_2\)</span>, <span class="math notranslate nohighlight">\(A_3\)</span>, <span class="math notranslate nohighlight">\(A_4\)</span> 중 <span class="math notranslate nohighlight">\(B\)</span>에 대한 조건부 확률이 가장 높은 사건을 고르는 것과 같다. 이 문제를 풀기 위해서는 위의 베이즈 정리 확장을 사용하여 4개의 조건부 확률값을 비교하면 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_1|B) = \dfrac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)+P(B|A_4)P(A_4)} 
+\tag{6.6.10}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_2|B) = \dfrac{P(B|A_2)P(A_2)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)+P(B|A_4)P(A_4)} 
+\tag{6.6.11}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_3|B) = \dfrac{P(B|A_3)P(A_3)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)+P(B|A_4)P(A_4)} 
+\tag{6.6.12}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_4|B) = \dfrac{P(B|A_4)P(A_4)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)+P(B|A_4)P(A_4)} 
+\tag{6.6.13}
+\end{align}
+\]</div>
+<p>그런데 분모에 있는 <span class="math notranslate nohighlight">\(\sum_i P(B|A_i)P(A_i)\)</span> 식은 <span class="math notranslate nohighlight">\(i\)</span>값이 바뀌어도 항상 같은 값이므로 <span class="math notranslate nohighlight">\(A_1\)</span>, <span class="math notranslate nohighlight">\(A_2\)</span>, <span class="math notranslate nohighlight">\(A_3\)</span>, <span class="math notranslate nohighlight">\(A_4\)</span> 중 <span class="math notranslate nohighlight">\(B\)</span>에 대한 조건부 확률이 가장 높은 사건을 고르는 것이 목적이라면 분자의 값만 비교하면 된다. 다음 식에서 <span class="math notranslate nohighlight">\(\propto\)</span> 기호는 비례한다는 뜻이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_1|B) \propto P(B|A_1)P(A_1)
+\tag{6.6.14}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_2|B) \propto P(B|A_2)P(A_2)
+\tag{6.6.15}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_3|B) \propto P(B|A_3)P(A_3)
+\tag{6.6.16}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A_4|B) \propto P(B|A_4)P(A_4)
+\tag{6.6.17}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(A_1 = A\)</span>, <span class="math notranslate nohighlight">\(A_2 = A^C\)</span> 인 경우에는 다음과 같은 식이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+P(A|B) 
+&amp;= \dfrac{P(B|A)P(A)}{P(B)} \\
+&amp;= \dfrac{P(B|A)P(A)}{P(B,A) + P(B,A^C)} \\
+&amp;= \dfrac{P(B|A)P(A)}{P(B|A)P(A) + P(B|A^C)P(A^C)} \\
+&amp;= \dfrac{P(B|A)P(A)}{P(B|A)P(A) + P(B|A^C)(1 - P(A))} 
+\end{aligned}
+\tag{6.6.18}
+\end{align}
+\end{split}\]</div>
+<p>이 식은 클래스가 2개뿐인 이진 클래스 분류문제에 사용된다. <span class="math notranslate nohighlight">\(P(A|B)\)</span>의 값이 0.5보다 크면 답은 <span class="math notranslate nohighlight">\(A\)</span>이고 반대라면 답은 <span class="math notranslate nohighlight">\(A^C\)</span>이다.</p>
+</div>
+<div class="section" id="id4">
+<h2>검사 시약 문제<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>베이즈 정리를 이용하여 다음과 같은 문제를 풀어보자.</p>
+<p>제약사에서 환자가 특정한 병에 걸린지 확인하는 시약을 만들었다. 그 병에 걸린 환자에게 시약을 테스트한 결과 99%의 확률로 양성 반응을 보였다. 병에 걸린지 확인이 되지 않은 어떤 환자가 이 시약을 테스트한 결과 양성 반응을 보였다면 이 환자가 그 병에 걸려 있을 확률은 얼마인가? 99%일까?</p>
+<p>이 문제를 확률론의 용어로 다시 정리하여 서술해보자.</p>
+<p>우선 환자가 실제로 병에 걸린 경우를 사건 <span class="math notranslate nohighlight">\(D\)</span>라고 하자. 그러면 병에 걸려있지 않은 경우는 사건 <span class="math notranslate nohighlight">\(D^C\)</span> 가 된다.
+또 시약 테스트에서 양성 반응을 보이는 경우를 사건 <span class="math notranslate nohighlight">\(S\)</span>라고 하면 음성 반응을 보이는 경우는 사건 <span class="math notranslate nohighlight">\(S^C\)</span> 이다.</p>
+<p>현재 주어진 확률값은 병에 걸린 환자에게 시약을 테스트했을 때 양성 반응을 보이는 확률이다. 병에 걸렸다는 것은 추가된 조건 혹은 정보이므로 이 확률은 <span class="math notranslate nohighlight">\(P(S|D)\)</span>로 표기할 수 있다.</p>
+<p>그런데 구해야 하는 값은 이것과 반대로 양성 반응을 보이는 환자가 병에 걸려있을 확률이다. 이 때에는 양성 반응을 보인다라는 것이 추가된 정보이므로 이 확률은 <span class="math notranslate nohighlight">\(P(D|S)\)</span>로 표기할 수 있다.</p>
+<ul class="simple">
+<li><p>사건</p></li>
+<li><p>병에 걸리는 경우 : 사건 <span class="math notranslate nohighlight">\(D\)</span></p></li>
+<li><p>양성 반응을 보이는 경우 : 사건 <span class="math notranslate nohighlight">\(S\)</span></p></li>
+<li><p>병에 걸린 사람이 양성 반응을 보이는 경우 : 조건부 사건 <span class="math notranslate nohighlight">\(S|D\)</span></p></li>
+<li><p>양성 반응을 보이는 사람이 병에 걸려 있을 경우 : 조건부 사건 <span class="math notranslate nohighlight">\(D|S\)</span></p></li>
+<li><p>문제</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(S|D)=0.99\)</span>가 주어졌을 때, <span class="math notranslate nohighlight">\(P(D|S)\)</span>를 구하라.</p></li>
+</ul>
+<p>베이즈 정리에서</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(D|S) = \dfrac{P(S|D)P(D)}{P(S)}
+\tag{6.6.19}
+\end{align}
+\]</div>
+<p>임을 알고 있다. 그러나 이 식에서 우리가 알고 있는 것은 <span class="math notranslate nohighlight">\(P(S|D)\)</span> 뿐이고 <span class="math notranslate nohighlight">\(P(D)\)</span>나 <span class="math notranslate nohighlight">\(P(S)\)</span>는 모르기 때문에 <span class="math notranslate nohighlight">\( P(D|S)\)</span> 현재로서는 구할 수 없다. 즉, 99%라고 간단히 말할 수 없다는 것이다.</p>
+<p>추가 조사를 통해 필요한 정보를 다음과 같이 입수했다고 하자.</p>
+<ul class="simple">
+<li><p>이 병은 전체 인구 중 걸린 사람이 0.2%인 희귀병이다.</p></li>
+<li><p>이 병에 걸리지 않은 사람에게 시약 검사를 했을 때, 양성 반응, 즉 잘못된 결과(False Positive)가 나타난 확률이 5%다.</p></li>
+</ul>
+<p>이를 확률론적 용어로 바꾸면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(D) = 0.002
+\tag{6.6.20}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(S|D^C) = 0.05
+\tag{6.6.21}
+\end{align}
+\]</div>
+<p>이 문제는 피검사자가 병에 걸렸는지 걸리지 않았는지를 알아보는 이진 분류 문제이므로 이에 해당하는 베이즈 정리의 확장을 사용하면 다음과 같이 확률을 구할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+P(D|S) 
+&amp;= \dfrac{P(S|D)P(D)}{P(S)} \\
+&amp;= \dfrac{P(S|D)P(D)}{P(S,D) + P(S,D^C)} \\
+&amp;= \dfrac{P(S|D)P(D)}{P(S|D)P(D) + P(S|D^C)P(D^C)} \\
+&amp;= \dfrac{P(S|D)P(D)}{P(S|D)P(D) + P(S|D^C)(1-P(D))} \\
+&amp;= \dfrac{0.99 \cdot 0.002}{0.99 \cdot 0.002 + 0.05 \cdot (1 - 0.002)} \\
+&amp;= 0.038
+\end{aligned}
+\tag{6.6.22}
+\end{align}
+\end{split}\]</div>
+<p>시약 반응에서 양성 반응을 보이는 사람이 실제로 병에 걸려 있을 확률은 약 3.8%에 불과하다.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h1>피지엠파이를 사용한 베이즈 정리 적용<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<p>피지엠파이 패키지는 베이즈 정리에 적용하는 <code class="docutils literal notranslate"><span class="pre">BayesianModel</span></code> 클래스를 제공한다. 베이즈 정리를 적용하려면 조건부확률을 구현하는 <code class="docutils literal notranslate"><span class="pre">TabularCPD</span></code> 클래스를 사용하여 사전확률과 가능도를 구현해야 한다. <code class="docutils literal notranslate"><span class="pre">TabularCPD</span></code> 클래스 객체는 다음과 같이 만든다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TabularCPD</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">variable_card</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">evidence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evidence_card</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">variable</span></code>: 확률변수의 이름 문자열</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">variable_card</span></code>: 확률변수가 가질 수 있는 경우의 수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code>: 조건부확률 배열. 하나의 열(column)이 동일 조건을 뜻하므로 하나의 열의 확률 합은 1이어야 한다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evidence</span></code>: 조건이 되는 확률변수의 이름 문자열의 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evidence_card</span></code>: 조건이 되는 확률변수가 가질 수 있는 경우의 수의 리스트</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">TabularCPD</span></code> 클래스는 원래는 조건부확률을 구현하기 위한 것이지만 <code class="docutils literal notranslate"><span class="pre">evidence=None</span></code>, <code class="docutils literal notranslate"><span class="pre">evidence_card=None</span></code>으로 인수를 주면 일반적인 확률도 구현할 수 있다.</p>
+<p>우선 확률변수 X를 이용하여 병에 걸렸을 사전확률 <span class="math notranslate nohighlight">\(P(D)=P(X=1)\)</span>, 병에 걸리지 않았을 사전확률 <span class="math notranslate nohighlight">\(P(D^C)=P(X=0)\)</span>를 정의한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pgmpy.factors.discrete</span> <span class="kn">import</span> <span class="n">TabularCPD</span>
+
+<span class="n">cpd_X</span> <span class="o">=</span> <span class="n">TabularCPD</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.002</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cpd_X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+-------+
+| X(0) | 0.998 |
++------+-------+
+| X(1) | 0.002 |
++------+-------+
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음으로는 양성 반응이 나올 확률 <span class="math notranslate nohighlight">\(P(S)=P(Y=1)\)</span>, 음성 반응이 나올 확률 <span class="math notranslate nohighlight">\(P(S^C)=P(Y=0)\)</span>를 나타내는 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>를 정의한다.</p>
+<p>확률변수 <span class="math notranslate nohighlight">\(Y\)</span>의 확률을 베이즈 모형에 넣을 때는 <code class="docutils literal notranslate"><span class="pre">TabularCPD</span></code> 클래스를 사용한 조건부확률 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>의 형태로 넣어야 하므로 다음처럼 조건부확률 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>를 구현한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cpd_Y_on_X</span> <span class="o">=</span> <span class="n">TabularCPD</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]]),</span>
+                        <span class="n">evidence</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">],</span> <span class="n">evidence_card</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cpd_Y_on_X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+------+------+
+| X    | X(0) | X(1) |
++------+------+------+
+| Y(0) | 0.95 | 0.01 |
++------+------+------+
+| Y(1) | 0.05 | 0.99 |
++------+------+------+
+</pre></div>
+</div>
+</div>
+</div>
+<p>이제 이 확률변수들이 어떻게 결합되어 있는지는 나타내는 확률모형인  <code class="docutils literal notranslate"><span class="pre">BayesianModel</span></code> 클래스 객체를 만들어야 한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BayesianModel</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">variables</span></code>: 확률모형이 포함하는 확률변수 이름 문자열의 리스트</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">BayesianModel</span></code> 클래스는 다음 메서드를 지원한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">add_cpds()</span></code>: 조건부확률을 추가</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check_model()</span></code>: 모형이 정상적인지 확인. <code class="docutils literal notranslate"><span class="pre">True</span></code>면 정상적인 모형</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pgmpy.models</span> <span class="kn">import</span> <span class="n">BayesianModel</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">BayesianModel</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_cpds</span><span class="p">(</span><span class="n">cpd_X</span><span class="p">,</span> <span class="n">cpd_Y_on_X</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">check_model</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">BayesianModel</span></code> 클래스는 변수 제거법(VariableElimination)을 사용한 추정을 제공한다.
+<code class="docutils literal notranslate"><span class="pre">VariableElimination</span></code> 클래스로 추정(inference) 객체를 만들고 이 객체의 <code class="docutils literal notranslate"><span class="pre">query()</span></code> 메서드를 사용하면 사후확률을 계산한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">query</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">evidences</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">variables</span></code>: 사후확률을 계산할 확률변수의 이름 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evidences</span></code>: 조건이 되는 확률변수의 값을 나타내는 딕셔너리</p></li>
+</ul>
+<p>여기에서는 pgmpy 패키지를 이용하여 베이즈 정리를 적용할 수 있다는 것만 알면 된다. 자세한 내용은 추후 **확률적 그래프 모형(Probabilistic Graphical Model)**에서 다룬다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pgmpy.inference</span> <span class="kn">import</span> <span class="n">VariableElimination</span>
+
+<span class="n">inference</span> <span class="o">=</span> <span class="n">VariableElimination</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">posterior</span> <span class="o">=</span> <span class="n">inference</span><span class="o">.</span><span class="n">query</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">],</span> <span class="n">evidence</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="n">joint</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">posterior</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+----------+
+| X    |   phi(X) |
++======+==========+
+| X(0) |   0.9618 |
++------+----------+
+| X(1) |   0.0382 |
++------+----------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>베이즈 정리의 확장 2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>베이즈 정리는 사건 <span class="math notranslate nohighlight">\(A\)</span>의 확률이 사건 <span class="math notranslate nohighlight">\(B\)</span>에 의해 갱신(update)된 확률을 계산한다. 그런데 만약 이 상태에서 또 추가적인 사건 <span class="math notranslate nohighlight">\(C\)</span>가 발생했다면 베이즈 정리는 다음과 같이 쓸 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A|B,C) = \dfrac{P(C|A,B)P(A|B)}{P(C|B)} 
+\tag{6.6.23}
+\end{align}
+\]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\(P(A|B,C)\)</span>는 <span class="math notranslate nohighlight">\(B\)</span>와 <span class="math notranslate nohighlight">\(C\)</span>가 조건인 <span class="math notranslate nohighlight">\(A\)</span>의 확률이다. 즉 <span class="math notranslate nohighlight">\(P(A| (B \cap C))\)</span>를 뜻한다.</p>
+<p>이 공식을 사건 <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(C\)</span> 만 있는 경우와 비교하면 위 공식을 쉽게 외울 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|C) = \dfrac{P(C|A)P(A)}{P(C)}
+\tag{6.6.24}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B,C) = P(A|B,C)P(B,C) = P(A|B,C)P(C|B)P(B)
+\tag{6.6.25}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B,C) = P(C|A,B)P(A,B) = P(C|A,B)P(A|B)P(B)
+\tag{6.6.26}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B,C)P(C|B)P(B) = P(C|A,B)P(A|B)P(B)
+\tag{6.6.27}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B,C) = \dfrac{P(C|A,B)P(A|B)}{P(C|B)}
+\tag{6.6.28}
+\end{align}
+\]</div>
+<div class="section" id="id7">
+<h3>연습 문제 6.6.1<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>다음 식을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B,C) = \dfrac{P(B|A,C)P(A|C)}{P(B|C)}
+\tag{6.6.29}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id8">
+<h3>연습 문제 6.6.2<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>다음 식을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B,C,D) = \dfrac{P(D|A,B,C)P(A|B,C)}{P(D|B,C)}
+\tag{6.6.30}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 6.6.3<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>다음 식을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B|C,D) = \dfrac{P(D|A,B,C)P(A,B|C)}{P(D|C)}
+\tag{6.6.31}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>몬티 홀 문제<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>몬티 홀 문제(Monty Hall problem)는 다음과 같은 확률문제다.</p>
+<blockquote>
+<div><p>세 개의 문 중에 하나를 선택하여 문 뒤에 있는 선물을 가지는 게임쇼에 참가했다. 한 문 뒤에는 자동차가 있고, 나머지 두 문 뒤에는 염소가 있다. 이때 어떤 사람이 예를 들어 1번 문을 선택했을 때, 게임쇼 진행자는 3번 문을 열어 문뒤에 염소가 있음을 보여주면서 1번 대신 2번을 선택하겠냐고 물었다. 참가자가 자동차를 가지려할 때 원래 선택했던 번호를 바꾸는 것이 유리할까?</p>
+</div></blockquote>
+<img src="https://datascienceschool.net/upfiles/d3f1c93975ef41678b2219a45df5d3c7.png" width="100%"/><p>문의 위치를 0, 1, 2라는 숫자로 표현하면 다음과 같은 확률변수를 사용하여 이 문제를 풀 수 있다.</p>
+<ol class="simple">
+<li><p>자동차가 있는 문을 나타내는 확률변수 <span class="math notranslate nohighlight">\(C\)</span>로 값은 0, 1, 2를 가질 수 있다.</p></li>
+<li><p>참가자가 선택한 문을 나타내는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>로 값은 0, 1, 2를 가질 수 있다.</p></li>
+<li><p>진행자가 열어준 문을 나타내는 확률변수 <span class="math notranslate nohighlight">\(H\)</span>로 값은 0, 1, 2를 가질 수 있다.</p></li>
+</ol>
+<p>이 문제는 참가자와 진행자의 행위를 조건으로, 자동차의 위치를 결과로 하는 조건부 확률을 푸는 문제다. 예를 들어 참가자가 1번 문을 선택하고 진행자가 2번 문을 열어서 자동차가 없다는 것을 보였으면 조건은</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+X_1,H_2
+\tag{6.6.32}
+\end{align}
+\]</div>
+<p>가 된다.
+이때 자동차는 0번 문 아니면 1번 문 뒤에 있으므로 이진 분류 문제가 된다.</p>
+<p>이 문제를 푸는 핵심은 다음 두 가지 사실을 이용하는 것이다.</p>
+<p>(1) 자동차를 놓는 진행자는 참가자의 선택을 예측할 수 없고 참가자는 자동차를 볼 수 없으므로 자동차의 위치와 참가자의 선택은 서로 독립적이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(C,X) = P(C)P(X)
+\tag{6.6.33}
+\end{align}
+\]</div>
+<p>(2) 진행자가 어떤 문을 여는가가 자동차의 위치 및 참가자의 선택에 좌우된다. 예를 들어 자동차가 0번 문 뒤에 있고 참가자가 1번 문을 선택하면 진행자는 2번 문을 열 수 밖에 없다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(H_0|C_0,X_1) = 0
+\tag{6.6.34}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(H_1|C_0,X_1) = 0
+\tag{6.6.35}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(H_2|C_0,X_1) = 1
+\tag{6.6.36}
+\end{align}
+\]</div>
+<p>자동차가 1번 문 뒤에 있는데 참가자가 1번 문을 선택한 경우에는 0번 문과 2번 문 둘 다 열어도 된다. 따라서 진행자가 0번 문이나 2번 문을 열 확률은 0.5다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(H_0|C_1,X_1) = \frac12
+\tag{6.6.37}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(H_1|C_1,X_1) = 0
+\tag{6.6.38}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(H_2|C_1,X_1) = \frac12
+\tag{6.6.39}
+\end{align}
+\]</div>
+<p>이 사실들을 이용하면 참가자가 1번 문을 선택하고 진행자가 2번 문을 열어서 자동차가 없다는 것을 보인 경우에 0번 문 뒤에 차가 있을 확률은 다음처럼 계산할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+P(C_0\,|\,X_1,H_2)
+&amp;= \dfrac{P(C_0,X_1,H_2)}{P(X_1,H_2)} \\
+&amp;= \dfrac{P(H_2|C_0,X_1)P(C_0,X_1)}{P(X_1,H_2)} \\
+&amp;= \dfrac{P(C_0){P(X_1)}}{P(H_2|X_1){P(X_1)}} \\
+&amp;= \dfrac{P(C_0)}{P(H_2|X_1)} \\
+&amp;= \dfrac{P(C_0)}{P(H_2,C_0|X_1)+P(H_2,C_1|X_1)+P(H_2,C_2|X_1)} \\
+&amp;= \dfrac{P(C_0)}{P(H_2|X_1,C_0)P(C_0)+P(H_2|X_1,C_1)P(C_1)+P(H_2|X_1,C_2)P(C_2)} \\
+&amp;= \dfrac{\frac13}{1 \cdot \frac13 + \frac12\cdot \frac13 + 0 \cdot \frac13} \\
+&amp;= \frac23
+\end{aligned}
+\tag{6.6.40}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(C_0\,|\,X_1,H_2) = \frac23
+\tag{6.6.41}
+\end{align}
+\]</div>
+<p>이진 분류 문제이므로</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(C_1\,|\,X_1,H_2) = 1 - P(C_0\,|\,X_1,H_2) = \frac13
+\tag{6.6.42}
+\end{align}
+\]</div>
+<p>따라서 0번 문 뒤에 자동차가 있을 확률은 1번 문 뒤에 자동차가 있을 확률의 2배이다. 참가자는 선택을 바꾸는 것이 유리하다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.1 엔트로피 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/10.01 엔트로피.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/10.01 엔트로피.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/10.01 엔트로피.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   엔트로피의 정의
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     연습 문제 10.1.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     연습 문제 10.1.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   엔트로피의 성질
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   엔트로피의 추정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 10.1.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   가변길이 인코딩
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 10.1.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   지니불순도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   엔트로피 최대화
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     연습 문제 10.1.5
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>10.1 엔트로피<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><span class="math notranslate nohighlight">\(Y=0\)</span> 또는 <span class="math notranslate nohighlight">\(Y=1\)</span> 인 두 가지 값을 가지는 확률변수의 확률분포가 다음과 같이 세 종류가 있다고 하자.</p>
+<ul class="simple">
+<li><p>확률분포 <span class="math notranslate nohighlight">\(Y_1\)</span> : <span class="math notranslate nohighlight">\(P(Y=0)=0.5\)</span>, <span class="math notranslate nohighlight">\(P(Y=1)=0.5\)</span></p></li>
+<li><p>확률분포 <span class="math notranslate nohighlight">\(Y_2\)</span> : <span class="math notranslate nohighlight">\(P(Y=0)=0.8\)</span>, <span class="math notranslate nohighlight">\(P(Y=1)=0.2\)</span></p></li>
+<li><p>확률분포 <span class="math notranslate nohighlight">\(Y_3\)</span> : <span class="math notranslate nohighlight">\(P(Y=0)=1.0\)</span>, <span class="math notranslate nohighlight">\(P(Y=1)=0.0\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Y=0&quot;</span><span class="p">,</span> <span class="s2">&quot;Y=1&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$Y_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Y=0&quot;</span><span class="p">,</span> <span class="s2">&quot;Y=1&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$Y_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Y=0&quot;</span><span class="p">,</span> <span class="s2">&quot;Y=1&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$Y_3$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/10.01 엔트로피_2_0.png" src="../_images/10.01 엔트로피_2_0.png" />
+</div>
+</div>
+<p>베이지안 관점에서 위 확률분포는 다음과 같은 정보를 나타낸다.</p>
+<ul class="simple">
+<li><p>확률분포 <span class="math notranslate nohighlight">\(Y_1\)</span>은 <span class="math notranslate nohighlight">\(y\)</span>값에 대해 아무것도 모르는 상태</p></li>
+<li><p>확률분포 <span class="math notranslate nohighlight">\(Y_2\)</span>은 <span class="math notranslate nohighlight">\(y\)</span>값이 0이라고 믿지만 아닐 가능성도 있다는 것을 아는 상태</p></li>
+<li><p>확률분포 <span class="math notranslate nohighlight">\(Y_3\)</span>은 <span class="math notranslate nohighlight">\(y\)</span>값이 0이라고 100% 확신하는 상태</p></li>
+</ul>
+<p>확률분포가 가지는 이러한 차이를 하나의 숫자로 나타낸 것이 바로 엔트로피다.</p>
+<div class="section" id="id2">
+<h2>엔트로피의 정의<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>**엔트로피(entropy)**는 확률분포가 가지는 정보의 확신도 혹은 정보량을 수치로 표현한 것이다. 확률분포에서 특정한 값이 나올 확률이 높아지고 나머지 값의 확률은 낮아진다면 엔트로피가 작아진다. 빈대로 여러가지 값이 나올 확률이 대부분 비슷한 경우에는 엔트로피가 높아진다. 엔트로피는 확률분포의 모양이 어떤지를 나타내는 특성값 중 하나로 볼 수도 있다. 확률 또는 확률밀도가 특정값에 몰려있으면 엔트로피가 작다고 하고 반대로 여러가지 값에 골고루 퍼져 있다면 엔트로피가 크다고 한다.</p>
+<p>확률분포의 엔트로피는 물리학의 엔트로피 용어를 빌려온 것이다. 물리학에서는 물질의 상태가 분산되는 정도를 엔트로피로 정의한다. 물체의 상태가 여러가지로 고루 분산되어 있으면 엔트로피가 높고 특정한 하나의 상태로 몰려있으면 엔트로피가 낮다.</p>
+<p>수학적으로 엔트로피는 확률분포함수를 입력으로 받아 숫자를 출력하는 범함수(functional)로 정의한다. <span class="math notranslate nohighlight">\(H[]\)</span>기호로 표기한다.</p>
+<p>확률변수 <span class="math notranslate nohighlight">\(Y\)</span>가 카테고리분포와 같은 이산확률변수이면 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[Y] = -\sum_{k=1}^K p(y_k) \log_2 p(y_k)
+\tag{10.1.1}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(K\)</span>는 <span class="math notranslate nohighlight">\(X\)</span>가 가질 수 있는 클래스의 수이고 <span class="math notranslate nohighlight">\(p(y)\)</span>는 확률질량함수다. 확률의 로그값이 항상 음수이므로 음수 기호를 붙여서 양수로 만들었다.</p>
+<p>확률변수 <span class="math notranslate nohighlight">\(Y\)</span>가 정규분포와 같은 연속확률변수이면 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[Y] = -\int_{-\infty}^{\infty} p(y) \log_2 p(y) \; dy
+\tag{10.1.2}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(p(y)\)</span>는 확률밀도함수다.</p>
+<p>로그의 밑(base)이 2로 정의된 것은 정보통신과 관련을 가지는 역사적인 이유 때문이다.</p>
+<p>엔트로피 계산에서 <span class="math notranslate nohighlight">\(p(y)=0\)</span>인 경우에는 로그값이 정의되지 않으므로 다음과 같은 극한값을 사용한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\lim_{p\rightarrow 0} \; p\log_2{p} = 0
+\tag{10.1.3}
+\end{align}
+\]</div>
+<p>이 값은 로피탈의 정리(l’Hôpital’s rule)에서 구할 수 있다.</p>
+<p>위에서 예를 든 <span class="math notranslate nohighlight">\(Y_1\)</span>, <span class="math notranslate nohighlight">\(Y_2\)</span>, <span class="math notranslate nohighlight">\(Y_3\)</span> 3 개의 이산확률분포에 대해 엔트로피를 구하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[Y_1] = -\dfrac{1}{2} \log_2 \dfrac{1}{2} -\dfrac{1}{2} \log_2 \dfrac{1}{2} = 1
+\tag{10.1.4}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[Y_2] = -\dfrac{8}{10} \log_2 \dfrac{8}{10} -\dfrac{2}{10} \log_2 \dfrac{2}{10} \approx 0.72
+\tag{10.1.5}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[Y_3] = -1 \log_2 1 -0 \log_2 0 = 0
+\tag{10.1.6}
+\end{align}
+\]</div>
+<p>다음은 넘파이로 엔트로피를 계산한 결과다. 확률값이 0일 때는 가장 작은 값인 <code class="docutils literal notranslate"><span class="pre">eps</span></code>를 대신 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mf">0.8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7219280948873623
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+<span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">eps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.1546319456101628e-14
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>연습 문제 10.1.1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>베르누이분포에서 확률값 <span class="math notranslate nohighlight">\(P(Y=1)\)</span>은 0부터 1까지의 값을 가질 수 있다. 각각의 값에 대해 엔트로피를 계산하여 가로축이 <span class="math notranslate nohighlight">\(P(Y=1)\)</span>이고 세로축이 <span class="math notranslate nohighlight">\(H[Y]\)</span>인 그래프를 그려라.</p>
+</div>
+<div class="section" id="id4">
+<h3>연습 문제 10.1.2<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>다음 확률분포의 엔트로피를 계산하라.</p>
+<p>(1) <span class="math notranslate nohighlight">\(P(Y=0)=\dfrac{1}{8}, P(Y=1)=\dfrac{1}{8}, P(Y=2)=\dfrac{1}{4}, P(Y=3)=\dfrac{1}{2}\)</span></p>
+<p>(2) <span class="math notranslate nohighlight">\(P(Y=0)=1, P(Y=1)=0, P(Y=2)=0, P(Y=3)=0\)</span></p>
+<p>(3) <span class="math notranslate nohighlight">\(P(Y=0)=\dfrac{1}{4}, P(Y=1)=\dfrac{1}{4}, P(Y=2)=\dfrac{1}{4}, P(Y=3)=\dfrac{1}{4}\)</span></p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>엔트로피의 성질<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>확률변수가 결정론적이면 확률분포에서 특정한 하나의 값이 나올 확률이 1이다. 이 때 엔트로피는 0이 되고 이 값은 엔트로피가 가질 수 있는 최솟값이다.</p>
+<p>반대로 엔트로피의 최대값은 이산 확률변수의 클래스의 갯수에 따라 달라진다. 만약 이산확률분포가 가질 수 있는 값이 <span class="math notranslate nohighlight">\(2^K\)</span>개면 엔트로피의 최대값은 각 값에 대한 확률이 모두 같은 값인 <span class="math notranslate nohighlight">\(\dfrac{1}{2^K}\)</span>이다. 엔트로피의 값은</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H = -2^K \cdot \frac{1}{2^K}\log_2\dfrac{1}{2^K} = K
+\tag{10.1.7}
+\end{align}
+\]</div>
+<p>이다.</p>
+</div>
+<div class="section" id="id6">
+<h2>엔트로피의 추정<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>이론적인 확률밀도함수가 없고 실제 데이터가 주어진 경우에는 데이터에서 확률질량함수를 추정한 후, 이를 기반으로 엔트로피를 계산한다.</p>
+<p>예를 들어 데이터가 모두 80개가 있고 그 중 Y = 0 인 데이터가 40개, Y = 1인 데이터가 40개 있는 경우는 엔트로피가 1이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(y=0) = \dfrac{40}{80} = \dfrac{1}{2}
+\tag{10.1.8}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(y=1) = \dfrac{40}{80} = \dfrac{1}{2}
+\tag{10.1.9}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y] = -\dfrac{1}{2}\log_2\left(\dfrac{1}{2}\right) -\dfrac{1}{2}\log_2\left(\dfrac{1}{2}\right) = \dfrac{1}{2} + \dfrac{1}{2}  = 1 
+\tag{10.1.10}
+\end{align}
+\]</div>
+<p>사이파이의 stats 서브패키지는 엔트로피를 구하는 <code class="docutils literal notranslate"><span class="pre">entropy</span></code> 함수를 제공한다. <code class="docutils literal notranslate"><span class="pre">base</span></code> 인수값은 2가 되어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 10.1.3<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>(1) 데이터가 모두 60개가 있고 그 중 <span class="math notranslate nohighlight">\(Y=0\)</span>인 데이터가 20개, <span class="math notranslate nohighlight">\(Y=1\)</span>인 데이터가 40개 있는 경우의 엔트로피를 계산하라.</p>
+<p>(2) 데이터가 모두 40개가 있고 그 중 <span class="math notranslate nohighlight">\(Y=0\)</span>인 데이터가 30개, <span class="math notranslate nohighlight">\(Y=1\)</span>인 데이터가 10개 있는 경우의 엔트로피를 계산하라.</p>
+<p>(3) 데이터가 모두 20개가 있고 그 중 <span class="math notranslate nohighlight">\(Y=0\)</span>인 데이터만 20개 있는 경우의 엔트로피를 계산하라.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>가변길이 인코딩<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>엔트로피는 원래 통신 분야에서 데이터가 가지고 있는 정보량을 계산하기 위해 고안되었다. 예를 들어 4개의 글자 A, B, C, D로 씌여진 다음과 같은 문서가 있다고 하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">doc0</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">c</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">&quot;ABCD&quot;</span><span class="p">)]))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">doc0</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc0</span><span class="p">)</span>
+<span class="n">doc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;BDABABACBABBAACADAADAAADAAAAAABBAABADAAAAABBACAABACBBACDBAAACBCABBAABAAAAADDBABCBDBBDDBAABBBADCACAADAADCABADCAAAAACADBAABABCBAACAAABCDAADDCCCAAABABBDACACAAAAAABABBADABBABDBADBACAABDCAAABAAABACCDABAABA&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 문서를 0과 1로 이루어진 이진수로 변환해야 하면 보통 다음처럼 인코딩한다.</p>
+<ul class="simple">
+<li><p>A = “00”</p></li>
+<li><p>B = “01”</p></li>
+<li><p>C = “10”</p></li>
+<li><p>D = “11”</p></li>
+</ul>
+<p>이렇게 인코딩을 하면 200 글자로 이루어진 문서는 이진수 400개가 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encoder</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;00&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;11&quot;</span><span class="p">}</span>
+<span class="n">encoded_doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">encoder</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">])</span>
+<span class="n">encoded_doc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0111000100010010010001010000100011000011000000110000000000000101000001001100000000000101001000000100100101001011010000001001100001010000010000000000111101000110011101011111010000010101001110001000001100001110000100111000000000001000110100000100011001000010000000011011000011111010100000000100010111001000100000000000000100010100110001010001110100110100100000011110000000010000000100101011000100000100&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">encoded_doc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>400
+</pre></div>
+</div>
+</div>
+</div>
+<p>그런데 이진수로 변환할 때 더 글자수를 줄일 수 있는 방법이 있다. 우선 위 글자의 분포를 조사하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;ABCD&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;글자수의 분포&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/10.01 엔트로피_29_0.png" src="../_images/10.01 엔트로피_29_0.png" />
+</div>
+</div>
+<p>글자수의 분포가 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(Y=A)=\dfrac{1}{2}, P(Y=B)=\dfrac{1}{4}, P(Y=C)=\dfrac{1}{8}, P(Y=D)=\dfrac{1}{8}
+\tag{10.1.11}
+\end{align}
+\]</div>
+<p>지프의 법칙(Zipf’s law)에 따르면 이러한 분포는 현실의 글자 빈도수에서도 흔히 나타난다.</p>
+<p>확률분포가 위와 같을 때는 다음처럼 인코딩하면 인코딩된 후의 이진수 수를 줄일 수 있다.</p>
+<ul class="simple">
+<li><p>A = “0”</p></li>
+<li><p>B = “10”</p></li>
+<li><p>C = “110”</p></li>
+<li><p>D = “111”</p></li>
+</ul>
+<p>이 방법은 글자마다 인코딩하는 이진수의 숫자가 다르기 때문에 **가변길이 인코딩(variable length encoding)**이라고 한다. 가장 많이 출현하는 ‘A’는 두 글자가 아닌 한 글자이므로 인코딩 후의 이진수 수가 감소한다. 반대로 ‘C’, ‘D’는 이진수의 수가 3개로 많지만 글자의 빈도가 적어서 영향이 적다.</p>
+<p>만약 문서의 분포가 위에서 가정한 분포와 정확하게 같다면 인코딩된 이진수의 숫자는 다음 계산에서 350개가 됨을 알 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\left(200 \times \dfrac{1}{2}\right) \cdot 1 + 
+\left(200 \times \dfrac{1}{4}\right) \cdot 2 + 
+\left(200 \times \dfrac{1}{8}\right) \cdot 3 + 
+\left(200 \times \dfrac{1}{8}\right) \cdot 3 = 350
+\tag{10.1.12}
+\end{align}
+\]</div>
+<p>따라서 알파벳 한 글자를 인코딩하는데 필요한 평균 비트(bit)수는 <span class="math notranslate nohighlight">\(350 \div 200 = 1.75\)</span>이고 이 값은 확률변수의 엔트로피 값과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H = -\dfrac{1}{2}\log_2\dfrac{1}{2} -\dfrac{1}{4}\log_2\dfrac{1}{4} -\dfrac{2}{8}\log_2\dfrac{1}{8} = 1.75
+\tag{10.1.13}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vl_encoder</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;110&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;111&quot;</span><span class="p">}</span>
+<span class="n">vl_encoded_doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">vl_encoder</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">])</span>
+<span class="n">vl_encoded_doc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;10111010010011010010100011001110011100011100000010100010011100000101001100010011010100110111100001101011001010001000000111111100101101011110101111111000101010011111001100011100111110010011111000000110011110001001011010001100001011011100111111110110110000100101011101100110000000100101001110101001011110011110011000101111100001000010011011011101000100&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">vl_encoded_doc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>350
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">],</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.75
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 10.1.4<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>A, B, C, D, E, F, G, H의 8글자로 이루어진 문서가 있고 각각의 글자가 나올 확률이 다음과 같다고 가정하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Big\{ \dfrac{1}{2}, \dfrac{1}{4}, \dfrac{1}{8}, \dfrac{1}{16}, \dfrac{1}{64}, \dfrac{1}{64}, \dfrac{1}{64}, \dfrac{1}{64} \Big\}
+\tag{10.1.14}
+\end{align}
+\]</div>
+<p>이 문서를 위한 가변길이 인코딩 방식을 서술하고 한 글자를 인코딩하는데 필요한 평균 비트수를 계산하라.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>지니불순도<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>엔트로피와 유사한 개념으로 **지니불순도(Gini impurity)**라는 것이 있다. 지니불순도는 엔트로피처럼 확률분포가 어느쪽에 치우쳐있는가를 재는 척도지만 로그를 사용하지 않으므로 계산량이 더 적어 엔트로피 대용으로 많이 사용된다. 경제학에서도 사용되지만 지니계수(Gini coefficient)와는 다른 개념이라는 점에 주의해야 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+G[Y] = \sum_{k=1}^K P(y_k) (1 - P(y_k))
+\tag{10.1.15}
+\end{align}
+\]</div>
+<p>다음 그림은 값이 두 개인 이산확률분포에서 지니불순도와 엔트로피를 비교한 결과다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">P1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">P0</span>
+<span class="n">H</span> <span class="o">=</span> <span class="o">-</span> <span class="n">P0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">P0</span><span class="p">)</span> <span class="o">-</span> <span class="n">P1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">P1</span><span class="p">)</span>
+<span class="n">G</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">P0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">P0</span><span class="p">)</span> <span class="o">+</span> <span class="n">P1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">P1</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P1</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;엔트로피&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P1</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;지니불순도&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;P(Y=1)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/10.01 엔트로피_39_0.png" src="../_images/10.01 엔트로피_39_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>엔트로피 최대화<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>기댓값 0, 분산 <span class="math notranslate nohighlight">\(\sigma^2\)</span>이 주어졌을 때 엔트로피 <span class="math notranslate nohighlight">\(\text{H}[p(x)]\)</span>를 가장 크게 만드는 확률밀도함수 <span class="math notranslate nohighlight">\(p(x)\)</span>는 정규분포가 된다. 이는 다음처럼 증명한다.</p>
+<p>우선 확률밀도함수가 지켜야할 제한조건은 다음과 같다.</p>
+<p>(1) 확률밀도함수의 총면적은 1</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_{-\infty}^{\infty} p(x) dx = 1
+\tag{10.1.16}
+\end{align}
+\]</div>
+<p>(2) 기댓값은 0</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_{-\infty}^{\infty} xp(x) dx = 0
+\tag{10.1.17}
+\end{align}
+\]</div>
+<p>(3) 분산은 <span class="math notranslate nohighlight">\(\sigma^2\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_{-\infty}^{\infty} x^2 p(x) dx = \sigma^2
+\tag{10.1.18}
+\end{align}
+\]</div>
+<p>최대화할 목적범함수(objective functional)은 엔트로피다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{H}[p(x)] = -\int_{-\infty}^{\infty} p(x)\log p(x) dx
+\tag{10.1.19}
+\end{align}
+\]</div>
+<p>라그랑주 승수법으로 제한조건을 추가하면 다음과 같아진다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\text{H}[p(x)] 
+&amp;= -\int_{-\infty}^{\infty} p(x)\log p(x) dx + \lambda_1 \left( \int_{-\infty}^{\infty} p(x) dx - 1 \right) \\
+&amp; + \lambda_2 \left( \int_{-\infty}^{\infty} xp(x) dx\right)
+ + \lambda_3 \left( \int_{-\infty}^{\infty} x^2 p(x) dx - \sigma^2 \right) \\
+&amp;= \int_{-\infty}^{\infty} \left(
+-p(x)\log p(x) + \lambda_1 p(x) + \lambda_2 xp(x) + \lambda_3 x^2p(x) 
+- \lambda_1 - \lambda_3 \sigma^2
+\right) dx
+\end{aligned}
+\tag{10.1.20}
+\end{align}
+\end{split}\]</div>
+<p>변분법에서 도함수는 다음과 같이 계산된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\delta H}{\delta p(x)} = 
+-\log p(x) - 1 + \lambda_1 + \lambda_2 x + \lambda_3 x^2 = 0
+\tag{10.1.21}
+\end{align}
+\]</div>
+<p>따라서 확률밀도함수의 형태는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+p(x) = \exp \left( - 1 + \lambda_1 + \lambda_2 x + \lambda_3 x^2 \right)
+\tag{10.1.22}
+\end{align}
+\]</div>
+<p>적분을 통해 위 형태의 확률밀도함수의 면적, 기대값, 분산을 계산하고 주어진 제한조건을 만족하도록 연립방정식을 풀면 라그랑주 승수를 다음처럼 구할 수 있다. 이 과정은 이 책의 범위를 벗어나므로 생략한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\lambda_1 &amp;= 1-\dfrac{1}{2} \log{2\pi\sigma^2} \\
+\lambda_2 &amp;= 0 \\
+\lambda_3 &amp;= -\dfrac{1}{2\sigma^2} \\
+\end{aligned}
+\tag{10.1.23}
+\end{align}
+\end{split}\]</div>
+<p>이 값을 대입하면 정규분포라는 것을 알 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+p(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\dfrac{x^2}{2\sigma^2} \right)
+\tag{10.1.24}
+\end{align}
+\]</div>
+<p>따라서 정규분포는 기댓값과 표준편차를 알고있는 확률분포 중에서 가장 엔트로피가 크고 따라서 가장 정보가 적은 확률분포다. 정규분포는 베이즈 추정에서 있어서 사실상의 무정보 사전확률분포로 사용되는 경우가 많다.</p>
+<div class="section" id="id12">
+<h3>연습 문제 10.1.5<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>정규분포의 확륲밀도함수에 대한 엔트로피값이 다음과 같음을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+p(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\dfrac{x^2}{2\sigma^2} \right)
+\tag{10.1.25}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{H}[p(x)] = \dfrac{1}{2} ( 1 + \log 2\pi\sigma^2 ) 
+\tag{10.1.26}
+\end{align}
+\]</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

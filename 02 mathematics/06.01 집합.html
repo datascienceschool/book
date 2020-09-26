@@ -1,0 +1,842 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.1 집합 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/06.01 집합.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/06.01 집합.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/06.01 집합.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   집합과 원소
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   집합의 크기
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   합집합과 교집합
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   전체집합, 부분집합, 여집합
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   차집합과 여집합
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   공집합
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   부분집합의 수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 6.1.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   합집합과 교집합의 분배 법칙
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     연습 문제 6.1.2
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>6.1 집합<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>확률을 수학적으로 정의하기 위해서는 집합에 대한 지식이 필요하다. 따라서 확률론 공부에 들어가기 전에 집합론의 기초를 간단하게 복습한다. 파이썬에서 집합을 사용하기 위해 필요한 <code class="docutils literal notranslate"><span class="pre">set</span></code> 자료형과 <code class="docutils literal notranslate"><span class="pre">frozenset</span></code> 자료형의 사용법도 같이 살펴본다.</p>
+<div class="section" id="id2">
+<h2>집합과 원소<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>구별 가능한 객체의 모임을 **집합(set)**이라고 하고 집합에 포함된 구별 가능한 객체를 그 집합의 **원소(element)**라고 한다. 집합은 보통 알파벳 대문자를 사용하여 표시하고 원소는 알파벳 소문자로 표시한다.</p>
+<p>원소 <span class="math notranslate nohighlight">\(x\)</span>와 그 원소를 포함하는 집합 <span class="math notranslate nohighlight">\(A\)</span>의 관계는 다음처럼 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x \in A 
+\tag{6.1.1}
+\end{align}
+\]</div>
+<p>만약 원소 <span class="math notranslate nohighlight">\(x\)</span>가 집합 <span class="math notranslate nohighlight">\(A\)</span>에 포함되지 않는다면 다음처럼 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x \notin A 
+\tag{6.1.2}
+\end{align}
+\]</div>
+<p>따라서 만약 <span class="math notranslate nohighlight">\( A = \{ 1, 2, 3 \} \)</span>이면,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+1 \in A, \;\;\; 4 \notin A
+\tag{6.1.3}
+\end{align}
+\]</div>
+<p>이다.</p>
+<p>집합을 이루는 객체가 반드시 숫자일 필요는 없다. 다음처럼 어떠한 원소도 포함할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+B = \{ H, T \}
+\tag{6.1.4}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+C = \{ \spadesuit, \heartsuit, \diamondsuit, \clubsuit \}
+\tag{6.1.5}
+\end{align}
+\]</div>
+<p>파이썬에서는 <code class="docutils literal notranslate"><span class="pre">set</span></code>과 <code class="docutils literal notranslate"><span class="pre">frozenset</span></code> 자료형으로 집합을 나타낸다. <code class="docutils literal notranslate"><span class="pre">set</span></code>은 내용을 변경할 수 있는 뮤터블(mutable)자료형이고 <code class="docutils literal notranslate"><span class="pre">frozenset</span></code>은 내용을 변경할 수 없는 임뮤터블(immutable)자료형이다. (리스트 자료형과 튜플 자료형의 관계와 같다.) 뮤터블 자료형은 딕셔너리(dictionary) 자료형의 키(key)나 혹은 set 자료형의 원소가 될 수 없다. 임뮤터블 자료형만 딕셔너리 자료형의 키나 set 자료형의 원소가 될 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># 중복된 자료는 없어진다.</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1, 2, 3}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">])</span>
+<span class="n">B</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>frozenset({&#39;H&#39;, &#39;T&#39;})
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">set</span></code> 자료형은 <code class="docutils literal notranslate"><span class="pre">{</span></code> <code class="docutils literal notranslate"><span class="pre">}</span></code> 기호를 사용하여 만들 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;</span><span class="se">\u2660</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\u2661</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\u2662</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\u2663</span><span class="s2">&quot;</span><span class="p">}</span>
+<span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;♠&#39;, &#39;♡&#39;, &#39;♢&#39;, &#39;♣&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>set
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>집합의 크기<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>집합의 **크기(cardinality)**는 집합이 가지는 원소의 갯수를 말한다. <span class="math notranslate nohighlight">\(\vert A \vert\)</span> 기호나 <span class="math notranslate nohighlight">\(\text{card}\)</span> 기호를 사용하여 나타낸다. 만약 <span class="math notranslate nohighlight">\( A = \{ 1, 2, 3 \} \)</span>이면,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+|A| = \text{card}(A) = 3
+\tag{6.1.6}
+\end{align}
+\]</div>
+<p>이다.</p>
+<p>파이썬에서는 <code class="docutils literal notranslate"><span class="pre">len</span></code> 명령을 사용하여 집합의 원소의 갯수를 구한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 2, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<p>두 실수 사이에는 항상 다른 실수가 존재하므로 다음과 같은 실수 구간 집합은 무한개의 원소를 가진 집합이다. 예를 들어 다음 집합은 0보다 크고 1보다 같거나 작은 모든 실수로 이루어진 집합이며 원소의 갯수는 무한히 많다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+D = \{ x: 0 &lt; x \leq 1 \}
+\tag{6.1.7}
+\end{align}
+\]</div>
+<p>이러한 집합은 파이썬의 <code class="docutils literal notranslate"><span class="pre">set</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">frozenset</span></code> 자료형으로 표현할 수 없다.</p>
+</div>
+<div class="section" id="id4">
+<h2>합집합과 교집합<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>두 집합의 **합집합(union)**은 각 집합의 원소를 모두 포함하는 집합을 말하고 <span class="math notranslate nohighlight">\(\cup\)</span> 기호를 사용하여 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \cup B 
+\tag{6.1.8}
+\end{align}
+\]</div>
+<p>두 집합의 **교집합(intersection)**은 두 사건 모두에 속하는 원소로만 이루어진 집합을 말하고 <span class="math notranslate nohighlight">\(\cap\)</span> 기호를 사용하여 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \cap B 
+\tag{6.1.9}
+\end{align}
+\]</div>
+<p>파이썬에서는 <code class="docutils literal notranslate"><span class="pre">union</span></code>, <code class="docutils literal notranslate"><span class="pre">intersection</span></code> 메서드나 <code class="docutils literal notranslate"><span class="pre">|</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> 연산자를 사용하여 합집합과 교집합을 구할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A1</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">A2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">A3</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">A4</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1, 2, 3, 4, 6}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A2</span> <span class="o">|</span> <span class="n">A1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1, 2, 3, 4, 6}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A3</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">A4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{2, 3}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A4</span> <span class="o">&amp;</span> <span class="n">A3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{2, 3}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>전체집합, 부분집합, 여집합<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>어떤 집합의 원소 중 일부만을 포함하는 집합을 **부분집합(subset)**이라고 하고 원래의 집합을 <strong>전체집합</strong>이라고 한다. 집합 <span class="math notranslate nohighlight">\(A\)</span>가 집합 <span class="math notranslate nohighlight">\(\Omega\)</span>의 의 부분집합이면 다음처럼 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \subset \Omega 
+\tag{6.1.10}
+\end{align}
+\]</div>
+<p>모든 집합은 자기 자신의 부분집합이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \subset A, \;\text{ for all } A
+\tag{6.1.11}
+\end{align}
+\]</div>
+<p>원소의 크기가 더 작은 부분집합을 **진부분집합(proper subset)**이라고 한다.</p>
+<p>파이썬에서는 두 집합이 부분집합인지를 알아보는 <code class="docutils literal notranslate"><span class="pre">issubset</span></code> 메서드가 있다. 객체가 인수의 부분집합이면 <code class="docutils literal notranslate"><span class="pre">True</span></code>를 반환한다. 등호를 포함하는 부등식 연산자로도 같은 결과를 구할 수 있다. 더 작은 쪽이 부분집합이다. 등호가 없는 부등식 연산자는 진부분집합 관계를 구한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A3</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A3</span> <span class="o">&lt;=</span> <span class="n">A1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A3</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A3</span> <span class="o">&lt;=</span> <span class="n">A2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A3</span> <span class="o">&lt;=</span> <span class="n">A3</span>  <span class="c1"># 모든 집합은 자기 자신의 부분집합이다.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A3</span> <span class="o">&lt;</span> <span class="n">A3</span>  <span class="c1"># 모든 집합은 자기 자신의 진부분집합이 아니다.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>차집합과 여집합<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>어떤 집합 <span class="math notranslate nohighlight">\(A\)</span>에 속하면서 다른 집합 <span class="math notranslate nohighlight">\(B\)</span>에는 속하지 않는 원소로 이루어진 <span class="math notranslate nohighlight">\(A\)</span>의 부분집합을 <span class="math notranslate nohighlight">\(A\)</span>에서 <span class="math notranslate nohighlight">\(B\)</span>를 뺀 **차집합(difference)**이라고 하며</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A-B 
+\tag{6.1.12}
+\end{align}
+\]</div>
+<p>로 나타낸다.</p>
+<p>전체집합 <span class="math notranslate nohighlight">\(\Omega\)</span> 중에서 부분집합 <span class="math notranslate nohighlight">\(A\)</span>에 속하지 않은 원소로만 이루어진 부분집합을 <strong>여집합</strong>(complement)이라고 하고 윗첨자 <span class="math notranslate nohighlight">\(C\)</span>를 사용하여</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A^C
+\tag{6.1.13}
+\end{align}
+\]</div>
+<p>로 표시한다.
+여집합 <span class="math notranslate nohighlight">\(A^C\)</span>은 전체집합에서 집합 <span class="math notranslate nohighlight">\(A\)</span>를 뺀 차집합과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A^C = \Omega - A
+\tag{6.1.14}
+\end{align}
+\]</div>
+<p>파이썬에서는 <code class="docutils literal notranslate"><span class="pre">difference</span></code> 메서드 혹은 <code class="docutils literal notranslate"><span class="pre">-</span></code> 연산자로 차집합을 구한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A1</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1, 3}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A1</span> <span class="o">-</span> <span class="n">A2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1, 3}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>공집합<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>아무런 원소도 포함하지 않는 집합을 **공집합(null set)**이라고 하며 <span class="math notranslate nohighlight">\(\emptyset\)</span> 기호로 나타낸다.</p>
+<p>공집합은 모든 집합의 부분집합이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\emptyset \subset A, \;\text{ for all } A 
+\tag{6.1.15}
+\end{align}
+\]</div>
+<p>또한 임의의 집합과 공집합의 교집합은 공집합이, 임의의 집합과 공집합의 합집합은 그 집합 자신이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \cap \emptyset = \emptyset 
+\tag{6.1.16}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \cup \emptyset = A  
+\tag{6.1.17}
+\end{align}
+\]</div>
+<p>여집합과 원래의 집합의 교집합은 공집합이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \cap A^C = \emptyset
+\tag{6.1.18}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">empty_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
+<span class="n">empty_set</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>set()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">empty_set</span> <span class="o">&lt;</span> <span class="n">A1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">empty_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>set()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">empty_set</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1, 2, 3, 4}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>부분집합의 수<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>집합 <span class="math notranslate nohighlight">\(A = \{ 1, 2 \}\)</span>는 다음과 같은 4개의 부분집합을 가진다. 공집합과 자기 자신인 집합도 부분집합이라는 점에 주의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A_1 = \emptyset
+\tag{6.1.19}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A_2 = \{ 1 \}
+\tag{6.1.20}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A_3 = \{ 2 \}
+\tag{6.1.21}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A_4 = \{ 1, 2 \}
+\tag{6.1.22}
+\end{align}
+\]</div>
+<p>부분집합을 만들때 우리가 결정할 수 있는 것은 각각의 원소가 우리가 만들고자 하는 부분집합에 포함되느냐 포함되지 않느냐이다.  <span class="math notranslate nohighlight">\(N\)</span>개의 원소 모두에 대해 이러한 의사결정을 하면 부분집합의 갯수는 우리가 할 수 있는 의사결정의 가짓수인 <span class="math notranslate nohighlight">\(2^N\)</span>개가 된다.</p>
+<blockquote>
+<div><p><strong>[정리]</strong> 원소의 갯수가  <span class="math notranslate nohighlight">\(N\)</span>개인 집합은 <span class="math notranslate nohighlight">\(2^N\)</span>개의 부분집합을 가진다.</p>
+</div></blockquote>
+<div class="section" id="id9">
+<h3>연습 문제 6.1.1<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>다음 집합의 부분집합을 생각한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Omega = \{ HH, HT, TH, TT \}
+\tag{6.1.23}
+\end{align}
+\]</div>
+<p>(1) 이 집합의 부분집합의 갯수는?</p>
+<p>(2) 이 집합의 모든 부분집합을 <code class="docutils literal notranslate"><span class="pre">frozenset</span></code> 자료형 객체로 만들고 이 부분집합들을 원소로 가지는 하나의 <code class="docutils literal notranslate"><span class="pre">set</span></code> 객체를 만든다. 이 집합은 일종의 “부분집합의 집합”이 된다.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>합집합과 교집합의 분배 법칙<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>곱셈과 덧셈의 분배 법칙은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+a \times (b + c) = a \times b + a \times c
+\tag{6.1.24}
+\end{align}
+\]</div>
+<p>곱셈과 덧셈의 분배 법칙처럼 교집합과 합집합도 괄호를 풀어내는 분배법칙이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \cup (B \cap C) = (A \cup B) \cap (A \cup C)
+\tag{6.1.25}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \cap (B \cup C) = (A \cap B) \cup (A \cap C) 
+\tag{6.1.26}
+\end{align}
+\]</div>
+<div class="section" id="id11">
+<h3>연습 문제 6.1.2<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>다음 세 집합 <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(C\)</span>에 대해 위에서 말한 두가지 분배법칙이 성립하는지 파이썬 코드로 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A = \{ 1, 3, 5 \}
+\tag{6.1.27}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+B = \{ 1, 2, 3 \}
+\tag{6.1.28}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+C = \{ 2, 4, 6 \}
+\tag{6.1.29}
+\end{align}
+\]</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

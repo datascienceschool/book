@@ -1,0 +1,964 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.3 행렬의 성질 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/02.03 행렬의 성질.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/02.03 행렬의 성질.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/02.03 행렬의 성질.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   정부호와 준정부호
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     연습 문제 2.3.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   행렬 놈
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 2.3.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   대각합
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 2.3.3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 2.3.4
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 2.3.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   행렬식
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     연습 문제 2.3.6
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     연습 문제 2.3.7
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>2.3 행렬의 성질<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>행렬은 여러 개의 숫자로 이루어져 있으므로 실수처럼 부호나 크기를 정의하기 어렵다. 하지만 부호/크기와 유사한 개념은 정의할 수 있다. 여기에서는 이러한 개념을 살펴본다.</p>
+<div class="section" id="id2">
+<h2>정부호와 준정부호<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>영 벡터가 아닌 모든 벡터 <span class="math notranslate nohighlight">\(x\)</span>에 대해 다음 부등식이 성립하면 행렬 <span class="math notranslate nohighlight">\(A\)</span>가 **양의 정부호(positive definite)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x^T A x &gt; 0  
+\tag{2.3.1}
+\end{align}
+\]</div>
+<p>만약 이 식이 등호를 포함한다면 **양의 준정부호(positive semi-definite)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x^T A x \geq 0  
+\tag{2.3.2}
+\end{align}
+\]</div>
+<p>위 방법에 따르면 모든 행렬에 대해 양의 정부호와 준정부호를 정의할 수 있지만 보통 대칭행렬에 대해서만 정의한다.</p>
+<p>예를 들어 항등행렬(identity matrix) <span class="math notranslate nohighlight">\(I\)</span>는 양의 정부호다. 다음 식에서 벡터 <span class="math notranslate nohighlight">\(x\)</span>가 영벡터(zeros-vector)가 아니라는 점에 주의한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x^T I x = 
+\begin{bmatrix}
+x_1 &amp; x_2 &amp; \cdots &amp; x_N
+\end{bmatrix}
+\begin{bmatrix}
+1&amp;0&amp;\cdots&amp;0\\
+0&amp;1&amp;\cdots&amp;0\\
+\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+0&amp;0&amp;\cdots&amp;1\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_N
+\end{bmatrix}
+= x_1^2 + x_2^2 + \cdots + x_N^2 &gt; 0 
+\tag{2.3.3}
+\end{align}
+\end{split}\]</div>
+<p>다음과 같은 행렬도 양의 정부호다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = \begin{bmatrix} 2&amp;-1&amp;0\\-1&amp;2&amp;-1\\0&amp;-1&amp;2 \end{bmatrix} 
+\tag{2.3.4}
+\end{align}
+\end{split}\]</div>
+<p>이는 다음처럼 증명할 수 있다.</p>
+<p>모든 벡터 <span class="math notranslate nohighlight">\(x^T = [x_1 \; x_2 \; x_3]\)</span>에 대해</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned} 
+x^TA x 
+&amp;= 
+\begin{bmatrix} x_1 &amp; x_2 &amp; x_3 \end{bmatrix} 
+\begin{bmatrix} 2&amp;-1&amp;0\\-1&amp;2&amp;-1\\0&amp;-1&amp;2 \end{bmatrix}  
+\begin{bmatrix} x_1\\x_2\\x_3 \end{bmatrix} \\
+&amp;= 
+\begin{bmatrix} (2x_1-x_2)&amp;(-x_1+2x_2-x_3)&amp;(-x_2+2x_3) \end{bmatrix} 
+\begin{bmatrix} x_1\\x_2\\x_3 \end{bmatrix} \\
+&amp;= 2{x_1}^2 - 2x_1x_2 + 2{x_2}^2 - 2x_2x_3 + 2{x_3}^2 \\
+&amp;= {x_1}^2+(x_1 - x_2)^{2} + (x_2 - x_3)^{2}+{x_3}^2 
+\end{aligned}
+\tag{2.3.5}
+\end{align}
+\end{split}\]</div>
+<p>이 성립한다. 그리고 이 값은 제곱의 합으로 이루어졌으므로 <span class="math notranslate nohighlight">\(x\)</span>가 영벡터인 경우(<span class="math notranslate nohighlight">\(x_1 = x_2 = x_3 = 0\)</span>)를 제외하고는 항상 0보다 크다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+{x_1}^2+(x_1 - x_2)^{2} + (x_2 - x_3)^{2}+{x_3}^2  &gt; 0  
+\tag{2.3.6}
+\end{align}
+\]</div>
+<div class="section" id="id3">
+<h3>연습 문제 2.3.1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>다음 행렬이 양의 정부호인지 양의 준정부호인지 혹은 어떤 것에도 해당되지 않는지 판단하라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{bmatrix} 1 &amp; 1 \\ 1 &amp; 1 \end{bmatrix} 
+\tag{2.3.7}
+\end{align}
+\end{split}\]</div>
+<p>행렬의 부호와 마찬가지로 행렬 크기를 정의하는 것도 어려운 일이다. 하나의 행렬에 대해 실수 하나를 대응시키는 개념의 <strong>놈(norm)</strong>, <strong>대각합(trace)</strong>, **행렬식(determinant)**이란 연산은 크기와 유사한 개념이다.</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>행렬 놈<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>행렬의 **놈(norm)**은 행렬 <span class="math notranslate nohighlight">\(A\)</span>에 대해 다음 식으로 정의되는 숫자다. 보통 <span class="math notranslate nohighlight">\(\Vert A \Vert_p\)</span>로 표기한다. 이 식에서 <span class="math notranslate nohighlight">\(a_{ij}\)</span>는 행렬 <span class="math notranslate nohighlight">\(A\)</span>의 <span class="math notranslate nohighlight">\(i\)</span>번째 행, <span class="math notranslate nohighlight">\(j\)</span>번째 열의 원소다. 행렬의 놈에도 여러 정의가 있는데 여기에서는 요소별 행렬 놈(entrywise matrix norm)의 정의를 따른다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\Vert A \Vert_p = \left( \sum_{i=1}^N \sum_{j=1}^M |a_{ij}|^p \right)^{1/p}  
+\tag{2.3.8}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(p\)</span>는 보통 1, 2 또는 무한대(<span class="math notranslate nohighlight">\(\infty\)</span>)가 사용되는데 이 중 <span class="math notranslate nohighlight">\(p=2\)</span>인 경우가 가장 많이 쓰이므로 <span class="math notranslate nohighlight">\(p\)</span>값 표시가 없는 경우는 <span class="math notranslate nohighlight">\(p=2\)</span>인 놈이라고 생각하면 된다.
+<span class="math notranslate nohighlight">\(p=2\)</span>인 놈은 **프로베니우스 놈(Frobenius norm)**이라고 불리며 <span class="math notranslate nohighlight">\(\Vert A \Vert_F\)</span>이라고 표기하기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\Vert A \Vert = \Vert A \Vert_2 = \Vert A \Vert_F = \sqrt{\sum_{i=1}^N \sum_{j=1}^M a_{ij}^2}  
+\tag{2.3.9}
+\end{align}
+\]</div>
+<p>놈의 정의에서 <strong>놈은 항상 0보다 같거나 크다</strong>는 것을 알 수 있다.</p>
+<p>놈은 모든 크기의 행렬에 대해서 정의할 수 있으므로 벡터에 대해서도 정의할 수 있다.
+벡터의 놈에서 중요한 성질은 <strong>벡터의 놈의 제곱이 벡터의 제곱합과 같다</strong>는 것이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\Vert x \Vert^2 = \sum_{i=1}^N x_{i}^2 = x^Tx  
+\tag{2.3.10}
+\end{align}
+\]</div>
+<p>놈은 0 또는 양수이므로 놈의 제곱이 가장 작을 때 놈도 가장 작아진다. 따라서 <strong>놈을 최소화하는 것은 벡터의 제곱합을 최소화하는 것</strong>과 같다.</p>
+<p>넘파이에서는 linalg 서브패키지의 <code class="docutils literal notranslate"><span class="pre">norm()</span></code> 명령으로 행렬의 놈을 계산할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-4, -3, -2],
+       [-1,  0,  1],
+       [ 2,  3,  4]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.745966692414834
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 2.3.2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\((A \in \mathbf{R}^{N \times M})\)</span>의 놈의 제곱 <span class="math notranslate nohighlight">\(\Vert A \Vert^2\)</span>이 그 행렬을 이루는 행 벡터 <span class="math notranslate nohighlight">\(r_i\)</span>의 놈의 제곱의 합 또는 열 벡터 <span class="math notranslate nohighlight">\(c_i\)</span>의 놈의 제곱의 합과 같음을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\Vert A \Vert^2 = \sum_{i=1}^N \Vert r_i \Vert^2  = \sum_{j=1}^M \Vert c_j \Vert^2  
+\tag{2.3.11}
+\end{align}
+\]</div>
+<p>사실 위에서 쓴 놈의 공식은 공식적인 정의가 아니다. 정확한 놈의 정의는 다음 4가지 성질이 성립하는 행렬 연산을 말한다. 이러한 연산이 여러 개 존재하기 때문에 놈의 정의도 다양하다.</p>
+<ul class="simple">
+<li><p>놈의 값은 0이상이다. 영행렬일 때만 놈의 값이 0이 된다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\|A\|\ge 0
+\tag{2.3.12}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>행렬에 스칼라를 곱하면 놈의 값도 그 스칼라의 절대값을 곱한 것과 같다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\|\alpha A\|=|\alpha| \|A\|
+\tag{2.3.13}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>행렬의 합의 놈은 각 행렬의 놈의 합보다 작거나 같다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\|A+B\| \le \|A\|+\|B\|
+\tag{2.3.14}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>정방행렬의 곱의 놈은 각 정방행렬의 놈의 곱보다 작거나 같다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\|AB\| \le \|A\|\|B\|
+\tag{2.3.15}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>대각합<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>**대각합(trace)**은 정방행렬에 대해서만 정의되며 다음처럼 대각원소의 합으로 계산된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr}(A) = a_{11} + a_{22} + \dots + a_{NN}=\sum_{i=1}^{N} a_{ii}
+\tag{2.3.16}
+\end{align}
+\]</div>
+<p>예를 들어 <span class="math notranslate nohighlight">\(N\)</span>차원 항등행렬(identity matrix)의 대각합은 <span class="math notranslate nohighlight">\(N\)</span>이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr}(I_N) = N 
+\tag{2.3.17}
+\end{align}
+\]</div>
+<p>대각합을 구할 때는 절댓값을 취하거나 제곱을 하지 않기 때문에 대각합의 값은 놈과 달리 <strong>음수가 될 수도 있다.</strong></p>
+<p>대각합은 다음과 같은 성질이 있다. 아래의 식에서 <span class="math notranslate nohighlight">\(c\)</span>는 스칼라이고 <span class="math notranslate nohighlight">\(A, B, C\)</span>는 행렬이다.</p>
+<ul class="simple">
+<li><p>스칼라를 곱하면 대각합은 스칼라와 원래의 대각합의 곱이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr} (cA) = c\;\text{tr} (A)  
+\tag{2.3.18}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>전치연산을 해도 대각합이 달라지지 않는다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr} (A^T) = \text{tr} (A)  
+\tag{2.3.19}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>두 행렬의 합의 대각합은 두 행렬의 대각합의 합이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr} (A + B) = \text{tr} (A) + \text{tr} (B)  
+\tag{2.3.20}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>두 행렬의 곱의 대각합은 행렬의 순서를 바꾸어도 달라지지 않는다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr} (AB) = \text{tr} (BA)  
+\tag{2.3.21}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>세 행렬의 곱의 대각합은 다음과 같이 순서를 순환시켜도 달라지지 않는다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr} (ABC) = \text{tr} (BCA) = \text{tr} (CAB)  
+\tag{2.3.22}
+\end{align}
+\]</div>
+<p>마지막 식은 곱셈에서 순서가 바뀌어도 대각합이 같다는 것을 이용하여 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{tr} ((AB)C) = \text{tr} (C(AB)) = \text{tr} ((CA)B) = \text{tr} (B(CA)) 
+\tag{2.3.23}
+\end{align}
+\]</div>
+<p>특히 마지막 식은 **트레이스 트릭(trace trick)**이라고 하여 이차 형식(quadratic form)의 미분을 구하는 데 유용하게 사용된다. 이 두 식에서는 <span class="math notranslate nohighlight">\(A, B, C\)</span>가 각각 정방행렬일 필요는 없다. 최종적으로 대각합을 구하는 행렬만 정방행렬이기만 하면 된다.</p>
+<p>이차 형식의 트레이스 트릭 공식은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x^TAx = \text{tr}(x^TAx) = \text{tr}(Axx^T)  = \text{tr}(xx^TA)  
+\tag{2.3.24}
+\end{align}
+\]</div>
+<p>이 식은 원래의 트레이스 트릭 식의 <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(C\)</span> 에 각각 <span class="math notranslate nohighlight">\(x^T\)</span>, <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(x\)</span>를 대입한 것이다. 이차 형식은 스칼라값이기 때문에 대각합을 취해도 원래의 값과 같다.</p>
+<p>넘파이에서는 <code class="docutils literal notranslate"><span class="pre">trace()</span></code> 명령으로 대각합을 계산할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 2.3.3<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(A\)</span>가 각각 크기가 2 인 벡터, 크기가 2x2 인 정방행렬일 때 이차 형식의 트레이스 트릭이 성립함을 보인다.</p>
+</div>
+<div class="section" id="id8">
+<h3>연습 문제 2.3.4<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(N \times M\)</span> 행렬 <span class="math notranslate nohighlight">\(X\)</span>에 대해 다음 식을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{tr}(X(X^TX)^{-1}X^T) = M 
+\tag{2.3.25}
+\end{align}
+\]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\((X^TX)^{-1}\)</span>은 <span class="math notranslate nohighlight">\(X^TX\)</span>의 역행렬(inverse matrix)로 <span class="math notranslate nohighlight">\(X^TX\)</span>와 곱하면 항등행렬이 되는 행렬이다. 역행렬에 대해서는 나중에 자세히 공부한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+(X^TX)^{-1}X^TX = X^TX(X^TX)^{-1} = I 
+\tag{2.3.26}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 2.3.5<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>행렬 <span class="math notranslate nohighlight">\(A \, (A \in \mathbf{R}^{2 \times 2})\)</span>의 놈의 제곱 <span class="math notranslate nohighlight">\(\Vert A \Vert^2\)</span>이 다음과 같음을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\Vert A \Vert^2 = \text{tr}(A^TA)  
+\tag{2.3.27}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>행렬식<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>정방행렬 <span class="math notranslate nohighlight">\(A\)</span>의 **행렬식(determinant)**은 <span class="math notranslate nohighlight">\(\text{det}(A)\)</span>, <span class="math notranslate nohighlight">\(\text{det}A\)</span>,  또는 <span class="math notranslate nohighlight">\(|A|\)</span>라는 기호로 표기한다.</p>
+<p>행렬식은 다음처럼 재귀적인 방법으로 정의된다.</p>
+<p>우선 행렬 <span class="math notranslate nohighlight">\(A\)</span>가 <span class="math notranslate nohighlight">\(1\times 1\)</span> 즉 스칼라인 경우에는 행렬식이 자기 자신의 값이 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\det \left( \begin{bmatrix}a\end{bmatrix} \right) = a  
+\tag{2.3.28}
+\end{align}
+\]</div>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span>가 스칼라가 아니면 **여인수 전개(cofactor expansion)**라고 불리는 다음 식을 이용하여 계산한다. 이 식에서 <span class="math notranslate nohighlight">\(a_{i,j}\)</span>는 <span class="math notranslate nohighlight">\(A\)</span>의 <span class="math notranslate nohighlight">\(i\)</span>행, <span class="math notranslate nohighlight">\(j\)</span>열 원소이고 <span class="math notranslate nohighlight">\(i_0\)</span>(또는 <span class="math notranslate nohighlight">\(j_0\)</span>)는 계산하는 사람이 임의로 선택한 행번호(또는 열번호)이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\det(A) = \sum_{i=1}^N \left\{ (-1)^{i+j_0}M_{i,j_0} \right\} a_{i,j_0}  
+\tag{2.3.29}
+\end{align}
+\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\det(A) = \sum_{j=1}^N \left\{ (-1)^{i_0+j} M_{i_0,j} \right\} a_{i_0,j} 
+\tag{2.3.30}
+\end{align}
+\]</div>
+<p>위에서 ‘또는’이라고 한 이유는 두 식 중 아무거나 써도 같은 결과가 나오기 때문이다.
+즉, 행렬에서 임의의 행 <span class="math notranslate nohighlight">\(i_0\)</span> 하나를 선택하거나 임의의 열 <span class="math notranslate nohighlight">\(j_0\)</span> 하나를 선택한 다음 이 값에 가중치 <span class="math notranslate nohighlight">\((-1)^{i+j_0}M_{i,j_0}\)</span> 또는 <span class="math notranslate nohighlight">\( (-1)^{i_0+j} M_{i_0,j}\)</span>를 곱하여 더한 것이다.</p>
+<p>가중치로 사용된 <span class="math notranslate nohighlight">\(M_{i,j}\)</span>는 **마이너(minor, 소행렬식)**라고 하며 정방행렬 <span class="math notranslate nohighlight">\(A\)</span> 에서 <span class="math notranslate nohighlight">\(i\)</span>행과 <span class="math notranslate nohighlight">\(j\)</span>열을 지워서 얻어진 (원래의 행렬보다 크기가 1만큼 작은) 행렬의 행렬식이다.</p>
+<p>마이너값도 행렬식이므로 마찬가지로 위의 정의를 이용하여 계산한다. 이처럼 점점 크기가 작은 행렬의 행렬식을 구하다 보면 스칼라인 행렬이 나오게 되는데 행렬식의 값이 자기 자신이 된다. 따라서 행렬식을 구하는 방법은 **재귀적(recursive)**이다.</p>
+<p>마이너에 <span class="math notranslate nohighlight">\((-1)^{i+j}\)</span>를 곱한 값 <span class="math notranslate nohighlight">\((-1)^{i+j}M_{i,j}\)</span>을 **여인수(cofactor)**라고 하며 <span class="math notranslate nohighlight">\(C_{i,j}\)</span>로 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+C_{i,j} = (-1)^{i+j}M_{i,j}  
+\tag{2.3.31}
+\end{align}
+\]</div>
+<p>여인수를 사용하여 위 여인수 전개식을 다시 표현하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\det(A) = \sum_{i=1}^N C_{i,j_0} a_{i,j_0}  =  \sum_{j=1}^N C_{i_0,j} a_{i_0,j}  
+\tag{2.3.32}
+\end{align}
+\]</div>
+<p>예를 들어 다음과 같은 행렬을 생각해보자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+1&amp;2&amp;3\\
+4&amp;5&amp;6\\
+7&amp;8&amp;9\\
+\end{bmatrix}
+\tag{2.3.33}
+\end{align}
+\end{split}\]</div>
+<p>여기에서 임의의 행 또는 열을 선택한다. 행이든 열이든 상관없다.</p>
+<p>만약 첫 번째 열을 선택했다고 하면(<span class="math notranslate nohighlight">\(j_0=1\)</span>), 이 행렬의 행렬식은 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\det(A) 
+&amp;= \left\{ (-1)^{1+1}M_{1,1} \right\} a_{1,1} +  \left\{ (-1)^{2+1}M_{2,1} \right\} a_{2,1} +  \left\{ (-1)^{3+1}M_{3,1} \right\} a_{3,1} \\
+&amp;= M_{1,1} a_{1,1} - M_{2,1} a_{2,1} + M_{3,1} a_{3,1} \\
+&amp;= M_{1,1} -  M_{2,1} \cdot 4 + M_{3,1} \cdot 7
+\end{aligned}
+\tag{2.3.34}
+\end{align}
+\end{split}\]</div>
+<p>이때 마이너값 <span class="math notranslate nohighlight">\(M_{1,1}\)</span>, <span class="math notranslate nohighlight">\(M_{2,1}\)</span>, <span class="math notranslate nohighlight">\(M_{3,1}\)</span>는 각각 다음과 같은 행렬의 행렬식이다.</p>
+<p><span class="math notranslate nohighlight">\(M_{1,1}\)</span>은 원래의 행렬에서 <span class="math notranslate nohighlight">\(1\)</span>번째 행과 <span class="math notranslate nohighlight">\(1\)</span>번째 열을 지워서 만들어진 행렬의 행렬식이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\begin{bmatrix}
+\cancel{1}&amp;\cancel{2}&amp;\cancel{3}\\
+\cancel{4}&amp;5&amp;6\\
+\cancel{7}&amp;8&amp;9\\
+\end{bmatrix}
+\;\; \rightarrow \;\;
+M_{1,1} = \det \left( \begin{bmatrix}5&amp;6\\8&amp;9\end{bmatrix} \right) 
+\end{aligned}
+\tag{2.3.35}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(M_{2,1}\)</span>은 원래의 행렬에서 <span class="math notranslate nohighlight">\(2\)</span>번째 행과 <span class="math notranslate nohighlight">\(1\)</span>번째 열을 지워서 만들어진 행렬의 행렬식이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\begin{bmatrix}
+\cancel{1}&amp;2&amp;3\\
+\cancel{4}&amp;\cancel{5}&amp;\cancel{6}\\
+\cancel{7}&amp;8&amp;9\\
+\end{bmatrix}
+\;\; \rightarrow \;\;
+M_{2,1} = \det \left( \begin{bmatrix}2&amp;3\\8&amp;9\end{bmatrix} \right) 
+\end{aligned}
+\tag{2.3.36}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(M_{3,1}\)</span>은 원래의 행렬에서 <span class="math notranslate nohighlight">\(3\)</span>번째 행과 <span class="math notranslate nohighlight">\(1\)</span>번째 열을 지워서 만들어진 행렬의 행렬식이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\begin{bmatrix}
+\cancel{1}&amp;2&amp;3\\
+\cancel{4}&amp;5&amp;6\\
+\cancel{7}&amp;\cancel{8}&amp;\cancel{9}\\
+\end{bmatrix}
+\;\; \rightarrow \;\;
+M_{3,1} = \det \left( \begin{bmatrix}2&amp;3\\5&amp;6\end{bmatrix} \right) 
+\end{aligned}
+\tag{2.3.37}
+\end{align}
+\end{split}\]</div>
+<p>이 마이너값 <span class="math notranslate nohighlight">\(M_{1,1}\)</span>, <span class="math notranslate nohighlight">\(M_{2,1}\)</span>, <span class="math notranslate nohighlight">\(M_{3,1}\)</span>은 마찬가지로 여인수 공식을 이용해서 계산할 수 있다.</p>
+<p>예를 들어 <span class="math notranslate nohighlight">\(M_{1,1}\)</span>을 구하는 데 있어 첫 번째 행을 선택하기로 했다고 하자(<span class="math notranslate nohighlight">\(i_0=1\)</span>), 그럼 여인수 전개식은 다음과 같아진다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+M_{1,1}
+= \left\{ (-1)^{1+1}M'_{1,1} \right\} a'_{1,1} +  \left\{ (-1)^{2+1}M'_{1,2} \right\} a'_{1,2}
+\tag{2.3.38}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\begin{bmatrix}
+\cancel{5}&amp;\cancel{6}\\
+\cancel{8}&amp;9
+\end{bmatrix}
+\;\; \rightarrow \;\;
+M'_{1,1} = \det([9]) = 9
+\end{aligned}
+\tag{2.3.39}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\begin{bmatrix}
+\cancel{5}&amp;\cancel{6}\\
+8&amp;\cancel{9}
+\end{bmatrix}
+\;\; \rightarrow \;\;
+M'_{1,2} = \det([8]) = 8
+\end{aligned}
+\tag{2.3.40}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+M_{1,1} = 9 \cdot 5 - 8 \cdot 6 = -3 
+\tag{2.3.41}
+\end{align}
+\]</div>
+<p>마찬가지 방법으로</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+M_{2,1} = -6
+\tag{2.3.42}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+M_{3,1} = -3 
+\tag{2.3.43}
+\end{align}
+\]</div>
+<p>가 되고 원래의 행렬식의 값은</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\det(A) = -3 - (-6)\cdot 4 + (-3) \cdot 7 = 0
+\tag{2.3.44}
+\end{align}
+\]</div>
+<p>넘파이에서는 linalg 서브패키지의 <code class="docutils literal notranslate"><span class="pre">det()</span></code> 명령으로 행렬식을 계산할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-9.51619735392994e-16
+</pre></div>
+</div>
+</div>
+</div>
+<p>위의 정의를 사용하면 크기가 2x2, 3x3인 정방행렬의 행렬식의 값은 다음 공식으로 계산할 수 있다.</p>
+<ul class="simple">
+<li><p>2×2 행렬의 행렬식</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\det \left( \begin{bmatrix}a&amp;b\\c&amp;d\end{bmatrix} \right) = ad-bc
+\tag{2.3.45}
+\end{align}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>3×3 행렬의 행렬식</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\det \left( \begin{bmatrix}a&amp;b&amp;c\\d&amp;e&amp;f\\g&amp;h&amp;i\end{bmatrix} \right) =aei+bfg+cdh-ceg-bdi-afh
+\tag{2.3.46}
+\end{align}
+\end{split}\]</div>
+<p>행렬식의 값도 대각합과 마찬가지로 <strong>음수가 될 수 있다.</strong></p>
+<div class="section" id="id11">
+<h3>연습 문제 2.3.6<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>행렬식의 정의를 사용하여 2x2 행렬과 3x3 행렬의 행렬식이 각각 위와 같이 된다는 것을 증명하라.</p>
+<p>행렬식은 다음과 같은 성질을 만족한다.</p>
+<ul class="simple">
+<li><p>전치 행렬의 행렬식은 원래의 행렬의 행렬식과 같다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\det(A^{T}) = \det(A)  
+\tag{2.3.47}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>항등 행렬의 행렬식은 1이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\det(I) = 1  
+\tag{2.3.48}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>두 행렬의 곱의 행렬식은 각 행렬의 행렬식의 곱과 같다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\det(AB) = \det(A)\det(B)  
+\tag{2.3.49}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><strong>역행렬</strong> <span class="math notranslate nohighlight">\(A^{-1}\)</span>은 원래의 행렬 <span class="math notranslate nohighlight">\(A\)</span>와 다음 관계를 만족하는 정방행렬을 말한다. <span class="math notranslate nohighlight">\(I\)</span>는 항등 행렬(identity matrix)이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A^{-1} A = A A^{-1} = I  
+\tag{2.3.50}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>역행렬의 행렬식은 원래의 행렬의  행렬식의 역수와 같다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\det(A^{-1}) = \dfrac{1}{\det(A)}  
+\tag{2.3.51}
+\end{align}
+\]</div>
+<p>위 식은 역행렬의 정의와 여인수 전개식을 사용하여 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\det(A) \det(A^{-1}) = \det{I} = 1 
+\tag{2.3.52}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id12">
+<h3>연습 문제 2.3.7<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>다음 행렬이 양의 정부호인지, 양의 준정부호인지 혹은 두가지 중 어느것도 아닌지 판단하라. 그리고 행렬의 대각합과 행렬식을 구하라.</p>
+<p>(1)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix} 
+2 &amp; -1 &amp; 0 \\ -1 &amp; 2 &amp; -1 \\ 0 &amp; -1 &amp; 2 
+\end{bmatrix} 
+\tag{2.3.53}
+\end{align}
+\end{split}\]</div>
+<p>(2)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix} 
+1 &amp; 2 \\ 3 &amp; 4
+\end{bmatrix} 
+\tag{2.3.54}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

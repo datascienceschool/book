@@ -1,0 +1,824 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부동소수점 실수 자료형 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/02.02 부동소수점 실수 자료형.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/02.02 부동소수점 실수 자료형.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/02.02 부동소수점 실수 자료형.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   정수와 실수 자료형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   부동소수점 실수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     연습 문제 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   십진법과 이진법
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   부동소수점 오차
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   자료형 변환
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nan-inf">
+   NaN과 Inf
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>부동소수점 실수 자료형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>정수와 실수 자료형<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>파이썬에서는 정수(integer)뿐 아니라 소숫점을 포함하는 실수(real number)도 연산할 수 있다.
+정수 데이터에는 소숫점이 없고 실수 데이터에는 소수점이 붙어 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>  <span class="c1"># 정수</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">10.0</span>  <span class="c1"># 실수</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>정수부가 0인 소수는 0을 생략할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="mi">1</span>  <span class="c1"># .1 = 0.1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1
+</pre></div>
+</div>
+</div>
+</div>
+<p>입력한 숫자나 계산 결과에 소숫점이 있으면 실수로 처리한다. 계산에 쓰인 숫자 중 하나라도 소숫점이 있는 실수가 있으면 계산결과는 실수가 된다. 나눗셈 연산의 결과는 입력에 상관없이 항상 실수로 처리한다. 예를 들어 <span class="math notranslate nohighlight">\(10 \times 5\)</span>는 정수로 취급하지만 <span class="math notranslate nohighlight">\(10.0 \times 5\)</span>나 <span class="math notranslate nohighlight">\(10 \div 5\)</span>는 실수로 취급한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">*</span> <span class="mi">5</span>  <span class="c1"># 정수</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">10.0</span> <span class="o">*</span> <span class="mi">5</span>  <span class="c1"># 실수</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">/</span> <span class="mi">5</span>  <span class="c1"># 실수</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>정수와 실수는 컴퓨터 메모리에 저장되는 방식이 다르다. 이처럼 데이터에 따라 저장 방식 혹은 처리 방식이 달라지면 데이터의 **자료형(type)**이 다르다고 한다. 파이썬에서 정수는 **<code class="docutils literal notranslate"><span class="pre">int</span></code>**라는 정수 자료형으로 처리한다. 실수는 **<code class="docutils literal notranslate"><span class="pre">float</span></code>**라는 부동소수점 (floating point number) 자료형으로 처리된다. 파이썬에서 데이터의 자료형을 알려면 <strong><code class="docutils literal notranslate"><span class="pre">type</span></code></strong> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>int
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>float
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>부동소수점 실수<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>컴퓨터에서는 IEEE 754라는 표준에 따라 실수를 부동소수점(floating-point) 방식으로 표현한다. 부동소수점 방식에서는 숫자를 정수로 된 유효숫자와 정수로 된 지수의 곱으로 표현한다. 예를 들어
+십진수 부동소수점 방식에서 <span class="math notranslate nohighlight">\(123.456\)</span>이란 숫자는 <span class="math notranslate nohighlight">\(123456 \times 10^{-3}\)</span> 이므로 <span class="math notranslate nohighlight">\(123456\)</span>이라는 정수 유효숫자와 <span class="math notranslate nohighlight">\(-3\)</span>이라는 정수 지수로 나타낼 수 있다.</p>
+<p>파이썬에서는 <code class="docutils literal notranslate"><span class="pre">유효숫자e지수</span></code> 라는 방법으로 부동소수점 형태를 직접 표현한다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{유효숫자}e\text{지수} = \text{유효숫자} \times 10^{\text{지수}} \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">123e2</span>  <span class="c1"># 123e2 = 123.0 x 100 = 12300.0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12300.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">123e-2</span>  <span class="c1"># 123e-2 = 123.0 x 0.01 = 1.23</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.23
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">123.456e-3</span>  <span class="c1"># 123.456e-3 = 123.456 x 0.001 = 0.123456</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.123456
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>연습 문제 1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">유효숫자e지수</span></code> 표현법으로 되어 있는 다음 숫자를 보통의 소숫점 표현으로 나타내라.</p>
+<ol class="simple">
+<li><p>5e8</p></li>
+<li><p>5.6e3</p></li>
+<li><p>-2.1e2</p></li>
+<li><p>-3.4e-1</p></li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>다음 숫자를 <code class="docutils literal notranslate"><span class="pre">유효숫자e지수</span></code> 표현법으로 나타내라. 유효숫자는 정수가 되어야 한다.</p>
+<ol class="simple">
+<li><p>3.141592</p></li>
+<li><p>2.718</p></li>
+<li><p>1.4</p></li>
+<li><p>1.73</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>십진법과 이진법<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>컴퓨터는 십진법이 아닌 이진법을 사용한다. 십진법에서는 0, 1, 2, 3, 4, 5, 6, 7, 8, 9의 10개 숫자만 사용하고 10 이상의 수는 <span class="math notranslate nohighlight">\(10, 100, 1000, 10000, \ldots\)</span> 자리를 나타내는 숫자를 나열하여 표현한다. 따라서 모든 십진법 숫자는 10의 제곱의 합으로 풀어서 나타낼 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{eqnarray}
+ 12 &amp;=&amp;     &amp; &amp; 10 &amp;+&amp; 2 &amp;=&amp;               &amp; &amp; 1 \times 10^1 &amp;+&amp; 2 \times 10^0 \\
+123 &amp;=&amp; 100 &amp;+&amp; 20 &amp;+&amp; 3 &amp;=&amp; 1 \times 10^2 &amp;+&amp; 2 \times 10^1 &amp;+&amp; 3 \times 10^0 \\
+\end{eqnarray}
+\end{split}\]</div>
+<p>소수점이 있는 경우에도 위와 같이 풀어서 나타낼 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{eqnarray}
+ 1.2 &amp;=&amp; 1 + 0.2 &amp;=&amp;                1 \times 10^0 + 2 \times 10^{-1} \\
+0.123 &amp;=&amp; 0.1 + 0.02 + 0.003 &amp;=&amp; 1 \times 10^{-1} + 2 \times 10^{-2} + 3 \times 10^{-3} \\
+\end{eqnarray}
+\end{split}\]</div>
+<div class="section" id="id7">
+<h3>연습 문제 3<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>다음 십진법 숫자를 10의 제곱의 합으로 풀어서 나타내라.</p>
+<ol class="simple">
+<li><p>1234</p></li>
+<li><p>1010</p></li>
+<li><p>3.14</p></li>
+<li><p>0.023</p></li>
+</ol>
+<p>이진법에서는 0, 1의 2개 숫자만 사용하고 2 이상의 수는 <span class="math notranslate nohighlight">\(2, 4, 8, 16, 32, \ldots\)</span> 자리를 나타내는 숫자를 나열하여 표현한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{eqnarray}
+ 1 &amp;=&amp;              &amp; &amp;              &amp; &amp;              &amp; &amp; 1 \times 2^0 &amp;=&amp; 1_{(2)} \\
+ 2 &amp;=&amp;              &amp; &amp;              &amp; &amp; 2 \times 2^1 &amp;+&amp; 0 \times 2^0 &amp;=&amp; 10_{(2)} \\
+ 3 &amp;=&amp;              &amp; &amp;              &amp; &amp; 1 \times 2^1 &amp;+&amp; 1 \times 2^0 &amp;=&amp; 11_{(2)} \\
+ 4 &amp;=&amp;              &amp; &amp; 1 \times 2^2 &amp;+&amp; 0 \times 2^1 &amp;+&amp; 0 \times 2^0 &amp;=&amp; 100_{(2)} \\
+ 5 &amp;=&amp;              &amp; &amp; 1 \times 2^2 &amp;+&amp; 0 \times 2^1 &amp;+&amp; 1 \times 2^0 &amp;=&amp; 101_{(2)} \\
+15 &amp;=&amp; 1 \times 2^3 &amp;+&amp; 1 \times 2^2 &amp;+&amp; 1 \times 2^1 &amp;+&amp; 1 \times 2^0 &amp;=&amp; 1111_{(2)}  \\
+\end{eqnarray}
+\end{split}\]</div>
+<p>파이썬의 <code class="docutils literal notranslate"><span class="pre">bin</span></code> 명령을 쓰면 정수인 십진수를 이진수로 변환할 수 있다. 이진수는 숫자 앞에 <code class="docutils literal notranslate"><span class="pre">0b</span></code>라는 접두사가 붙는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0b11&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0b1111&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>소수점이 있는 경우에도 다음처럼 풀어서 나타낼 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{eqnarray}
+ 0.5   &amp;=&amp; 1 \times 2^{-1} &amp; &amp;                 &amp; &amp;                 &amp;=&amp; 0.1_{(2)} \\
+ 0.25  &amp;=&amp; 0 \times 2^{-1} &amp;+&amp; 1 \times 2^{-2} &amp; &amp;                 &amp;=&amp; 0.01_{(2)} \\
+ 0.125 &amp;=&amp; 0 \times 2^{-1} &amp;+&amp; 0 \times 2^{-2} &amp;+&amp; 1 \times 2^{-3} &amp;=&amp; 0.001_{(2)} \\
+ 0.75  &amp;=&amp; 1 \times 2^{-1} &amp;+&amp; 1 \times 2^{-2} &amp; &amp;                 &amp;=&amp; 0.11_{(2)} \\
+ 0.375 &amp;=&amp; 0 \times 2^{-1} &amp;+&amp; 1 \times 2^{-2} &amp;+&amp; 1 \times 2^{-3} &amp;=&amp; 0.011_{(2)} \\
+ 0.875 &amp;=&amp; 1 \times 2^{-1} &amp;+&amp; 1 \times 2^{-2} &amp;+&amp; 1 \times 2^{-3} &amp;=&amp; 0.111_{(2)} \\
+\end{eqnarray}
+\end{split}\]</div>
+</div>
+<div class="section" id="id8">
+<h3>연습 문제 4<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>다음 이진법 숫자를 2의 제곱의 합으로 풀어서 나타내라.</p>
+<ol class="simple">
+<li><p>13</p></li>
+<li><p>129</p></li>
+<li><p>0.8</p></li>
+<li><p>1.25</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>부동소수점 오차<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>1보다 작은 수의 경우에는 십진법으로 간단히 표현되는 수도 이진법에서는 무한개의 유효숫자를 가지는 수가 될 수 있다. 예를 들어 <span class="math notranslate nohighlight">\(0.1\)</span>이라는 숫자는 십진수로는 간단히 표현되지만 이진수로 나타내면 다음과 같이 <span class="math notranslate nohighlight">\(0011_{(2)}\)</span>이 무한히 반복되는 소수가 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 0.1 = 0.00011001100110011001100110011001100110011001100110011001100110011\cdots_{(2)} \]</div>
+<p>그런데 컴퓨터에서는 하나의 숫자를 나타내기 위한 메모리 크기가 제한되어 있어서 특정 소수점이하는 생략하고 가장 비슷한 숫자로 표현할 수 밖에 없다. <span class="math notranslate nohighlight">\(0.1\)</span>은 실제로는 가장 비슷한 다음과 같은 숫자로 저장된다.</p>
+<div class="math notranslate nohighlight">
+\[ 0.1 \approx 0.1000000000000000055511151231257827021181583404541015625 \]</div>
+<p>그런데 파이썬 콘솔이나 주피터 노트북에서 0.1을 입력하면 다음과 같이 그냥 0.1로 나타난다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1
+</pre></div>
+</div>
+</div>
+</div>
+<p>그 이유는 파이썬 콘솔이나 주피터 노트북과 같은 REPL 인터페이스에서 값이 출력될 때는 편의상 일정 소수점 이하를 생략하고 보여주기 때문이다. 만약 소수점 이하 55자리까지 보고 싶으면 <code class="docutils literal notranslate"><span class="pre">%precision</span></code> 매직(magic) 명령어를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 소숫점 55자리까지 표현</span>
+<span class="o">%</span><span class="k">precision</span> 55   
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;%.55f&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 상태에서 다시 0.1이라고 입력하면 55자리까지의 유효숫자를 보여준다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1000000000000000055511151231257827021181583404541015625
+</pre></div>
+</div>
+</div>
+</div>
+<p>다시 원래대로 돌아가려면 다음과 같이 입력한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">precision</span> %r
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;%r&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1
+</pre></div>
+</div>
+</div>
+</div>
+<p>이처럼 컴퓨터에서 실수를 계산할 때는 항상 미세한 오차를 가질 수 있으므로 실수의 계산을 할 때는 주의해야 한다. 예를 들어 <span class="math notranslate nohighlight">\(0.1+0.2=0.3\)</span> 이지만 파이썬에서 비교하면 다음처럼 양변이 다르다는 결과를 보인다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">==</span> <span class="mf">0.3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p>실제로 계산 결과를 보면 그 이유를 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.30000000000000004
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">precision</span> 55
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;%.55f&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2999999999999999888977697537484345957636833190917968750
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">precision</span> %r
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;%r&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>따라서 실수를 비교할 때는 다음과 같이 <code class="docutils literal notranslate"><span class="pre">round</span></code> 명령을 사용하여 유효숫자를 지정한 반올림을 한 후에 비교해야 한다. <code class="docutils literal notranslate"><span class="pre">round</span></code> 명령은 두 번째 인수로 반올림할 소수점 이하의 유효숫자의 개수를 받는다. 다음 명령은 소수점 5자리까지 비교한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nb">round</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>또는</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">((</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>자료형 변환<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>실수를 정수로 변환하거나 정수를 실수로 변환하려면 <code class="docutils literal notranslate"><span class="pre">int</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">float</span></code> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># 실수를 정수로 변환</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 정수를 실수로 변환</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>만약 정수형으로 변환하려는 숫자가 정확히 정수로 표현될 수 없으면 소숫점 이하의 숫자를 버린다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span><span class="p">(</span><span class="mf">3.9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="mf">3.9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-3
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="nan-inf">
+<h2>NaN과 Inf<a class="headerlink" href="#nan-inf" title="Permalink to this headline">¶</a></h2>
+<p>IEEE 754 표준에 따른 부동소수점 자료형은 특별한 두 가지 값을 표현할 수 있다. 하나가 NaN(Not a Number)이고 또 하나는 Inf(Infinity)이다. NaN는 “숫자가 아닌 것”,  Inf는 “무한대”를 뜻한다. 파이썬에서는 다음과 같은 명령으로 표현한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;NaN&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nan
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;Inf&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inf
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-Inf&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-inf
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

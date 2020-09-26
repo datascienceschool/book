@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.4 확률분포함수 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/06.04 확률분포함수.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/06.04 확률분포함수.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/06.04 확률분포함수.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   확률분포
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   단순사건과 확률질량함수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 6.4.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   표본 수가 무한한 경우
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 6.4.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   구간
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 6.4.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   누적분포함수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     연습 문제 6.4.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   확률밀도함수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     연습 문제 6.4.5
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>6.4 확률분포함수<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>확률이 어디에 어느정도 분포되어 있는가를 수학적으로 명시하고 명확하게 전달하기 위한 도구가 바로 확률분포함수다. 이 절에서는 확률분포함수를 정의하는 방법과 확률질량함수, 누적분포함수, 확률밀도함수의 개념을 공부한다.</p>
+<div class="section" id="id2">
+<h2>확률분포<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>확률은 사건(event)이라는 표본의 집합에 대해 숫자를 할당하는 함수다. 어떤 사건에 어느 정도의 확률이 할당되었는지 묘사한 정보를 **확률분포(probability distribution)**라고 한다. 확률분포를 묘사하려면 모든 사건들을 일일히 제시하고 거기에 할당된 숫자를 보여주어야 한다. 표본의 개수가 유한하다면 가능할 수 있지만 만약 표본의 개수가 무한하다면 현실적으로 모든 사건을 하나 하나 기술하는 것은 불가능하다. 이 절에서는 확률분포함수(probability distribution function)라는 것을 이용하여 이 문제를 해결하는 방법을 설명한다. 확률분포함수로는 다음과 같은 세 종류가 있다.</p>
+<ul class="simple">
+<li><p>확률질량함수</p></li>
+<li><p>누적분포함수</p></li>
+<li><p>확률밀도함수</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>단순사건과 확률질량함수<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>콜로고로프의 정리를 사용하면 어떤 사건의 확률값을 이용하여 다른 사건의 확률값을 계산할 수 있다. 예를 들어 표본이 하나인 사건을 **단순사건(elementary event, atomic event)**이라고 한다. 단순사건끼리는 서로 교집합을 가지지 않으므로 유한 개의 사건만 있는 경우, 모든 단순사건의 확률값을 알면 콜모고로프의 세 번째 공리에 의해 다른 모든 사건의 확률값을 계산할 수 있다. 단 모든 단순사건의 확률의 합은 1이어야 한다.</p>
+<p>예를 들어 플레잉카드 무늬 문제의 단순사건과 그 확률이 다음과 같이 정의되어 있다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{\spadesuit\})=0.1, \;\; P(\{\heartsuit\})=0.2,  \;\; P(\{\diamondsuit\})=0.3,  \;\; P(\{\clubsuit\})=0.4
+\tag{6.4.1}
+\end{align}
+\]</div>
+<p>다음처럼 모든 사건에 대한 확률을 계산할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{\heartsuit, \diamondsuit\})=0.2+0.3=0.5
+\tag{6.4.2}
+\end{align}
+\]</div>
+<p>이렇게 유한 개의 사건이 존재하는 경우 각 단순사건에 대한 확률만 정의하는 함수를 **확률질량함수(probability mass function)**라고 한다. 확률질량함수는 소문자 <span class="math notranslate nohighlight">\(p\)</span>로 표시한다. 확률과 확률질량함수는 다른 개념이라는 점을 주의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(a) = P(\{a\})
+\tag{6.4.3}
+\end{align}
+\]</div>
+<p>예를 들어 원소가 하나뿐인 사건 <span class="math notranslate nohighlight">\(\{1\}\)</span>에 대한 확률은 확률함수로 정의할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{1\}) = 0.2
+\tag{6.4.4}
+\end{align}
+\]</div>
+<p>같은 내용을 확률질량함수로 나타내면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(1) = 0.2
+\tag{6.4.5}
+\end{align}
+\]</div>
+<p>하지만 확률함수가 원소 2개 이상인 사건에 대해서도 확률을 정의할 수 있는데 반해</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{1, 2\}) = 0.3
+\tag{6.4.6}
+\end{align}
+\]</div>
+<p>확률질량함수는 사건이 아닌 원소(정확히 말하면 그 원소만을 가진 단순사건)에 대해서만 정의되므로 다음과 같은 식은 틀린 식이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(1,2)
+\tag{6.4.7}
+\end{align}
+\]</div>
+<div class="section" id="id4">
+<h3>예제<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>다음 확률질량함수는 주사위 눈금 6이 다른 숫자보다 비정상적으로 많이 나오게 만든 조작된 주사위(unfair dice)를 묘사한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;조작된 주사위의 확률질량함수&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;숫자면&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;확률&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/06.04 확률분포함수_8_0.png" src="../_images/06.04 확률분포함수_8_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 6.4.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>확률질량함수가 위와 같은 주사위에서 다음 사건에 대한 확률을 구하라.</p>
+<p>(1) <span class="math notranslate nohighlight">\(\{ 1, 2 \}\)</span></p>
+<p>(2) <span class="math notranslate nohighlight">\(\{ 4, 5, 6 \}\)</span></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>표본 수가 무한한 경우<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>확률질량함수에서 표본공간에 있는 표본 수가 유한할 때 하나하나의 표본에 대해서만 확률을 정의하면 어떠한 사건에 대해서도 확률을 정의할 수 있다는 것을 알았다. 그렇다면 왜 굳이 확률을 정의할 때 입력을 표본이 아닌 사건으로 정의했을까?  그 이유는 표본공간에 있는 표본 수가 무한한 경우를 다루기 위해서다. 표본 수가 무한하면 확률질량함수를 사용하여 확률을 정의할 수 없다. 다음 예제를 통해 그 이유를 알아보자.</p>
+<div class="section" id="id7">
+<h3>예제<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>다음 그림과 같이 회전하는 원반에 화살을 쏘고 화살이 박힌 위치의 각도를 결정하는 문제를 생각해보자. 각도가 <strong>정확하게 0도가 될 확률</strong>은 얼마일까?</p>
+<img src="https://datascienceschool.net/upfiles/18858f200a5f42bc8e2128a61d080422.png" style="width: 100%"><p>그림 6.4.1 : 회전하는 원반의 각도 문제</p>
+<p>만약 모든 각도에 대해 가능성이 똑같다면 <strong>각도가 정확하게 0이 될 확률은 0이다.</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{ \theta = 0^{\circ} \}) = 0
+\tag{6.4.8}
+\end{align}
+\]</div>
+<p>각도가 0이 아닌 어떤 경우도 마찬가지로 확률이 0이다. 예를 들어 각도가 30도가 되는 경우도 확률은 0이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{ \theta = 30^{\circ} \}) = 0
+\tag{6.4.9}
+\end{align}
+\]</div>
+<p>왜 그럴까? 모든 각도에 대해 가능성이 똑같으므로 그 확률을 <span class="math notranslate nohighlight">\(x\)</span>라는 값이라고 하자. 그런데 각도가 나올 수 있는 경우는 무한대의 경우가 있으므로 만약 <span class="math notranslate nohighlight">\(x\)</span>가 0이 아니라면 <span class="math notranslate nohighlight">\(x \times \infty = \infty\)</span>로 전체 표본 집합의 확률이 무한대가 된다. 즉, 1이 아니다. 따라서 <strong>표본 수가 무한하고 모든 표본에 대해 표본 하나만을 가진 사건의 확률이 동일하다면, 표본 하나에 대한 사건의 확률은 언제나 0이다.</strong></p>
+<p>이번에는 같은 원반에 대해 다음 사건의 확률은 얼마일까?</p>
+<ul class="simple">
+<li><p>각도가 0도보다 같거나 크고 30도보다 작은 경우</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{  0^{\circ} \leq \theta &lt; 30^{\circ} \}) = ?
+\tag{6.4.10}
+\end{align}
+\]</div>
+<p>이 경우에는 동일한 가능성을 지닌 사건이 <span class="math notranslate nohighlight">\(12\)</span>개 있으므로 전체집합의 확률 <span class="math notranslate nohighlight">\(1\)</span>을 <span class="math notranslate nohighlight">\(12\)</span>로 나누면 주어진 사건에 대한 확률은 <span class="math notranslate nohighlight">\(1/12\)</span>가 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{  0^{\circ} \leq \theta &lt; 30^{\circ} \}) = 1 \div 12 = \frac{1}{12}
+\tag{6.4.11}
+\end{align}
+\]</div>
+<p>다음은 일부 사건에 대해 확률을 할당한 예다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{  0^{\circ} \leq \theta &lt; 30^{\circ} \}) = \frac{1}{12}
+\tag{6.4.12}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{  30^{\circ} \leq \theta &lt; 60^{\circ} \}) = \frac{1}{12}
+\tag{6.4.13}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(\{  0^{\circ} \leq \theta &lt; 60^{\circ} \text{ or } 90^{\circ} \leq \theta &lt; 150^{\circ} \}) = \frac{1}{3}
+\tag{6.4.14}
+\end{align}
+\]</div>
+<p>이 예제로부터 표본공간의 표본 수가 무한하면 사건에 대해 직접 확률을 할당하는 수밖에 없다는 것을 알 수 있다.</p>
+</div>
+<div class="section" id="id8">
+<h3>연습 문제 6.4.2<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>위 예제의 원반을 이용하여 복권 번호를 결정하는 경우를 생각하자. 결과를 조작하려고 0도에서 180도 사이에 화살이 2배 더 잘 박히도록 원반을 조작했다. 이 결과를 확률을 사용하여 공범에게 전달해야 한다. 가능한 모든 사건에 대해 확률을 알려주는 확률함수를 기술하는 방법은 무엇인가?</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>구간<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>표본공간이 실수의 집합이라면 대부분의 사건(부분집합)은 시작점과 끝점이라는 두 숫자로 이루어진 구간(interval)으로 표현된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A = \{ a &lt; x \leq b \}
+\tag{6.4.15}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(a\)</span>는 구간의 시작점이고 <span class="math notranslate nohighlight">\(b\)</span>는 구간의 끝점이다.</p>
+<p>구간을 입력받아 확률값을 출력하는 함수는 다음처럼 이차원 함수 <span class="math notranslate nohighlight">\(P(a, b)\)</span>로 표현할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A) = P(\{ a &lt; x \leq b \}) = P(a, b)
+\tag{6.4.16}
+\end{align}
+\]</div>
+<p>구간의 확률만 표현할 수 있다면 여러 구간으로 이루어진 복잡한 사건은 콜모고로프의 공리에 따라 각 구간의 확률값의 더하기나 빼기로 표현할 수 있다.</p>
+<p>예를 들어 다음과 같은 사건</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+B = \{ -2 &lt; x \leq 1 \text{ or } 2 &lt; x \leq 3 \} 
+\tag{6.4.17}
+\end{align}
+\]</div>
+<p>의 확률 <span class="math notranslate nohighlight">\(P(B)\)</span>는 다음 두 구간의 확률의 합이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(B) = P(\{ -2 &lt; x \leq 1\}) + P(\{2 &lt; x \leq 3\}) = P(-2, 1) + P(2, 3)
+\tag{6.4.18}
+\end{align}
+\]</div>
+<div class="section" id="id10">
+<h3>연습 문제 6.4.3<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>0도에서 180도 사이에 화살이 2배 더 잘 박히도록 조작된 원반을 이용하여 복권 번호를 결정하는 문제에서 구간의 시작점과 끝점을 입력받아서 확률을 출력하는 함수 <span class="math notranslate nohighlight">\(P(a, b)\)</span>를 구하고 이를 파이썬으로 구현하라.</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>누적분포함수<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>그러나 사건(event) 즉, 구간(interval) 하나를 정의하기 위해 숫자가 하나가 아닌 두 개가 필요하다는 점은 아무래도 불편하다. 숫자 하나만으로 사건 즉, 구간을 정의할 수 있는 방법은 없을까? 이를 해결하기 위한 아이디어는 시작점을 모두 똑같이 음의 무한대(<span class="math notranslate nohighlight">\(-\infty\)</span>)로 통일한 특수한 구간 <span class="math notranslate nohighlight">\(S_x\)</span>을 사용하는 것이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+S_{-1} &amp;= \{ -\infty &lt; X \leq -1 \} \\
+S_{0} &amp;= \{ -\infty &lt; X \leq 0 \} \\
+S_{1} &amp;= \{ -\infty &lt; X \leq 1 \} \\
+ &amp; \vdots  \\
+S_{x} &amp;= \{ -\infty &lt; X \leq x \} \\
+\end{aligned}
+\tag{6.4.19}
+\end{align}
+\end{split}\]</div>
+<p>이러한 사건의 확률분포를 묘사하는 함수를 **누적분포함수(cumulative distribution function)**라고 하고 약자로  <strong>cdf</strong>라고 쓴다. 함수 기호로는 <span class="math notranslate nohighlight">\(F(x)\)</span> 등 대문자 기호로 표시한다. 독립변수 <span class="math notranslate nohighlight">\(x\)</span>는 구간의 끝점을 뜻한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+F(x) = P(S_x) = P(\{X &lt; x\}) 
+\tag{6.4.20}
+\end{align}
+\]</div>
+<p>모든 실수는 당연히 <span class="math notranslate nohighlight">\(-\infty\)</span>보다 크기 때문에 <span class="math notranslate nohighlight">\(-\infty &lt; \)</span> 부분은 생략했다.</p>
+<p>누적분포함수와 콜모고로프의 세 번째 공리</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A \cap B = \emptyset \;\;\; \rightarrow \;\;\; P(A \cup B) = P(A) + P(B)
+\tag{6.4.21}
+\end{align}
+\]</div>
+<p>를 이용하면 이러한 사건 <span class="math notranslate nohighlight">\(S_x\)</span>의 확률값으로부터 대부분의 복잡한 구간사건에 대한 확률값을 계산할 수 있다. 예를 들어 <span class="math notranslate nohighlight">\(\{ a &lt; x \leq b \}\)</span>라는  구간사건의 확률은 콜모고로프의 공리에서</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(-\infty, b) = P(-\infty, a) + P(a, b)
+\tag{6.4.22}
+\end{align}
+\]</div>
+<p>로 나타난다. 이를 누적분포함수로 표현하면</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+F(b) = F(a) + P(a, b) 
+\tag{6.4.23}
+\end{align}
+\]</div>
+<p>정리하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(a, b) = F(b) - F(a) 
+\tag{6.4.24}
+\end{align}
+\]</div>
+<p>누적분포함수 cdf는 다음과 같은 특징이 있다.</p>
+<ul class="simple">
+<li><p>음의 무한대에 대한 누적분포함수값은 0이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+F(-\infty) = 0
+\tag{6.4.25}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>양의 무한대에 대한 누적분포함수값은 1이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+F(+\infty) = 1
+\tag{6.4.26}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>입력이 크면 누적분포함수값은 같거나 커진다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x &gt; y \;\; \rightarrow \;\; F(x) \geq F(y)
+\tag{6.4.27}
+\end{align}
+\]</div>
+<p>이 세 가지 특성에 따라 누적분포함수는 0에서 시작하여 천천히 증가하면서 1로 다가가는 형태를 가진다. 단조증가 성질에 의해 절대로 내려가지는 않는다.</p>
+<div class="section" id="id12">
+<h3>예제<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>원반의 각도 문제에서 누적분포함수는 다음과 같다. 이 경우에는 각도가 0도부터 360까지이지만 음의 무한대를 시작점으로 해도 상관없다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+F(-10) &amp;= P(\{ -\infty {}^{\circ} &lt; \theta \leq -10 {}^{\circ} \}) = 0\phantom{\frac{1}{36}} \\
+F(0)   &amp;= P(\{ -\infty {}^{\circ} &lt; \theta \leq   0 {}^{\circ} \}) = 0\phantom{\frac{1}{36}} \\
+F(10)  &amp;= P(\{ -\infty {}^{\circ} &lt; \theta \leq  10 {}^{\circ} \}) = \frac{1}{36} \\
+F(20)  &amp;= P(\{ -\infty {}^{\circ} &lt; \theta \leq  20 {}^{\circ} \}) = \frac{2}{36} \\
+       &amp; \vdots  \\
+F(350) &amp;= P(\{ -\infty {}^{\circ} &lt; \theta \leq 350 {}^{\circ} \}) = \frac{35}{36} \\
+F(360) &amp;= P(\{ -\infty {}^{\circ} &lt; \theta \leq 360 {}^{\circ} \}) = 1\phantom{\frac{1}{36}} \\
+F(370) &amp;= P(\{ -\infty {}^{\circ} &lt; \theta \leq 370 {}^{\circ} \}) = 1\phantom{\frac{1}{36}} \\
+       &amp; \vdots &amp; \\
+\end{aligned}
+\tag{6.4.28}
+\end{align}
+\end{split}\]</div>
+<p>이를 NumPy와 matplotlib를 사용하여 그래프로 그리면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="mi">360</span>
+<span class="n">F</span><span class="p">[</span><span class="n">t</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">F</span><span class="p">[</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">360</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;누적분포함수&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$ (도)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$F(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/06.04 확률분포함수_28_0.png" src="../_images/06.04 확률분포함수_28_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>연습 문제 6.4.4<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>0도에서 180도 사이에 화살이 2배 더 잘 박히도록 조작된 원반을 이용하여 복권 번호를 결정하는 문제에서 누적분포함수 <span class="math notranslate nohighlight">\(F(x)\)</span>를 구하라.</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>확률밀도함수<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>누적분포함수는 1차원 함수라는 편리한 도구를 사용하여 확률분포를 간결하고 정확하게 묘사할 수 있도록 해주었다.</p>
+<p>그러나 누적분포함수가 표현하는 사건이 음수 무한대를 시작점으로 하고 변수 <span class="math notranslate nohighlight">\(x\)</span>를 끝점으로 하는 구간이다보니 분포의 형상을 직관적으로 이해하기는 힘든 단점이 있다. 다시 말해서 어떤 확률 변수 값이 더 자주 나오는지에 대한 정보를 알기 힘들다는 점이다.</p>
+<p>이를 알기 위해서는 확률 변수가 나올 수 있는 전체 구간 (<span class="math notranslate nohighlight">\(-\infty\)</span> ~ <span class="math notranslate nohighlight">\(\infty\)</span>)을 아주 작은 폭 <span class="math notranslate nohighlight">\(dx\)</span>를 가지는 구간들로 나눈 다음 각 구간의 확률을 살펴보는 것이 편리하다. 만약 <span class="math notranslate nohighlight">\(x_1\)</span> 근처에서 폭 <span class="math notranslate nohighlight">\(dx\)</span>를 가지는 구간의 확률을 구하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(\{ x_1 &lt; x \leq x_1 + dx \}) = F(x_1 + dx) - F(x_1) 
+\tag{6.4.29}
+\end{align}
+\]</div>
+<p>이 값은 구간의 길이에 따라 달라지므로 구간 길이 <span class="math notranslate nohighlight">\(dx\)</span>를 아주 작게 줄였을 때의 값을 알아야 한다. 단순히 <span class="math notranslate nohighlight">\(dx\)</span>를 0으로 줄이면 확률은 당연히 0으로 수렴한다. 우리가 원하는 것은 ‘같은 구간 길이를 <span class="math notranslate nohighlight">\(dx\)</span>를 가진 두 구간이 <span class="math notranslate nohighlight">\(x_1\)</span> 위치와 <span class="math notranslate nohighlight">\(x_2\)</span> 위치에서 얼마나 다른가’이므로 단위 구간 길이당 확률값으로 비교한다.</p>
+<p>그런데 단위 구간 길이당 배정된 확률값</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\frac{P(\{ x_1 &lt; x \leq x_1 + dx \})}{dx} 
+\tag{6.4.30}
+\end{align}
+\]</div>
+<p>는 단위 구간이 미세하게 줄어들면 다음 그림에서 보듯이 누적분포함수의 기울기가 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\lim_{dx \rightarrow 0} \frac{P(\{ x_1 &lt; x \leq x_1 + dx \})}{dx} 
+&amp;= \lim_{dx \rightarrow 0}  \frac{F(x_1 + dx) - F(x_1)}{dx} \\
+&amp;= x_1\text{에서} F(x)\text{의 기울기} 
+\end{aligned}
+\tag{6.4.31}
+\end{align}
+\end{split}\]</div>
+<img src="https://datascienceschool.net/upfiles/a66aa542189744c595210b4fdc44f66e.png" width="100%"><p>그림 6.4.2 : 누적분포함수에서 구간의 확률을 비교하기</p>
+<p>기울기를 구하는 수학적 연산이 미분(differentiation)이므로 누적분포함수를 미분하여 누적분포함수의 기울기를 출력하는 함수를 만들면 어떤 <span class="math notranslate nohighlight">\(x_1\)</span>값 근처의 확률이 다른 <span class="math notranslate nohighlight">\(x_2\)</span>값 근처보다 더 확률이 높은지 또는 낮은지 쉽게 파악할 수 있다.
+**누적분포함수를 미분하여 구한 도함수를 확률밀도함수(probability density function)**라고 한다. 확률질량함수와 마찬가지로 <span class="math notranslate nohighlight">\(p(x)\)</span>로 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+p(x) = \dfrac{dF(x)}{dx} 
+\tag{6.4.32}
+\end{align}
+\]</div>
+<p>확률밀도함수는 특정한 구간의 확률이 다른 구간에 비해 상대적으로 얼마나 높은가를 나타내는 것이며 그 <strong>값 자체가 확률은 아니다</strong>라는 점을 명심해야 한다. 함수의 변수가 <span class="math notranslate nohighlight">\(x\)</span>가 아니라 <span class="math notranslate nohighlight">\(u\)</span>가 된 이유는 <span class="math notranslate nohighlight">\(x\)</span>가 적분의 상한인수(upper bound argument)로 사용되고 있기 때문이다.</p>
+<p>미적분학의 기본 원리에 의하면 <span class="math notranslate nohighlight">\(x=x_1\)</span>부터 <span class="math notranslate nohighlight">\(x=x_2\)</span> 사이에서 도함수인 확률밀도함수의 면적(정적분)은 적분함수인 누적분포함수의 값을 이용하여 구할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+F(x_2) - F(x_1) = \int_{x_1}^{x_2} p(u) du
+\tag{6.4.33}
+\end{align}
+\]</div>
+<p>따라서 누적분포함수와 확률밀도함수의 관계를 적분으로 나타내면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+F(x) = \int_{-\infty}^{x} p(u) du
+\tag{6.4.34}
+\end{align}
+\]</div>
+<img src="https://datascienceschool.net/upfiles/83f9b9897f2f466ebbd7e2a41f154d42.png" width="100%"><p>그림 6.4.3 : 확률밀도함수의 면적과 누적분포함수</p>
+<p>확률밀도함수는 다음과 같은 특징을 가진다.</p>
+<ul class="simple">
+<li><p>적분함수인 누적분포함수의 기울기가 음수가 될 수 없기 때문에 확률밀도함수는 0보다 같거나 크다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+p(x) \geq 0 
+\tag{6.4.35}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(-\infty\)</span>부터 <span class="math notranslate nohighlight">\(\infty\)</span>까지 적분하면 표본공간 <span class="math notranslate nohighlight">\((-\infty, \infty)\)</span>의 확률이 되므로 값은 1이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\int_{-\infty}^{\infty} p(u)du = 1
+\tag{6.4.36}
+\end{align}
+\]</div>
+<div class="section" id="id15">
+<h3>예제<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>앞의 원반 예제의 확률밀도함수를 구하면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="mi">360</span>
+<span class="n">F</span><span class="p">[</span><span class="n">t</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">F</span><span class="p">[</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">600</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># 수치미분</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">360</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;확률밀도함수&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$ (도)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$p(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/06.04 확률분포함수_40_0.png" src="../_images/06.04 확률분포함수_40_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>연습 문제 6.4.5<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>0도에서 180도 사이에 더 화살이 2배 더 잘 박히도록 조작된 원반을 이용하여 복권 번호를 결정하는 문제에서 확률밀도함수 <span class="math notranslate nohighlight">\(p(x)\)</span>를 구하라.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

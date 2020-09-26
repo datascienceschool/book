@@ -1,0 +1,967 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시계열 자료 다루기 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/04.08 시계열 자료 다루기.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/04.08 시계열 자료 다루기.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/04.08 시계열 자료 다루기.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#shift">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     shift
+    </span>
+   </code>
+   연산
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#resample">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       resample
+      </span>
+     </code>
+     연산
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>시계열 자료 다루기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>시계열 자료는 인덱스가 날짜 혹은 시간인 데이터를 말한다. Pandas에서 시계열 자료를 생성하려면 인덱스를 <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> 자료형으로 만들어야 한다. <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>는 특정한 순간에 기록된 타임스탬프(timestamp) 형식의 시계열 자료를 다루기 위한 인덱스이다. 타임스탬프 인덱스의 라벨값이 반드시 일정한 간격일 필요는 없다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> 인덱스는 다음과 같은 보조 함수를 사용하여 생성한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> 함수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.date_range</span></code> 함수</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> 함수를 쓰면 날짜/시간을 나타내는 문자열을 자동으로 datetime 자료형으로 바꾼 후 <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> 자료형 인덱스를 생성한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_str</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;2018, 1, 1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018, 1, 4&quot;</span><span class="p">,</span> <span class="s2">&quot;2018, 1, 5&quot;</span><span class="p">,</span> <span class="s2">&quot;2018, 1, 6&quot;</span><span class="p">]</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date_str</span><span class="p">)</span>
+<span class="n">idx</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-01-01&#39;, &#39;2018-01-04&#39;, &#39;2018-01-05&#39;, &#39;2018-01-06&#39;], dtype=&#39;datetime64[ns]&#39;, freq=None)
+</pre></div>
+</div>
+</div>
+</div>
+<p>이렇게 만들어진 인덱스를 사용하여 시리즈나 데이터프레임을 생성하면 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-01    1.764052
+2018-01-04    0.400157
+2018-01-05    0.978738
+2018-01-06    2.240893
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pd.date_range</span></code> 함수를 쓰면 모든 날짜/시간을 일일히 입력할 필요없이 시작일과 종료일 또는 시작일과 기간을 입력하면 범위 내의 인덱스를 생성해 준다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-4-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-4-30&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-04-01&#39;, &#39;2018-04-02&#39;, &#39;2018-04-03&#39;, &#39;2018-04-04&#39;,
+               &#39;2018-04-05&#39;, &#39;2018-04-06&#39;, &#39;2018-04-07&#39;, &#39;2018-04-08&#39;,
+               &#39;2018-04-09&#39;, &#39;2018-04-10&#39;, &#39;2018-04-11&#39;, &#39;2018-04-12&#39;,
+               &#39;2018-04-13&#39;, &#39;2018-04-14&#39;, &#39;2018-04-15&#39;, &#39;2018-04-16&#39;,
+               &#39;2018-04-17&#39;, &#39;2018-04-18&#39;, &#39;2018-04-19&#39;, &#39;2018-04-20&#39;,
+               &#39;2018-04-21&#39;, &#39;2018-04-22&#39;, &#39;2018-04-23&#39;, &#39;2018-04-24&#39;,
+               &#39;2018-04-25&#39;, &#39;2018-04-26&#39;, &#39;2018-04-27&#39;, &#39;2018-04-28&#39;,
+               &#39;2018-04-29&#39;, &#39;2018-04-30&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;D&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2018-4-1&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-04-01&#39;, &#39;2018-04-02&#39;, &#39;2018-04-03&#39;, &#39;2018-04-04&#39;,
+               &#39;2018-04-05&#39;, &#39;2018-04-06&#39;, &#39;2018-04-07&#39;, &#39;2018-04-08&#39;,
+               &#39;2018-04-09&#39;, &#39;2018-04-10&#39;, &#39;2018-04-11&#39;, &#39;2018-04-12&#39;,
+               &#39;2018-04-13&#39;, &#39;2018-04-14&#39;, &#39;2018-04-15&#39;, &#39;2018-04-16&#39;,
+               &#39;2018-04-17&#39;, &#39;2018-04-18&#39;, &#39;2018-04-19&#39;, &#39;2018-04-20&#39;,
+               &#39;2018-04-21&#39;, &#39;2018-04-22&#39;, &#39;2018-04-23&#39;, &#39;2018-04-24&#39;,
+               &#39;2018-04-25&#39;, &#39;2018-04-26&#39;, &#39;2018-04-27&#39;, &#39;2018-04-28&#39;,
+               &#39;2018-04-29&#39;, &#39;2018-04-30&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;D&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">freq</span></code> 인수로 특정한 날짜만 생성되도록 할 수도 있다. 많이 사용되는 <code class="docutils literal notranslate"><span class="pre">freq</span></code> 인수값은 다음과 같다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>: 초</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code>: 분</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">H</span></code>: 시간</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D</span></code>: 일(day)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: 주말이 아닌 평일</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">W</span></code>: 주(일요일)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">W-MON</span></code>: 주(월요일)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: 각 달(month)의 마지막 날</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MS</span></code>: 각 달의 첫날</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BM</span></code>: 주말이 아닌 평일 중에서 각 달의 마지막 날</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BMS</span></code>: 주말이 아닌 평일 중에서 각 달의 첫날</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WOM-2THU</span></code>: 각 달의 두번째 목요일</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q-JAN</span></code>: 각 분기의 첫달의 마지막 날</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q-DEC</span></code>: 각 분기의 마지막 달의 마지막 날</p></li>
+</ul>
+<p>보다 자세한 내용은 다음 웹사이트를 참조한다.</p>
+<ul class="simple">
+<li><p>http://pandas.pydata.org/pandas-docs/stable/timeseries.html#offset-aliases</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-4-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-4-30&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-04-02&#39;, &#39;2018-04-03&#39;, &#39;2018-04-04&#39;, &#39;2018-04-05&#39;,
+               &#39;2018-04-06&#39;, &#39;2018-04-09&#39;, &#39;2018-04-10&#39;, &#39;2018-04-11&#39;,
+               &#39;2018-04-12&#39;, &#39;2018-04-13&#39;, &#39;2018-04-16&#39;, &#39;2018-04-17&#39;,
+               &#39;2018-04-18&#39;, &#39;2018-04-19&#39;, &#39;2018-04-20&#39;, &#39;2018-04-23&#39;,
+               &#39;2018-04-24&#39;, &#39;2018-04-25&#39;, &#39;2018-04-26&#39;, &#39;2018-04-27&#39;,
+               &#39;2018-04-30&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;B&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-01-07&#39;, &#39;2018-01-14&#39;, &#39;2018-01-21&#39;, &#39;2018-01-28&#39;,
+               &#39;2018-02-04&#39;, &#39;2018-02-11&#39;, &#39;2018-02-18&#39;, &#39;2018-02-25&#39;,
+               &#39;2018-03-04&#39;, &#39;2018-03-11&#39;, &#39;2018-03-18&#39;, &#39;2018-03-25&#39;,
+               &#39;2018-04-01&#39;, &#39;2018-04-08&#39;, &#39;2018-04-15&#39;, &#39;2018-04-22&#39;,
+               &#39;2018-04-29&#39;, &#39;2018-05-06&#39;, &#39;2018-05-13&#39;, &#39;2018-05-20&#39;,
+               &#39;2018-05-27&#39;, &#39;2018-06-03&#39;, &#39;2018-06-10&#39;, &#39;2018-06-17&#39;,
+               &#39;2018-06-24&#39;, &#39;2018-07-01&#39;, &#39;2018-07-08&#39;, &#39;2018-07-15&#39;,
+               &#39;2018-07-22&#39;, &#39;2018-07-29&#39;, &#39;2018-08-05&#39;, &#39;2018-08-12&#39;,
+               &#39;2018-08-19&#39;, &#39;2018-08-26&#39;, &#39;2018-09-02&#39;, &#39;2018-09-09&#39;,
+               &#39;2018-09-16&#39;, &#39;2018-09-23&#39;, &#39;2018-09-30&#39;, &#39;2018-10-07&#39;,
+               &#39;2018-10-14&#39;, &#39;2018-10-21&#39;, &#39;2018-10-28&#39;, &#39;2018-11-04&#39;,
+               &#39;2018-11-11&#39;, &#39;2018-11-18&#39;, &#39;2018-11-25&#39;, &#39;2018-12-02&#39;,
+               &#39;2018-12-09&#39;, &#39;2018-12-16&#39;, &#39;2018-12-23&#39;, &#39;2018-12-30&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;W-SUN&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W-MON&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-01-01&#39;, &#39;2018-01-08&#39;, &#39;2018-01-15&#39;, &#39;2018-01-22&#39;,
+               &#39;2018-01-29&#39;, &#39;2018-02-05&#39;, &#39;2018-02-12&#39;, &#39;2018-02-19&#39;,
+               &#39;2018-02-26&#39;, &#39;2018-03-05&#39;, &#39;2018-03-12&#39;, &#39;2018-03-19&#39;,
+               &#39;2018-03-26&#39;, &#39;2018-04-02&#39;, &#39;2018-04-09&#39;, &#39;2018-04-16&#39;,
+               &#39;2018-04-23&#39;, &#39;2018-04-30&#39;, &#39;2018-05-07&#39;, &#39;2018-05-14&#39;,
+               &#39;2018-05-21&#39;, &#39;2018-05-28&#39;, &#39;2018-06-04&#39;, &#39;2018-06-11&#39;,
+               &#39;2018-06-18&#39;, &#39;2018-06-25&#39;, &#39;2018-07-02&#39;, &#39;2018-07-09&#39;,
+               &#39;2018-07-16&#39;, &#39;2018-07-23&#39;, &#39;2018-07-30&#39;, &#39;2018-08-06&#39;,
+               &#39;2018-08-13&#39;, &#39;2018-08-20&#39;, &#39;2018-08-27&#39;, &#39;2018-09-03&#39;,
+               &#39;2018-09-10&#39;, &#39;2018-09-17&#39;, &#39;2018-09-24&#39;, &#39;2018-10-01&#39;,
+               &#39;2018-10-08&#39;, &#39;2018-10-15&#39;, &#39;2018-10-22&#39;, &#39;2018-10-29&#39;,
+               &#39;2018-11-05&#39;, &#39;2018-11-12&#39;, &#39;2018-11-19&#39;, &#39;2018-11-26&#39;,
+               &#39;2018-12-03&#39;, &#39;2018-12-10&#39;, &#39;2018-12-17&#39;, &#39;2018-12-24&#39;,
+               &#39;2018-12-31&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;W-MON&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-4-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-04-01&#39;, &#39;2018-05-01&#39;, &#39;2018-06-01&#39;, &#39;2018-07-01&#39;,
+               &#39;2018-08-01&#39;, &#39;2018-09-01&#39;, &#39;2018-10-01&#39;, &#39;2018-11-01&#39;,
+               &#39;2018-12-01&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;MS&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-4-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-04-30&#39;, &#39;2018-05-31&#39;, &#39;2018-06-30&#39;, &#39;2018-07-31&#39;,
+               &#39;2018-08-31&#39;, &#39;2018-09-30&#39;, &#39;2018-10-31&#39;, &#39;2018-11-30&#39;,
+               &#39;2018-12-31&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;M&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-4-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;BMS&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-04-02&#39;, &#39;2018-05-01&#39;, &#39;2018-06-01&#39;, &#39;2018-07-02&#39;,
+               &#39;2018-08-01&#39;, &#39;2018-09-03&#39;, &#39;2018-10-01&#39;, &#39;2018-11-01&#39;,
+               &#39;2018-12-03&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;BMS&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-4-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;BM&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-04-30&#39;, &#39;2018-05-31&#39;, &#39;2018-06-29&#39;, &#39;2018-07-31&#39;,
+               &#39;2018-08-31&#39;, &#39;2018-09-28&#39;, &#39;2018-10-31&#39;, &#39;2018-11-30&#39;,
+               &#39;2018-12-31&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;BM&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;WOM-2THU&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-01-11&#39;, &#39;2018-02-08&#39;, &#39;2018-03-08&#39;, &#39;2018-04-12&#39;,
+               &#39;2018-05-10&#39;, &#39;2018-06-14&#39;, &#39;2018-07-12&#39;, &#39;2018-08-09&#39;,
+               &#39;2018-09-13&#39;, &#39;2018-10-11&#39;, &#39;2018-11-08&#39;, &#39;2018-12-13&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=&#39;WOM-2THU&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q-JAN&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-01-31&#39;, &#39;2018-04-30&#39;, &#39;2018-07-31&#39;, &#39;2018-10-31&#39;], dtype=&#39;datetime64[ns]&#39;, freq=&#39;Q-JAN&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-12-31&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q-DEC&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2018-03-31&#39;, &#39;2018-06-30&#39;, &#39;2018-09-30&#39;, &#39;2018-12-31&#39;], dtype=&#39;datetime64[ns]&#39;, freq=&#39;Q-DEC&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="shift">
+<h2><code class="docutils literal notranslate"><span class="pre">shift</span></code> 연산<a class="headerlink" href="#shift" title="Permalink to this headline">¶</a></h2>
+<p>시계열 데이터의 인덱스는 시간이나 날짜를 나타내기 때문에 날짜 이동 등의 다양한 연산이 가능하다. 예를 들어 <code class="docutils literal notranslate"><span class="pre">shift</span></code> 연산을 사용하면 인덱스는 그대로 두고 데이터만 이동할 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+    <span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">))</span>
+<span class="n">ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-31    1.764052
+2018-02-28    0.400157
+2018-03-31    0.978738
+2018-04-30    2.240893
+Freq: M, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-31         NaN
+2018-02-28    1.764052
+2018-03-31    0.400157
+2018-04-30    0.978738
+Freq: M, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-31    0.400157
+2018-02-28    0.978738
+2018-03-31    2.240893
+2018-04-30         NaN
+Freq: M, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-02-28    1.764052
+2018-03-31    0.400157
+2018-04-30    0.978738
+2018-05-31    2.240893
+Freq: M, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-02-04    1.764052
+2018-03-04    0.400157
+2018-04-01    0.978738
+2018-05-06    2.240893
+Freq: WOM-1SUN, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="resample">
+<h3><code class="docutils literal notranslate"><span class="pre">resample</span></code> 연산<a class="headerlink" href="#resample" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">resample</span></code> 연산을 쓰면 시간 간격을 재조정하는 리샘플링(resampling)이 가능하다. 이 때 시간 구간이 작아지면 데이터 양이 증가한다고 해서 업-샘플링(up-sampling)이라 하고 시간 구간이 커지면 데이터 양이 감소한다고 해서 다운-샘플링(down-sampling)이라 부른다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+    <span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">))</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-03-22    1.488252
+2018-03-23    1.895889
+2018-03-24    1.178780
+2018-03-25   -0.179925
+2018-03-26   -1.070753
+2018-03-27    1.054452
+2018-03-28   -0.403177
+2018-03-29    1.222445
+2018-03-30    0.208275
+2018-03-31    0.976639
+2018-04-01    0.356366
+2018-04-02    0.706573
+2018-04-03    0.010500
+2018-04-04    1.785870
+2018-04-05    0.126912
+2018-04-06    0.401989
+2018-04-07    1.883151
+2018-04-08   -1.347759
+2018-04-09   -1.270485
+2018-04-10    0.969397
+Freq: D, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>다운-샘플링의 경우에는 원래의 데이터가 그룹으로 묶이기 때문에 그룹바이(groupby)때와 같이 그룹 연산을 해서 대표값을 구해야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-07    0.305776
+2018-01-14    0.629064
+2018-01-21   -0.006910
+2018-01-28    0.277065
+2018-02-04   -0.144972
+2018-02-11   -0.496299
+2018-02-18   -0.474473
+2018-02-25   -0.201222
+2018-03-04   -0.775142
+2018-03-11    0.052868
+2018-03-18   -0.450379
+2018-03-25    0.601892
+2018-04-01    0.334893
+2018-04-08    0.509605
+2018-04-15   -0.150544
+Freq: W-SUN, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-31    1.867558
+2018-02-28    0.156349
+2018-03-31   -1.726283
+2018-04-30    0.356366
+Freq: M, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>날짜가 아닌 시/분 단위에서는 구간위 왼쪽 한계값(가장 빠른 값)은 포함하고 오른쪽 한계값(가장 늦은 값)은 포함하지 않는다. 즉, 가장 늦은 값은 다음 구간에 포함된다. 예를 들어 10분 간격으로 구간을 만들면 10의 배수가 되는 시각은 구간의 시작점이 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+    <span class="s2">&quot;2018-1-1&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;T&quot;</span><span class="p">))</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-01 00:00:00   -1.173123
+2018-01-01 00:01:00    1.943621
+2018-01-01 00:02:00   -0.413619
+2018-01-01 00:03:00   -0.747455
+2018-01-01 00:04:00    1.922942
+2018-01-01 00:05:00    1.480515
+2018-01-01 00:06:00    1.867559
+2018-01-01 00:07:00    0.906045
+2018-01-01 00:08:00   -0.861226
+2018-01-01 00:09:00    1.910065
+2018-01-01 00:10:00   -0.268003
+2018-01-01 00:11:00    0.802456
+2018-01-01 00:12:00    0.947252
+2018-01-01 00:13:00   -0.155010
+2018-01-01 00:14:00    0.614079
+2018-01-01 00:15:00    0.922207
+2018-01-01 00:16:00    0.376426
+2018-01-01 00:17:00   -1.099401
+2018-01-01 00:18:00    0.298238
+2018-01-01 00:19:00    1.326386
+Freq: T, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;10T&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-01 00:00:00    6.835324
+2018-01-01 00:10:00    3.764630
+2018-01-01 00:20:00    0.776495
+2018-01-01 00:30:00   -0.538336
+2018-01-01 00:40:00    1.828234
+2018-01-01 00:50:00    0.167957
+Freq: 10T, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>왼쪽이 아니라 오른쪽 한계값을 구간에 포함하려면 <code class="docutils literal notranslate"><span class="pre">closed=&quot;right&quot;</span></code> 인수를 사용한다. 이 때는 10의 배수가 되는 시각이 앞 구간에 포함된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;10T&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2017-12-31 23:50:00   -1.173123
+2018-01-01 00:00:00    7.740444
+2018-01-01 00:10:00    3.338065
+2018-01-01 00:20:00    0.835217
+2018-01-01 00:30:00    2.480654
+2018-01-01 00:40:00   -0.653363
+2018-01-01 00:50:00    0.266409
+Freq: 10T, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ohlc</span></code> 메서드는 구간의 시고저종(open, high, low, close)값을 구한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;5T&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ohlc</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>open</th>
+      <th>high</th>
+      <th>low</th>
+      <th>close</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018-01-01 00:00:00</th>
+      <td>-1.173123</td>
+      <td>1.943621</td>
+      <td>-1.173123</td>
+      <td>1.922942</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:05:00</th>
+      <td>1.480515</td>
+      <td>1.910065</td>
+      <td>-0.861226</td>
+      <td>1.910065</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:10:00</th>
+      <td>-0.268003</td>
+      <td>0.947252</td>
+      <td>-0.268003</td>
+      <td>0.614079</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:15:00</th>
+      <td>0.922207</td>
+      <td>1.326386</td>
+      <td>-1.099401</td>
+      <td>1.326386</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:20:00</th>
+      <td>-0.694568</td>
+      <td>1.849264</td>
+      <td>-0.694568</td>
+      <td>0.672295</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:25:00</th>
+      <td>0.407462</td>
+      <td>0.539249</td>
+      <td>-0.769916</td>
+      <td>0.031831</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:30:00</th>
+      <td>-0.635846</td>
+      <td>0.676433</td>
+      <td>-0.635846</td>
+      <td>0.396007</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:35:00</th>
+      <td>-1.093062</td>
+      <td>0.635031</td>
+      <td>-1.491258</td>
+      <td>0.635031</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:40:00</th>
+      <td>2.383145</td>
+      <td>2.383145</td>
+      <td>-1.315907</td>
+      <td>-1.315907</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:45:00</th>
+      <td>-0.461585</td>
+      <td>1.713343</td>
+      <td>-0.826439</td>
+      <td>-0.826439</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:50:00</th>
+      <td>-0.098453</td>
+      <td>1.126636</td>
+      <td>-1.147469</td>
+      <td>-1.147469</td>
+    </tr>
+    <tr>
+      <th>2018-01-01 00:55:00</th>
+      <td>-0.437820</td>
+      <td>1.929532</td>
+      <td>-0.498032</td>
+      <td>0.087551</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>업-샘플링의 경우에는 실제로 존재하지 않는 데이터를 만들어야 한다. 이 때는 앞에서 나온 데이터를 뒤에서 그대로 쓰는 forward filling 방식과 뒤에서 나올 데이터를 앞에서 미리 쓰는 backward filling 방식을 사용할 수 있다. 각각 <code class="docutils literal notranslate"><span class="pre">ffill</span></code>, <code class="docutils literal notranslate"><span class="pre">bfill</span></code> 메서드를 이용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;30s&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-01 00:00:00   -1.173123
+2018-01-01 00:00:30   -1.173123
+2018-01-01 00:01:00    1.943621
+2018-01-01 00:01:30    1.943621
+2018-01-01 00:02:00   -0.413619
+2018-01-01 00:02:30   -0.413619
+2018-01-01 00:03:00   -0.747455
+2018-01-01 00:03:30   -0.747455
+2018-01-01 00:04:00    1.922942
+2018-01-01 00:04:30    1.922942
+2018-01-01 00:05:00    1.480515
+2018-01-01 00:05:30    1.480515
+2018-01-01 00:06:00    1.867559
+2018-01-01 00:06:30    1.867559
+2018-01-01 00:07:00    0.906045
+2018-01-01 00:07:30    0.906045
+2018-01-01 00:08:00   -0.861226
+2018-01-01 00:08:30   -0.861226
+2018-01-01 00:09:00    1.910065
+2018-01-01 00:09:30    1.910065
+Freq: 30S, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;30s&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bfill</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2018-01-01 00:00:00   -1.173123
+2018-01-01 00:00:30    1.943621
+2018-01-01 00:01:00    1.943621
+2018-01-01 00:01:30   -0.413619
+2018-01-01 00:02:00   -0.413619
+2018-01-01 00:02:30   -0.747455
+2018-01-01 00:03:00   -0.747455
+2018-01-01 00:03:30    1.922942
+2018-01-01 00:04:00    1.922942
+2018-01-01 00:04:30    1.480515
+2018-01-01 00:05:00    1.480515
+2018-01-01 00:05:30    1.867559
+2018-01-01 00:06:00    1.867559
+2018-01-01 00:06:30    0.906045
+2018-01-01 00:07:00    0.906045
+2018-01-01 00:07:30   -0.861226
+2018-01-01 00:08:00   -0.861226
+2018-01-01 00:08:30    1.910065
+2018-01-01 00:09:00    1.910065
+2018-01-01 00:09:30   -0.268003
+Freq: 30S, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

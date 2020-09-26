@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김도형의 데이터 사이언스 스쿨 - 파이썬 편 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="데이터 사이언스 스쿨 - 수학 편" href="../book_math.html" />
+    <link rel="prev" title="데이터 사이언스 스쿨 - 파이썬 편" href="../book_python.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     김도형의 데이터 사이언스 스쿨 - 파이썬 편
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/00.00 김도형의 데이터 사이언스 스쿨 - 파이썬 편.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/00.00 김도형의 데이터 사이언스 스쿨 - 파이썬 편.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/00.00 김도형의 데이터 사이언스 스쿨 - 파이썬 편.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   0. 파이썬 설치와 사용법
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   1. 파이썬 기초 문법
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   2. 벡터와 행렬의 연산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   3. 데이터 탐색
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   4. 데이터 시각화
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   5. 알고리즘과 함수형 프로그래밍
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   6. 데이터베이스
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   7. 웹서버와 웹크롤링
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   8. 병렬처리
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   9. 속도 개선과 통신
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>김도형의 데이터 사이언스 스쿨 - 파이썬 편<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>0. 파이썬 설치와 사용법<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>[[school_notebook:26ca8377076541b2b514cd5ed97c554d]]</p>
+<p>[[school_notebook:5e52b7c4b5754f2585844c8d9b26cdb5]]</p>
+<p>[[school_notebook:5a3b9aaade8545c38ab4b888dd9516d4]]</p>
+<p>[[school_notebook:ab78f919fdb84e838039c674acba5650]]</p>
+<p>[[school_notebook:b85212ea4040408e8ebd6d3495f2c91b]]</p>
+<p>[[school_notebook:21b069aa5f3043cfb2ab0d15d7f7561e]]</p>
+<p>[[school_notebook:338fe23b46464e9b9c4d4c8f8c7c7258]]</p>
+</div>
+<div class="section" id="id3">
+<h2>1. 파이썬 기초 문법<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>[[school_notebook:d34cda78eb5c46deaacb394a9311c061]]</p>
+<p>[[school_notebook:148fc57f684c4dc48eeb5048ab0d45f2]]</p>
+<p>[[school_notebook:ddebe9929d4047409e16c9e6f06f1ed4]]</p>
+<p>[[school_notebook:cb85192c4c734d98afcd3d6027dd57b6]]</p>
+<p>[[school_notebook:1fa1afd6176848d7874f594dec2a7bc7]]</p>
+<p>[[school_notebook:b368c42a39634c9784e9dda0c4318543]]</p>
+<p>[[school_notebook:f50da28051c84db08a8af6c92e813888]]</p>
+<p>[[school_notebook:b7db5062d333474ca700f1c5f63e3979]]</p>
+<p>[[school_notebook:94281f9cd29b4e9e97ab82e5f6f07e15]]</p>
+<p>[[school_notebook:6def52f325be4168bcae61a5a7e367ad]]</p>
+<p>[[school_notebook:3ed4a1e949f14ff08bcf773705afee8e]]</p>
+<p>[[school_notebook:fdbe01932ce74b7983f1862a56e32104]]</p>
+<p>[[school_notebook:4ed10a0ab51d41539ca2e52eed9b5a8d]]</p>
+<p>[[school_notebook:a55f4411a7c641eebbd377f6292eef52]]</p>
+<p>[[school_notebook:250c1869eab54157827adf54c5e9f064]]</p>
+<p>[[school_notebook:465066ac92ef4da3b0aba32f76d9750a]]</p>
+</div>
+<div class="section" id="id4">
+<h2>2. 벡터와 행렬의 연산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>[[school_notebook:35099ac4aea146c69cc4b3f50aec736f]]</p>
+<p>[[school_notebook:17608f897087478bbeac096438c716f6]]</p>
+<p>[[school_notebook:464860bf5a5f4e139b05ccc473f1f15c]]</p>
+<p>[[school_notebook:1ce4880f58504891b8ab8550fe894a51]]</p>
+<p>[[school_notebook:8bf41f87a08b4c44b307799577736a28]]</p>
+</div>
+<div class="section" id="id5">
+<h2>3. 데이터 탐색<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>[[school_notebook:ee0a5679dd574b94b55193690992f850]]</p>
+<p>[[school_notebook:c5ccddd6716042ee8be3e5436081778b]]</p>
+<p>[[school_notebook:704731b41f794b8ea00768f5b0904512]]</p>
+<p>[[school_notebook:aa62265f02fc429aa636ef343c3b1fda]]</p>
+<p>[[school_notebook:a49bde24674a46699639c1fa9bb7e213]]</p>
+<p>[[school_notebook:7002e92653434bc88c8c026c3449d27b]]</p>
+<p>[[school_notebook:76dcd63bba2c4959af15bec41b197e7c]]</p>
+<p>[[school_notebook:8959673a97214e8fafdb159f254185e9]]</p>
+<p>[[school_notebook:2282b75b2a63448087b77269885c27cb]]</p>
+</div>
+<div class="section" id="id6">
+<h2>4. 데이터 시각화<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>[[school_notebook:d0b1637803754bb083b5722c9f2209d0]]</p>
+<p>[[school_notebook:6e71dbff254542d9b0a054a7c98b34ec]]</p>
+<p>[[school_notebook:5deb23973a0240beb510cc2cd3b2f43d]]</p>
+<p>[[school_notebook:4c2d5ff1caab4b21a708cc662137bc65]]</p>
+<p>[[school_notebook:372443a5d90a46429c6459bba8b4342c]]</p>
+</div>
+<div class="section" id="id7">
+<h2>5. 알고리즘과 함수형 프로그래밍<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id8">
+<h2>6. 데이터베이스<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id9">
+<h2>7. 웹서버와 웹크롤링<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id10">
+<h2>8. 병렬처리<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id11">
+<h2>9. 속도 개선과 통신<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../book_python.html" title="previous page">데이터 사이언스 스쿨 - 파이썬 편</a>
+    <a class='right-next' id="next-link" href="../book_math.html" title="next page">데이터 사이언스 스쿨 - 수학 편</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

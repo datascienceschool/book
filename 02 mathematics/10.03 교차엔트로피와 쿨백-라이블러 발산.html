@@ -1,0 +1,765 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.3 교차엔트로피와 쿨백-라이블러 발산 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/10.03 교차엔트로피와 쿨백-라이블러 발산.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/10.03 교차엔트로피와 쿨백-라이블러 발산.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/10.03 교차엔트로피와 쿨백-라이블러 발산.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   교차엔트로피
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   교차엔트로피를 사용한 분류성능 측정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 10.3.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   쿨백-라이블러 발산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   가변길이 인코딩과 쿨백-라이블러 발산
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 10.3.2
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>10.3 교차엔트로피와 쿨백-라이블러 발산<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 교차엔트로피와 쿨백-라이블러 발산을 공부한다. 교차엔트로피는 분류문제의 성능을 평가하는데 유용하다. 쿨백-라이블러 발산은 교차엔트로피를 응용한 것으로 두 확률분포의 모양이 얼마나 유사한지를 평가한다.</p>
+<div class="section" id="id2">
+<h2>교차엔트로피<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>두 확률분포 <span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(q\)</span>의 <strong>교차엔트로피(cross entropy)</strong> <span class="math notranslate nohighlight">\(H[p,q]\)</span>는</p>
+<p>이산확률분포의 경우에는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[p,q] = -\sum_{k=1}^K p(y_k) \log_2 q(y_k)
+\tag{10.3.1}
+\end{align}
+\]</div>
+<p>연속확률분포의 경우에는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[p,q] = -\int_{y} p(y) \log_2 q(y) \,dy
+\tag{10.3.2}
+\end{align}
+\]</div>
+<p>교차엔트로피는 지금까지 공부한 엔트로피, 결합엔트로피, 조건부엔트로피와 다르게 확률변수가 아닌 확률분포를 인수로 받는다는 점에 주의하라.</p>
+<div class="section" id="id3">
+<h3>예제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>다음과 같은 두 분포가 있을 때 교차엔트로피는 0.25다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p = [1/4, 1/4, 1/4, 1/4]
+\tag{10.3.3}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+q = [1/2, 1/4, 1/8, 1/8]
+\tag{10.3.4}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.25
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>교차엔트로피를 사용한 분류성능 측정<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>교차엔트로피는 분류모형의 성능을 측정하는데 사용된다. <span class="math notranslate nohighlight">\(Y\)</span>가 0 또는 1이라는 값만 가지는 이진분류문제를 예로 들어보자.</p>
+<p><span class="math notranslate nohighlight">\(p\)</span>는 <span class="math notranslate nohighlight">\(X\)</span>값이 정해졌을 때 정답인 <span class="math notranslate nohighlight">\(Y\)</span>의 확률분포다. 이진분류문제에서 <span class="math notranslate nohighlight">\(Y\)</span>는 0또는 1이다. 따라서 <span class="math notranslate nohighlight">\(p\)</span>는</p>
+<ul class="simple">
+<li><p>정답이 <span class="math notranslate nohighlight">\(Y=1\)</span>일 때,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(Y=0)=0, p(Y=1)=1
+\tag{10.3.5}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>정답이 <span class="math notranslate nohighlight">\(Y=0\)</span>일 때</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(Y=0)=1, p(Y=1)=0
+\tag{10.3.6}
+\end{align}
+\]</div>
+<p>이다.</p>
+<p>분포 <span class="math notranslate nohighlight">\(q\)</span>는 <span class="math notranslate nohighlight">\(X\)</span>값이 정해졌을 때 예측값의 확률분포다. 모수가 <span class="math notranslate nohighlight">\(\mu\)</span>인 베르누이분포라고 가정한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+q(Y=0)=1-\mu, q(Y=1)=\mu
+\tag{10.3.7}
+\end{align}
+\]</div>
+<p>따라서 확률분포 <span class="math notranslate nohighlight">\(p\)</span>와 <span class="math notranslate nohighlight">\(q\)</span>의 교차엔트로피는</p>
+<ul class="simple">
+<li><p>정답이 <span class="math notranslate nohighlight">\(Y=1\)</span>일 때,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[p,q] = - \cancel{p(Y=0) \log_2 q(Y=0)} - p(Y=1) \log_2 q(Y=1) = -\log_2 \mu
+\tag{10.3.8}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>정답이 <span class="math notranslate nohighlight">\(Y=0\)</span>일 때,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[p,q] = - p(Y=0) \log_2 q(Y=0) - \cancel{p(Y=1) \log_2 q(Y=1)} = -\log_2 (1-\mu)
+\tag{10.3.9}
+\end{align}
+\]</div>
+<p>가 된다.</p>
+<p>이 값은 분류성능이 좋을수록 작아지고 분류성능이 나쁠수록 커진다. 이유는 다음과 같다.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Y=1\)</span>일 때는 <span class="math notranslate nohighlight">\(\mu\)</span>가 작아질수록 즉, 예측이 틀릴수록 <span class="math notranslate nohighlight">\(-\log_2 \mu\)</span>의 값도 커진다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y=0\)</span>일 때는 <span class="math notranslate nohighlight">\(\mu\)</span>가 커질수록, 즉 예측이 틀릴수록 <span class="math notranslate nohighlight">\(-\log_2 (1-\mu)\)</span>의 값도 커진다.</p></li>
+</ul>
+<p>따라서 교차엔트로피값은 예측의 틀린정도를 나타내는 오차함수의 역할을 할 수 있다.</p>
+<p><span class="math notranslate nohighlight">\(N\)</span>개의 학습 데이터 전체에 대해 교차엔트로피 평균을 구하면 다음 식으로 표현할 수 있다. 이 값을 **로그손실(log-loss)**이라고도 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{log loss} = -\dfrac{1}{N} \sum_{i=1}^N \left( y_i \log_2 \mu_i + (1 - y_i) \log_2 (1 - \mu_i) \right)
+\tag{10.3.10}
+\end{align}
+\]</div>
+<p>같은 방법으로 이진분류가 아닌 다중분류에서도 교차엔트로피를 오차 함수로 사용할 수 있다. 다중분류문제의 교차엔트로피 손실함수를 **카테고리 로그손실(categorical log-loss)**이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{categorical log loss} = -\dfrac{1}{N} \sum_{i=1}^N \sum_{k=1}^K \left( \mathbb{I}(y_i=k) \log_2 p(y_i=k) \right)
+\tag{10.3.11}
+\end{align}
+\]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\(\mathbb{I}(y_i=k)\)</span>는 <span class="math notranslate nohighlight">\(y_i\)</span>가 <span class="math notranslate nohighlight">\(k\)</span>인 경우에만 1이고 그렇지 않으면 0이 되는 지시함수(indicator function)다. <span class="math notranslate nohighlight">\(p(y_i=k)\)</span>는 분류모형이 계산한 <span class="math notranslate nohighlight">\(y_i=k\)</span>일 확률이다.</p>
+<p>사이킷런(Scikit-Learn) 패키지의 metrics 서브패키지는 로그손실을 계산하는 <code class="docutils literal notranslate"><span class="pre">log_loss</span></code> 함수를 제공한다.</p>
+<p>붓꽃 분류문제에서 꽃받침 길이(sepal length) 5.6cm를 기준으로 세토사와 베르시칼라 종을 분류한 결과는 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;y_hat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal length (cm)&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">5.4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>y</th>
+      <th>y_hat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>95</td>
+      <td>5.7</td>
+      <td>3.0</td>
+      <td>4.2</td>
+      <td>1.2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>96</td>
+      <td>5.7</td>
+      <td>2.9</td>
+      <td>4.2</td>
+      <td>1.3</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>97</td>
+      <td>6.2</td>
+      <td>2.9</td>
+      <td>4.3</td>
+      <td>1.3</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>98</td>
+      <td>5.1</td>
+      <td>2.5</td>
+      <td>3.0</td>
+      <td>1.1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>99</td>
+      <td>5.7</td>
+      <td>2.8</td>
+      <td>4.1</td>
+      <td>1.3</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>로그손실값을 계산하면 3.8이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">log_loss</span>
+
+<span class="n">log_loss</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;y_hat&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.799305383311686
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 10.3.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>(1) 붓꽃 데이터에서 꽃받침의 길이(sepal length)의 최솟값과 최댓값 구간을 0.5 간격으로 나누어 각각의 값을 기준값으로 하였을 때 로그손실이 어떻게 변하는지 그래프로 그려라. 종으로는 세토사와 베르시칼라만 사용한다.</p>
+<p>(2) 꽃받침의 길이를 특징으로 사용하였을 때 어떤 값을 기준값으로 하는 것이 가장 좋은가?</p>
+<p>(3) 꽃받침의 폭(sepal width)에 대해 위의 분석을 실시하라. 이 때는 기준값이 어떻게 되는가?</p>
+<p>(4) 꽃받침의 길이(sepal length)와 꽃받침의 폭(sepal width) 중 하나를 특징으로 선택해야 한다면 어떤 것을 선택해야 하는가?</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>쿨백-라이블러 발산<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>**쿨백-라이블러 발산(Kullback-Leibler divergence)**은 두 확률분포 <span class="math notranslate nohighlight">\(p(y)\)</span>, <span class="math notranslate nohighlight">\(q(y)\)</span>의 분포모양이 얼마나 다른지를 숫자로 계산한 값이다. <span class="math notranslate nohighlight">\(KL(p||q)\)</span>로 표기한다.</p>
+<p>이산확률분포에 대해서는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+KL(p||q)  
+&amp;= H[p,q] - H[p] \\
+&amp;= \sum_{i=1}^{K} p(y_i) \log_2 \left(\dfrac{p(y_i)}{q(y_i)}\right)
+\end{aligned}
+\tag{10.3.12}
+\end{align}
+\end{split}\]</div>
+<p>연속확률분포에 대해서는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+KL(p || q)  
+&amp;= H[p, q] - H[p] \\
+&amp;= \int p(y) \log_2 \left(\dfrac{p(y)}{q(y)}\right) dy
+\end{aligned}
+\tag{10.3.13}
+\end{align}
+\end{split}\]</div>
+<p>쿨백-라이블러 발산은 교차엔트로피에서 기준이 되는 <span class="math notranslate nohighlight">\(p\)</span>분포의 엔트로피 값을 뺀 값이므로 상대엔트로피(relative entropy)라고도 한다.
+그 값은 항상 양수이며 두 확률분포 <span class="math notranslate nohighlight">\(p(x)\)</span>, <span class="math notranslate nohighlight">\(q(x)\)</span>가 완전히 같을 경우에만 0이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+KL(p || p)  
+&amp;= H[p, p] - H[p] \\
+&amp;= \int p(y) \log_2 \left(\dfrac{p(y)}{p(y)}\right) dy \\
+&amp;= 0
+\end{aligned}
+\tag{10.3.14}
+\end{align}
+\end{split}\]</div>
+<p>역으로 쿨백-라이블러 발산이 0이면 두 확률분포는 같은 확률분포다. 증명은 생략한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+KL(p || q) = 0 \; \leftrightarrow \; p = q
+\tag{10.3.15}
+\end{align}
+\]</div>
+<p>쿨백-라이블러 발산은 거리(distance)가 아니라 확률분포 <span class="math notranslate nohighlight">\(q\)</span>가 기준확률분포 <span class="math notranslate nohighlight">\(p\)</span>와 얼마나 다른지를 나타내는 값이므로 두 확률분포의 위치가 달라지면 일반적으로 값이 달라진다는 점에 주의해야 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+KL(p || q) \neq KL(q || p)
+\tag{10.3.16}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id7">
+<h2>가변길이 인코딩과 쿨백-라이블러 발산<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>4개의 글자 A, B, C, D로 씌여진 다음과 같은 문서를 가변길이 인코딩하는 경우를 생각하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">doc0</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">c</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">&quot;ABCD&quot;</span><span class="p">)]))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">doc0</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc0</span><span class="p">)</span>
+<span class="n">doc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;DBCADDAAAAABAACABABCAAACAAABBACACCDAABDACAAAACABABBABAADDAADBAAABDBABDBABCCBBDABACACABADCBDBBABDAAAABABBCABDAAADADAAABAABAAABCABDCBDAACDAAAAABBCAADBBBADCAAAAAAABABAAAAABAAAAABCDDDCBABBABBCABCAAAACABAA&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 문서를 구성하는 글자의 확률분포는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(Y=A)=\dfrac{1}{2},\; p(Y=B)=\dfrac{1}{4},\; p(Y=C)=\dfrac{1}{8},\; p(Y=D)=\dfrac{1}{8}
+\tag{10.3.17}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.125, 0.25 , 0.125, 0.5  ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>한글자당 인코딩된 글자수는 분포 <span class="math notranslate nohighlight">\(q\)</span>의 엔트로피인 1.75가 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\sum_{k=1}^K p(y_i) \log_2 p(y_i)
+&amp;=
+- \dfrac{1}{2} \cdot \log_2 \dfrac{1}{2} + 
+- \dfrac{1}{4} \cdot \log_2 \dfrac{1}{4} + 
+- \dfrac{1}{8} \cdot \log_2 \dfrac{1}{8} + 
+- \dfrac{1}{8} \cdot \log_2 \dfrac{1}{8} \\
+&amp;=
+\dfrac{1}{2} \cdot 1 + 
+\dfrac{1}{4} \cdot 2 + 
+\dfrac{1}{8} \cdot 3 + 
+\dfrac{1}{8} \cdot 3 \\
+&amp;= 1.75
+\tag{10.3.18}
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">],</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.75
+</pre></div>
+</div>
+</div>
+</div>
+<p>실제로 인코딩된 글자수에서 확인할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vl_encoder</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;110&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;111&quot;</span><span class="p">}</span>
+<span class="n">vl_encoded_doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">vl_encoder</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">])</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">vl_encoded_doc</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.75
+</pre></div>
+</div>
+</div>
+</div>
+<p>그런데 가변길이 인코딩이 아니라 고정길이 인코딩을 사용한다는 것은 다음과 같은 분포를 가정한 것과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+q(Y=A)=\dfrac{1}{4},\; q(Y=B)=\dfrac{1}{4},\; q(Y=C)=\dfrac{1}{4},\; q(Y=D)=\dfrac{1}{4}
+\tag{10.3.19}
+\end{align}
+\]</div>
+<p>실제로 한글자당 인코딩된 글자수는 다음과 같이 계산할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\sum_{k=1}^K p(y_i) \log_2 q(y_i)
+&amp;=
+- \dfrac{1}{2} \cdot \log_2 \dfrac{1}{4} + 
+- \dfrac{1}{4} \cdot \log_2 \dfrac{1}{4} + 
+- \dfrac{1}{8} \cdot \log_2 \dfrac{1}{4} + 
+- \dfrac{1}{8} \cdot \log_2 \dfrac{1}{4} \\
+&amp;=
+\dfrac{1}{2} \cdot 2 + 
+\dfrac{1}{4} \cdot 2 + 
+\dfrac{1}{8} \cdot 2 + 
+\dfrac{1}{8} \cdot 2 \\
+&amp;= 2
+\tag{10.3.20}
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encoder</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;00&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;11&quot;</span><span class="p">}</span>
+<span class="n">encoded_doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">encoder</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">])</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">encoded_doc</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>쿨백-라이블러 발산은 잘못된 분포 <span class="math notranslate nohighlight">\(q\)</span>로 인코딩되었을 때의 한글자당 인코딩된 글자수와 원래의 분포 <span class="math notranslate nohighlight">\(p\)</span>를 사용하였을 때  한글자당 인코딩된 글자수의 차이인 0.25와 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+KL(p||q)  
+&amp;= \sum_{i=1}^{K} p(y_i) \log_2 \left(\dfrac{p(y_i)}{q(y_i)}\right) \\
+&amp;= - \sum_{i=1}^{K} p(y_i) \log_2 q(y_i) - (- \sum_{i=1}^{K} p(y_i) \log_2 p(y_i)) ) \\
+&amp;= H[p, q] - H[p] \\
+&amp;= 2.0 - 1.75 = 0.25
+\end{aligned}
+\tag{10.3.21}
+\end{align}
+\end{split}\]</div>
+<p>즉, 확률분포 <span class="math notranslate nohighlight">\(q\)</span>의 모양이 확률분포 <span class="math notranslate nohighlight">\(p\)</span>와 다른 정도를 정량화한 것이다.</p>
+<p>사이파이의 stats 서브패키지에서 제공하는 <code class="docutils literal notranslate"><span class="pre">entropy</span></code> 함수는 두 개의 확률분포를 인수로 넣으면 쿨백-라이블러 발산을 계산해준다. <code class="docutils literal notranslate"><span class="pre">base</span></code> 인수를 2로 설정하는 것을 잊지 말아야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">],</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.24999999999999997
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>연습 문제 10.3.2<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>A, B, C, D, E, F, G, H의 8글자로 이루어진 문서가 있고 각각의 글자가 나올 확률이 다음과 같다고 가정하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Big\{ \dfrac{1}{2}, \dfrac{1}{4}, \dfrac{1}{8}, \dfrac{1}{16}, \dfrac{1}{64}, \dfrac{1}{64}, \dfrac{1}{64}, \dfrac{1}{64} \Big\}
+\tag{10.3.22}
+\end{align}
+\]</div>
+<p>(1) 위 확률분포와 균일확률분포의 쿨백-라이블러 발산값을 구하라.</p>
+<p>(2) 이 문서를 가변길이 인코딩을 할 때와 고정길이 인코딩을 할 때 한글자당 인코딩된 글자수를 비교하라.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

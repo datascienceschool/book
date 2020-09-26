@@ -1,0 +1,2341 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터프레임 인덱스 조작 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/04.05 데이터프레임 인덱스 조작.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/04.05 데이터프레임 인덱스 조작.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/04.05 데이터프레임 인덱스 조작.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   데이터프레임 인덱스 설정 및 제거
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     연습 문제 1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   다중 인덱스
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   행 인덱스와 열 인덱스 교환
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   다중 인덱스가 있는 경우의 인덱싱
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   다중 인덱스의 인덱스 순서 교환
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   다중 인덱스가 있는 경우의 정렬
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 2
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>데이터프레임 인덱스 조작<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>데이터프레임 인덱스 설정 및 제거<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>때로는 데이터프레임에 인덱스로 들어가 있어야 할 데이터가 일반 데이터 열에 들어가 있거나 반대로 일반 데이터 열이어야 할 것이 인덱스로 되어 있을 수 있다. 이 때는 <code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령으로 인덱스와 일반 데이터 열을 교환할 수 있다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">set_index</span></code> : 기존의 행 인덱스를 제거하고 데이터 열 중 하나를 인덱스로 설정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code> : 기존의 행 인덱스를 제거하고 인덱스를 데이터 열로 추가</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="s1">&#39;ABCDE&#39;</span><span class="p">),</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">,</span> <span class="s2">&quot;C4&quot;</span><span class="p">])</span>
+<span class="n">df1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>C4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>0.55</td>
+      <td>0.65</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B</td>
+      <td>0.72</td>
+      <td>0.44</td>
+      <td>0.53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C</td>
+      <td>0.6</td>
+      <td>0.89</td>
+      <td>0.57</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>D</td>
+      <td>0.54</td>
+      <td>0.96</td>
+      <td>0.93</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>E</td>
+      <td>0.42</td>
+      <td>0.38</td>
+      <td>0.07</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령으로 C1열을 인덱스로 설정할 수 있다. 이 때 기존 인덱스는 없어진다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>C4</th>
+    </tr>
+    <tr>
+      <th>C1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A</th>
+      <td>0.55</td>
+      <td>0.65</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>0.72</td>
+      <td>0.44</td>
+      <td>0.53</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <td>0.6</td>
+      <td>0.89</td>
+      <td>0.57</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>0.54</td>
+      <td>0.96</td>
+      <td>0.93</td>
+    </tr>
+    <tr>
+      <th>E</th>
+      <td>0.42</td>
+      <td>0.38</td>
+      <td>0.07</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>마찬가지로 C2열을 인덱스로 지정하면 기존의 인덱스는 사라진다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;C2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>C3</th>
+      <th>C4</th>
+    </tr>
+    <tr>
+      <th>C2</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.55</th>
+      <td>0.65</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <th>0.72</th>
+      <td>0.44</td>
+      <td>0.53</td>
+    </tr>
+    <tr>
+      <th>0.6</th>
+      <td>0.89</td>
+      <td>0.57</td>
+    </tr>
+    <tr>
+      <th>0.54</th>
+      <td>0.96</td>
+      <td>0.93</td>
+    </tr>
+    <tr>
+      <th>0.42</th>
+      <td>0.38</td>
+      <td>0.07</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령으로 인덱스를 보통의 자료열로 바꿀 수도 있다. 이 때 인덱스 열은 자료열의 가장 선두로 삽입된다. 데이터프레임의 인덱스는 정수로 된 디폴트 인덱스로 바뀐다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>C4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>0.55</td>
+      <td>0.65</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B</td>
+      <td>0.72</td>
+      <td>0.44</td>
+      <td>0.53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C</td>
+      <td>0.6</td>
+      <td>0.89</td>
+      <td>0.57</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>D</td>
+      <td>0.54</td>
+      <td>0.96</td>
+      <td>0.93</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>E</td>
+      <td>0.42</td>
+      <td>0.38</td>
+      <td>0.07</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령 사용시에 <code class="docutils literal notranslate"><span class="pre">drop=True</span></code> 로 설정하면 인덱스 열을 보통의 자료열로 올리는 것이 아니라 그냥 버리게 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>C4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.55</td>
+      <td>0.65</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.72</td>
+      <td>0.44</td>
+      <td>0.53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.6</td>
+      <td>0.89</td>
+      <td>0.57</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.54</td>
+      <td>0.96</td>
+      <td>0.93</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.42</td>
+      <td>0.38</td>
+      <td>0.07</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="id3">
+<h3>연습 문제 1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>5명의 학생의 국어, 영어, 수학 점수를 나타내는 데이터프레임을 다음과 같이 만든다.</p>
+<ol class="simple">
+<li><p>학생 이름을 나타내는 열을 포함시키지 않고 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score1</span></code> 을 생성한 후, <code class="docutils literal notranslate"><span class="pre">df_score1.index</span></code> 속성에 학생 이름을 나타내는 열을 지정하여 인덱스를 지정한다. <code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령으로 이 인덱스 열을 명령으로 일반 데이터열로 바꾸여 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score2</span></code>을 만든다.</p></li>
+<li><p>학생 이름을 나타내는 열이 일반 데이터 열을 포함하는 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score2</span></code>에 <code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령을 적용하여 다시 학생 이름을 나타내는 열을 인덱스로 변경한다.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>다중 인덱스<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>행이나 열에 여러 계층을 가지는 인덱스 즉, **다중 인덱스(multi-index)**를 설정할 수도 있다. 데이터프레임을 생성할 때 <code class="docutils literal notranslate"><span class="pre">columns</span></code> 인수에 다음 예제처럼 리스트의 리스트(행렬) 형태로 인덱스를 넣으면 다중 열 인덱스를 가지게 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">]])</span>
+<span class="n">df3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C1</th>
+      <th>C2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>다중 인덱스는 이름을 지정하면 더 편리하게 사용할 수 있다. 열 인덱스들의 이름 지정은 <code class="docutils literal notranslate"><span class="pre">columns</span></code> 객체의 <code class="docutils literal notranslate"><span class="pre">names</span></code> 속성에 리스트를 넣어서 지정한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Cidx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Cidx2&quot;</span><span class="p">]</span>
+<span class="n">df3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th>Cidx2</th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C1</th>
+      <th>C2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>마찬가지로 데이터프레임을 생성할 때 <code class="docutils literal notranslate"><span class="pre">index</span></code> 인수에 리스트의 리스트(행렬) 형태로 인덱스를 넣으면 다중 (행) 인덱스를 가진다. 행 인덱스들의 이름 지정은 <code class="docutils literal notranslate"><span class="pre">index</span></code> 객체의 <code class="docutils literal notranslate"><span class="pre">names</span></code> 속성에 리스트를 넣어서 지정한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">]],</span>
+                   <span class="n">index</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">],</span>
+                          <span class="p">[</span><span class="s2">&quot;id_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Cidx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Cidx2&quot;</span><span class="p">]</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Ridx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Ridx2&quot;</span><span class="p">]</span>
+<span class="n">df4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">M</th>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">F</th>
+      <th>id_1</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-2.55</td>
+      <td>0.65</td>
+      <td>0.86</td>
+      <td>-0.74</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>행 인덱스와 열 인덱스 교환<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">stack</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령을 쓰면 열 인덱스를 행 인덱스로 바꾸거나 반대로 행 인덱스를 열 인덱스로 바꿀 수 있다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stack()</span></code></p></li>
+<li><p>열 인덱스 -&gt; 행 인덱스로 변환</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unstack()</span></code></p></li>
+<li><p>행 인덱스 -&gt; 열 인덱스로 변환</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">stack</span></code> 명령을 실행하면 열 인덱스가 반시계 방향으로 90도 회전한 것과 비슷한 모양이 된다. 마찬가지로 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령을 실행하면 행 인덱스가 시계 방향으로 90도 회전한 것과 비슷하다. 인덱스를 지정할 때는 문자열 이름과 순서를 표시하는 숫자 인덱스를 모두 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="s2">&quot;Cidx1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th>Cidx1</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="6" valign="top">M</th>
+      <th rowspan="2" valign="top">id_1</th>
+      <th>A</th>
+      <td>1.76</td>
+      <td>0.40</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_2</th>
+      <th>A</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_3</th>
+      <th>A</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">F</th>
+      <th rowspan="2" valign="top">id_1</th>
+      <th>A</th>
+      <td>0.76</td>
+      <td>0.12</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_2</th>
+      <th>A</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_3</th>
+      <th>A</th>
+      <td>-2.55</td>
+      <td>0.65</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>0.86</td>
+      <td>-0.74</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Cidx1</th>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th>Cidx2</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="6" valign="top">M</th>
+      <th rowspan="2" valign="top">id_1</th>
+      <th>C</th>
+      <td>1.76</td>
+      <td>0.98</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>0.40</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_2</th>
+      <th>C</th>
+      <td>1.87</td>
+      <td>0.95</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>-0.98</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_3</th>
+      <th>C</th>
+      <td>-0.10</td>
+      <td>0.14</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>0.41</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">F</th>
+      <th rowspan="2" valign="top">id_1</th>
+      <th>C</th>
+      <td>0.76</td>
+      <td>0.44</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>0.12</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_2</th>
+      <th>C</th>
+      <td>1.49</td>
+      <td>0.31</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>-0.21</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_3</th>
+      <th>C</th>
+      <td>-2.55</td>
+      <td>0.86</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>0.65</td>
+      <td>-0.74</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s2">&quot;Ridx2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Cidx1</th>
+      <th colspan="6" halign="left">A</th>
+      <th colspan="6" halign="left">B</th>
+    </tr>
+    <tr>
+      <th>Cidx2</th>
+      <th colspan="3" halign="left">C</th>
+      <th colspan="3" halign="left">D</th>
+      <th colspan="3" halign="left">C</th>
+      <th colspan="3" halign="left">D</th>
+    </tr>
+    <tr>
+      <th>Ridx2</th>
+      <th>id_1</th>
+      <th>id_2</th>
+      <th>id_3</th>
+      <th>id_1</th>
+      <th>id_2</th>
+      <th>id_3</th>
+      <th>id_1</th>
+      <th>id_2</th>
+      <th>id_3</th>
+      <th>id_1</th>
+      <th>id_2</th>
+      <th>id_3</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>F</th>
+      <td>0.76</td>
+      <td>1.49</td>
+      <td>-2.55</td>
+      <td>0.12</td>
+      <td>-0.21</td>
+      <td>0.65</td>
+      <td>0.44</td>
+      <td>0.31</td>
+      <td>0.86</td>
+      <td>0.33</td>
+      <td>-0.85</td>
+      <td>-0.74</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>1.76</td>
+      <td>1.87</td>
+      <td>-0.10</td>
+      <td>0.40</td>
+      <td>-0.98</td>
+      <td>0.41</td>
+      <td>0.98</td>
+      <td>0.95</td>
+      <td>0.14</td>
+      <td>2.24</td>
+      <td>-0.15</td>
+      <td>1.45</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Cidx1</th>
+      <th colspan="4" halign="left">A</th>
+      <th colspan="4" halign="left">B</th>
+    </tr>
+    <tr>
+      <th>Cidx2</th>
+      <th colspan="2" halign="left">C</th>
+      <th colspan="2" halign="left">D</th>
+      <th colspan="2" halign="left">C</th>
+      <th colspan="2" halign="left">D</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>F</th>
+      <th>M</th>
+      <th>F</th>
+      <th>M</th>
+      <th>F</th>
+      <th>M</th>
+      <th>F</th>
+      <th>M</th>
+    </tr>
+    <tr>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>id_1</th>
+      <td>0.76</td>
+      <td>1.76</td>
+      <td>0.12</td>
+      <td>0.40</td>
+      <td>0.44</td>
+      <td>0.98</td>
+      <td>0.33</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.49</td>
+      <td>1.87</td>
+      <td>-0.21</td>
+      <td>-0.98</td>
+      <td>0.31</td>
+      <td>0.95</td>
+      <td>-0.85</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-2.55</td>
+      <td>-0.10</td>
+      <td>0.65</td>
+      <td>0.41</td>
+      <td>0.86</td>
+      <td>0.14</td>
+      <td>-0.74</td>
+      <td>1.45</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>다중 인덱스가 있는 경우의 인덱싱<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>데이터프레임이 다중 인덱스를 가지는 경우에는 인덱스가 하나의 라벨이나 숫자가 아니라 <code class="docutils literal notranslate"><span class="pre">()</span></code>로 둘러싸인 튜플이 되어야 한다. 예를 들어 앞에서 만든 <code class="docutils literal notranslate"><span class="pre">df3</span></code> 데이터프레임의 경우 다음과 같이 인덱싱할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th>Cidx2</th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C1</th>
+      <th>C2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="p">[(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    0.98
+1    0.95
+2    0.14
+3    0.44
+4    0.31
+Name: (B, C1), dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.98
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">df3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th>Cidx2</th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C1</th>
+      <th>C2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>100.00</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>단, <code class="docutils literal notranslate"><span class="pre">iloc</span></code> 인덱서를 사용하는 경우에는 튜플 형태의 다중인덱스를 사용할 수 없다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>만약 하나의 레벨 값만 넣으면 다중 인덱스 중에서 가장 상위의 값을 지정한 것으로 본다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Cidx2</th>
+      <th>C1</th>
+      <th>C2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.76</td>
+      <td>0.40</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.76</td>
+      <td>0.12</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">df4</span></code> 데이터프레임은 다음과 같이 인덱싱할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">M</th>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">F</th>
+      <th>id_1</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-2.55</td>
+      <td>0.65</td>
+      <td>0.86</td>
+      <td>-0.74</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;id_1&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.76
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ridx1  Ridx2
+M      id_1     1.76
+       id_2     1.87
+       id_3    -0.10
+F      id_1     0.76
+       id_2     1.49
+       id_3    -2.55
+Name: (A, C), dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;id_1&quot;</span><span class="p">),</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cidx1  Cidx2
+A      C        1.76
+       D        0.40
+B      C        0.98
+       D        2.24
+Name: (M, id_1), dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s2">&quot;All&quot;</span><span class="p">,</span> <span class="s2">&quot;All&quot;</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">M</th>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">F</th>
+      <th>id_1</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-2.55</td>
+      <td>0.65</td>
+      <td>0.86</td>
+      <td>-0.74</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <th>All</th>
+      <td>3.23</td>
+      <td>0.39</td>
+      <td>3.68</td>
+      <td>2.28</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>다중 인덱스의 인덱스 순서 교환<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>다중 인덱스의 인덱스 순서를 바꾸고 싶으면 <code class="docutils literal notranslate"><span class="pre">swaplevel</span></code> 명령을 사용한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">swaplevel(i,</span> <span class="pre">j,</span> <span class="pre">axis)</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">i</span></code>와 <code class="docutils literal notranslate"><span class="pre">j</span></code>는 교환하고자 하는 인덱스 라벨(혹은 인덱스 번호)이고 <code class="docutils literal notranslate"><span class="pre">axis</span></code>는 0일 때 행 인덱스, 1일 때 열 인덱스를 뜻한다. 디폴트는 행 인덱스이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df5</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">swaplevel</span><span class="p">(</span><span class="s2">&quot;Ridx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Ridx2&quot;</span><span class="p">)</span>
+<span class="n">df5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx2</th>
+      <th>Ridx1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>id_1</th>
+      <th>M</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <th>M</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <th>M</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th>id_1</th>
+      <th>F</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <th>F</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <th>F</th>
+      <td>-2.55</td>
+      <td>0.65</td>
+      <td>0.86</td>
+      <td>-0.74</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <th>All</th>
+      <td>3.23</td>
+      <td>0.39</td>
+      <td>3.68</td>
+      <td>2.28</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df6</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">swaplevel</span><span class="p">(</span><span class="s2">&quot;Cidx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Cidx2&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">df6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th>A</th>
+      <th>A</th>
+      <th>B</th>
+      <th>B</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">M</th>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">F</th>
+      <th>id_1</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-2.55</td>
+      <td>0.65</td>
+      <td>0.86</td>
+      <td>-0.74</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <th>All</th>
+      <td>3.23</td>
+      <td>0.39</td>
+      <td>3.68</td>
+      <td>2.28</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>다중 인덱스가 있는 경우의 정렬<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>다중 인덱스가 있는 데이터프레임을 <code class="docutils literal notranslate"><span class="pre">sort_index</span></code>로 정렬할 때는 <code class="docutils literal notranslate"><span class="pre">level</span></code> 인수를 사용하여 어떤 인덱스를 기준으로 정렬하는지 알려주어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df5</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx2</th>
+      <th>Ridx1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>All</th>
+      <th>All</th>
+      <td>3.23</td>
+      <td>0.39</td>
+      <td>3.68</td>
+      <td>2.28</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_1</th>
+      <th>F</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_2</th>
+      <th>F</th>
+      <td>1.49</td>
+      <td>-0.21</td>
+      <td>0.31</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">id_3</th>
+      <th>F</th>
+      <td>-2.55</td>
+      <td>0.65</td>
+      <td>0.86</td>
+      <td>-0.74</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df6</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th colspan="2" halign="left">C</th>
+      <th colspan="2" halign="left">D</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th>A</th>
+      <th>B</th>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">M</th>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.98</td>
+      <td>0.40</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.87</td>
+      <td>0.95</td>
+      <td>-0.98</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-0.10</td>
+      <td>0.14</td>
+      <td>0.41</td>
+      <td>1.45</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">F</th>
+      <th>id_1</th>
+      <td>0.76</td>
+      <td>0.44</td>
+      <td>0.12</td>
+      <td>0.33</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.49</td>
+      <td>0.31</td>
+      <td>-0.21</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-2.55</td>
+      <td>0.86</td>
+      <td>0.65</td>
+      <td>-0.74</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <th>All</th>
+      <td>3.23</td>
+      <td>3.68</td>
+      <td>0.39</td>
+      <td>2.28</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 2<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>A 반 학생 5명과 B반 학생 5명의 국어, 영어, 수학 점수를 나타내는 데이터프레임을 다음과 같이 만든다.</p>
+<ol class="simple">
+<li><p>“반”, “번호”, “국어”, “영어”, “수학” 을 열로 가지는 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score3</span></code>을 만든다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df_score3</span></code>을 변형하여 1차 행 인덱스로 “반”을 2차 행 인덱스로 “번호”을 가지는 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score4</span></code>을 만든다.</p></li>
+<li><p>데이터 프레임 <code class="docutils literal notranslate"><span class="pre">df_score4</span></code>에 각 학생의 평균을 나타내는 행을 오른쪽에 추가한다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df_score3</span></code>을 변형하여 행 인덱스로 “번호”를, 1차 열 인덱스로 “국어”, “영어”, “수학”을, 2차 열 인덱스로 “반”을 가지는 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score5</span></code>을 만든다.</p></li>
+<li><p>데이터 프레임 <code class="docutils literal notranslate"><span class="pre">df_score5</span></code>에 각 반별 각 과목의 평균을 나타내는 행을 아래에 추가한다.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

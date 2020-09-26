@@ -1,0 +1,3073 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피봇테이블과 그룹분석 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/04.07 피봇테이블과 그룹분석.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/04.07 피봇테이블과 그룹분석.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/04.07 피봇테이블과 그룹분석.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   피봇테이블
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   그룹분석
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#groupby">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       groupby
+      </span>
+     </code>
+     메서드
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     그룹연산 메서드
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       연습 문제 1
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       연습 문제 2
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pivot-table">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pivot_table
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tip">
+     TIP 데이터 예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     그룹별 통계
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       연습 문제 3
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       연습 문제 4
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>피봇테이블과 그룹분석<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>피봇테이블<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>피봇테이블(pivot table)이란 데이터 열 중에서 두 개의 열을 각각 행 인덱스, 열 인덱스로 사용하여 데이터를 조회하여 펼쳐놓은 것을 말한다.</p>
+<p>Pandas는 피봇테이블을 만들기 위한  <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 메서드를 제공한다. 첫번째 인수로는 행 인덱스로 사용할 열 이름, 두번째 인수로는 열 인덱스로 사용할 열 이름, 그리고 마지막으로 데이터로 사용할 열 이름을 넣는다.</p>
+<p>Pandas는 지정된 두 열을 각각 행 인덱스와 열 인덱스로 바꾼 후 행 인덱스의 라벨 값이 첫번째 키의 값과 같고 열 인덱스의 라벨 값이 두번째 키의 값과 같은 데이터를 찾아서 해당 칸에 넣는다. 만약 주어진 데이터가 존재하지 않으면 해당 칸에 <code class="docutils literal notranslate"><span class="pre">NaN</span></code> 값을 넣는다.</p>
+<p>다음 데이터는 각 도시의 연도별 인구를 나타낸 것이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;도시&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;서울&quot;</span><span class="p">,</span> <span class="s2">&quot;서울&quot;</span><span class="p">,</span> <span class="s2">&quot;서울&quot;</span><span class="p">,</span> <span class="s2">&quot;부산&quot;</span><span class="p">,</span> <span class="s2">&quot;부산&quot;</span><span class="p">,</span> <span class="s2">&quot;부산&quot;</span><span class="p">,</span> <span class="s2">&quot;인천&quot;</span><span class="p">,</span> <span class="s2">&quot;인천&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;연도&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2015&quot;</span><span class="p">,</span> <span class="s2">&quot;2010&quot;</span><span class="p">,</span> <span class="s2">&quot;2005&quot;</span><span class="p">,</span> <span class="s2">&quot;2015&quot;</span><span class="p">,</span> <span class="s2">&quot;2010&quot;</span><span class="p">,</span> <span class="s2">&quot;2005&quot;</span><span class="p">,</span> <span class="s2">&quot;2015&quot;</span><span class="p">,</span> <span class="s2">&quot;2010&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;인구&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">9904312</span><span class="p">,</span> <span class="mi">9631482</span><span class="p">,</span> <span class="mi">9762546</span><span class="p">,</span> <span class="mi">3448737</span><span class="p">,</span> <span class="mi">3393191</span><span class="p">,</span> <span class="mi">3512547</span><span class="p">,</span> <span class="mi">2890451</span><span class="p">,</span> <span class="mi">263203</span><span class="p">],</span>
+    <span class="s2">&quot;지역&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;수도권&quot;</span><span class="p">,</span> <span class="s2">&quot;수도권&quot;</span><span class="p">,</span> <span class="s2">&quot;수도권&quot;</span><span class="p">,</span> <span class="s2">&quot;경상권&quot;</span><span class="p">,</span> <span class="s2">&quot;경상권&quot;</span><span class="p">,</span> <span class="s2">&quot;경상권&quot;</span><span class="p">,</span> <span class="s2">&quot;수도권&quot;</span><span class="p">,</span> <span class="s2">&quot;수도권&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;인구&quot;</span><span class="p">,</span> <span class="s2">&quot;지역&quot;</span><span class="p">]</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">df1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">831974</span><span class="n">da126e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="p">}</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;인구&quot;</span><span class="p">,</span> <span class="s2">&quot;지역&quot;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">df1</span>
+
+<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 데이터를 도시 이름이 열 인덱스가 되고 연도가 행 인덱스가 되어 행과 열 인덱스만 보면 어떤 도시의 어떤 시점의 인구를 쉽게 알 수 있도록 피봇테이블로 만들어보자. <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 명령으로 사용하고 행 인덱스 인수로는 <code class="docutils literal notranslate"><span class="pre">&quot;도시&quot;</span></code>, 열 인덱스 인수로는 <code class="docutils literal notranslate"><span class="pre">&quot;연도&quot;</span></code>, 데이터 이름으로 <code class="docutils literal notranslate"><span class="pre">&quot;인구&quot;</span></code>를 입력하면 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;인구&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>연도</th>
+      <th>2005</th>
+      <th>2010</th>
+      <th>2015</th>
+    </tr>
+    <tr>
+      <th>도시</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>부산</th>
+      <td>3512547.0</td>
+      <td>3393191.0</td>
+      <td>3448737.0</td>
+    </tr>
+    <tr>
+      <th>서울</th>
+      <td>9762546.0</td>
+      <td>9631482.0</td>
+      <td>9904312.0</td>
+    </tr>
+    <tr>
+      <th>인천</th>
+      <td>NaN</td>
+      <td>263203.0</td>
+      <td>2890451.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 피봇테이블의 값 3512547은 “도시”가 부산이고 “연도”가 2005년인 데이터를 “인구”열에서 찾은 값이다. 2005년 인천의 인구는 데이터에 없기 때문에 <code class="docutils literal notranslate"><span class="pre">NaN</span></code>으로 표시된다.</p>
+<p>사실 피봇테이블은 다음과 같이 <code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령을 사용해서 만들 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">])[[</span><span class="s2">&quot;인구&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">인구</th>
+    </tr>
+    <tr>
+      <th>연도</th>
+      <th>2005</th>
+      <th>2010</th>
+      <th>2015</th>
+    </tr>
+    <tr>
+      <th>도시</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>부산</th>
+      <td>3512547.0</td>
+      <td>3393191.0</td>
+      <td>3448737.0</td>
+    </tr>
+    <tr>
+      <th>서울</th>
+      <td>9762546.0</td>
+      <td>9631482.0</td>
+      <td>9904312.0</td>
+    </tr>
+    <tr>
+      <th>인천</th>
+      <td>NaN</td>
+      <td>263203.0</td>
+      <td>2890451.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>행 인덱스와 열 인덱스는 **데이터를 찾는 키(key)**의 역할을 한다. 따라서 키 값으로 데이터가 <strong>단 하나만 찾아져야 한다.</strong>
+만약 행 인덱스와 열 인덱스 조건을 만족하는 데이터가 2개 이상인 경우에는 에러가 발생한다. 예를 들어 위 데이터프레임에서 (“지역”, “연도”)를 키로 하면 (“수도권”, “2015”)에 해당하는 값이 두 개 이상이므로 다음과 같이 에러가 발생한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">df1</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;지역&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;인구&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error: Index contains duplicate entries, cannot reshape
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>그룹분석<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>만약 키가 지정하는 조건에 맞는 데이터가 하나 이상이라서 데이터 그룹을 이루는 경우에는 그룹의 특성을 보여주는 **그룹분석(group analysis)**을 한다.</p>
+<p>그룹분석은 피봇테이블과 달리 키에 의해서 결정되는 데이터가 여러개가 있을 경우 미리 지정한 연산을 통해 그 그룹 데이터의 대표값을 계산한. Pandas에서는 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령을 사용하여 다음처럼 그룹분석을 한다.</p>
+<ol class="simple">
+<li><p>분석하고자 하는 시리즈나 데이터프레임에 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드를 호출하여 그룹화를 한다.</p></li>
+<li><p>그룹 객체에 대해 그룹연산을 수행한다.</p></li>
+</ol>
+<div class="section" id="groupby">
+<h3><code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드<a class="headerlink" href="#groupby" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드는 데이터를 그룹 별로 분류하는 역할을 한다. <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드의 인수로는 다음과 같은 값을 사용한다.</p>
+<ul class="simple">
+<li><p>열 또는 열의 리스트</p></li>
+<li><p>행 인덱스</p></li>
+</ul>
+<p>연산 결과로 그룹 데이터를 나타내는 <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> 클래스 객체를 반환한다. 이 객체에는 그룹별로 연산을 할 수 있는 그룹연산 메서드가 있다.</p>
+</div>
+<div class="section" id="id4">
+<h3>그룹연산 메서드<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> 결과, 즉 <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> 클래스 객체의 뒤에 붙일 수 있는 그룹연산 메서드는 다양하다. 다음은 자주 사용되는 그룹연산 메서드들이다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>: 그룹 데이터의 갯수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>: 그룹 데이터의 평균, 중앙값, 최소, 최대</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sum</span></code>, <code class="docutils literal notranslate"><span class="pre">prod</span></code>, <code class="docutils literal notranslate"><span class="pre">std</span></code>, <code class="docutils literal notranslate"><span class="pre">var</span></code>, <code class="docutils literal notranslate"><span class="pre">quantile</span></code> : 그룹 데이터의 합계, 곱, 표준편차, 분산, 사분위수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">first</span></code>, <code class="docutils literal notranslate"><span class="pre">last</span></code>: 그룹 데이터 중 가장 첫번째 데이터와 가장 나중 데이터</p></li>
+</ul>
+<p>이 외에도 많이 사용되는 것으로는 다음과 같은 그룹연산이 있다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">agg</span></code>, <code class="docutils literal notranslate"><span class="pre">aggregate</span></code></p>
+<ul>
+<li><p>만약 원하는 그룹연산이 없는 경우 함수를 만들고 이 함수를 <code class="docutils literal notranslate"><span class="pre">agg</span></code>에 전달한다.</p></li>
+<li><p>또는 여러가지 그룹연산을 동시에 하고 싶은 경우 함수 이름 문자열의 리스트를 전달한다.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">describe</span></code></p>
+<ul>
+<li><p>하나의 그룹 대표값이 아니라 여러개의 값을 데이터프레임으로 구한다.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apply</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">describe</span></code> 처럼 하나의 대표값이 아닌 데이터프레임을 출력하지만 원하는 그룹연산이 없는 경우에 사용한다.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transform</span></code></p>
+<ul>
+<li><p>그룹에 대한 대표값을 만드는 것이 아니라 그룹별 계산을 통해 데이터 자체를 변형한다.</p></li>
+</ul>
+</li>
+</ul>
+<p>예를 들어 다음과 같은 데이터가 있을 때 key1의 값(A 또는 B)에 따른 data1의 평균은 어떻게 구할까?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;key1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;key2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;data1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s1">&#39;data2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>key1</th>
+      <th>key2</th>
+      <th>data1</th>
+      <th>data2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>one</td>
+      <td>1</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A</td>
+      <td>two</td>
+      <td>2</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>B</td>
+      <td>one</td>
+      <td>3</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>B</td>
+      <td>two</td>
+      <td>4</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A</td>
+      <td>one</td>
+      <td>5</td>
+      <td>50</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령을 사용하여 그룹 A와 그룹 B로 구분한 그룹 데이터를 만든다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">key1</span><span class="p">)</span>
+<span class="n">groups</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.groupby.DataFrameGroupBy object at 0x7f61e06efef0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> 클래스 객체에는 각 그룹 데이터의 인덱스를 저장한 <code class="docutils literal notranslate"><span class="pre">groups</span></code> 속성이 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span><span class="o">.</span><span class="n">groups</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;A&#39;: Int64Index([0, 1, 4], dtype=&#39;int64&#39;),
+ &#39;B&#39;: Int64Index([2, 3], dtype=&#39;int64&#39;)}
+</pre></div>
+</div>
+</div>
+</div>
+<p>A그룹과 B그룹 데이터의 합계를 구하기 위해 <code class="docutils literal notranslate"><span class="pre">sum</span></code>이라는 그룹연산을 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>data1</th>
+      <th>data2</th>
+    </tr>
+    <tr>
+      <th>key1</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A</th>
+      <td>8</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>7</td>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> 클래스 객체를 명시적으로 얻을 필요가 없다면 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드와 그룹연산 메서드를 연속으로 호출한다. 다음 예제는 열 <code class="docutils literal notranslate"><span class="pre">data1</span></code>에 대해서만 그룹연산을 하는 코드이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">data1</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">key1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>key1
+A    8
+B    7
+Name: data1, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>데이터를 그룹으로 나눈 <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> 클래스 객체 또는 그룹분석한 결과에서 <code class="docutils literal notranslate"><span class="pre">data1</span></code>만 뽑아도 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">key1</span><span class="p">)[</span><span class="s2">&quot;data1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>   <span class="c1"># `GroupBy` 클래스 객체에서 data1만 선택하여 분석하는 경우</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>key1
+A    8
+B    7
+Name: data1, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">key1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="s2">&quot;data1&quot;</span><span class="p">]</span>  <span class="c1"># 전체 데이터를 분석한 후 data1만 선택한 경우</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>key1
+A    8
+B    7
+Name: data1, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>연습 문제 1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>key1의 값을 기준으로 data1의 값을 분류하여 합계를 구한 결과를 시리즈가 아닌 데이터프레임으로 구한다.</p>
+<p>이번에는 복합 키 (key1, key2) 값에 따른 data1의 합계를 구하자.
+분석하고자 하는 키가 복수이면 리스트를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">data1</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">df2</span><span class="o">.</span><span class="n">key1</span><span class="p">,</span> <span class="n">df2</span><span class="o">.</span><span class="n">key2</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>key1  key2
+A     one     6
+      two     2
+B     one     3
+      two     4
+Name: data1, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 결과를 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령으로 피봇 데이블 형태로 만들수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">data1</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">df2</span><span class="p">[</span><span class="s2">&quot;key1&quot;</span><span class="p">],</span> <span class="n">df2</span><span class="p">[</span><span class="s2">&quot;key2&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s2">&quot;key2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>key2</th>
+      <th>one</th>
+      <th>two</th>
+    </tr>
+    <tr>
+      <th>key1</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A</th>
+      <td>6</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>그룹분석 기능을 사용하면 위의 인구 데이터로부터 지역별 합계를 구할 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;인구&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;지역&quot;</span><span class="p">],</span> <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;연도&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s2">&quot;연도&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>연도</th>
+      <th>2005</th>
+      <th>2010</th>
+      <th>2015</th>
+    </tr>
+    <tr>
+      <th>지역</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>경상권</th>
+      <td>3512547</td>
+      <td>3393191</td>
+      <td>3448737</td>
+    </tr>
+    <tr>
+      <th>수도권</th>
+      <td>9762546</td>
+      <td>9894685</td>
+      <td>12794763</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>다음 데이터는 150 송이의 붓꽃(iris)에 대해 붓꽃 종(species)별로 꽃잎길이(sepal_length), 꽃잎폭(sepal_width), 꽃잎폭(sepal_width), 꽃잎폭(sepal_width)을 측정한 데이터이다. (Seaborn 패키지가 설치되어 있어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>각 붓꽃 종별로 가장 큰 값과 가장 작은 값의 비율을 구해보자. 이러한 계산을 하는 그룹연산 메서드는 없으므로 직접 만든 후 <code class="docutils literal notranslate"><span class="pre">agg</span></code> 메서드를 적용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">peak_to_peak_ratio</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">species</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">peak_to_peak_ratio</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+    </tr>
+    <tr>
+      <th>species</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>setosa</th>
+      <td>1.348837</td>
+      <td>1.913043</td>
+      <td>1.900000</td>
+      <td>6.000000</td>
+    </tr>
+    <tr>
+      <th>versicolor</th>
+      <td>1.428571</td>
+      <td>1.700000</td>
+      <td>1.700000</td>
+      <td>1.800000</td>
+    </tr>
+    <tr>
+      <th>virginica</th>
+      <td>1.612245</td>
+      <td>1.727273</td>
+      <td>1.533333</td>
+      <td>1.785714</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">describe</span></code> 메서드를 사용하면 다양한 기술 통계(descriptive statistics)값을 한 번에 구한다. 그룹별로 하나의 스칼라 값이 아니라 하나의 데이터프레임이 생성된다는 점에 주의하라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">species</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>species</th>
+      <th>setosa</th>
+      <th>versicolor</th>
+      <th>virginica</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="8" valign="top">petal_length</th>
+      <th>count</th>
+      <td>50.000000</td>
+      <td>50.000000</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1.462000</td>
+      <td>4.260000</td>
+      <td>5.552000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.173664</td>
+      <td>0.469911</td>
+      <td>0.551895</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>4.500000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.400000</td>
+      <td>4.000000</td>
+      <td>5.100000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1.500000</td>
+      <td>4.350000</td>
+      <td>5.550000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.575000</td>
+      <td>4.600000</td>
+      <td>5.875000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.900000</td>
+      <td>5.100000</td>
+      <td>6.900000</td>
+    </tr>
+    <tr>
+      <th rowspan="8" valign="top">petal_width</th>
+      <th>count</th>
+      <td>50.000000</td>
+      <td>50.000000</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.246000</td>
+      <td>1.326000</td>
+      <td>2.026000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.105386</td>
+      <td>0.197753</td>
+      <td>0.274650</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.100000</td>
+      <td>1.000000</td>
+      <td>1.400000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.200000</td>
+      <td>1.200000</td>
+      <td>1.800000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.200000</td>
+      <td>1.300000</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.300000</td>
+      <td>1.500000</td>
+      <td>2.300000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>0.600000</td>
+      <td>1.800000</td>
+      <td>2.500000</td>
+    </tr>
+    <tr>
+      <th rowspan="8" valign="top">sepal_length</th>
+      <th>count</th>
+      <td>50.000000</td>
+      <td>50.000000</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>5.006000</td>
+      <td>5.936000</td>
+      <td>6.588000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.352490</td>
+      <td>0.516171</td>
+      <td>0.635880</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>4.300000</td>
+      <td>4.900000</td>
+      <td>4.900000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>4.800000</td>
+      <td>5.600000</td>
+      <td>6.225000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>5.000000</td>
+      <td>5.900000</td>
+      <td>6.500000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>5.200000</td>
+      <td>6.300000</td>
+      <td>6.900000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>5.800000</td>
+      <td>7.000000</td>
+      <td>7.900000</td>
+    </tr>
+    <tr>
+      <th rowspan="8" valign="top">sepal_width</th>
+      <th>count</th>
+      <td>50.000000</td>
+      <td>50.000000</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>3.428000</td>
+      <td>2.770000</td>
+      <td>2.974000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.379064</td>
+      <td>0.313798</td>
+      <td>0.322497</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>2.300000</td>
+      <td>2.000000</td>
+      <td>2.200000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>3.200000</td>
+      <td>2.525000</td>
+      <td>2.800000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>3.400000</td>
+      <td>2.800000</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>3.675000</td>
+      <td>3.000000</td>
+      <td>3.175000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>4.400000</td>
+      <td>3.400000</td>
+      <td>3.800000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">apply</span></code> 메서드를 사용하면 <code class="docutils literal notranslate"><span class="pre">describe</span></code> 메서드처럼 하나의 그룹에 대해 하나의 대표값(스칼라 값)을 구하는 게 아니라 데이터프레임을 만들 수 있다. 예를 들어 다음처럼 각 붓꽃 종별로 가장 꽃잎 길이(petal length)가 큰 3개의 데이터를 뽑아낼 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">top3_petal_length</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;petal_length&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">species</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">top3_petal_length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+    <tr>
+      <th>species</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">setosa</th>
+      <th>24</th>
+      <td>4.8</td>
+      <td>3.4</td>
+      <td>1.9</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>5.1</td>
+      <td>3.8</td>
+      <td>1.9</td>
+      <td>0.4</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>5.1</td>
+      <td>3.3</td>
+      <td>1.7</td>
+      <td>0.5</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">versicolor</th>
+      <th>83</th>
+      <td>6.0</td>
+      <td>2.7</td>
+      <td>5.1</td>
+      <td>1.6</td>
+      <td>versicolor</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>1.7</td>
+      <td>versicolor</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>4.9</td>
+      <td>1.5</td>
+      <td>versicolor</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">virginica</th>
+      <th>118</th>
+      <td>7.7</td>
+      <td>2.6</td>
+      <td>6.9</td>
+      <td>2.3</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>117</th>
+      <td>7.7</td>
+      <td>3.8</td>
+      <td>6.7</td>
+      <td>2.2</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>122</th>
+      <td>7.7</td>
+      <td>2.8</td>
+      <td>6.7</td>
+      <td>2.0</td>
+      <td>virginica</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">transform</span></code> 메서드는 그룹별 대표값을 만드는 것이 아니라 그룹별 계산을 통해 데이터프레임 자체를 변화시킨다. 따라서 만들어진 데이터프레임의 크기는 원래 데이터프레임과 같다. 예를 들어 다음처럼 각 붓꽃이 해당 종 중에서 꽃잎길이가 대/중/소 어느 것에 해당되는지에 대한 데이터프레임을 만들 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">q3cut</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;소&quot;</span><span class="p">,</span> <span class="s2">&quot;중&quot;</span><span class="p">,</span> <span class="s2">&quot;대&quot;</span><span class="p">])</span>
+
+
+<span class="n">iris</span><span class="p">[</span><span class="s2">&quot;petal_length_class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">species</span><span class="p">)[</span><span class="s2">&quot;petal_length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">q3cut</span><span class="p">)</span>
+<span class="n">iris</span><span class="p">[[</span><span class="s2">&quot;petal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal_length_class&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>petal_length</th>
+      <th>petal_length_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>140</th>
+      <td>5.6</td>
+      <td>중</td>
+    </tr>
+    <tr>
+      <th>141</th>
+      <td>5.1</td>
+      <td>소</td>
+    </tr>
+    <tr>
+      <th>142</th>
+      <td>5.1</td>
+      <td>소</td>
+    </tr>
+    <tr>
+      <th>143</th>
+      <td>5.9</td>
+      <td>대</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>5.7</td>
+      <td>중</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>5.2</td>
+      <td>소</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>5.0</td>
+      <td>소</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>5.2</td>
+      <td>소</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>5.4</td>
+      <td>중</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.1</td>
+      <td>소</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h4>연습 문제 2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>붓꽃(iris) 데이터에서 붓꽃 종(species)별로 꽃잎길이(sepal_length), 꽃잎폭(sepal_width) 등의 평균을 구하라.
+만약 붓꽃 종(species)이 표시되지 않았을 때 이 수치들을 이용하여 붓꽃 종을 찾아낼 수 있을지 생각하라.</p>
+</div>
+</div>
+</div>
+<div class="section" id="pivot-table">
+<h2><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code><a class="headerlink" href="#pivot-table" title="Permalink to this headline">¶</a></h2>
+<p>Pandas는 <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령의 중간 성격을 가지는 <code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> 명령도 제공한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> 명령은 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령처럼 그룹분석을 하지만 최종적으로는 <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 명령처럼 피봇테이블을 만든다. 즉 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령의 결과에 <code class="docutils literal notranslate"><span class="pre">unstack</span></code>을 자동 적용하여 2차원적인 형태로 변형한다. 사용 방법은 다음과 같다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pivot_table(data,</span> <span class="pre">values=None,</span> <span class="pre">index=None,</span> <span class="pre">columns=None,</span> <span class="pre">aggfunc='mean',</span> <span class="pre">fill_value=None,</span> <span class="pre">margins=False,</span> <span class="pre">margins_name='All')</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: 분석할 데이터프레임 (메서드일 때는 필요하지 않음)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>: 분석할 데이터프레임에서 분석할 열</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index</span></code>: 행 인덱스로 들어갈 키 열 또는 키 열의 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">columns</span></code>: 열 인덱스로 들어갈 키 열 또는 키 열의 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aggfunc</span></code>: 분석 메서드</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fill_value</span></code>: NaN 대체 값</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">margins</span></code>: 모든 데이터를 분석한 결과를 오른쪽과 아래에 붙일지 여부</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">margins_name</span></code>: 마진 열(행)의 이름</p></li>
+</ul>
+</li>
+</ul>
+<p>만약 조건에 따른 데이터가 유일하게 선택되지 않으면 그룹연산을 하며 이 때 <code class="docutils literal notranslate"><span class="pre">aggfunc</span></code> 인수로 정의된 함수를 수행하여 대표값을 계산한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>를 메서드로 사용할 때는 객체 자체가 데이터가 되므로 <code class="docutils literal notranslate"><span class="pre">data</span></code> 인수가 필요하지 않다.</p>
+<p>예를 들어 위에서 만들었던 피봇테이블은 <code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> 명령으로 다음과 같이 만들 수도 있다. 인수의 순서에 주의하라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s2">&quot;인구&quot;</span><span class="p">,</span> <span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>연도</th>
+      <th>2005</th>
+      <th>2010</th>
+      <th>2015</th>
+    </tr>
+    <tr>
+      <th>도시</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>부산</th>
+      <td>3512547.0</td>
+      <td>3393191.0</td>
+      <td>3448737.0</td>
+    </tr>
+    <tr>
+      <th>서울</th>
+      <td>9762546.0</td>
+      <td>9631482.0</td>
+      <td>9904312.0</td>
+    </tr>
+    <tr>
+      <th>인천</th>
+      <td>NaN</td>
+      <td>263203.0</td>
+      <td>2890451.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">margins=True</span></code> 인수를 주면 <code class="docutils literal notranslate"><span class="pre">aggfunc</span></code>로 주어진 분석 방법을 해당 열의 모든 데이터, 해당 행의 모든 데이터 그리고 전체 데이터에 대해 적용한 결과를 같이 보여준다. <code class="docutils literal notranslate"><span class="pre">aggfunc</span></code>가 주어지지 않았으면 평균을 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s2">&quot;인구&quot;</span><span class="p">,</span> <span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">margins_name</span><span class="o">=</span><span class="s2">&quot;합계&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>연도</th>
+      <th>2005</th>
+      <th>2010</th>
+      <th>2015</th>
+      <th>합계</th>
+    </tr>
+    <tr>
+      <th>도시</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>부산</th>
+      <td>3512547.0</td>
+      <td>3393191.0</td>
+      <td>3448737.0</td>
+      <td>3.451492e+06</td>
+    </tr>
+    <tr>
+      <th>서울</th>
+      <td>9762546.0</td>
+      <td>9631482.0</td>
+      <td>9904312.0</td>
+      <td>9.766113e+06</td>
+    </tr>
+    <tr>
+      <th>인천</th>
+      <td>NaN</td>
+      <td>263203.0</td>
+      <td>2890451.0</td>
+      <td>1.576827e+06</td>
+    </tr>
+    <tr>
+      <th>합계</th>
+      <td>6637546.5</td>
+      <td>4429292.0</td>
+      <td>5414500.0</td>
+      <td>5.350809e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 결과에서 가장 오른쪽 합계 열의 첫번째 값 3451492은 모든 부산 인구 데이터의 평균, 두번째 값 9766113은 모든 서울 인구 데이터의 평균이다. 가장 아래의 합계 행의 첫번째 값은 2005년 데이터의 평균값, 두번째 값은 2010년 데이터의 평균값이다. 가장 오른쪽 아래의 값 5350809는 전체 데이터의 평균값이다. 다음 계산을 통해 이를 확인할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;인구&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5350808.625
+</pre></div>
+</div>
+</div>
+</div>
+<p>행 인덱스나 열 인덱스에 리스트를 넣으면 다중 인덱스 테이블을 만든다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s2">&quot;인구&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;도시&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>인구</th>
+    </tr>
+    <tr>
+      <th>연도</th>
+      <th>도시</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">2005</th>
+      <th>부산</th>
+      <td>3512547</td>
+    </tr>
+    <tr>
+      <th>서울</th>
+      <td>9762546</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2010</th>
+      <th>부산</th>
+      <td>3393191</td>
+    </tr>
+    <tr>
+      <th>서울</th>
+      <td>9631482</td>
+    </tr>
+    <tr>
+      <th>인천</th>
+      <td>263203</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2015</th>
+      <th>부산</th>
+      <td>3448737</td>
+    </tr>
+    <tr>
+      <th>서울</th>
+      <td>9904312</td>
+    </tr>
+    <tr>
+      <th>인천</th>
+      <td>2890451</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="tip">
+<h3>TIP 데이터 예제<a class="headerlink" href="#tip" title="Permalink to this headline">¶</a></h3>
+<p>식당에서 식사 후 내는 팁(tip)과 관련된 데이터를 이용하여 좀더 구체적으로 그룹분석 방법을 살펴본다. 우선 Seaborn 패키지에 설치된 샘플 데이터를 로드한다. 이 데이터프레임에서 각각의 컬럼은 다음을 뜻한다.</p>
+<ul class="simple">
+<li><p>total_bill: 식사대금</p></li>
+<li><p>tip: 팁</p></li>
+<li><p>sex: 성별</p></li>
+<li><p>smoker: 흡연/금연 여부</p></li>
+<li><p>day: 요일</p></li>
+<li><p>time: 시간</p></li>
+<li><p>size: 인원</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">)</span>
+<span class="n">tips</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_bill</th>
+      <th>tip</th>
+      <th>sex</th>
+      <th>smoker</th>
+      <th>day</th>
+      <th>time</th>
+      <th>size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>239</th>
+      <td>29.03</td>
+      <td>5.92</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>240</th>
+      <td>27.18</td>
+      <td>2.00</td>
+      <td>Female</td>
+      <td>Yes</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>241</th>
+      <td>22.67</td>
+      <td>2.00</td>
+      <td>Male</td>
+      <td>Yes</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>242</th>
+      <td>17.82</td>
+      <td>1.75</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>243</th>
+      <td>18.78</td>
+      <td>3.00</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Thur</td>
+      <td>Dinner</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>분석의 목표는 식사 대금 대비 팁의 비율이 어떤 경우에 가장 높아지지는 찾는 것이다. 우선 식사대금와 팁의 비율을 나타내는 <code class="docutils literal notranslate"><span class="pre">tip_pct</span></code>를 추가하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="p">[</span><span class="s1">&#39;tip_pct&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tips</span><span class="p">[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">tips</span><span class="p">[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">]</span>
+<span class="n">tips</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_bill</th>
+      <th>tip</th>
+      <th>sex</th>
+      <th>smoker</th>
+      <th>day</th>
+      <th>time</th>
+      <th>size</th>
+      <th>tip_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>239</th>
+      <td>29.03</td>
+      <td>5.92</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>3</td>
+      <td>0.203927</td>
+    </tr>
+    <tr>
+      <th>240</th>
+      <td>27.18</td>
+      <td>2.00</td>
+      <td>Female</td>
+      <td>Yes</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>2</td>
+      <td>0.073584</td>
+    </tr>
+    <tr>
+      <th>241</th>
+      <td>22.67</td>
+      <td>2.00</td>
+      <td>Male</td>
+      <td>Yes</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>2</td>
+      <td>0.088222</td>
+    </tr>
+    <tr>
+      <th>242</th>
+      <td>17.82</td>
+      <td>1.75</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Sat</td>
+      <td>Dinner</td>
+      <td>2</td>
+      <td>0.098204</td>
+    </tr>
+    <tr>
+      <th>243</th>
+      <td>18.78</td>
+      <td>3.00</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Thur</td>
+      <td>Dinner</td>
+      <td>2</td>
+      <td>0.159744</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>다음으로 각 열의 데이터에 대해 간단히 분포를 알아본다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_bill</th>
+      <th>tip</th>
+      <th>size</th>
+      <th>tip_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>244.000000</td>
+      <td>244.000000</td>
+      <td>244.000000</td>
+      <td>244.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>19.785943</td>
+      <td>2.998279</td>
+      <td>2.569672</td>
+      <td>0.160803</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>8.902412</td>
+      <td>1.383638</td>
+      <td>0.951100</td>
+      <td>0.061072</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>3.070000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.035638</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>13.347500</td>
+      <td>2.000000</td>
+      <td>2.000000</td>
+      <td>0.129127</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>17.795000</td>
+      <td>2.900000</td>
+      <td>2.000000</td>
+      <td>0.154770</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>24.127500</td>
+      <td>3.562500</td>
+      <td>3.000000</td>
+      <td>0.191475</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>50.810000</td>
+      <td>10.000000</td>
+      <td>6.000000</td>
+      <td>0.710345</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>그룹별 통계<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>우선 성별로 나누어 데이터 갯수를 세어본다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_bill</th>
+      <th>tip</th>
+      <th>smoker</th>
+      <th>day</th>
+      <th>time</th>
+      <th>size</th>
+      <th>tip_pct</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>데이터 갯수의 경우 NaN 데이터가 없다면 모두 같은 값이 나올 것이다. 이 때는 <code class="docutils literal notranslate"><span class="pre">size</span></code> 명령을 사용하면 더 간단히 표시된다. <code class="docutils literal notranslate"><span class="pre">size</span></code> 명령은 NaN이 있어도 상관하지 않는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sex
+Male      157
+Female     87
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>이번에는 성별과 흡연유무로 나누어 데이터의 갯수를 알아본다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sex     smoker
+Male    Yes       60
+        No        97
+Female  Yes       33
+        No        54
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>좀 더 보기 좋도록 피봇 데이블 형태로 바꿀 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>smoker</th>
+      <th>Yes</th>
+      <th>No</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>60</td>
+      <td>97</td>
+      <td>157</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>33</td>
+      <td>54</td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>93</td>
+      <td>151</td>
+      <td>244</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이제 성별과 흡연 여부에 따른 평균 팁 비율을 살펴본다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">)[[</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tip_pct</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>0.157651</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>0.166491</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;smoker&quot;</span><span class="p">)[[</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tip_pct</th>
+    </tr>
+    <tr>
+      <th>smoker</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Yes</th>
+      <td>0.163196</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>0.159328</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> 명령을 사용할 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tip_pct</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>0.157651</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>0.166491</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>tip_pct</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th>smoker</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Male</th>
+      <th>Yes</th>
+      <td>0.152771</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>0.160669</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Female</th>
+      <th>Yes</th>
+      <td>0.182150</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>0.156921</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>smoker</th>
+      <th>Yes</th>
+      <th>No</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>0.152771</td>
+      <td>0.160669</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>0.182150</td>
+      <td>0.156921</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>여성 혹은 흡연자의 팁 비율이 높은 것을 볼 수 있다. 하지만 이 데이터에는 평균을 제외한 분산(variance) 등의 다른 통계값이 없으므로 <code class="docutils literal notranslate"><span class="pre">describe</span></code> 명령으로 여러가지 통계값을 한 번에 알아본다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">)[[</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">tip_pct</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>157.0</td>
+      <td>0.157651</td>
+      <td>0.064778</td>
+      <td>0.035638</td>
+      <td>0.121389</td>
+      <td>0.153492</td>
+      <td>0.186240</td>
+      <td>0.710345</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>87.0</td>
+      <td>0.166491</td>
+      <td>0.053632</td>
+      <td>0.056433</td>
+      <td>0.140416</td>
+      <td>0.155581</td>
+      <td>0.194266</td>
+      <td>0.416667</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;smoker&quot;</span><span class="p">)[[</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">tip_pct</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>smoker</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Yes</th>
+      <td>93.0</td>
+      <td>0.163196</td>
+      <td>0.085119</td>
+      <td>0.035638</td>
+      <td>0.106771</td>
+      <td>0.153846</td>
+      <td>0.195059</td>
+      <td>0.710345</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>151.0</td>
+      <td>0.159328</td>
+      <td>0.039910</td>
+      <td>0.056797</td>
+      <td>0.136906</td>
+      <td>0.155625</td>
+      <td>0.185014</td>
+      <td>0.291990</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">])[[</span><span class="s2">&quot;tip_pct&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="8" halign="left">tip_pct</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th>smoker</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Male</th>
+      <th>Yes</th>
+      <td>60.0</td>
+      <td>0.152771</td>
+      <td>0.090588</td>
+      <td>0.035638</td>
+      <td>0.101845</td>
+      <td>0.141015</td>
+      <td>0.191697</td>
+      <td>0.710345</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>97.0</td>
+      <td>0.160669</td>
+      <td>0.041849</td>
+      <td>0.071804</td>
+      <td>0.131810</td>
+      <td>0.157604</td>
+      <td>0.186220</td>
+      <td>0.291990</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Female</th>
+      <th>Yes</th>
+      <td>33.0</td>
+      <td>0.182150</td>
+      <td>0.071595</td>
+      <td>0.056433</td>
+      <td>0.152439</td>
+      <td>0.173913</td>
+      <td>0.198216</td>
+      <td>0.416667</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>54.0</td>
+      <td>0.156921</td>
+      <td>0.036421</td>
+      <td>0.056797</td>
+      <td>0.139708</td>
+      <td>0.149691</td>
+      <td>0.181630</td>
+      <td>0.252672</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="id8">
+<h4>연습 문제 3<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ol class="simple">
+<li><p>팁의 비율이 요일과 점심/저녁 여부, 인원수에 어떤 영향을 받는지 살펴본다.</p></li>
+<li><p>어떤 요인이 가장 크게 작용하는지 판단할 수 있는 방법이 있는가?</p></li>
+</ol>
+<p>이번에는 각 그룹에서 가장 많은 팁과 가장 적은 팁의 차이를 알아보자. 이 계산을 해 줄 수 있는 그룹연산 함수가 없으므로 함수를 직접 만들고 <code class="docutils literal notranslate"><span class="pre">agg</span></code> 메서드를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">peak_to_peak</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+
+<span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">])[[</span><span class="s2">&quot;tip&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">peak_to_peak</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>tip</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th>smoker</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Male</th>
+      <th>Yes</th>
+      <td>9.00</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>7.75</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Female</th>
+      <th>Yes</th>
+      <td>5.50</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>4.20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>만약 여러가지 그룹연산을 동시에 하고 싶다면 다음과 같이 리스트를 이용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">peak_to_peak</span><span class="p">])[[</span><span class="s2">&quot;total_bill&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="2" halign="left">total_bill</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>mean</th>
+      <th>peak_to_peak</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th>smoker</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Male</th>
+      <th>Yes</th>
+      <td>22.284500</td>
+      <td>43.56</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>19.791237</td>
+      <td>40.82</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Female</th>
+      <th>Yes</th>
+      <td>17.977879</td>
+      <td>41.23</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>18.105185</td>
+      <td>28.58</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>만약 데이터 열마다 다른 연산을 하고 싶다면 열 라벨과 연산 이름(또는 함수)를 딕셔너리로 넣는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;smoker&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;tip_pct&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;total_bill&#39;</span><span class="p">:</span> <span class="n">peak_to_peak</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>tip_pct</th>
+      <th>total_bill</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th>smoker</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Male</th>
+      <th>Yes</th>
+      <td>0.152771</td>
+      <td>43.56</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>0.160669</td>
+      <td>40.82</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Female</th>
+      <th>Yes</th>
+      <td>0.182150</td>
+      <td>41.23</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>0.156921</td>
+      <td>28.58</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>다음은 <code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> 명령으로 더 복잡한 분석을 한 예이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">([</span><span class="s1">&#39;tip_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">],</span> <span class="s1">&#39;smoker&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="2" halign="left">size</th>
+      <th colspan="2" halign="left">tip_pct</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>smoker</th>
+      <th>Yes</th>
+      <th>No</th>
+      <th>Yes</th>
+      <th>No</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th>day</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">Male</th>
+      <th>Thur</th>
+      <td>2.300000</td>
+      <td>2.500000</td>
+      <td>0.164417</td>
+      <td>0.165706</td>
+    </tr>
+    <tr>
+      <th>Fri</th>
+      <td>2.125000</td>
+      <td>2.000000</td>
+      <td>0.144730</td>
+      <td>0.138005</td>
+    </tr>
+    <tr>
+      <th>Sat</th>
+      <td>2.629630</td>
+      <td>2.656250</td>
+      <td>0.139067</td>
+      <td>0.162132</td>
+    </tr>
+    <tr>
+      <th>Sun</th>
+      <td>2.600000</td>
+      <td>2.883721</td>
+      <td>0.173964</td>
+      <td>0.158291</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">Female</th>
+      <th>Thur</th>
+      <td>2.428571</td>
+      <td>2.480000</td>
+      <td>0.163073</td>
+      <td>0.155971</td>
+    </tr>
+    <tr>
+      <th>Fri</th>
+      <td>2.000000</td>
+      <td>2.500000</td>
+      <td>0.209129</td>
+      <td>0.165296</td>
+    </tr>
+    <tr>
+      <th>Sat</th>
+      <td>2.200000</td>
+      <td>2.307692</td>
+      <td>0.163817</td>
+      <td>0.147993</td>
+    </tr>
+    <tr>
+      <th>Sun</th>
+      <td>2.500000</td>
+      <td>3.071429</td>
+      <td>0.237075</td>
+      <td>0.165710</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tips</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;smoker&#39;</span><span class="p">],</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span>
+                 <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>day</th>
+      <th>Thur</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th>sex</th>
+      <th>smoker</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">Lunch</th>
+      <th rowspan="2" valign="top">Male</th>
+      <th>Yes</th>
+      <td>23</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>50</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Female</th>
+      <th>Yes</th>
+      <td>17</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>60</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">Dinner</th>
+      <th rowspan="2" valign="top">Male</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>12</td>
+      <td>71</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>0</td>
+      <td>4</td>
+      <td>85</td>
+      <td>124</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Female</th>
+      <th>Yes</th>
+      <td>0</td>
+      <td>8</td>
+      <td>33</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>No</th>
+      <td>2</td>
+      <td>2</td>
+      <td>30</td>
+      <td>43</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>연습 문제 4<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>타이타닉 승객 데이터를 이용하여 다음 분석을 실시하라. 데이터는 다음과 같이 받을 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">qcut</span></code> 명령으로 세 개의 나이 그룹을 만든다.</p></li>
+<li><p>성별, 선실, 나이 그룹에 의한 생존율을 데이터프레임으로 계산한다.
+행에는 성별 및 나이 그룹에 대한 다중 인덱스를 사용하고 열에는 선실 인덱스를 사용한다.</p></li>
+<li><p>성별 및 선실에 의한 생존율을 피봇 데이터 형태로 만든다.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

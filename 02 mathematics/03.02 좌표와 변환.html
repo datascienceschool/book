@@ -1,0 +1,1591 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.2 좌표와 변환 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/03.02 좌표와 변환.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/03.02 좌표와 변환.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/03.02 좌표와 변환.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   선형종속과 선형독립
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 3.2.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     연습 문제 3.2.2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 3.2.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   선형독립과 선형 연립방정식
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   선형종속인 경우
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     경우 1: 벡터의 개수가 벡터의 차원보다 크면 선형종속이다.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     경우 2: 값이 같은 벡터가 있으면 반드시 선형종속이다.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     경우 3: 어떤 벡터가 다른 벡터의 선형조합이면 반드시 선형종속이다.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   랭크
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   풀랭크
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     연습 문제 3.2.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   로우-랭크 행렬
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     연습 문제 3.2.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id20">
+   벡터공간과 기저벡터
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id24">
+     연습 문제 3.2.6
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id25">
+     연습 문제 3.2.7
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id26">
+   랭크와 역행렬
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id27">
+   벡터공간 투영
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id28">
+   정규직교인 기저벡터로 이루어진 벡터공간
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id29">
+   표준기저벡터
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id30">
+   좌표
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id31">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id32">
+   변환행렬
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id33">
+   좌표변환
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id34">
+     연습 문제 3.2.8
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id35">
+   이미지 변환
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id36">
+     연습 문제 3.2.9
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>3.2 좌표와 변환<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 공간상에서 좌표를 정의하기 위해 필요한 개념을 살펴본다. 우선 벡터의 선형독립과 랭크의 개념을 알아보고 기저벡터와 좌표변환이 선형대수와 어떻게 연관이 있는지 공부한다. 좌표변환은 이미지 처리 작업뿐 아니라 다변수 확률변수를 분석하는데도 사용된다.</p>
+<div class="section" id="id2">
+<h2>선형종속과 선형독립<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>벡터 집합 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_N\)</span>을 이루는 벡터의 선형조합이 영벡터가 되도록 하는 스칼라 계수 <span class="math notranslate nohighlight">\(c_1, c_2, \ldots, c_N\)</span>이 존재하면 이 벡터들이 **선형종속(linearly dependent)**이라고 한다. 단 <span class="math notranslate nohighlight">\(c_1 = c_2 = \cdots = c_N = 0\)</span> 으로 계수가 모두 0인 경우는 제외한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+c_1 x_1 + c_2 x_2 + \cdots + c_N x_N = 0  
+\tag{3.2.1}
+\end{align}
+\]</div>
+<p>반대로 벡터들의 선형조합이 0이 되면서 모두 0은 아닌 계수들이 존재하지 않으면 그 벡터들은 **선형독립(linearly independent)**이라고 한다.
+선형독립을 논리 기호로 나타내면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+c_1 x_1 + \cdots + c_N x_N = 0  \;\; \rightarrow \;\; c_1 = \cdots = c_N = 0  
+\tag{3.2.2}
+\end{align}
+\]</div>
+<p>왼쪽에서 오른쪽 방향 화살표의 의미는 벡터들의 선형조합이 0이면 반드시 계수들이 모두 0이라는 뜻이다.</p>
+<p>선형독립을 다음처럼 표현하기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+c_1 x_1 + \cdots + c_N x_N = 0  \;\; \leftrightarrow \;\; c_1 = \cdots = c_N = 0  
+\tag{3.2.3}
+\end{align}
+\]</div>
+<p>오른쪽에서 왼쪽 방향 화살표의 의미는 모든 계수가 0일 때 선형조합이 0이 된다는 뜻이다. 이는 꼭 선형독립이 아니더라도 당연하게 성립한다.</p>
+<div class="section" id="id3">
+<h3>예제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>다음 벡터 <span class="math notranslate nohighlight">\(x_1, x_2\)</span>는 선형독립이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \;\;
+x_2 = \begin{bmatrix} 3 \\ 3 \end{bmatrix}
+\tag{3.2.4}
+\end{align}
+\end{split}\]</div>
+<p>벡터 <span class="math notranslate nohighlight">\(x_1\)</span>은 두 원소의 크기가 다른데, 벡터 <span class="math notranslate nohighlight">\(x_2\)</span>는 두 원소의 크기가 같기 때문에 어떤 계수를 사용해도 <span class="math notranslate nohighlight">\(c_1x_1 + c_2x_2 = 0\)</span>을 만들 수 없다.</p>
+</div>
+<div class="section" id="id4">
+<h3>예제<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>다음 벡터 <span class="math notranslate nohighlight">\(x_1, x_2, x_3\)</span>는 선형종속이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \;\;
+x_2 = \begin{bmatrix} 3 \\ 3 \end{bmatrix}, \;\;
+x_3 = \begin{bmatrix} 5 \\ 7 \end{bmatrix}
+\tag{3.2.5}
+\end{align}
+\end{split}\]</div>
+<p>이는 다음과 같은 식으로 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+2x_1  + x_2 - x_3 = 0
+\tag{3.2.6}
+\end{align}
+\]</div>
+<p>파이썬으로 계산한 결과도 영벡터이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">])</span>
+<span class="mi">2</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0.])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 3.2.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>다음 벡터들이 선형독립인지 선형종속인지 판별하라. 선형종속이면 영벡터를 만드는 계수값을 찾아라.</p>
+<p>(1)
+$<span class="math notranslate nohighlight">\( 
+\begin{align}
+x_1 = \begin{bmatrix}1 \\ 0\end{bmatrix} ,\;\;
+x_2 = \begin{bmatrix}0 \\ 1\end{bmatrix} 
+\tag{3.2.7}
+\end{align}
+\)</span>$</p>
+<p>(2)
+$<span class="math notranslate nohighlight">\( 
+\begin{align}
+x_1 = \begin{bmatrix}1 \\ 0\end{bmatrix} ,\;\;
+x_2 = \begin{bmatrix}-1 \\ 1\end{bmatrix} 
+\tag{3.2.8}
+\end{align}
+\)</span>$</p>
+<p>(3)
+$<span class="math notranslate nohighlight">\( 
+\begin{align}
+x_1 = \begin{bmatrix}1 \\ 2\end{bmatrix} ,\;\;
+x_2 = \begin{bmatrix}2 \\ 4\end{bmatrix} 
+\tag{3.2.9}
+\end{align}
+\)</span>$</p>
+</div>
+<div class="section" id="id6">
+<h3>연습 문제 3.2.2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>서로 직교하는 영벡터가 아닌 <span class="math notranslate nohighlight">\(N\)</span>개의 벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_N\)</span>은 선형독립임을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+v_i^T v_j = 0 \;\;\; (i \neq j)
+\tag{3.2.10}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 3.2.3<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>(1) 선형독립인 2개의 2차원 벡터의 예를 들어라.</p>
+<p>(2) 선형독립인 2개의 3차원 벡터의 예를 들어라.</p>
+<p>(3) 선형독립인 3개의 2차원 벡터의 예를 들어라. 이러한 벡터들이 존재하는가?</p>
+<p>(4) 선형독립인 3개의 3차원 벡터의 예를 들어라. 이러한 벡터들이 존재하는가?</p>
+<p>(5) 선형독립인 4개의 3차원 벡터의 예를 들어라. 이러한 벡터들이 존재하는가?</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>선형독립과 선형 연립방정식<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>선형독립 관계를 행렬과 벡터의 곱으로 나타낼 수도 있다. 다음 식에서 <span class="math notranslate nohighlight">\(c_i\)</span>는 <span class="math notranslate nohighlight">\(x_i\)</span>에 대한 가중치 계수이고 <span class="math notranslate nohighlight">\(c\)</span>는 <span class="math notranslate nohighlight">\(c_i\)</span>를 원소로 가지는 가중치 벡터이다. <span class="math notranslate nohighlight">\(X\)</span>는 열벡터 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_N\)</span>를 열로 가지는 행렬이다. 이제부터는 벡터의 집합으로 모두 이런 식으로 행렬로 표시하겠다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+c_1 x_1 + \cdots + c_N x_N =
+\begin{bmatrix} x_1 &amp; x_2 &amp; \cdots &amp; x_N \end{bmatrix} 
+\begin{bmatrix} c_1 \\ c_2 \\ \vdots \\ c_N \end{bmatrix}
+= X c
+\tag{3.2.11}
+\end{align}
+\end{split}\]</div>
+<p>따라서 어떤 벡터들이 선형독립인지 아닌지를 알아내는 문제는 선형 연립방정식을 푸는 문제와 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+Xc=0 
+\tag{3.2.12}
+\end{align}
+\]</div>
+<p>이 연립방정식의 해가 영벡터밖에 없으면 선형독립이다. 만약 영벡터가 아닌 해가 존재하면 선형종속이다. 해가 무한히 많은 경우에는 그 중에 영벡터가 아닌 해가 반드시 존재하므로 선형 종속이다.</p>
+<p>벡터 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_N\)</span>이 선형독립이라는 것을 논리기호로 나타내면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+Xc = 0 \;\; \rightarrow \;\; c=0 
+\tag{3.2.13}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(c=0\)</span>이면 <span class="math notranslate nohighlight">\(Xc = 0\)</span>은 당연히 성립하므로 위 식 대신 다음처럼 쓰기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+Xc = 0 \;\; \leftrightarrow \;\; c=0 
+\tag{3.2.14}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id9">
+<h2>선형종속인 경우<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>벡터가 선형종속이 되는 대표적인 세 경우를 알아보자. 예측모형을 만들기 위한 특징행렬 <span class="math notranslate nohighlight">\(X\)</span>의 열벡터들이 선형종속이거나 선형종속에 가까운 현상을 **다중공선성(multicollinearity)**이라고 부른다. 다중공선성이 발생하면 예측의 성능이 나빠지므로 되도록 이러한 경우가 발생하지 않도록 주의해야 한다.</p>
+<div class="section" id="id10">
+<h3>경우 1: 벡터의 개수가 벡터의 차원보다 크면 선형종속이다.<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>벡터의 차원보다 벡터의 수가 많으면 그 벡터를 행으로 가지는 행렬 <span class="math notranslate nohighlight">\(X\)</span>의 행의 개수보다 열의 개수가 많다. 따라서 이 행렬이 표현하는 연립방정식을 고려하면 미지수의 수가 방정식의 수보다 커서 해가 무한히 많다. 해가 무한히 많다는 것은 영벡터가 아닌 해 <span class="math notranslate nohighlight">\(c\)</span>도 존재한다는 뜻이다. 따라서 그 벡터들은 선형종속이다.
+반대로 행의 개수가 열의 개수와 같거나 크면 대부분 선형독립이다. 우리가 분석할 대부분의 데이터는 데이터(행)의 수가 특징(열)의 수보다 많기 때문에 여기에 해당한다.</p>
+</div>
+<div class="section" id="id11">
+<h3>경우 2: 값이 같은 벡터가 있으면 반드시 선형종속이다.<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>만약 <span class="math notranslate nohighlight">\(i\)</span>번째 벡터 <span class="math notranslate nohighlight">\(x_j\)</span>와 <span class="math notranslate nohighlight">\(j\)</span>번째 벡터 <span class="math notranslate nohighlight">\(x_j\)</span>가 같으면 <span class="math notranslate nohighlight">\(c_j = -c_i\)</span>로 놓고 다른 <span class="math notranslate nohighlight">\(c\)</span>값은 모두 0으로 하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+&amp;  0 \cdot x_1 + \cdots + c_i \cdot x_i +\cdots + c_j \cdot x_j + \cdots + 0 \cdot x_N \\
+&amp;=
+0 \cdot x_1 + \cdots + c_i \cdot x_i +\cdots + (-c_i) \cdot x_j + \cdots + 0 \cdot x_N \\
+&amp;= 0
+\end{aligned}
+\tag{3.2.15}
+\end{align}
+\end{split}\]</div>
+<p>따라서 다음처럼 중복된 데이터가 있으면 선형종속이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{bmatrix} 1 &amp; 5 &amp; 1 \\ 3 &amp; 6 &amp; 3 \\ 4 &amp; 6 &amp; 4 \end{bmatrix} 
+\tag{3.2.16}
+\end{align}
+\end{split}\]</div>
+<p>벡터 <span class="math notranslate nohighlight">\(x_j\)</span>가 벡터 <span class="math notranslate nohighlight">\(x_i\)</span>의 실수배인 경우도 마찬가지이다.</p>
+<p>예측 모형을 위한 특징행렬을 만들 때 실수로 위와 같은 행렬을 만드는 경우가 종종 있다. 우리가 실무에서 다루게 되는 데이터는 그 양이 크기 때문에 엑셀 등으로 한 눈에 볼 수 없는 경우가 많아서 위와 같은 실수를 하는 경우에도 빨리 발견하기 어렵다.</p>
+</div>
+<div class="section" id="id12">
+<h3>경우 3: 어떤 벡터가 다른 벡터의 선형조합이면 반드시 선형종속이다.<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>예를 들어 벡터 <span class="math notranslate nohighlight">\(x_1\)</span>과 다른 벡터 <span class="math notranslate nohighlight">\(x_2, x_3\)</span> 사이에 다음 관계가 성립한다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_1 = 2 x_2 - 3 x_3
+\tag{3.2.17}
+\end{align}
+\]</div>
+<p>그러면 <span class="math notranslate nohighlight">\(c_1=-1, c_2=2 c_3=-3\)</span>일 때</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+-1\cdot x_1 + 2 x_2 - 3 x_3 = 0
+\tag{3.2.18}
+\end{align}
+\]</div>
+<p>이므로 선형종속이다.</p>
+<p>이 경우도 데이터 분석에서 흔히 하는 실수이다. 예를 들어 국어, 영어, 수학 점수를 각각 별도의 데이터로 포함하면서 이 세 점수에 의존하는  총점수나 평균을 다시 데이터로 포함하면 선형종속이 된다.</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>랭크<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>행렬의 열벡터 중 서로 독립인 열벡터의 최대 개수를 **열랭크(column rank)**라고 하고
+행벡터 중 서로 독립인 행벡터의 최대 개수를 **행랭크(row rank)**라고 한다.
+행랭크와 열랭크에 대해서는 다음 정리가 성립한다.</p>
+<blockquote>
+<div><p><strong>[정리] 행랭크와 열랭크는 항상 같다.</strong></p>
+</div></blockquote>
+<p>따라서 행 랭크나 열 랭크를 그냥 **랭크(rank)**라고 하기도 한다.
+행렬 <span class="math notranslate nohighlight">\(A\)</span>의 랭크는 기호로 <span class="math notranslate nohighlight">\(\text{rank}A\)</span>와 같이 표시한다.</p>
+<p>행랭크는 행의 개수보다 커질 수 없고 열랭크는 열의 개수보다 커질 수 없기 때문에 <strong>행의 개수가 <span class="math notranslate nohighlight">\(N\)</span>이고 열의 갯수가 <span class="math notranslate nohighlight">\(M\)</span>인 행렬의 랭크는 행의 개수 <span class="math notranslate nohighlight">\(N\)</span>과 열의 개수 <span class="math notranslate nohighlight">\(M\)</span> 중 작은 값보다 커질 수 없다.</strong></p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{rank} A \leq \min(M, N)
+\tag{3.2.19} 
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A \in \mathbf{R}^{N \times M}
+\tag{3.2.20}
+\end{align}
+\]</div>
+<div class="section" id="id14">
+<h3>예제<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>다음 행렬 <span class="math notranslate nohighlight">\(X_1\)</span>의 두 열벡터는 선형독립이기 때문에 열랭크는 2다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+X_1 = \begin{bmatrix} 1 &amp; 3 \\ 2 &amp; 3 \end{bmatrix} 
+\tag{3.2.21}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id15">
+<h3>예제<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>다음 행렬 <span class="math notranslate nohighlight">\(X_2\)</span>의 세 열벡터는 선형종속이므로 열랭크는 3보다는 작다. 그런데 이 열벡터 중 앞의 두 개는 서로 독립이므로 <span class="math notranslate nohighlight">\(X_2\)</span>의 랭크는 2다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+X_2 = \begin{bmatrix} 1 &amp; 3 &amp; 5 \\ 2 &amp; 3 &amp; 7 \end{bmatrix} 
+\tag{3.2.22}
+\end{align}
+\end{split}\]</div>
+<p>넘파이 linalg 서브 패키지의 <code class="docutils literal notranslate"><span class="pre">matrix_rank()</span></code> 함수로 행렬의 랭크를 계산할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>풀랭크<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>위에서 예로 든 행렬 <span class="math notranslate nohighlight">\(X_1\)</span>나 <span class="math notranslate nohighlight">\(X_2\)</span>처럼 랭크가 행의 개수와 열의 개수 중 작은 값과 같으면 **풀랭크(full rank)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{rank}A = \min(M, N) 
+\tag{3.2.23}  
+\end{align}
+\]</div>
+<p>선형독립인 벡터들을 행 또는 열로 가지는 행렬을 만들면 정의에 의해 항상 풀랭크다.</p>
+<div class="section" id="id17">
+<h3>연습 문제 3.2.4<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>다음 행렬의 랭크를 구하고 풀랭크인지 아닌지 말하라.</p>
+<p>(1)
+$<span class="math notranslate nohighlight">\( 
+\begin{align}
+A = \begin{bmatrix} 1 &amp; 5 &amp; 6 \\ 2 &amp; 6 &amp; 8 \\ 3 &amp; 11 &amp; 14\\ 1 &amp; 4 &amp; 5 \end{bmatrix} 
+\tag{3.2.24}
+\end{align}
+\)</span>$</p>
+<p>(2)
+$<span class="math notranslate nohighlight">\( 
+\begin{align}
+B = \begin{bmatrix} 1 &amp; 5 &amp; 6 \\ 2 &amp; 6 &amp; 8 \\ 3 &amp; 11 &amp; 14\\ 1 &amp; 4 &amp; 8 \end{bmatrix} 
+\tag{3.2.25}
+\end{align}
+\)</span>$</p>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>로우-랭크 행렬<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(x\)</span> 하나를 이용하여 만들어지는 다음과 같은 행렬을 **랭크-1 행렬(rank-1 matrix)**이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+xx^T \in \mathbf{R}^{N \times N} 
+\tag{3.2.26} 
+\end{align}
+\]</div>
+<p>이 행렬의 열벡터들은 <span class="math notranslate nohighlight">\(x\)</span>라고 하는 하나의 벡터를 <span class="math notranslate nohighlight">\(x_1\)</span>배, <span class="math notranslate nohighlight">\(x_2\)</span>배, … <span class="math notranslate nohighlight">\(x_n\)</span>배한 벡터이므로 독립적인 열벡터는 1개다. 따라서 <strong>랭크-1 행렬의 랭크는 1</strong>이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+xx^T 
+&amp;= x \begin{bmatrix} x_1 &amp; x_2 &amp; \cdots &amp; x_n \end{bmatrix} \\
+&amp;= \begin{bmatrix} x_1x &amp; x_2x &amp; \cdots &amp; x_nx \end{bmatrix} 
+\end{aligned}
+\tag{3.2.27}
+\end{align}
+\end{split}\]</div>
+<p>선형독립인 두 개의 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(x_1, x_2\)</span>를 이용하여 만든 다음과 같은 행렬은 **랭크-2 행렬(rank-2 matrix)**이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix} x_1 &amp; x_2 \end{bmatrix}
+\begin{bmatrix} x_1^T \\ x_2^T \end{bmatrix}
+= x_1x_1^T + x_2x_2^T
+\tag{3.2.28}
+\end{align}
+\end{split}\]</div>
+<p>앞서와 비슷한 방법으로 <strong>랭크-2 행렬의 랭크는 2</strong>임을 보일 수 있다.</p>
+<p>만약 <span class="math notranslate nohighlight">\(M\)</span>개의 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_M\)</span>을 이용하면 **랭크-M 행렬(rank-M matrix)**이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix} x_1 &amp; x_2 &amp; \cdots &amp; x_M \end{bmatrix}
+\begin{bmatrix} x_1^T \\ x_2^T \\ \vdots \\ x_M^T \end{bmatrix}
+= x_1x_1^T + x_2x_2^T + \cdots + x_Mx_M^T
+= \sum_{i=1}^M x_ix_i^T
+\tag{3.2.29}
+\end{align}
+\end{split}\]</div>
+<p>이러한 행렬들을 가리켜 **로우-랭크 행렬(low-rank matrix)**이라고 한다. 로우-랭크 행렬은 나중에 특이분해(singular value decomposition)와 PCA(principal component analysis)에서 사용된다.</p>
+<div class="section" id="id19">
+<h3>연습 문제 3.2.5<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>(1) 다음 벡터로 랭크-1 행렬을 만들고 NumPy로 랭크를 계산하여 실제로 1이 나오는지 확인하라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x_1 =
+\begin{bmatrix}
+1 \\
+1 
+\end{bmatrix}
+\tag{3.2.30}
+\end{align}
+\end{split}\]</div>
+<p>(2) 다음 두 개의 벡터로 랭크-2 행렬을 만들고 NumPy로 랭크를 계산하여 실제로 2가 나오는지 확인하라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x_1 = 
+\begin{bmatrix}
+1 \\
+1 
+\end{bmatrix}
+,\;\;
+x_2 = 
+\begin{bmatrix}
+1 \\
+-1 
+\end{bmatrix}
+\tag{3.2.31}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id20">
+<h2>벡터공간과 기저벡터<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>여러 벡터를 선형조합을 하면 다른 벡터를 만들 수 있다. 벡터 N개가 서로 선형독립이면 이 벡터들을 선형조합하여 만들어지는 모든 벡터의 집합을 <strong>벡터공간(vector space)</strong> <span class="math notranslate nohighlight">\(V\)</span>라 하고 이 벡터공간의 차원을 <span class="math notranslate nohighlight">\(N\)</span>이라고 한다. 그리고 그 벡터들을 벡터공간의 **기저벡터(basis vector)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+V = \{ c_1x_1 + \cdots + c_Nx_N \; \vert \; c_1, \ldots, c_N \in \mathbf{R} \} 
+\tag{3.2.32}
+\end{align}
+\]</div>
+<p>벡터공간의 차원(dimension)이 벡터의 차원(길이)가 아니라 <strong>기저벡터의 개수</strong>로 정의된다는 점에 유의해야 한다.</p>
+<p><span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(N\)</span>개 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_N\)</span>이 선형독립인 경우에는 다음 정리가 성립한다.</p>
+<blockquote>
+<div><p><strong>[정리] <span class="math notranslate nohighlight">\(N\)</span>개의 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_N\)</span>이 선형독립이면 이를 선형조합하여 모든 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터를 만들 수 있다.</strong></p>
+</div></blockquote>
+<p>다음과 같이 증명한다. 임의의 벡터 <span class="math notranslate nohighlight">\(x\)</span>가 있다고 하자. 기저벡터 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_N\)</span>와 이 벡터 <span class="math notranslate nohighlight">\(x\)</span>를 열벡터로 사용하여 만든 행렬</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+X = \left[ x_1, x_2, \cdots, x_N, x \right]
+\tag{3.2.33}
+\end{align}
+\]</div>
+<p>는 크기가 <span class="math notranslate nohighlight">\(N \times (N+1)\)</span>이므로 랭크값은 <span class="math notranslate nohighlight">\(N\)</span>보다 커질 수는 없다. 그런데 <span class="math notranslate nohighlight">\(N\)</span>개의 선형독립인 열벡터가 있기 때문에 랭크값은 <span class="math notranslate nohighlight">\(N\)</span>이고 풀랭크다. 따라서 어떠한 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터를 생각하더라도 기저벡터의 조합으로 표현할 수 있다.</p>
+<div class="section" id="id21">
+<h3>예제<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>다음 벡터의 집합은 선형독립이므로 2차원 벡터공간의 기저벡터이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \;\;
+x_2 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}
+\tag{3.2.34}
+\end{align}
+\end{split}\]</div>
+<p>따라서 이 기저벡터 <span class="math notranslate nohighlight">\(\{x_1, x_2\}\)</span>를 선형조합하면 어떠한 2차원 벡터도 만들 수 있다.</p>
+</div>
+<div class="section" id="id22">
+<h3>예제<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p>다음 벡터의 집합은 선형독립이 아니므로 벡터공간의 기저벡터가 되지 않는다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \;\;
+x_2 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}, \;\;
+x_3 = \begin{bmatrix} 5 \\ 7 \end{bmatrix}
+\tag{3.2.35}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id23">
+<h3>예제<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>다음 벡터의 집합은 선형독립이므로 벡터공간의 기저벡터이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x_1 = \begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix}, \;\;
+x_2 = \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix}
+\tag{3.2.36}
+\end{align}
+\end{split}\]</div>
+<p>하지만 이 벡터공간은 3차원 벡터공간이 아니라 2차원 벡터공간이라고 한다. 예를 들어 이 벡터 <span class="math notranslate nohighlight">\(x_1, x_2\)</span>를 어떻게 선형조합해도 다음 벡터는 만들 수 없다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+c_1x_1 + c_2x_2 = 
+\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+\tag{3.2.37}
+\end{align}
+\end{split}\]</div>
+<p>벡터공간의 차원을 기저벡터의 차원과 다르게 정의하는 이유는 선형독립인 기저벡터를 선형조합했을 때 이렇게 만들어낼 수 없는 벡터들이 존재하기 때문이다.</p>
+</div>
+<div class="section" id="id24">
+<h3>연습 문제 3.2.6<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<p>(1) 다음 기저벡터 <span class="math notranslate nohighlight">\(x_1, x_2\)</span>를 선형조합하여 벡터 <span class="math notranslate nohighlight">\(y_1, y_2\)</span>를 만들어라.
+$<span class="math notranslate nohighlight">\( 
+\begin{align}
+x_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \;\;
+x_2 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}
+\tag{3.2.38}
+\end{align}
+\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+y_1 = \begin{bmatrix} 3 \\ 3 \end{bmatrix}, \;\;
+y_2 = \begin{bmatrix} -1 \\ -1 \end{bmatrix}
+\tag{3.2.39}
+\end{align}
+\end{split}\]</div>
+<p>(2) 2차원 벡터공간을 만드는 2차원 기저벡터의 또다른 예를 들어라.</p>
+<p>(3) 2차원 벡터공간을 만드는 3차원 기저벡터의 또다른 예를 들어라.</p>
+<p>(4) 3차원 벡터공간을 만드는 3차원 기저벡터의 예를 들어라.</p>
+</div>
+<div class="section" id="id25">
+<h3>연습 문제 3.2.7<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(N\)</span>개의 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_N\)</span>이 기저벡터이다. 이 벡터 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_N\)</span> 각각에 대해 모두 수직인 영벡터가 아닌 벡터 <span class="math notranslate nohighlight">\(x\)</span>가 존재하지 않는다는 것을 증명하라.</p>
+</div>
+</div>
+<div class="section" id="id26">
+<h2>랭크와 역행렬<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<p>정방행렬의 랭크와 역행렬 사이에는 다음과 같은 정리가 성립한다.</p>
+<blockquote>
+<div><p><strong>[정리] 정방행렬이 풀랭크면 역행렬이 존재한다. 역도 성립한다. 즉, 정방행렬의 역행렬이 존재하면 풀랭크</strong>다.</p>
+</div></blockquote>
+<p>따라서 다음 두 문장은 같은 뜻이다.</p>
+<blockquote>
+<div><p><strong>정방행렬이 풀랭크다</strong> <span class="math notranslate nohighlight">\(\leftrightarrow\)</span> <strong>역행렬이 존재한다</strong></p>
+</div></blockquote>
+<p>다음과 같이 증명한다.</p>
+<p>(1)
+우선 왼쪽에서 오른쪽 방향 즉, 정방행렬이 풀랭크이면 역행렬이 존재한다는 것을 증명하자. 정방행렬이 풀랭크이면 선형독립이고 기저벡터가 되므로 어떠한 벡터에 대해서도 그 벡터를 만들 수 있는 선형조합을 생각할 수 있다. 예를 들어 다음과 같은 벡터 <span class="math notranslate nohighlight">\(e_1, \cdots, e_N\)</span>을 만들기 위한 조합 <span class="math notranslate nohighlight">\(c_1, \cdots, c_N\)</span>도 있을 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+Xc_1 = e_1 = \begin{bmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{bmatrix}
+\tag{3.2.40}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+Xc_2 = e_2 = \begin{bmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{bmatrix}
+\tag{3.2.41}
+\end{align}
+\end{split}\]</div>
+<p>이 식들을 모으면 다음과 같아진다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+X \begin{bmatrix} c_1 &amp; c_2 &amp; \cdots &amp; c_N \end{bmatrix} = XC = I
+\tag{3.2.42}
+\end{align}
+\]</div>
+<p>정방행렬의 경우 <span class="math notranslate nohighlight">\(XC=I\)</span>이면 <span class="math notranslate nohighlight">\(CX=I\)</span>가 성립한다.(연습문제 2.4.4) 따라서</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+XC = CX = I
+\tag{3.2.43}
+\end{align}
+\]</div>
+<p>인 행렬 <span class="math notranslate nohighlight">\(C\)</span>가 존재한다. 이 행렬이 역행렬이다.</p>
+<p>(2)
+다음으로 오른쪽에서 왼쪽 방향 즉, 역행렬이 존재하면 풀랭크라는 것을 증명하자.
+역행렬이 존재하는 경우에 다음 식이 성립한다는 것을 증명하면 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+Xc = 0 \;\; \leftrightarrow \;\; c=0 
+\tag{3.2.44}
+\end{align}
+\]</div>
+<p>(i) 우선 역행렬이 존재하든 말든 <span class="math notranslate nohighlight">\(c = 0\)</span>이면 <span class="math notranslate nohighlight">\(Xc=0\)</span>는 당연하다. 따라서 오른쪽에서 왼쪽 방향은 증명된다.</p>
+<p>(ii) 다음으로 역행렬이 존재할 때 <span class="math notranslate nohighlight">\(Xc=0\)</span>이면</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+X^{-1}Xc = c = 0 
+\tag{3.2.45}
+\end{align}
+\]</div>
+<p>이므로 왼쪽에서 오른쪽 방향도 증명된다. 따라서 역행렬이 존재하면 풀랭크다.</p>
+</div>
+<div class="section" id="id27">
+<h2>벡터공간 투영<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(M\)</span>개의 <span class="math notranslate nohighlight">\(N\)</span>차원 기저벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span> 가 존재한다고 하자. <span class="math notranslate nohighlight">\(M\)</span>은 <span class="math notranslate nohighlight">\(N\)</span>보다 작다.
+이 때 모든 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(x\)</span>에 대해 기저벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span>를 선형조합하여 만든 벡터 <span class="math notranslate nohighlight">\(x^{\Vert v}\)</span>와 원래 벡터 <span class="math notranslate nohighlight">\(x\)</span>의 차 <span class="math notranslate nohighlight">\(x - x^{\Vert v}\)</span>가 모든 기저벡터에 직교하면 그 벡터 <span class="math notranslate nohighlight">\(x^{\Vert v}\)</span>를 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span> <strong>벡터공간에 대한 투영벡터</strong>라 하고 차이 벡터 <span class="math notranslate nohighlight">\(x - x^{\Vert v} = x^{\perp v}\)</span>를 <strong>벡터공간에 대한 직교벡터</strong>라 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+(x - x^{\Vert V}) \perp \{ v_1, v_2, \cdots, v_M \} 
+\tag{3.2.46} 
+\end{align}
+\]</div>
+<p>다음 그림은 <span class="math notranslate nohighlight">\(N=3,M=2\)</span> 즉 3차원 벡터를 2차원 벡터공간에 투영하는 예를 보인 것이다.</p>
+<img src="https://datascienceschool.net/upfiles/bf2b8d90a0274dfdaf25b97e0c556c3a.png" width="100%"><p>그림 3.2.1 : 3차원 벡터를 2차원 벡터공간에 투영하는 예</p>
+</div>
+<div class="section" id="id28">
+<h2>정규직교인 기저벡터로 이루어진 벡터공간<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h2>
+<p>만약 기저벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span>가 정규직교(orthonormal)이면 투영벡터 <span class="math notranslate nohighlight">\(x^{\Vert v}\)</span>는 각 기저벡터에 대한 내적값으로 표현된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x^{\Vert V} = (x^Tv_1)v_1 + (x^Tv_2)v_2 + \cdots + (x^Tv_M)v_M
+\tag{3.2.47}
+\end{align}
+\]</div>
+<p>그리고 투영벡터의 길이의 제곱은 각 기저벡터와의 내적의 제곱합이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\Vert x^{\Vert V} \Vert^2 = \sum_{i=1}^M (x^Tv_i)^2 
+\tag{3.2.48}
+\end{align}
+\]</div>
+<p>벡터 <span class="math notranslate nohighlight">\(x\)</span>에서 이 벡터 <span class="math notranslate nohighlight">\(x^{\Vert V}\)</span>를 뺀 벡터 <span class="math notranslate nohighlight">\(x - x^{\Vert V}\)</span>, 즉  직교벡터 <span class="math notranslate nohighlight">\(x^{\perp V}\)</span>가 기저벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span>에 모두 직교한다는 것은 다음처럼 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+v_i^T(x - x^{\Vert v})
+&amp;= 
+v_i^Tx -
+v_i^T \left( (x^Tv_1)v_1 + (x^Tv_2)v_2 + \cdots + (x^Tv_M)v_M  \right) \\
+&amp;=
+v_i^Tx - \left( (x^Tv_1)v_i^Tv_1 + (x^Tv_2)v_i^Tv_2 + \cdots + (x^Tv_M)v_i^Tv_M \right) \\
+&amp;=
+v_i^Tx - x^Tv_i \\
+&amp;= 0
+\end{aligned}
+\tag{3.2.49}
+\end{align}
+\end{split}\]</div>
+<p>따라서 <strong>직교벡터 <span class="math notranslate nohighlight">\(x^{\perp V}\)</span>는 기저벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span>으로 이루어진 벡터공간의 모든 벡터에 대해 직교한다</strong>.</p>
+<p>이 사실로부터 <strong>벡터 <span class="math notranslate nohighlight">\(x\)</span>의 투영벡터 <span class="math notranslate nohighlight">\(x^{\Vert V}\)</span>은 기저벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span>으로 이루어진 벡터공간의 모든 벡터 중에서 가장 벡터 <span class="math notranslate nohighlight">\(x\)</span>와 가까운 벡터</strong>라는 것도 알 수 있다.</p>
+<p>기저벡터 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span>으로 이루어진 벡터공간의 어떤 벡터를 <span class="math notranslate nohighlight">\(y\)</span>라고 하자. 그러면 <span class="math notranslate nohighlight">\(x^{\Vert V}\)</span>와 <span class="math notranslate nohighlight">\(y\)</span>의 차이 벡터 <span class="math notranslate nohighlight">\(x^{\Vert v} - y\)</span>도 <span class="math notranslate nohighlight">\(v_1, v_2, \cdots, v_M\)</span>으로 이루어진 벡터공간에 존재하므로 직교벡터 <span class="math notranslate nohighlight">\(x^{\perp V}\)</span>와 직교한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\Vert x - y \Vert^2 
+&amp;= \Vert x - x^{\Vert V} + (x^{\Vert V} - y) \Vert^2 \\
+&amp;= \Vert x^{\perp V} + (x^{\Vert V} - y) \Vert^2 \\
+&amp;= \Vert x^{\perp V} \Vert^2 + \Vert (x^{\Vert V} - y) \Vert^2 \\
+&amp;\geq \Vert x^{\perp V} \Vert^2
+\end{aligned}
+\tag{3.2.50}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id29">
+<h2>표준기저벡터<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
+<p>기저벡터 중에서도 원소 중 하나만 값이 1이고 다른 값은 0으로 이루어진 다음과 같은 기저벡터를 <strong>표준기저벡터</strong>(standard basis vector)라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+e_1 = \begin{bmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{bmatrix}, \;\;
+e_2 = \begin{bmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{bmatrix}, \;\; 
+\cdots,  \;\;
+e_N = \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 1 \end{bmatrix}
+\tag{3.2.51}
+\end{align}
+\end{split}\]</div>
+<p>표준기저벡터를 열로 가지는 행렬은 항등행렬이 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\begin{bmatrix} e_1 &amp; e_2 &amp; \cdots &amp; e_N \end{bmatrix} = I_N
+\tag{3.2.52}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id30">
+<h2>좌표<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h2>
+<p>어떤 벡터의 **좌표(coordinate)**는 기저벡터를 선형조합하여 그 벡터를 나타내기 위한 계수벡터를 말한다.</p>
+<p>예를 들어 다음처럼 기저벡터 <span class="math notranslate nohighlight">\(\{e_1,e_2\}\)</span>를 선형조합하여 벡터 <span class="math notranslate nohighlight">\(x\)</span>를 나타낼 수 있다고 가정하자.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x = x_{e_1} e_1 + x_{e_2} e_2  
+\tag{3.2.53}
+\end{align}
+\]</div>
+<p>이 때 벡터 <span class="math notranslate nohighlight">\(x_e\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x_e = \begin{bmatrix} x_{e_1} \\ x_{e_2} \end{bmatrix}  
+\tag{3.2.54}
+\end{align}
+\end{split}\]</div>
+<p>를 벡터 <span class="math notranslate nohighlight">\(x\)</span>의  기저벡터 <span class="math notranslate nohighlight">\(\{e_1,e_2\}\)</span>에 대한 좌표벡터 혹은 간단히 **좌표(coordinate)**라고 한다. 벡터와 기저벡터 그리고 좌표의 관계는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x = [ e_1 e_2 ] \begin{bmatrix} x_{e_1} \\ x_{e_2} \end{bmatrix} = [ e_1 e_2 ] \; x_e 
+\tag{3.2.55}
+\end{align}
+\end{split}\]</div>
+<p>표준기저벡터를 모아놓은 행렬이 항등행렬이기 때문에 표준기저벡터에 대한 벡터의 좌표 <span class="math notranslate nohighlight">\(x_e\)</span>는 원래 벡터 <span class="math notranslate nohighlight">\(x\)</span>와 같다. 하지만 같은 벡터라도 다른 기저벡터를 사용하면 좌표가 달라진다. 따라서 하나의 벡터도 기저벡터에 따라 여러 좌표를 가질 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">gray</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;gray&quot;</span><span class="p">}</span>
+<span class="n">black</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">}</span>
+<span class="n">red</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
+<span class="n">green</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">}</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}</span>
+<span class="n">lightgreen</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;lightgreen&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">gray</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">gray</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">gray</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">,</span> <span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$e_2$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$e_1$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.02 좌표와 변환_50_0.png" src="../_images/03.02 좌표와 변환_50_0.png" />
+</div>
+</div>
+<div class="section" id="id31">
+<h3>예제<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<p>다음 기저벡터 <span class="math notranslate nohighlight">\(\{g_1, g_2\}\)</span>를 사용하면,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+g_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \; g_2 = \begin{bmatrix} -1 \\ 1 \end{bmatrix}
+\tag{3.2.56}
+\end{align}
+\end{split}\]</div>
+<p>위에 예로 든 벡터 <span class="math notranslate nohighlight">\(x\)</span>는 기저벡터 <span class="math notranslate nohighlight">\(\{g_1, g_2\}\)</span>를 다음처럼 선형조합하여 표현할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x = 4 g_1 + 2 g_2  
+= \begin{bmatrix} g_1 &amp; g_2 \end{bmatrix} \begin{bmatrix} 4 \\ 2 \end{bmatrix} 
+= \begin{bmatrix} g_1 &amp; g_2 \end{bmatrix} x_g
+\tag{3.2.57}
+\end{align}
+\end{split}\]</div>
+<p>따라서 기저벡터 <span class="math notranslate nohighlight">\(\{g_1, g_2\}\)</span>에 대한 <span class="math notranslate nohighlight">\(x\)</span>의 좌표는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x_g = \begin{bmatrix} 4 \\ 2 \end{bmatrix}
+\tag{3.2.58}
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">g1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">lightgreen</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">g2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">lightgreen</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">g1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">g2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">gray</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">,</span> <span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$g_2$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$g_1$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.02 좌표와 변환_52_0.png" src="../_images/03.02 좌표와 변환_52_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id32">
+<h2>변환행렬<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h2>
+<p>원래의 기저벡터가 아닌 새로운 기저벡터가 있다고 하자. 이 새로운 기저벡터들의 기존 기저벡터에 대한 좌표를 열벡터로 보고 이를 행렬로 묶은 행렬 <span class="math notranslate nohighlight">\(A\)</span>를 생각하자.</p>
+<p>예를 들어, 기존의 기저벡터가  <span class="math notranslate nohighlight">\(\{e_1, e_2\}\)</span>이고 새로운 기저벡터 <span class="math notranslate nohighlight">\(\{g_1, g_2\}\)</span>간에 다음과 같은 관계가 성립한다면,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+g_1 &amp;=  \dfrac{1}{\sqrt{2}} e_1 + \dfrac{1}{\sqrt{2}} e_2 \\
+g_2 &amp;= -\dfrac{1}{\sqrt{2}} e_1 + \dfrac{1}{\sqrt{2}} e_2
+\end{aligned}
+\tag{3.2.59}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(e_1\)</span>, <span class="math notranslate nohighlight">\(e_2\)</span>에 대한 <span class="math notranslate nohighlight">\(g_1\)</span>, <span class="math notranslate nohighlight">\(g_2\)</span>의 좌표벡터는 다음처럼 열벡터로 나타낼 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+g_{1e} = 
+\begin{bmatrix} 
+\dfrac{1}{\sqrt{2}} \\ \dfrac{1}{\sqrt{2}} 
+\end{bmatrix}, \;\;
+g_{2e} = 
+\begin{bmatrix} 
+-\dfrac{1}{\sqrt{2}} \\ \dfrac{1}{\sqrt{2}} 
+\end{bmatrix}
+\tag{3.2.60}
+\end{align}
+\end{split}\]</div>
+<p>두 좌표벡터들을 합쳐서 행렬로 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\begin{bmatrix} g_1 &amp; g_2 \end{bmatrix}
+= \begin{bmatrix} e_1 &amp; e_2 \end{bmatrix} \begin{bmatrix} g_{1e} &amp; g_{2e} \end{bmatrix}
+= \begin{bmatrix} e_1 &amp; e_2 \end{bmatrix} A
+\tag{3.2.61}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A =
+\begin{bmatrix} 
+\dfrac{1}{\sqrt{2}} &amp; -\dfrac{1}{\sqrt{2}} \\
+\dfrac{1}{\sqrt{2}} &amp; \dfrac{1}{\sqrt{2}} 
+\end{bmatrix}
+\tag{3.2.62}
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">g1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">g1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">g2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$e_2$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$e_1$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$g_1$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$g_2$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.02 좌표와 변환_55_0.png" src="../_images/03.02 좌표와 변환_55_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id33">
+<h2>좌표변환<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h2>
+<p>새로운 기저벡터에 대해 좌표를 계산하는 것을 **좌표변환(coordinate transform)**이라고 한다.</p>
+<p>2차원의 경우를 예로 들어보자. 벡터 <span class="math notranslate nohighlight">\(x\)</span>의 기저벡터 <span class="math notranslate nohighlight">\(\{e_1, e_2\}\)</span>에 대한 좌표 <span class="math notranslate nohighlight">\(x_e\)</span>를 새로운 기저벡터 <span class="math notranslate nohighlight">\(\{g_1, g_2\}\)</span>에 대한 좌표 <span class="math notranslate nohighlight">\(x_g\)</span>로 변환하고자 한다.</p>
+<p>새로운 기저벡터에 대한 좌푯값이 가리키는 실제 위치는 원래의 벡터가 가리키는 실제 위치와 같아야 되므로</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x = x_{e1}e_1 + x_{e2}e_2 = x_{g1} g_1 + x_{g2} g_2  
+\tag{3.2.63}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x 
+= \begin{bmatrix} e_1 &amp; e_2 \end{bmatrix} x_e 
+= \begin{bmatrix} g_1 &amp; g_2 \end{bmatrix} x_g 
+\tag{3.2.64}
+\end{align}
+\]</div>
+<p>이 식에</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\begin{bmatrix} g_1 &amp; g_2 \end{bmatrix}
+= \begin{bmatrix} e_1 &amp; e_2 \end{bmatrix} 
+A
+\tag{3.2.65}
+\end{align}
+\]</div>
+<p>를 대입하면</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x 
+= \begin{bmatrix} e_1 &amp; e_2 \end{bmatrix} x_e 
+= \begin{bmatrix} e_1 &amp; e_2 \end{bmatrix} A x_g
+\tag{3.2.66}
+\end{align}
+\]</div>
+<p>이 된다. 이 식으로부터 다음 식이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x_e = A x_g 
+\tag{3.2.67} 
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x_g = A^{-1}x_e = Tx_e
+\tag{3.2.68}  
+\end{align}
+\]</div>
+<p>이 때 <span class="math notranslate nohighlight">\(A\)</span>의 역행렬 <span class="math notranslate nohighlight">\(T=A^{-1}\)</span>을 **변환행렬(transform matrix)**이라고 한다.</p>
+<p>예를 들어 벡터 <span class="math notranslate nohighlight">\(x\)</span>의 표준기저벡터에 대한 좌표가 다음과 같다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x = 2 e_1 + 2 e_2= \begin{bmatrix}2 \\ 2\end{bmatrix} = x_e
+\tag{3.2.69}
+\end{align}
+\end{split}\]</div>
+<p>표준기저벡터에 대한 새로운 기저벡터의 좌표가 다음과 같다면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+g_{1e} = \begin{bmatrix} \dfrac{1}{\sqrt{2}} \\ \dfrac{1}{\sqrt{2}} \end{bmatrix} ,\;\;
+g_{2e} = \begin{bmatrix} -\dfrac{1}{\sqrt{2}} \\ \dfrac{1}{\sqrt{2}} \end{bmatrix}
+\tag{3.2.70}
+\end{align}
+\end{split}\]</div>
+<p>새로운 기저벡터에 대한 벡터 <span class="math notranslate nohighlight">\(a\)</span>의 좌표는 위의 공식을 이용하여 다음처럼 계산할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x_g = A^{-1}x_e = 
+\begin{bmatrix} 
+\dfrac{1}{\sqrt{2}} &amp; -\dfrac{1}{\sqrt{2}} \\
+\dfrac{1}{\sqrt{2}} &amp;  \dfrac{1}{\sqrt{2}} 
+\end{bmatrix}^{-1}
+\begin{bmatrix}2 \\ 2\end{bmatrix}
+=
+\begin{bmatrix} 
+\dfrac{1}{\sqrt{2}} &amp; \dfrac{1}{\sqrt{2}} \\
+-\dfrac{1}{\sqrt{2}} &amp; \dfrac{1}{\sqrt{2}} 
+\end{bmatrix}
+\begin{bmatrix}2 \\ 2\end{bmatrix} 
+= \begin{bmatrix}2\sqrt{2}\\0\end{bmatrix}
+\tag{3.2.71}
+\end{align}
+\end{split}\]</div>
+<p>다음 그림은 이 변환을 나타낸 것이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">g1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">gray</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">g1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">g2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">,</span> <span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$e_2$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$e_1$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$g_1$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$g_2$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.02 좌표와 변환_58_0.png" src="../_images/03.02 좌표와 변환_58_0.png" />
+</div>
+</div>
+<p>NumPy를 사용하면 다음처럼 계산할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.70710678, -0.70710678],
+       [ 0.70710678,  0.70710678]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ainv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">Ainv</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.70710678,  0.70710678],
+       [-0.70710678,  0.70710678]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ainv</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2.82842712, 0.        ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>즉, <strong>새로운 좌표벡터는 원래의 좌표벡터에 변환행렬을 곱하여</strong> 구할 수 있다.</p>
+<div class="section" id="id34">
+<h3>연습 문제 3.2.8<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<p>만약 새로운 기저벡터의 좌표가 다음과 같다면 원래의 좌표 (1, 0), (1, 2), (-1, 2)는 각각 어떤 좌푯값이 될지 계산하라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+g_1 = \begin{bmatrix} 1 \\ 0.75 \end{bmatrix} ,\;\;
+g_2 = \begin{bmatrix} -1 \\ 0.75 \end{bmatrix}
+\tag{3.2.72}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id35">
+<h2>이미지 변환<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h2>
+<p>새로운 기저벡터에 대한 좌표변환을 응용하면 이미지를 자유롭게 변환할 수도 있다. 파이썬에서는 scipy.ndimage 패키지의 <code class="docutils literal notranslate"><span class="pre">affine_transform()</span></code> 명령을 사용한다.  이 명령은 이미지를 이루는 픽셀을 새로운 좌표로 이동시킨다. 인수로는 이미지 데이터와 **변환행렬의 역행렬(위에서 <span class="math notranslate nohighlight">\(A\)</span>로 표시한 행렬)**을 받는다. 단 파이썬 이미지에서는 다음과 같은 표준기저벡터를 사용하고 (<span class="math notranslate nohighlight">\(x_1\)</span>이 아래를 향하는 세로축, <span class="math notranslate nohighlight">\(x_2\)</span>가 오른쪽을 향하는 가로축) <strong>원점이 왼쪽 상단의 점</strong>이라는 점에 유의한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+e_1 = \begin{bmatrix} 0 \\ -1 \end{bmatrix} ,\;\;
+e_2 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
+\tag{3.2.73}
+\end{align}
+\end{split}\]</div>
+<p>다음은 위에서 예로 든 기저벡터 <span class="math notranslate nohighlight">\(\{g_1, g_2\}\)</span>로 이미지 변환한 예다(그림에서 기저벡터의 크기는 설명을 위해 과장하여 크게 표시하였다).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">scipy.misc</span>
+<span class="kn">import</span> <span class="nn">scipy.ndimage</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">face</span><span class="p">(</span><span class="n">gray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">e1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># matplotlib의 이미지 좌표규약으로 부호변경 </span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">g1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">gc1</span> <span class="o">=</span> <span class="n">E</span> <span class="o">@</span> <span class="n">g1</span>
+<span class="n">gc2</span> <span class="o">=</span> <span class="n">E</span> <span class="o">@</span> <span class="n">g2</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$e_1$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$e_2$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">gc1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$g_1$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">gc1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">gc1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">gc2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$g_2$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">gc2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">gc2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="o">-</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;좌표변환전&quot;</span><span class="p">)</span>
+
+<span class="n">f1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$g_1$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">red</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$g_2$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="o">-</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;좌표변환후&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">78515677</span><span class="n">d88a</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> 
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">17</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">green</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$e_1$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="mi">500</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="ne">NameError</span>: name &#39;mpl&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/03.02 좌표와 변환_67_1.png" src="../_images/03.02 좌표와 변환_67_1.png" />
+</div>
+</div>
+<div class="section" id="id36">
+<h3>연습 문제 3.2.9<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<p>다음 기저벡터를 이용하여 앞의 이미지를 변환하라. 변환한 이미지를 만들기 전에 어떤 이미지가 나올지 생각해보자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+g_1 = \begin{bmatrix} 1 \\ 0.75 \end{bmatrix} ,\;\;
+g_2 = \begin{bmatrix} -1 \\ 0.75 \end{bmatrix}
+\tag{3.2.74}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

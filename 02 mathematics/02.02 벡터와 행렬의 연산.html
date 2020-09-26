@@ -1,0 +1,2368 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.2 벡터와 행렬의 연산 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/02.02 벡터와 행렬의 연산.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/02.02 벡터와 행렬의 연산.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/02.02 벡터와 행렬의 연산.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   벡터/행렬의 덧셈과 뺄셈
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   스칼라와 벡터/행렬의 곱셈
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   브로드캐스팅
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   선형조합
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   벡터와 벡터의 곱셈
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   가중합
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 2.2.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   가중평균
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 2.2.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   유사도
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     연습 문제 2.2.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   선형회귀 모형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   선형회귀 모형의 단점
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   제곱합
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   행렬과 행렬의 곱셈
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     연습 문제 2.2.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   교환 법칙과 분배 법칙
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     연습 문제 2.2.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id20">
+   곱셈의 연결
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     연습 문제 2.2.6
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id22">
+   항등행렬의 곱셈
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id23">
+   행렬과 벡터의 곱
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id24">
+   열 벡터의 선형조합
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id25">
+     연습 문제 2.2.7
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id26">
+     연습 문제 2.2.8
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id27">
+   여러 개의 벡터에 대한 가중합 동시 계산
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id28">
+     연습 문제 2.2.9
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id29">
+   잔차
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id30">
+   잔차 제곱합
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id31">
+     연습 문제 2.2.10
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id32">
+   이차형식
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id33">
+     연습 문제 2.2.11
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id34">
+     연습 문제 2.2.12
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id35">
+   부분행렬
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id36">
+     연습 문제 2.2.13
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id37">
+     연습 문제 2.2.14
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>2.2 벡터와 행렬의 연산<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>벡터와 행렬도 숫자처럼 덧셈, 뺄셈, 곱셈 등의 연산을 할 수 있다. 벡터와 행렬의 연산을 이용하면 대량의 데이터에 대한 계산을 간단한 수식으로 나타낼 수 있다. 물론 벡터와 행렬에 대한 연산은 숫자의 사칙 연산과는 몇 가지 다른 점이 있으므로 이러한 차이를 잘 알아야 한다.</p>
+<p>이 절에서는 넘파이를 이용하여 벡터와 행렬의 연산을 실행하는 법도 공부한다. 다음처럼 넘파이와 맷플롯립 패키지가 임포트되어 있어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>벡터/행렬의 덧셈과 뺄셈<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>같은 크기를 가진 두 개의 벡터나 행렬은 덧셈과 뺄셈을 할 수 있다. 두 벡터와 행렬에서 같은 위치에 있는 원소끼리 덧셈과 뺄셈을 하면 된다. 이러한 연산을 <strong>요소별(element-wise) 연산</strong>이라고 한다.</p>
+<p>예를 들어 벡터 <span class="math notranslate nohighlight">\(x\)</span>와 <span class="math notranslate nohighlight">\(y\)</span>가 다음과 같으면,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x=
+\begin{bmatrix}
+10 \\
+11 \\
+12 \\
+\end{bmatrix}
+,\;\;
+y=
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+\end{bmatrix}
+\tag{2.2.1}
+\end{align}
+\end{split}\]</div>
+<p>벡터 <span class="math notranslate nohighlight">\(x\)</span>와 <span class="math notranslate nohighlight">\(y\)</span>의 덧셈 <span class="math notranslate nohighlight">\(x+y\)</span>와 뺄셈 <span class="math notranslate nohighlight">\(x-y\)</span>는 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x + y =
+\begin{bmatrix}
+10 \\
+11 \\
+12 \\
+\end{bmatrix}
++
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+10 + 0 \\
+11 + 1 \\
+12 + 2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+10 \\
+12 \\
+14 \\
+\end{bmatrix}
+\tag{2.2.2}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x - y =
+\begin{bmatrix}
+10 \\
+11 \\
+12 \\
+\end{bmatrix}
+-
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+10 - 0 \\
+11 - 1 \\
+12 - 2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+10 \\
+10 \\
+10 \\
+\end{bmatrix}
+\tag{2.2.3}
+\end{align}
+\end{split}\]</div>
+<p>벡터의 덧셈과 뺄셈을 넘파이로 계산하면 다음과 같다. 여기에서는 편의상 1차원 배열로 벡터를 표시하였다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([10, 12, 14, 16, 18])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([10, 10, 10, 10, 10])
+</pre></div>
+</div>
+</div>
+</div>
+<p>행렬도 같은 방법으로 덧셈과 뺄셈을 할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+5 &amp; 6 \\
+7 &amp; 8
+\end{bmatrix}
++
+\begin{bmatrix}
+10 &amp; 20 \\
+30 &amp; 40 \\
+\end{bmatrix}
+-
+\begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 4
+\end{bmatrix}
+=
+\begin{bmatrix}
+14 &amp; 24 \\
+34 &amp; 44
+\end{bmatrix}
+\tag{2.2.4}
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]])</span> <span class="o">-</span> \
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[14, 24],
+       [34, 44]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>스칼라와 벡터/행렬의 곱셈<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>벡터 <span class="math notranslate nohighlight">\(x\)</span> 또는 행렬 <span class="math notranslate nohighlight">\(A\)</span>에 스칼라값 <span class="math notranslate nohighlight">\(c\)</span>를 곱하는 것은 <strong>벡터 <span class="math notranslate nohighlight">\(x\)</span> 또는 행렬 <span class="math notranslate nohighlight">\(A\)</span>의 모든 원소에 스칼라값 <span class="math notranslate nohighlight">\(c\)</span>를 곱하는 것</strong>과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+c
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+cx_1 \\
+cx_2
+\end{bmatrix}
+\tag{2.2.5}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+c
+\begin{bmatrix}
+a_{11} &amp; a_{12} \\
+a_{21} &amp; a_{22}
+\end{bmatrix}
+=
+\begin{bmatrix}
+ca_{11} &amp; ca_{12} \\
+ca_{21} &amp; ca_{22}
+\end{bmatrix}
+\tag{2.2.6}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id4">
+<h2>브로드캐스팅<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>원래 덧셈과 뺄셈은 크기(차원)가 같은 두 벡터에 대해서만 할 수 있다. 하지만 벡터와 스칼라의 경우에는 관례적으로 다음처럼 1-벡터를 사용하여 스칼라를 벡터로 변환한 연산을 허용한다. 이를 **브로드캐스팅(broadcasting)**이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+10 \\
+11 \\
+12 \\
+\end{bmatrix}
+- 10
+=
+\begin{bmatrix}
+10 \\
+11 \\
+12 \\
+\end{bmatrix}
+- 10\cdot \mathbf{1}
+=
+\begin{bmatrix}
+10 \\
+11 \\
+12 \\
+\end{bmatrix}
+-
+\begin{bmatrix}
+10 \\
+10 \\
+10 \\
+\end{bmatrix}
+\tag{2.2.7}
+\end{align}
+\end{split}\]</div>
+<p>데이터 분석에서는 원래의 데이터 벡터 <span class="math notranslate nohighlight">\(x\)</span>가 아니라 그 데이터 벡터의 각 원소의 평균값을 뺀 <strong>평균제거(mean removed) 벡터</strong> 혹은 <strong>0-평균(zero-mean) 벡터</strong>를 사용하는 경우가 많다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x = 
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_N
+\end{bmatrix}
+\;\; \rightarrow \;\;
+x - m =
+\begin{bmatrix}
+x_1 - m\\
+x_2 - m \\
+\vdots \\
+x_N - m
+\end{bmatrix}
+\tag{2.2.8}
+\end{align}
+\end{split}\]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\(m\)</span>은 샘플 평균이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+m = \dfrac{1}{N}\sum_{i=1}^N x_i
+\tag{2.2.9}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id5">
+<h2>선형조합<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>벡터/행렬에 다음처럼 스칼라값을 곱한 후 더하거나 뺀 것을 벡터/행렬의 **선형조합(linear combination)**이라고 한다. 벡터나 행렬을 선형조합해도 크기는 변하지 않는다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+c_1x_1 + c_2x_2 + c_3x_3 + \cdots + c_Lx_L = x
+\tag{2.2.10}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+c_1A_1 + c_2A_2 + c_3A_3 + \cdots + c_LA_L = A
+\tag{2.2.11}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+c_1, c_2, \ldots, c_L \in \mathbf{R}
+\tag{2.2.12}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_1, x_2, \ldots, x_L, x \in \mathbf{R}^M
+\tag{2.2.13}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A_1, A_2, \ldots, A_L, A \in \mathbf{R}^{M \times N}
+\tag{2.2.14}
+\end{align}
+\]</div>
+<p>벡터나 행렬의 크기를 직사각형으로 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{matrix}
+c_1\,\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ x_1 \\ \phantom{\LARGE\mathstrut} \end{matrix}} &amp; + &amp;
+c_2\,\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ x_2 \\ \phantom{\LARGE\mathstrut} \end{matrix}} &amp; + &amp; 
+\cdots \!\!\!\!&amp; + &amp; 
+c_L\,\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ x_L \\ \phantom{\LARGE\mathstrut} \end{matrix}}
+\end{matrix}
+\tag{2.2.15}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{matrix}
+c_1\,\boxed{\begin{matrix} \phantom{} &amp; \phantom{} &amp; \phantom{} \\ &amp; A_1 &amp; \\ \phantom{} &amp; \phantom{} &amp; \phantom{} \end{matrix}} 
+&amp; + &amp;
+c_2\,\boxed{\begin{matrix} \phantom{} &amp; \phantom{} &amp; \phantom{} \\ &amp; A_2 &amp; \\ \phantom{} &amp; \phantom{} &amp; \phantom{} \end{matrix}} 
+&amp; + &amp;
+\cdots
+&amp; + &amp;
+c_L\,\boxed{\begin{matrix} \phantom{} &amp; \phantom{} &amp; \phantom{} \\ &amp; A_L &amp; \\ \phantom{} &amp; \phantom{} &amp; \phantom{} \end{matrix}} 
+\end{matrix}
+\tag{2.2.16}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id6">
+<h2>벡터와 벡터의 곱셈<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>행렬의 곱셈을 정의하기 전에 우선 두 벡터의 곱셈을 알아보자. 벡터를 곱셈하는 방법은 여러 가지가 있지만 여기서는 **내적(inner product)**에 대해서만 다룬다. 벡터 <span class="math notranslate nohighlight">\(x\)</span>와 벡터 <span class="math notranslate nohighlight">\(y\)</span>의 내적은 다음처럼 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x^T y 
+\tag{2.2.17}
+\end{align}
+\]</div>
+<p>내적은 다음처럼 점(dot)으로 표기하는 경우도 있어서 **닷 프로덕트(dot product)**라고도 부르고 &lt; <span class="math notranslate nohighlight">\(x,y\)</span> &gt; 기호로 나타낼 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x \cdot y = \, &lt; x, y &gt; \, = x^T y 
+\tag{2.2.18}
+\end{align}
+\]</div>
+<p>두 벡터를 내적하려면 다음과 같은 조건이 만족되어야 한다.</p>
+<ol class="simple">
+<li><p>우선 두 벡터의 차원(길이)이 같아야 한다.</p></li>
+<li><p>앞의 벡터가 행 벡터이고 뒤의 벡터가 열 벡터여야 한다.</p></li>
+</ol>
+<p>이때 내적의 결과는 스칼라값이 되며 다음처럼 계산한다. 우선 같은 위치에 있는 원소들을 요소별 곱셈처럼 곱한 다음, 그 값들을 다시 모두 더해서 하나의 스칼라값으로 만든다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x^T y = 
+\begin{bmatrix}
+x_{1} &amp; x_{2} &amp; \cdots &amp; x_{N} 
+\end{bmatrix}
+\begin{bmatrix}
+y_{1} \\
+y_{2} \\
+\vdots \\
+y_{N} \\
+\end{bmatrix} 
+= x_1 y_1 + \cdots + x_N y_N 
+= \sum_{i=1}^N x_i y_i
+\tag{2.2.19}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x \in \mathbf{R}^{N \times 1}
+\tag{2.2.20}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+y \in \mathbf{R}^{N \times 1} 
+\tag{2.2.21}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x^T y \in \mathbf{R} 
+\tag{2.2.22}
+\end{align}
+\]</div>
+<p>다음은 두 벡터의 내적의 예다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x =
+\begin{bmatrix}
+1 \\ 2 \\ 3 \\
+\end{bmatrix}
+,\;\;\;
+y = 
+\begin{bmatrix}
+4 \\ 5 \\ 6 \\
+\end{bmatrix} 
+\tag{2.2.23}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x^T y = 
+\begin{bmatrix}
+1 &amp; 2 &amp; 3
+\end{bmatrix}
+\begin{bmatrix}
+4 \\ 5 \\ 6 \\
+\end{bmatrix} 
+= 1 \cdot 4 + 2 \cdot 5 + 3 \cdot 6 = 32
+\tag{2.2.24}
+\end{align}
+\end{split}\]</div>
+<p>넘파이에서 벡터와 행렬의 내적은 <code class="docutils literal notranslate"><span class="pre">dot()</span></code>이라는 명령 또는 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>(at이라고 읽는다)이라는 연산자로 계산한다. 2차원 배열로 표시한 벡터를 내적했을 때는 결과값이 스칼라가 아닌 2차원 배열이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+
+<span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>  <span class="c1"># 또는 np.dot(x.T, y)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[32]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>넘파이에서는 1차원 배열끼리도 내적을 계산한다. 이때는 넘파이가 앞의 벡터는 행 벡터이고 뒤의 벡터는 열 벡터라고 가정한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+
+<span class="n">x</span> <span class="o">@</span> <span class="n">y</span>  <span class="c1"># 또는 np.dot(x, y)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
+</div>
+</div>
+</div>
+<p>왜 벡터의 내적은 덧셈이나 뺄셈과 달리 이렇게 복잡하게 정의된 것일까? 그 이유는 데이터 분석을 할 때 이러한 연산이 필요하기 때문이다. 벡터의 내적을 사용하여 데이터를 분석하는 몇 가지 예를 살펴보자.</p>
+</div>
+<div class="section" id="id7">
+<h2>가중합<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>벡터의 내적은 가중합을 계산할 때 쓰일 수 있다. **가중합(weighted sum)**이란 복수의 데이터를 단순히 합하는 것이 아니라 각각의 수에 어떤 가중치 값을 곱한 후 이 곱셈 결과들을 다시 합한 것을 말한다.</p>
+<p>만약 데이터 벡터가 <span class="math notranslate nohighlight">\(x=[x_1, \cdots, x_N]^T\)</span>이고 가중치 벡터가 <span class="math notranslate nohighlight">\(w=[w_1, \cdots, w_N]^T\)</span>이면 데이터 벡터의 가중합은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+w_1 x_1 + \cdots + w_N x_N = \sum_{i=1}^N w_i x_i 
+\tag{2.2.25}
+\end{align}
+\]</div>
+<p>이 값을 벡터 <span class="math notranslate nohighlight">\(x\)</span>와 <span class="math notranslate nohighlight">\(w\)</span>의 곱으로 나타내면 <span class="math notranslate nohighlight">\(w^Tx\)</span> 또는 <span class="math notranslate nohighlight">\(x^Tw\)</span> 라는 간단한 수식으로 표시할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\sum_{i=1}^N w_i x_i 
+&amp;= 
+\begin{bmatrix}
+w_{1} &amp;&amp; w_{2} &amp;&amp; \cdots &amp;&amp; w_{N}
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_N
+\end{bmatrix} 
+&amp;= w^Tx  
+\\
+&amp;=
+\begin{bmatrix}
+x_{1} &amp;&amp; x_{2} &amp;&amp; \cdots &amp;&amp; x_{N}
+\end{bmatrix}
+\begin{bmatrix}
+w_1 \\ w_2 \\ \vdots \\ w_N
+\end{bmatrix}
+&amp;= x^Tw  
+\end{aligned}
+\tag{2.2.26}
+\end{align}
+\end{split}\]</div>
+<p>예를 들어 쇼핑을 할 때 각 물건의 가격은 데이터 벡터, 각 물건의 수량은 가중치로 생각하여 내적을 구하면 총금액을 계산할 수 있다.</p>
+<p>만약 가중치가 모두 1이면 일반적인 합(sum)을 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+w_1 = w_2 = \cdots = w_N = 1 
+\tag{2.2.27}
+\end{align}
+\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+w = \mathbf{1}_N 
+\tag{2.2.28}
+\end{align}
+\]</div>
+<p>이면</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\sum_{i=1}^N x_i = \mathbf{1}_N^T x 
+\tag{2.2.29}
+\end{align}
+\]</div>
+<div class="section" id="id8">
+<h3>연습 문제 2.2.1<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>A, B, C 세 회사의 주식은 각각 100만원, 80만원, 50만원이다. 이 주식을 각각 3주, 4주, 5주를 매수할 때 필요한 금액을 구하고자 한다.</p>
+<p>(1) 주식의 가격과 수량을 각각 <span class="math notranslate nohighlight">\(p\)</span> 벡터, <span class="math notranslate nohighlight">\(n\)</span> 벡터로 표시하고 넘파이로 코딩한다.</p>
+<p>(2) 주식을 매수할 때 필요한 금액을 곱셈으로 표시하고 넘파이 연산으로 그 값을 계산한다.</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>가중평균<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>가중합의 가중치값을 전체 가중치값의 합으로 나누면 **가중평균(weighted average)**이 된다. 가중평균은 대학교의 평균 성적 계산 등에 사용할 수 있다.</p>
+<p>예를 들어 고등학교에서는 국어, 영어, 두 과목의 평균 점수를 구할 때 단순히 두 과목의 점수(숫자)를 더한 후 2으로 나눈다. 그러나 대학교에서는 중요한 과목과 중요하지 않는 과목을 구분하는 학점(credit)이라는 숫자가 있다. 일주일에 한 시간만 수업하는 과목은 1학점짜리 과목이고 일주일에 세 시간씩 수업하는 중요한 과목은 3학점짜리 과목이다. 1학점과 3학점 과목의 점수가 각각 100점, 60점이면 학점을 고려한 가중 평균(weighted average) 성적은 다음과 같이 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{1}{1 + 3} \times 100 + \dfrac{3}{1 + 3} \times 60
+= 70 
+\tag{2.2.30}
+\end{align}
+\]</div>
+<p>벡터로 표현된 <span class="math notranslate nohighlight">\(N\)</span>개의 데이터의 단순 평균은 다음처럼 생각할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\bar{x} = \dfrac{1}{N}\sum_{i=1}^N x_i = \dfrac{1}{N} \mathbf{1}_N^T x
+\tag{2.2.31}
+\end{align}
+\]</div>
+<p>위 수식에서 보인 것처럼 <span class="math notranslate nohighlight">\(x\)</span> 데이터의 평균은 보통 <span class="math notranslate nohighlight">\(\bar{x}\)</span>라는 기호로 표기하고 “엑스 바(x bar)” 라고 읽는다.</p>
+<p>다음은 넘파이로 평균을 계산하는 방법이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">@</span> <span class="n">x</span> <span class="o">/</span> <span class="n">N</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.5
+</pre></div>
+</div>
+</div>
+</div>
+<p>현실적으로는 <code class="docutils literal notranslate"><span class="pre">mean()</span></code>이라는 메서드를 사용하는 것이 편하다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>연습 문제 2.2.2<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>벡터 <span class="math notranslate nohighlight">\(x\)</span>의 평균 제거 벡터는 다음과 같이 계산함을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x - \dfrac{1}{N}\mathbf{1}_N^Tx \mathbf{1}^{}_N
+\tag{2.2.32}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>유사도<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>벡터의 곱셈(내적)은 두 벡터 간의 유사도를 계산하는 데도 이용할 수 있다. <strong>유사도(similarity)는 두 벡터가 닮은 정도를 정량적으로 나타낸 값</strong>으로 두 벡터가 비슷한 경우에는 유사도가 커지고 비슷하지 앟은 경우에는 유사도가 작아진다. 내적을 이용하면 **코사인 유사도(cosine similarity)**라는 유사도를 계산할 수 있다. 추후 선형대수의 기하학적 의미를 공부할 때 코사인 유사도에 대해 살펴볼 것이다.</p>
+<p>예를 들어 0과 1을 나타내는 MNIST 이미지에 대해 내적을 계산해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+
+<span class="n">digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">d3</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">d4</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">d2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">v3</span> <span class="o">=</span> <span class="n">d3</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">v4</span> <span class="o">=</span> <span class="n">d4</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                       <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;d&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+               <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;image </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;v&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+               <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;vector </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.02 벡터와 행렬의 연산_37_0.png" src="../_images/02.02 벡터와 행렬의 연산_37_0.png" />
+</div>
+</div>
+<p>“0” 이미지와 “0” 이미지, 또는 “1” 이미지와 “1” 이미지의 내적값은 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">v2</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">v3</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">v4</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3064.0, 3661.0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>상대적으로 “0” 이미지와 “1” 이미지, 또는 “1” 이미지와 “0” 이미지의 내적값은 작다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">v3</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">v4</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">v2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">v3</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">v2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">v4</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1866.0, 1883.0, 2421.0, 2479.0)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>연습 문제 2.2.3<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>다음 코드를 실행하면 MNIST 숫자 이미지 전체 데이터를 모두 벡터로 변환하여 하나의 넘파이 행렬 <code class="docutils literal notranslate"><span class="pre">X</span></code>를 만든다.
+이 행렬을 이용하여 다음 문제를 풀어라.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>(1) 내적을 이용하여 첫 번째 이미지와 10번째 이미지의 유사도를 구하라.</p>
+<p>(2) 내적을 이용하여 모든 이미지의 조합에 대해 유사도를 구하라. 어떻게 구현하는 것이 효율적일까? (힌트 : 이 문제는 뒤에서 배울 행렬과 행렬의 곱셈을 이용한다.)</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>선형회귀 모형<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>**선형회귀 모형(linear regression model)**이란 독립변수 <span class="math notranslate nohighlight">\(x\)</span>에서 종속변수 <span class="math notranslate nohighlight">\(y\)</span>를 예측하는 방법의 하나로 독립변수 벡터 <span class="math notranslate nohighlight">\(x\)</span>와 가중치 벡터 <span class="math notranslate nohighlight">\(w\)</span>와의 가중합으로 <span class="math notranslate nohighlight">\({y}\)</span>에 대한 예측값 <span class="math notranslate nohighlight">\(\hat{y}\)</span>를 계산하는 수식을 말한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\hat{y} = w_1 x_1 + \cdots + w_N x_N
+\tag{2.2.33}
+\end{align}
+\]</div>
+<p>이 수식에서  기호 <code class="docutils literal notranslate"><span class="pre">^</span></code>는 “캐럿(caret)”이라는 기호이다. <span class="math notranslate nohighlight">\(\hat{y}\)</span>는 “와이 햇(y hat)”이라고 읽는다.</p>
+<p>이 수식은 다음처럼 벡터의 내적으로 나타낼 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\hat{y} = w^Tx
+\tag{2.2.34}
+\end{align}
+\]</div>
+<p>선형회귀 모형은 가장 단순하면서도 가장 널리 쓰이는 예측 모형이다.</p>
+<p>예를 들어 어떤 아파트 단지의 아파트 가격을 조사하였더니 아파트 가격은 (1)면적, (2)층수, (3)한강이 보이는지의 여부, 즉 이 세 가지 특징에 의해 달라진다는 사실을 알게 되었다. 이때 이 단지 내의 아파트 가격을 예측하는 예측 모형을 다음과 같이 만들 수 있다.</p>
+<ul class="simple">
+<li><p>면적(<span class="math notranslate nohighlight">\(m^2\)</span>)을 입력 데이터 <span class="math notranslate nohighlight">\(x_1\)</span>라고 한다.</p></li>
+<li><p>층수를 입력 데이터 <span class="math notranslate nohighlight">\(x_2\)</span>라고 한다</p></li>
+<li><p>한강이 보이는지의 여부를 입력 데이터 <span class="math notranslate nohighlight">\(x_3\)</span>라고 하며 한강이 보이면 <span class="math notranslate nohighlight">\(x_3 = 1\)</span>, 보이지 않으면 <span class="math notranslate nohighlight">\(x_3 = 0\)</span>이라고 한다.</p></li>
+<li><p>출력 데이터 <span class="math notranslate nohighlight">\(\hat{y}\)</span>는 해당 아파트의 예측 가격이다.</p></li>
+</ul>
+<p>위와 같이 입력 데이터와 출력 데이터를 정의하고 회귀분석을 한 결과, 아파트값이 다음과 같은 선형회귀 모형으로 나타난다고 가정하자. 이러한 모형을 실제로 찾는 방법은 나중에 회귀분석 파트에서 공부하게 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\hat{y} = 500 x_1 + 200 x_2 + 1000 x_3 
+\tag{2.2.35}
+\end{align}
+\]</div>
+<p>이 모형은 다음과 같이 해석할 수 있다.</p>
+<ul class="simple">
+<li><p>면적이 1<span class="math notranslate nohighlight">\(m^2\)</span> 증가할수록 가격은 500만 원이 증가한다.</p></li>
+<li><p>층수가 1층 높아질수록 가격은 200만 원이 증가한다.</p></li>
+<li><p>한강이 보이는 집은 1,000만 원의 웃돈(프리미엄)이 존재한다.</p></li>
+</ul>
+<p>위 식은 다음과 같이 벡터의 내적으로 고쳐 쓸 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\hat{y} = \begin{bmatrix} 500 &amp; 200 &amp; 1000 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = w^T x 
+\tag{2.2.36}
+\end{align}
+\end{split}\]</div>
+<p>즉, 위 선형회귀 모형은 다음 가중치 벡터로 대표된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+w^T = \begin{bmatrix} 500 &amp; 200 &amp; 1000 \end{bmatrix} 
+\tag{2.2.37}
+\end{align}
+\]</div>
+<p>인공신경망(artificial neural network)에서는 선형회귀 모형을 다음과 같은 그림으로 표현한다. 데이터는 노드(node) 혹은 뉴런(neuron)이라는 동그라미로 표시하고 곱셈은 선분(line)위에 곱할 숫자를 써서 나타낸다. 덧셈은 여러 개의 선분이 만나는 것으로 표시한다.</p>
+<img src="https://datascienceschool.net/upfiles/8954a46a8379436f9c706ddc2449d3d8.png"><p>그림 2.2.1 인공신경망으로 표현한 선형회귀 모형</p>
+</div>
+<div class="section" id="id14">
+<h2>선형회귀 모형의 단점<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>선형회귀 모형은 비선형적인 현실 세계의 데이터를 잘 예측하지 못할 수 있다는 단점이 있다. 예를 들어 집값은 면적에 단순 비례하지 않는다. 소형 면적의 집과 대형 면적의 집은 단위 면적당 집값의 증가율이 다를 수 있다. 또한 저층이 보통 고층보다 집값이 싸지만 층수가 올라갈수록 정확히 층수에 비례하여 가격이 증가하지도 않는다.</p>
+<p>이러한 현실 세계의 데이터와 선형회귀 모형의 괴리를 줄이기 위해 선형회귀 모형이 아닌 완전히 다른 모형을 쓰기보다는 선형회귀 모형을 기반으로 여러 기법을 사용해  수정한 모형을 사용하는 것이 일반적이다. 이러한 수정 선형회귀 모형에 대해서는 나중에 공부하게 된다.</p>
+</div>
+<div class="section" id="id15">
+<h2>제곱합<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>데이터의 분산(variance)이나 표준 편차(standard deviation) 등을 구하는 경우에는 각각의 데이터를 제곱한 뒤 이 값을 모두 더한 **제곱합(sum of squares)**을 계산해야 한다. 이 경우에도 벡터의 내적을 사용하여 <span class="math notranslate nohighlight">\(x^Tx\)</span>로 쓸 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x^T x = 
+\begin{bmatrix}
+x_{1} &amp; x_{2} &amp; \cdots &amp; x_{N} 
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{N} \\
+\end{bmatrix} = \sum_{i=1}^{N} x_i^2
+\tag{2.2.38}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id16">
+<h2>행렬과 행렬의 곱셈<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>벡터의 곱셈을 정의한 후에는 이를 이용하여 행렬의 곱셈을 정의할 수 있다. 행렬과 행렬을 곱하면 행렬이 된다. 방법은 다음과 같다.</p>
+<p><span class="math notranslate nohighlight">\(A\)</span> 행렬과 <span class="math notranslate nohighlight">\(B\)</span> 행렬을 곱한 결과가 <span class="math notranslate nohighlight">\(C\)</span> 행렬이 된다고 하자.
+<span class="math notranslate nohighlight">\(C\)</span>의 <span class="math notranslate nohighlight">\(i\)</span>번째 행, <span class="math notranslate nohighlight">\(j\)</span>번째 열의 원소 <span class="math notranslate nohighlight">\(c_{ij}\)</span>의 값은 <span class="math notranslate nohighlight">\(A\)</span> 행렬의 <span class="math notranslate nohighlight">\(i\)</span>번째 행 벡터 <span class="math notranslate nohighlight">\(a_i^T\)</span>와 <span class="math notranslate nohighlight">\(B\)</span> 행렬의 <span class="math notranslate nohighlight">\(j\)</span>번째 열 벡터 <span class="math notranslate nohighlight">\(b_j\)</span>의 곱이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+C = AB \; \rightarrow \; c_{ij} = a_i^T b_j 
+\tag{2.2.39}
+\end{align}
+\]</div>
+<p>이 정의가 성립하려면 앞의 행렬 <span class="math notranslate nohighlight">\(A\)</span>의 열의 수가 뒤의 행렬 <span class="math notranslate nohighlight">\(B\)</span>의 행의 수와 일치해야만 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A \in \mathbf{R}^{N \times L} , \; B \in \mathbf{R}^{L \times M} \;  \rightarrow \; AB \in \mathbf{R}^{N \times M} 
+\tag{2.2.40}
+\end{align}
+\]</div>
+<p>다음은 <span class="math notranslate nohighlight">\(4 \times 3\)</span> 행렬과 <span class="math notranslate nohighlight">\(3 \times 2\)</span>을 곱하여 <span class="math notranslate nohighlight">\(4 \times 2\)</span>을 계산하는 예다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23} \\
+a_{31} &amp; a_{32} &amp; a_{33} \\
+a_{41} &amp; a_{42} &amp; a_{43} \\
+\end{bmatrix}
+\begin{bmatrix}
+{b_{11}} &amp; b_{12} \\
+{b_{21}} &amp; b_{22} \\
+{b_{31}} &amp; b_{32} \\    
+\end{bmatrix}
+=
+\begin{bmatrix}
+(a_{11}b_{11} + a_{12}b_{21} + a_{13}b_{31}) &amp; (a_{11}b_{12} + a_{12}b_{22} + a_{13}b_{32}) \\
+(a_{21}b_{11} + a_{22}b_{21} + a_{23}b_{31}) &amp; (a_{21}b_{12} + a_{22}b_{22} + a_{23}b_{32}) \\
+(a_{31}b_{11} + a_{32}b_{21} + a_{33}b_{31}) &amp; (a_{31}b_{12} + a_{32}b_{22} + a_{33}b_{32}) \\
+(a_{41}b_{11} + a_{42}b_{21} + a_{43}b_{31}) &amp; (a_{41}b_{12} + a_{42}b_{22} + a_{43}b_{32}) \\
+\end{bmatrix}
+\tag{2.2.41}
+\end{align}
+\end{split}\]</div>
+<p>다음은 실제 행렬을 사용한 곱셈의 예다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{bmatrix}
+\tag{2.2.42}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+B = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ 5 &amp; 6 \end{bmatrix}
+\tag{2.2.43}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+C = AB = \begin{bmatrix} 22 &amp; 28 \\ 49 &amp; 64 \end{bmatrix}
+\tag{2.2.44}
+\end{align}
+\end{split}\]</div>
+<p>넘파이를 이용하여 행렬의 곱을 구할 때도 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> 연산자 또는 <code class="docutils literal notranslate"><span class="pre">dot()</span></code> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>
+<span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[22, 28],
+       [49, 64]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>연습 문제 2.2.4<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>(1) <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(B\)</span>가 위와 같을 때 <span class="math notranslate nohighlight">\(AB\)</span>를 연습장에 손으로 계산하고 넘파이의 계산 결과와 맞는지 확인한다.</p>
+<p>(2) 순서를 바꾸어 <span class="math notranslate nohighlight">\(BA\)</span>를 손으로 계산하고 넘파이의 계산 결과와 맞는지 확인한다. <span class="math notranslate nohighlight">\(BA\)</span>가 <span class="math notranslate nohighlight">\(AB\)</span>와 같은가?</p>
+<p>(3) <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>가 다음과 같을 때, <span class="math notranslate nohighlight">\(AB\)</span>, <span class="math notranslate nohighlight">\(BA\)</span>를 (계산이 가능하다면) 손으로 계산하고 넘파이의 계산 결과와 맞는지 확인한다. <span class="math notranslate nohighlight">\(AB\)</span>, <span class="math notranslate nohighlight">\(BA\)</span> 모두 계산 가능한가?</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A = \begin{bmatrix} 1 &amp; 2 &amp; 3 \end{bmatrix}
+\tag{2.2.45}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+B = \begin{bmatrix} 4 &amp; 7 \\ 5 &amp; 8 \\ 6 &amp; 9 \end{bmatrix}
+\tag{2.2.46}
+\end{align}
+\end{split}\]</div>
+<p>(4) <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>가 다음과 같을 때, <span class="math notranslate nohighlight">\(AB\)</span>, <span class="math notranslate nohighlight">\(BA\)</span>를 (계산이 가능하다면) 손으로 계산하고 넘파이의 계산 결과와 맞는지 확인한다. <span class="math notranslate nohighlight">\(AB\)</span>, <span class="math notranslate nohighlight">\(BA\)</span> 모두 계산 가능한가? <span class="math notranslate nohighlight">\(BA\)</span>의 결과가 <span class="math notranslate nohighlight">\(AB\)</span>와 같은가?</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{bmatrix}
+\tag{2.2.47}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+B = \begin{bmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{bmatrix}
+\tag{2.2.48}
+\end{align}
+\end{split}\]</div>
+<p>(5) <span class="math notranslate nohighlight">\(A\)</span>가 다음과 같을 때, <span class="math notranslate nohighlight">\(AA^T\)</span>와 <span class="math notranslate nohighlight">\(A^TA\)</span>를 손으로 계산하고 넘파이의 계산 결과와 맞는지 확인한다. <span class="math notranslate nohighlight">\(AA^T\)</span>와 <span class="math notranslate nohighlight">\(A^TA\)</span>의 크기는 어떠한가? 항상 정방행렬이 되는가?</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ 5 &amp; 6 \end{bmatrix}
+\tag{2.2.49}
+\end{align}
+\end{split}\]</div>
+<p>(6) <span class="math notranslate nohighlight">\(x\)</span>가 다음과 같을 때, <span class="math notranslate nohighlight">\(x^Tx\)</span>와 <span class="math notranslate nohighlight">\(xx^T\)</span>를 손으로 계산하고 넘파이의 계산 결과와 맞는지 확인한다. <span class="math notranslate nohighlight">\(x^Tx\)</span>와 <span class="math notranslate nohighlight">\(xx^T\)</span>의 크기는 어떠한가? 어떤 것이 스칼라이고 어떤 것이 정방행렬인가?</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}
+\tag{2.2.50}
+\end{align}
+\end{split}\]</div>
+<p>인공 신경망은 내부적으로 다음과 같이 여러 개의 선형회귀 모형을 사용한다. 이 구조는 행렬과 벡터의 곱으로 나타낼 수 있다.</p>
+<img src="https://datascienceschool.net/upfiles/afd3c5ff87384687930fbfa4f6e9fcfb.png"><p>그림 2.2.2 인공신경망의 기본 구조</p>
+<p>위 그림을 행렬식으로 표현하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+\hat{y}_{1} \\
+\hat{y}_{2} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+w_{11} &amp; w_{12} &amp; w_{13} \\
+w_{21} &amp; w_{22} &amp; w_{23} \\
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\    
+\end{bmatrix}
+\tag{2.2.51}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\hat{y} = Wx 
+\tag{2.2.52}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>교환 법칙과 분배 법칙<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>행렬의 곱셈은 곱하는 행렬의 순서를 바꾸는 교환 법칙이 성립하지 않는다. 그러나 덧셈에 대한 분배 법칙은 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+AB \neq BA  
+\tag{2.2.53}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A(B + C) = AB + AC  
+\tag{2.2.54}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+(A + B)C = AC + BC  
+\tag{2.2.55}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(C\)</span>가 다음과 같을 때 위 법칙을 넘파이로 살펴보자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{bmatrix}
+\tag{2.2.56}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+B = \begin{bmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{bmatrix}
+\tag{2.2.57}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+C = \begin{bmatrix} 9 &amp; 8 \\ 7 &amp; 6 \end{bmatrix}
+\tag{2.2.58}
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><span class="math notranslate nohighlight">\(AB\)</span> 와 <span class="math notranslate nohighlight">\(BA\)</span>의 값은 다음처럼 다른 값이 나오므로 교환법칙이 성립하지 않음을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">@</span> <span class="n">B</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[19, 22],
+       [43, 50]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">@</span> <span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[23, 34],
+       [31, 46]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>분배법칙은 다음과 같이 성립한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">@</span> <span class="p">(</span><span class="n">B</span> <span class="o">+</span> <span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[42, 42],
+       [98, 98]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">@</span> <span class="n">B</span> <span class="o">+</span> <span class="n">A</span> <span class="o">@</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[42, 42],
+       [98, 98]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[110,  96],
+       [174, 152]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">@</span> <span class="n">C</span> <span class="o">+</span> <span class="n">B</span> <span class="o">@</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[110,  96],
+       [174, 152]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>전치 연산도 마찬가지로 덧셈/뺄셈에 대해 분배 법칙이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+(A + B)^T = A^T + B^T  
+\tag{2.2.59}
+\end{align}
+\]</div>
+<p>전치 연산과 곱셈의 경우에는 분배 법칙이 성립하기는 하지만 전치 연산이 분배되면서 곱셈의 순서가 바뀐다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+(AB)^T = B^T A^T  
+\tag{2.2.60}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+(ABC)^T = C^T B^T A^T 
+\tag{2.2.61}
+\end{align}
+\]</div>
+<p>마찬가지로 넘파이로 위 법칙이 성립하는지 살펴보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 6, 10],
+       [ 8, 12]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">B</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 6, 10],
+       [ 8, 12]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[19, 43],
+       [22, 50]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[19, 43],
+       [22, 50]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3>연습 문제 2.2.5<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>(1) 길이가 같은 일벡터 <span class="math notranslate nohighlight">\(1_N \in \mathbf{R}^N\)</span>와 행벡터 <span class="math notranslate nohighlight">\(x \in \mathbf{R}^N\)</span>의 곱은 행벡터 <span class="math notranslate nohighlight">\(x\)</span>를 반복하여 가지는 행렬과 같음을 보여라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\mathbf{1}_N^{} x^T
+=
+\begin{bmatrix}
+{x}^T \\
+{x}^T \\
+\vdots    \\
+{x}^T \\
+\end{bmatrix}
+\tag{2.2.62}
+\end{align}
+\end{split}\]</div>
+<p>(2) 행렬 <span class="math notranslate nohighlight">\(X \,( X \in \mathbf{R}^{N \times M})\)</span>가 있을 때, 이 행렬의 각 열의 평균으로 이루어진 벡터 <span class="math notranslate nohighlight">\(\bar{x}\,( \bar{x} \in \mathbf{R}^{M})\)</span>가 다음과 같음을 보여라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\bar{x} = \dfrac{1}{N} X^T \mathbf{1}_N  
+\tag{2.2.63}
+\end{align}
+\]</div>
+<p>(3) 행렬 <span class="math notranslate nohighlight">\(\bar{X}\ ( \bar{X} \in \mathbf{R}^{N \times M})\)</span>는 동일한 벡터 <span class="math notranslate nohighlight">\(\bar{x}^T\)</span>를 <span class="math notranslate nohighlight">\(N\)</span>개 누적하여 만든 행렬이다. 즉 각 열의 모든 값이 그 열의 평균으로 이루어진 행렬이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\bar{X} =
+\begin{bmatrix}
+\bar{x}^T \\
+\bar{x}^T \\
+\vdots\\
+\bar{x}^T \\
+\end{bmatrix}
+\tag{2.2.64}
+\end{align}
+\end{split}\]</div>
+<p>이때 <span class="math notranslate nohighlight">\(\bar{X}\)</span>가 다음과 같음을 보여라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\bar{X} = \dfrac{1}{N} \mathbf{1}_N^{} \mathbf{1}_N^T X 
+\tag{2.2.65}
+\end{align}
+\]</div>
+<p>(4) 다음 코드를 실행하면 붓꽃 전체 데이터를 모두 벡터로 변환하여 하나의 넘파이 행렬  X 를 만든다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>이 데이터로 행렬 <span class="math notranslate nohighlight">\(\bar{X}\)</span>의 값을 계산하라. 이 행렬은 첫 번째 열의 값이 모두 같은 값으로 붓꽃의 꽃받침의 길이(sepal length)의 평균이고 두 번째 열의 값이 모두 같은 값으로 붓꽃의 꽃받침의 폭(sepal width)의 평균,  이런 식으로 계산된 행렬이다.</p>
+</div>
+</div>
+<div class="section" id="id20">
+<h2>곱셈의 연결<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>연속된 행렬의 곱셈은 계산 순서를 임의의 순서로 해도 상관없다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+ABC = (AB)C = A(BC)  
+\tag{2.2.66}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+ABCD = ((AB)C)D = (AB)(CD) = A(BCD) = A(BC)D  
+\tag{2.2.67}
+\end{align}
+\]</div>
+<div class="section" id="id21">
+<h3>연습 문제 2.2.6<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>다음 행렬의 곱셈을 순서를 바꾸어 두 가지 방법으로 해본다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{bmatrix} 1 &amp; 2 \end{bmatrix} 
+\begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{bmatrix} 
+\begin{bmatrix} 5 \\ 6 \end{bmatrix}
+\tag{2.2.68}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id22">
+<h2>항등행렬의 곱셈<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<p>어떤 행렬이든 항등행렬을 곱하면 그 행렬의 값이 변하지 않는다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+AI = IA = A  
+\tag{2.2.69}
+\end{align}
+\]</div>
+<p>넘파이로 다음과 같이 확인한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">@</span> <span class="n">I</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 2.],
+       [3., 4.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="o">@</span> <span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 2.],
+       [3., 4.]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id23">
+<h2>행렬과 벡터의 곱<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<p>그럼 이러한 행렬의 곱셈은 데이터 분석에서 어떤 경우에 사용될까? 행렬의 곱셈 중 가장 널리 쓰이는 것은 다음과 같은 형태의 행렬 <span class="math notranslate nohighlight">\(M\)</span>과 벡터 <span class="math notranslate nohighlight">\(v\)</span>의 곱이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+Mv 
+\tag{2.2.70}
+\end{align}
+\]</div>
+<p>벡터와 행렬의 크기를 직사각형으로 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\boxed{\begin{matrix} 
+\phantom{} &amp; \phantom{} &amp; \phantom{} &amp; \phantom{} &amp; \phantom{} \\ 
+&amp; &amp; M &amp; &amp;\\ 
+\phantom{} &amp; \phantom{} &amp; \phantom{} &amp; \phantom{} &amp; \phantom{} \\ 
+\end{matrix}} \,
+\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ v \\ \phantom{\LARGE\mathstrut} \end{matrix}}
+=
+\boxed{\begin{matrix} 
+\phantom{} \\ 
+Mv \\ 
+\phantom{}  
+\end{matrix}}
+\tag{2.2.71}
+\end{align}
+\end{split}\]</div>
+<p>행렬과 벡터의 곱을 사용하는 몇가지 예를 살펴보자.</p>
+</div>
+<div class="section" id="id24">
+<h2>열 벡터의 선형조합<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p>행렬 <span class="math notranslate nohighlight">\(X\)</span>와 벡터 <span class="math notranslate nohighlight">\(w\)</span>의 곱은 행렬 <span class="math notranslate nohighlight">\(X\)</span>를 이루는 열벡터 <span class="math notranslate nohighlight">\(c_1, c_2, \ldots, c_M\)</span>을 뒤에 곱해지는 벡터 <span class="math notranslate nohighlight">\(w\)</span>의 각 성분 <span class="math notranslate nohighlight">\(w_1, w_2, \ldots, w_M\)</span>으로 선형조합(linear combination)을 한 결과 벡터와 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+Xw=
+\begin{bmatrix}
+c_1 &amp; c_2 &amp; \cdots &amp; c_M
+\end{bmatrix}
+\begin{bmatrix}
+w_1 \\ w_2 \\ \vdots \\ w_M
+\end{bmatrix}
+=
+w_1 c_1 + w_2 c_2 + \cdots + w_M c_M
+\tag{2.2.72}
+\end{align}
+\end{split}\]</div>
+<p>벡터의 크기를 직사각형으로 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_{1_{\phantom{1}}} \\ \phantom{\LARGE\mathstrut} \end{matrix}} &amp;
+\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_{2_{\phantom{1}}} \\ \phantom{\LARGE\mathstrut} \end{matrix}} &amp;
+\cdots &amp; 
+\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_M \\ \phantom{\LARGE\mathstrut} \end{matrix}} 
+\end{bmatrix} 
+\begin{bmatrix}
+w_1 \\ w_2 \\ \vdots \\ w_M
+\end{bmatrix}
+=
+\begin{matrix}
+w_1\,\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_{1_{\phantom{1}}} \\ \phantom{\LARGE\mathstrut} \end{matrix}} &amp; + &amp;
+w_2\,\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_{2_{\phantom{1}}} \\ \phantom{\LARGE\mathstrut} \end{matrix}}&amp; + &amp; 
+\cdots \!\!\!\!&amp; + &amp; 
+w_M\,\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_M \\ \phantom{\LARGE\mathstrut} \end{matrix}}
+\end{matrix}
+\tag{2.2.73}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id25">
+<h3>연습 문제 2.2.7<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<p>다음 행렬 <span class="math notranslate nohighlight">\(X\)</span>와 벡터 <span class="math notranslate nohighlight">\(w\)</span>에 대해 곱 <span class="math notranslate nohighlight">\(Xw\)</span>가 열벡터 <span class="math notranslate nohighlight">\(c_1, c_2, c_3\)</span>의 선형조합 <span class="math notranslate nohighlight">\(w_1c_1 + w_2c_2 + w_3c_3\)</span>가 됨을 실제 계산으로 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+X = \begin{bmatrix} 1 &amp; 2 &amp; 3  \\ 4 &amp; 5 &amp; 6 \end{bmatrix}, \;\;
+w = \begin{bmatrix} 2 \\ 3 \\ 4 \end{bmatrix}
+\tag{2.2.74}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id26">
+<h3>연습 문제 2.2.8<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<p>벡터 <span class="math notranslate nohighlight">\(v_1, v_2, v_3\)</span>로 이루어진 행렬 <span class="math notranslate nohighlight">\(V\)</span>와 벡터 <span class="math notranslate nohighlight">\(\lambda\)</span>에 대해 다음 식이 성립함을 증명하라. 이 식에서 <span class="math notranslate nohighlight">\(\lambda_1\)</span>는 스칼라이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+V\lambda = 
+\begin{bmatrix}
+v_1 &amp; v_2 &amp; v_3
+\end{bmatrix}
+\begin{bmatrix}
+\lambda_{1} \\ 0 \\ 0 
+\end{bmatrix}
+= \lambda_1 v_1 
+\tag{2.2.75}
+\end{align}
+\end{split}\]</div>
+<p>벡터의 선형조합은 다양한 분야에 응용된다. 예를 들어 두 이미지 벡터의 선형조합은 두 이미지를 섞어놓은 모핑(morphing) 효과를 얻는 데 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_olivetti_faces</span>
+
+<span class="n">faces</span> <span class="o">=</span> <span class="n">fetch_olivetti_faces</span><span class="p">()</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">faces</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;image 1: $x_1$&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">faces</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;image 2: $x_2$&quot;</span><span class="p">)</span>
+
+<span class="n">new_face</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">faces</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">faces</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">new_face</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;image 3: $0.7x_1 + 0.3x_2$&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>downloading Olivetti faces from https://ndownloader.figshare.com/files/5976027 to /home/trade/scikit_learn_data
+</pre></div>
+</div>
+<img alt="../_images/02.02 벡터와 행렬의 연산_91_1.png" src="../_images/02.02 벡터와 행렬의 연산_91_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id27">
+<h2>여러 개의 벡터에 대한 가중합 동시 계산<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
+<p>벡터 하나의 가중합은 <span class="math notranslate nohighlight">\(w^Tx\)</span> 또는 <span class="math notranslate nohighlight">\(x^Tw\)</span>로 표시할 수 있다는 것을 배웠다. 그런데 만약 이렇게 <span class="math notranslate nohighlight">\(w\)</span> 가중치를 사용한 가중합을 하나의 벡터 <span class="math notranslate nohighlight">\(x\)</span>가 아니라 여러 벡터 <span class="math notranslate nohighlight">\(x_1, \cdots, x_M\)</span> 개에 대해서 모두 계산해야 한다면 어떻게 해야 할까? 예를 들어 위와 같이 선형 회귀 모형을 사용하여 여러 데이터 <span class="math notranslate nohighlight">\(x_1, x_2, x_3, \cdots, x_N\)</span> 개의 데이터 모두에 대해 예측값 <span class="math notranslate nohighlight">\(y_1, y_2, y_3, \cdots, y_N\)</span>을 한꺼번에 계산하고 싶다면 다음처럼 데이터 행렬 <span class="math notranslate nohighlight">\(X\)</span>를 사용하여  <span class="math notranslate nohighlight">\(\hat{y} = Xw\)</span>라는 수식으로 간단하게 표시할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\hat{y} = 
+\begin{bmatrix}
+\hat{y}_1 \\
+\hat{y}_2 \\
+\vdots \\
+\hat{y}_M \\
+\end{bmatrix}
+&amp;= 
+\begin{bmatrix}
+w_1 x_{1,1} + w_2 x_{1,2} + \cdots + w_N x_{1,N} \\
+w_1 x_{2,1} + w_2 x_{2,2} + \cdots + w_N x_{2,N} \\
+\vdots  \\
+w_1 x_{M,1} + w_2 x_{M,2} + \cdots + w_N x_{M,N} \\
+\end{bmatrix}
+\\
+&amp;= 
+\begin{bmatrix}
+x_{1,1} &amp; x_{1,2} &amp; \cdots &amp; x_{1,N} \\
+x_{2,1} &amp; x_{2,2} &amp; \cdots &amp; x_{2,N} \\
+\vdots  &amp; \vdots  &amp; \vdots &amp; \vdots \\
+x_{M,1} &amp; x_{M,2} &amp; \cdots &amp; x_{M,N} \\
+\end{bmatrix}
+\begin{bmatrix}
+w_1 \\ w_2 \\ \vdots \\ w_N
+\end{bmatrix}
+\\
+&amp;= 
+\begin{bmatrix}
+x_1^T \\
+x_2^T \\
+\vdots \\
+x_M^T \\
+\end{bmatrix}
+\begin{bmatrix}
+w_1 \\ w_2 \\ \vdots \\ w_N
+\end{bmatrix}
+\\
+&amp;= X w
+\end{aligned}
+\tag{2.2.76}
+\end{align}
+\end{split}\]</div>
+<p>즉.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\hat{y} = Xw  
+\tag{2.2.77}
+\end{align}
+\]</div>
+<div class="section" id="id28">
+<h3>연습 문제 2.2.9<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span>가 다음과 같을 때,
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+x_1 = 
+\begin{bmatrix}
+x_{11} \\
+x_{21} \\
+x_{31} \\
+\end{bmatrix}
+\;\;
+x_2 = 
+\begin{bmatrix}
+x_{12} \\
+x_{22} \\
+x_{32} \\
+\end{bmatrix}
+\tag{2.2.78}
+\end{align}
+\)</span>$</p>
+<p>다음 등식이 성립함을 보인다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+Xw =
+\begin{bmatrix}
+x_1^T \\
+x_2^T \\
+\end{bmatrix}
+\begin{bmatrix}
+w_1 \\ w_2 \\ w_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_1^Tw \\
+x_2^Tw \\
+\end{bmatrix}
+\tag{2.2.79}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id29">
+<h2>잔차<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
+<p>선형 회귀분석(linear regression)을 한 결과는 가중치 벡터 <span class="math notranslate nohighlight">\(w\)</span>라는 형태로 나타나고 예측치는 이 가중치 벡터를 사용한 독립변수 데이터 레코드 즉, 벡터 <span class="math notranslate nohighlight">\(x_i\)</span>의 가중합 <span class="math notranslate nohighlight">\(w^Tx_i\)</span>이 된다고 했다. 예측치와 실젯값(target) <span class="math notranslate nohighlight">\(y_{i}\)</span>의 차이를 <strong>오차(error)</strong> 혹은 <strong>잔차(residual)</strong> <span class="math notranslate nohighlight">\(e_i\)</span>라고 한다. 이러한 잔찻값을 모든 독립변수 벡터에 대해 구하면 잔차 벡터 <span class="math notranslate nohighlight">\(e\)</span>가 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+e_i = y_i - \hat{y}_i  = y_i - w^Tx_i 
+\tag{2.2.80}
+\end{align}
+\]</div>
+<p>잔차 벡터는 다음처럼 <span class="math notranslate nohighlight">\(y-Xw\)</span>로 간단하게 표기할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+e 
+&amp;=
+\begin{bmatrix}
+e_{1} \\
+e_{2} \\
+\vdots \\
+e_{M} \\
+\end{bmatrix}
+\\ 
+&amp;=
+\begin{bmatrix}
+y_{1} \\
+y_{2} \\
+\vdots \\
+y_{M} \\
+\end{bmatrix}
+-
+\begin{bmatrix}
+x^T_{1}w \\
+x^T_{2}w \\
+\vdots \\
+x^T_{M}w \\
+\end{bmatrix}
+\\ 
+&amp;= y - Xw
+\end{aligned}
+\tag{2.2.81}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+e = y - Xw
+\tag{2.2.82}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id30">
+<h2>잔차 제곱합<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h2>
+<p>잔차의 크기는 잔차 벡터의 각 원소를 제곱한 후 더한 **잔차 제곱합(RSS: Residual Sum of Squares)**을 이용하여 구한다. 이 값은 <span class="math notranslate nohighlight">\(e^Te\)</span>로 간단하게 쓸 수 있으며 그 값은 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\sum_{i=1}^{N} e_i^2 = \sum_{i=1}^{N} (y_i - w^Tx_i)^2 = e^Te =  (y - Xw)^T (y - Xw) 
+\tag{2.2.83}
+\end{align}
+\]</div>
+<div class="section" id="id31">
+<h3>연습 문제 2.2.10<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<p>분배 법칙을 사용하여 위 식 <span class="math notranslate nohighlight">\((y - Xw)^T (y - Xw)\)</span>을 풀어쓰면 다음과 같아짐을 보여라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+(y - Xw)^T (y - Xw) = y^Ty - w^TX^Ty - y^TXw + w^TX^TXw  
+\tag{2.2.84}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id32">
+<h2>이차형식<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h2>
+<p>위의 연습 문제에서 마지막 항은 <span class="math notranslate nohighlight">\(w^TX^TXw\)</span>라는 형태다. 이 식에서 <span class="math notranslate nohighlight">\(X^TX\)</span>는 정방행렬이 되므로 이 정방행렬을 <span class="math notranslate nohighlight">\(A\)</span>라고 이름 붙이면 마지막 항은 <span class="math notranslate nohighlight">\(w^TAw\)</span>와 같은 형태가 된다.</p>
+<p>벡터의 **이차형식(Quadratic Form)**이란 이처럼 어떤 벡터와 정방행렬이 ‘행벡터 <span class="math notranslate nohighlight">\(\times\)</span> 정방행렬 <span class="math notranslate nohighlight">\(\times\)</span> 열벡터’의 형식으로 되어 있는 것을 말한다.</p>
+<p>이 수식을 풀면 <span class="math notranslate nohighlight">\(i=1,\ldots,N, j=1,\ldots,N\)</span>에 대해 가능한 모든 <span class="math notranslate nohighlight">\(i,j\)</span> 쌍의 조합을 구한 다음 <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(j\)</span>에 해당하는 원소 <span class="math notranslate nohighlight">\(x_i\)</span>, <span class="math notranslate nohighlight">\(x_j\)</span>를 가중치 <span class="math notranslate nohighlight">\(a_{i,j}\)</span>와 같이 곱한 값  <span class="math notranslate nohighlight">\(a_{i,j}x_ix_j\)</span>의 총합이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+x^T A x 
+&amp;= 
+\begin{bmatrix}
+x_{1} &amp; x_{2} &amp; \cdots &amp; x_{N} 
+\end{bmatrix}
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,N} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,N} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{N,1} &amp; a_{N,2} &amp; \cdots &amp; a_{N,N} \\
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{N} \\
+\end{bmatrix} 
+\\
+&amp;= \sum_{i=1}^{N} \sum_{j=1}^{N} a_{i,j} x_i x_j 
+\end{aligned}
+\tag{2.2.85}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id33">
+<h3>연습 문제 2.2.11<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<p>다음 3차원 벡터와 행렬에 대해 이차형식을 쓰고 값을 계산하라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+x = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+\tag{2.2.86}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = 
+\begin{bmatrix} 
+a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23} \\
+a_{31} &amp; a_{32} &amp; a_{33} \\
+\end{bmatrix} 
+\tag{2.2.87}
+\end{align}
+\end{split}\]</div>
+<p>예를 들어 <span class="math notranslate nohighlight">\( x = [1, 2, 3]^T \)</span> 이고 A가 다음과 같다면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A =
+\begin{bmatrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9 \\
+\end{bmatrix}
+\tag{2.2.88}
+\end{align}
+\end{split}\]</div>
+<p>넘파이 에서 벡터의 이차형식은 다음처럼 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>228
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id34">
+<h3>연습 문제 2.2.12<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<p>다음 식이 성립함을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x^TAx = \dfrac{1}{2}x^T(A + A^T)x 
+\tag{2.2.89}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id35">
+<h2>부분행렬<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h2>
+<p>다음과 같은 2차원 정방행렬 <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>가 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+a_{11} &amp; a_{12} \\
+a_{21} &amp; a_{22}
+\end{bmatrix}
+,\;\;
+B = 
+\begin{bmatrix}
+b_{11} &amp; b_{12} \\
+b_{21} &amp; b_{22}
+\end{bmatrix}
+\tag{2.2.90}
+\end{align}
+\end{split}\]</div>
+<p>이때 두 행렬의 곱 <span class="math notranslate nohighlight">\(AB\)</span>는 <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(B\)</span>의 **부분행렬(submatrix)**을 이용하여 여러 방법으로 계산할 수 있다.</p>
+<p>(1) 우선 앞에 곱해지는 행렬을 행벡터로 나누어 계산해도 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{} &amp; a_1^T &amp; \phantom{} \end{matrix}} \\ 
+\boxed{\begin{matrix} \phantom{} &amp; a_2^T &amp; \phantom{} \end{matrix}} \\ 
+\end{bmatrix}
+\tag{2.2.91}
+\end{align}
+\end{split}\]</div>
+<p>즉,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+a_1^T = 
+\begin{bmatrix}
+a_{11} &amp; a_{12} 
+\end{bmatrix}
+,\;\;
+a_2^T = 
+\begin{bmatrix}
+a_{21} &amp; a_{22} 
+\end{bmatrix}
+\tag{2.2.92}
+\end{align}
+\]</div>
+<p>이면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+AB 
+=
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{} &amp; a_1^T &amp; \phantom{} \end{matrix}} \\ 
+\boxed{\begin{matrix} \phantom{} &amp; a_2^T &amp; \phantom{} \end{matrix}} \\ 
+\end{bmatrix}
+B
+=
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{} &amp; a_1^TB &amp; \phantom{} \end{matrix}} \\ 
+\boxed{\begin{matrix} \phantom{} &amp; a_2^TB &amp; \phantom{} \end{matrix}} \\ 
+\end{bmatrix} 
+\tag{2.2.93}
+\end{align}
+\end{split}\]</div>
+<p>(2) 아니면 뒤에 곱해지는 행렬을 열벡터로 나누어 계산해도 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+B = 
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ b_1 \\ \phantom{\mathstrut} \end{matrix}} \!\!\!\! &amp;
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ b_2 \\ \phantom{\mathstrut} \end{matrix}} 
+\end{bmatrix}
+\tag{2.2.94}
+\end{align}
+\end{split}\]</div>
+<p>즉,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+b_1 = 
+\begin{bmatrix}
+b_{11} \\
+b_{21} \\
+\end{bmatrix}
+,\;\;
+b_2 = 
+\begin{bmatrix}
+b_{21} \\
+b_{22}
+\end{bmatrix}
+\tag{2.2.95}
+\end{align}
+\end{split}\]</div>
+<p>이면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+AB 
+=
+A
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ b_1 \\ \phantom{\mathstrut} \end{matrix}} \!\!\!\! &amp; 
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ b_2 \\ \phantom{\mathstrut} \end{matrix}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ Ab_1 \\ \phantom{\mathstrut} \end{matrix}} \!\!\!\! &amp;
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ Ab_2 \\ \phantom{\mathstrut} \end{matrix}}
+\end{bmatrix}
+\tag{2.2.96}
+\end{align}
+\end{split}\]</div>
+<p>(3) 앞에 곱해지는 행렬을 열벡터로, 뒤에 곱해지는 행렬을 행벡터로 나누어 스칼라처럼 계산해도 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+AB 
+=
+\begin{bmatrix}
+a_1 &amp; a_2
+\end{bmatrix}
+\begin{bmatrix}
+b_1^T \\ b_2^T
+\end{bmatrix}
+=
+a_1b_1^T + a_2b_2^T
+\tag{2.2.97}
+\end{align}
+\end{split}\]</div>
+<p>벡터의 크기를 직사각형으로 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+AB 
+=
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ a_1 \\ \phantom{\mathstrut} \end{matrix}}  \!\!\!\!&amp; 
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ a_2 \\ \phantom{\mathstrut} \end{matrix}}  \!
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{} &amp; b_1^T &amp; \phantom{} \end{matrix}} \\ 
+\boxed{\begin{matrix} \phantom{} &amp; b_2^T &amp; \phantom{} \end{matrix}} \\ 
+\end{bmatrix}
+=
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ a_1 \\ \phantom{\mathstrut} \end{matrix}} 
+\boxed{\begin{matrix} \phantom{} &amp; b_1^T &amp; \phantom{} \end{matrix}} 
++
+\boxed{\begin{matrix} \phantom{\mathstrut} \\ b_1 \\ \phantom{\mathstrut} \end{matrix}} 
+\boxed{\begin{matrix} \phantom{} &amp; b_2^T &amp; \phantom{} \end{matrix}} 
+\tag{2.2.98}
+\end{align}
+\end{split}\]</div>
+<p>여기에서는 2차원 행렬의 예를 들었지만 일반적인 <span class="math notranslate nohighlight">\(N\)</span>차원 행렬에서도 이 관계는 성립한다.</p>
+<div class="section" id="id36">
+<h3>연습 문제 2.2.13<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<p>행렬 <span class="math notranslate nohighlight">\(V\)</span>는 열벡터 <span class="math notranslate nohighlight">\(v_i\;(i=1,\ldots,N)\)</span>로 이루어진 정방행렬이다. <span class="math notranslate nohighlight">\(V\)</span>와 크기가 같은  다른 정방행렬 <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\Lambda\)</span>이 있을 때 다음 식이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+AV = A \left[ v_1 \cdots v_N \right] = \left[  A v_1 \cdots A v_N \right]
+\tag{2.2.99}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+V\Lambda = 
+\left[ v_1 \cdots v_N \right] 
+\begin{bmatrix}
+\lambda_{1} &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \lambda_{2} &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \lambda_{N} \\
+\end{bmatrix}
+= \left[ \lambda_1 v_1 \cdots \lambda_N v_N \right]
+\tag{2.2.100}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(N=3\)</span>인 경우에 위 식이 성립함을 보여라.</p>
+</div>
+<div class="section" id="id37">
+<h3>연습 문제 2.2.14<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<p>부분행렬 공식 (3)으로부터 <span class="math notranslate nohighlight">\(A\)</span>가 행벡터 <span class="math notranslate nohighlight">\(a_i^T\;(i=1,\ldots,N)\)</span>로 이루어진 <span class="math notranslate nohighlight">\(N\)</span>차 정방행렬일 때</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = \begin{bmatrix} a_1^T \\ a_2^T \\ \vdots \\ a_N^T \end{bmatrix}
+\tag{2.2.101}
+\end{align}
+\end{split}\]</div>
+<p>다음 관계가 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A^T A =
+\begin{bmatrix} a_1 &amp; a_2 &amp; \cdots &amp; a_N \end{bmatrix}
+\begin{bmatrix} a_1^T \\ a_2^T \\ \vdots \\ a_N^T \end{bmatrix}
+= \sum_{i=1}^N a_ia_i^T
+\tag{2.2.102}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(N=3\)</span>인 경우에 위 식이 성립함을 보여라.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

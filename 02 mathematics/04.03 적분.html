@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.3 적분 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/04.03 적분.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/04.03 적분.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/04.03 적분.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   부정적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     연습 문제 4.3.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   편미분의 부정적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 4.3.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   다차 도함수와 다중적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 4.3.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   심파이를 이용한 부정적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 4.3.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   정적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   수치적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     연습 문제 4.3.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   다변수 정적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     연습 문제 4.3.6
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   다차원 함수의 단일 정적분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>4.3 적분<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>적분(integral)은 미분과 반대되는 개념이다. 적분에는 부정적분(indefinite integral)과 정적분(definite integral)이 있다.</p>
+<div class="section" id="id2">
+<h2>부정적분<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>**부정적분(indefinite integral)은 정확하게 미분과 반대되는 개념, 즉 반-미분(anti-derivative)**이다. 함수 <span class="math notranslate nohighlight">\(f(x)\)</span>가 어떤 함수를 미분하여 나온 결과인 도함수라고 가정하고 이 도함수 <span class="math notranslate nohighlight">\(f(x)\)</span>에 대한 미분되기 전의 원래의 함수를 찾는 과정(integration), 또는 그 결과(integral)를 말한다.</p>
+<p>부정적분으로 찾은 원래의 함수를 표기할 때는 도함수를 대문자화(capitalization)하여 표기할 때도 있지만 다음처럼 <span class="math notranslate nohighlight">\(\int\)</span> 기호(integral이라고 읽는다.)로 나타내는 것이 일반적이다. 여기에서 도함수가 <span class="math notranslate nohighlight">\(f(x)\)</span>이므로 미분하기 전의 함수를 <span class="math notranslate nohighlight">\(F(x)\)</span> 또는 <span class="math notranslate nohighlight">\(\int f(x)dx\)</span>로 쓴다. <span class="math notranslate nohighlight">\(dx\)</span>는 <span class="math notranslate nohighlight">\(x\)</span>라는 변수로 적분했다는 것을 나타내는 기호로 편미분에 대응하는 적분을 표기할 때 필요하다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{dF(x)}{dx} = f(x) \;\;\leftrightarrow\;\; F(x) = \int_{}^{} f(x) dx + C 
+\tag{4.3.1}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(C\)</span>는 상수항을 뜻한다. 상수항은 미분하면 0이 되므로 부정적분은 무한 개의 해가 있다. <span class="math notranslate nohighlight">\(C\)</span>는 너무 당연하므로 생략하고 쓰는 경우도 있다.</p>
+<div class="section" id="id3">
+<h3>연습 문제 4.3.1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>다음 부정적분을 구하라.</p>
+<p>(1)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int 3x^2 dx
+\tag{4.3.2}
+\end{align}
+\)</span>$</p>
+<p>(2)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int (3x^2 - 6x + 1)dx
+\tag{4.3.3}
+\end{align}
+\)</span>$</p>
+<p>(3)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int \left( 2 + 6x + 4\exp(x) + \dfrac{5}{x} \right) dx
+\tag{4.3.4}
+\end{align}
+\)</span>$</p>
+<p>(4)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int \frac{2x}{x^2 - 1} dx
+\tag{4.3.5}
+\end{align}
+\)</span>$</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>편미분의 부정적분<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>편미분을 한 도함수에서 원래의 함수를 찾을 수도 있다. <span class="math notranslate nohighlight">\(f(x, y)\)</span>가 원래의 함수를 어떻게 미분했는지에 따라 원래의 함수를 표기하는 방법이 달라진다.</p>
+<p>만약 <span class="math notranslate nohighlight">\(f(x, y)\)</span>가 함수 <span class="math notranslate nohighlight">\(F_1(x, y)\)</span>를 <span class="math notranslate nohighlight">\(x\)</span>로 편미분한 함수였다면 이 함수를 나타내는 식은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\partial F_1(x, y)}{\partial x} = f(x, y) \; \leftrightarrow \; F_1(x, y) = \int_{}^{} f(x, y) dx + C(y)
+\tag{4.3.6}
+\end{align}
+\]</div>
+<p>주의할 점은 상수항 <span class="math notranslate nohighlight">\(C(y)\)</span>가 <span class="math notranslate nohighlight">\(y\)</span>의 함수일 수 있다는 점이다. <span class="math notranslate nohighlight">\(C(y)\)</span>는 <span class="math notranslate nohighlight">\(x\)</span>없이 <span class="math notranslate nohighlight">\(y\)</span>만으로 이루어진 함수를 뜻한다. <span class="math notranslate nohighlight">\(y\)</span>만의 함수는 <span class="math notranslate nohighlight">\(x\)</span>로 편미분하면 0이 되기 때문이다. 물론 반드시 <span class="math notranslate nohighlight">\(y\)</span>의 함수이어야 하는 것은 아니고 단순한 숫자 상수일 수도 있다.</p>
+<p>마찬가지로 만약 <span class="math notranslate nohighlight">\(f(x, y)\)</span>가 함수 <span class="math notranslate nohighlight">\(F_2(x, y)\)</span>를 <span class="math notranslate nohighlight">\(y\)</span>로 편미분한 함수였다면 이 함수를 나타내는 식은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\partial F_2(x, y)}{\partial y} = f(x, y) \; \leftrightarrow \; F_2(x, y) = \int_{}^{} f(x, y) dy + C(x)  
+\tag{4.3.7}
+\end{align}
+\]</div>
+<p>상수항 <span class="math notranslate nohighlight">\(C(x)\)</span>가 <span class="math notranslate nohighlight">\(x\)</span>의 함수라는 점에 주의하라.</p>
+<div class="section" id="id5">
+<h3>연습 문제 4.3.2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>다음 부정적분을 구하라.</p>
+<p>(1)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int \left( 1 + xy \right) dx
+\tag{4.3.8}
+\end{align}
+\)</span>$</p>
+<p>(2)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int xy\exp({x^2 + y^2}) dx
+\tag{4.3.9}
+\end{align}
+\)</span>$</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>다차 도함수와 다중적분<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>미분을 여러번 한 결과로 나온 다차 도함수로부터 원래의 함수를 찾아내려면 여러번 적분을 하는 다중적분(multiple integration)이 필요하다.</p>
+<p>예를 들어 <span class="math notranslate nohighlight">\(f(x, y)\)</span>가 함수 <span class="math notranslate nohighlight">\(F_3(x, y)\)</span>를 <span class="math notranslate nohighlight">\(x\)</span>로 한번 편미분한 후 <span class="math notranslate nohighlight">\(y\)</span>로 다시 편미분하여 나온 이차 도함수라고 하자.</p>
+<p>이 이차 도함수에서 원래의 함수를 찾으려면 <span class="math notranslate nohighlight">\(y\)</span>로 적분한 후 다시 <span class="math notranslate nohighlight">\(x\)</span>로 적분해야 한다. 식으로는 다음처럼 나타낸다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\partial^2 F_3(x,y)}{\partial x \partial y} 
+= f(x, y) \; \leftrightarrow \; F_3(x, y) 
+= \int_x \int_y f(x, y) dydx
+\tag{4.3.10}
+\end{align}
+\]</div>
+<p>적분기호 아래의 변수명을 생략하고 다음처럼 표기할 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\iint f(x, y) dydx
+\tag{4.3.11}
+\end{align}
+\]</div>
+<div class="section" id="id7">
+<h3>연습 문제 4.3.3<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>다음 부정적분을 구하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\iint xy \exp({x^2 + y^2}) dxdy
+\tag{4.3.12}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>심파이를 이용한 부정적분<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>심파이의 <code class="docutils literal notranslate"><span class="pre">integrate()</span></code> 명령을 사용하면 부정적분을 할 수 있다. 상수항은 반환하지 않는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span>
+
+<span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s1">&#39;mathjax&#39;</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">sympy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">sympy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x e^{x} + e^{x}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x e^{x}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 2 x + y\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sympy</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x^{2} + x y\]</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 4.3.4<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>연습 문제 4.3.1, 4.3.2의 답을 SymPy를 사용하여 구하라.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>정적분<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p><strong>정적분(definite integral)은 독립변수 <span class="math notranslate nohighlight">\(x\)</span>가 어떤 구간 <span class="math notranslate nohighlight">\([a, b]\)</span> 사이일 때 그 구간에서 함수 <span class="math notranslate nohighlight">\(f(x)\)</span>의 값과 수평선(x 축)이 이루는 면적</strong>을 구하는 행위(integration) 혹은 그 값(integral)을 말한다. 수학 기호로는 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_{a}^{b} f(x) dx 
+\tag{4.3.13}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
+
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">6</span>
+
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;정적분의 예&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">iy</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span>
+<span class="n">verts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">))</span> <span class="o">+</span> <span class="p">[(</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;0.9&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;0.5&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">),</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)),</span> <span class="sa">r</span><span class="s2">&quot;$\int_a^b f(x)dx$&quot;</span><span class="p">,</span>
+         <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figtext</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figtext</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">((</span><span class="s1">&#39;$a$&#39;</span><span class="p">,</span> <span class="s1">&#39;$b$&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04.03 적분_20_0.png" src="../_images/04.03 적분_20_0.png" />
+</div>
+</div>
+<p>정적분은 미분과 아무런 상관이 없어 보이지만 부정적분으로 구한 함수 <span class="math notranslate nohighlight">\(F(x)\)</span>를 이용하면 다음처럼 정적분의 값을 구할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\int_{a}^{b} f(x) dx = F(b) - F(a)  
+\tag{4.3.14}
+\end{align}
+\]</div>
+<p>이를 **미적분학의 기본 정리(Fundamental Theorem of Calculus)**라고 부른다.</p>
+<p>정적분은 심파이 등으로 부정적분을 한 뒤 미적분학의 기본 정리를 사용하여 푸는 방법과 원래 함수의 면적 부분을 실제로 잘게 쪼개어 면적을 근사하게 구하는 <strong>수치적분(numerical integration)</strong> 이렇게 두가지 방법으로 구할 수 있다.</p>
+<div class="section" id="id11">
+<h3>예제<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>다음 정적분을 구하는 문제를 생각하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_0^2 ( x^3 - 3x^2 + x + 6) dx
+\tag{4.3.15}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">6</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle x^{3} - 3 x^{2} + x + 6\]</div>
+</div>
+</div>
+<p>우선 부정 적분 방법으로 미분하기 전의 함수를 구한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 부정 적분</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">F</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \frac{x^{4}}{4} - x^{3} + \frac{x^{2}}{2} + 6 x\]</div>
+</div>
+</div>
+<p>구해진 미분하기 전의 함수에 정적분 구간을 넣어 값을 계산한다. 심볼릭 함수의 변수에 실제 숫자를 넣어서 함수의 값을 계산하려면 <code class="docutils literal notranslate"><span class="pre">subs()</span></code>, <code class="docutils literal notranslate"><span class="pre">evalf()</span></code> 메서드를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">F</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle 10.0\]</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>수치적분<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>**수치적분(numerical integration)**은 함수를 아주 작은 구간으로 나누어 실제 면적을 계산함으로써 정적분의 값을 구하는 방법이다.
+Scipy의 integrate 서브패키지의 <code class="docutils literal notranslate"><span class="pre">quad</span></code> 명령으로 수치적분을 할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">6</span>
+
+
+<span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 정적분 (수치적분)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left( 10.0, \  1.1102230246251565e-13\right)\]</div>
+</div>
+</div>
+<p>수치적분 결과값의 두번째 숫자는 오차의 상한값을 뜻한다. 수치적분으로 구한 값과 정적분으로 구한 값이 같다는 것을 알 수 있다.</p>
+<div class="section" id="id13">
+<h3>연습 문제 4.3.5<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>다음 정적분의 값을 부정적분과 수치적분 두 가지 방법으로 구하라.</p>
+<p>(1)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int_0^1 (3x^2 - 6x + 1)dx
+\tag{4.3.16}
+\end{align}
+\)</span>$</p>
+<p>(2)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+\int_1^{10} \left( 2 + 6x + 4\exp(x) + \dfrac{5}{x} \right) dx
+\tag{4.3.17}
+\end{align}
+\)</span>$</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>다변수 정적분<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>입력 변수가 2개인 2차원 함수 <span class="math notranslate nohighlight">\( f(x, y) \)</span>의 경우에는 정적분을 다양한 방법으로 정의할 수 있다.</p>
+<p>두 변수로 모두 적분하는 것은 2차원 평면에서 주어진 사각형 영역 아래의 부피를 구하는 것과 같다.</p>
+<div class="math notranslate nohighlight">
+\[  
+\begin{align}
+\int_{y=c}^{y=d} \int_{x=a}^{x=b} f(x, y) dx dy 
+\tag{4.3.18}
+\end{align}
+\]</div>
+<div class="section" id="id15">
+<h3>예제<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수는 <span class="math notranslate nohighlight">\(x=2\)</span>에서 <span class="math notranslate nohighlight">\(x=8\)</span>까지, 그리고 <span class="math notranslate nohighlight">\(y=0\)</span>에서 <span class="math notranslate nohighlight">\(y=6\)</span>까지의 정사각형 영역에서 정적분으로 함수의 부피를 구하는 모습을 시각화한 것이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_{y=0}^{y=6}\int_{x=2}^{x=8} x^2 - 10 x + y + 50 \;\; dx dy
+\tag{4.3.19}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="n">_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">50</span>
+<span class="n">z0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z0</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;f(x, y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04.03 적분_38_0.png" src="../_images/04.03 적분_38_0.png" />
+</div>
+</div>
+<p>수치이중적분을 하려면 사이파이의 integrate 서브패키지의 <code class="docutils literal notranslate"><span class="pre">dblquad()</span></code> 명령을 사용한다. 함수 사용법은 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dblquad</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">gfun</span><span class="p">,</span> <span class="n">hfun</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>은 x의 하한(lower bound)과 상한(upper bound)이고 <code class="docutils literal notranslate"><span class="pre">gfun</span></code>, <code class="docutils literal notranslate"><span class="pre">hfun</span></code>은 y의 하한과 상한이다.  <code class="docutils literal notranslate"><span class="pre">gfun</span></code>, <code class="docutils literal notranslate"><span class="pre">hfun</span></code>은 x의 함수이어야 한다.</p>
+</div>
+<div class="section" id="id16">
+<h3>예제<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>정적분</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_0^{\infty} \int_1^{\infty} \dfrac{\exp(-xy)}{x^2} dx dy
+\tag{4.3.20}
+\end{align}
+\]</div>
+<p>을 수치적분으로 계산하려면 다음과 같은 코드를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">dblquad</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\displaystyle \left( 0.4999999999999961, \  1.0684538743333441e-08\right)\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>연습 문제 4.3.6<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>다음 정적분의 값을 수치적분으로 구하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\int_{-1}^1 \int_{-1}^1 \left( 1 + xy \right) dxdy
+\tag{4.3.21}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>다차원 함수의 단일 정적분<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>2차원 함수이지만 이중적분을 하지 않고 단일 정적분을 하는 경우도 있다. 이 때는 하나의 변수만 진짜 변수로 보고 나머지 하나는 상수라고 간주하는 경우이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\int_a^b f(x, y) dx
+\tag{4.3.22}
+\end{align}
+\]</div>
+<div class="section" id="id19">
+<h3>예제<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>다음과 같은 함수를 생각하자.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x, y) = 4x^2 + 4xy + y^2
+\tag{4.3.23}
+\end{align}
+\]</div>
+<p>여기에서 변수 <span class="math notranslate nohighlight">\(x\)</span> 만 진짜 입력 변수로 보고 <span class="math notranslate nohighlight">\(y\)</span>는 단순히 정해지지 않은 상수로 보면 이 함수는 다음과 같은 1차원 함수이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x; y) = 4x^2 + (4y)x + (y^2)
+\tag{4.3.24}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(y\)</span>의 앞에 쉼표(, comma)가 아니라 세미콜론(; semicolon)을 써서 <span class="math notranslate nohighlight">\(y\)</span>가 변수가 아니라는 점을 강조하였다.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

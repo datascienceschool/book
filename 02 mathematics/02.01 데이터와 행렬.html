@@ -1,0 +1,1273 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.1 데이터와 행렬 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/02.01 데이터와 행렬.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/02.01 데이터와 행렬.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/02.01 데이터와 행렬.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   데이터의 유형
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     스칼라
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     벡터
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     특징 벡터
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     넘파이를 사용한 벡터 표현
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 2.1.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     행렬
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 2.1.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   텐서
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   전치 연산
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     연습 문제 2.1.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   행렬의 행 표기법과 열 표기법
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   특수한 벡터와 행렬
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     영벡터
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     일벡터
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     정방행렬
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     대각행렬
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     항등행렬
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id20">
+     대칭행렬
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     연습 문제 2.1.4
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>2.1 데이터와 행렬<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>선형대수(linear algebra)는 데이터 분석에 필요한 각종 계산을 돕는 학문이다. 데이터 분석을 하려면 수많은 숫자로 이루어진 데이터를 다루어야 한다. 하나의 데이터가 수십 개에서 수만 개의 숫자로 이루어져 있을 수도 있고, 또 이러한 데이터 수만 개가 하나의 집합을 이루고 있을 수도 있다.</p>
+<p>선형대수를 사용하면 대량의 데이터를 포함하는 복잡한 계산 과정을 몇 글자 되지 않는 간단한 수식으로 서술할 수 있다. 따라서 데이터를 다루는 과정을 정확하고 간단하게 서술할 수 있다. 이를 위해 우선 선형대수에서 사용되는 여러 기호와 개념을 익혀보자.</p>
+<p>이 책에서는 선형대수에 넘파이 패키지를, 시각화에 맷플롯립 패키지를 사용한다. 따라서 별도로 이야기하지 않아도 다음과 같이 이 두 가지 패키지가 임포트되어 있어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># 넘파이 패키지 임포트</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># 맷플롯립 패키지 임포트</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>주피터 노트북이나 IPython을 시작할 때마다 자동으로 패키지를 임포트하는 방법은 0.6절 ‘아이파이썬 및 주피터 설정’에서 이 책 앞부분의 스타트업 파일 설정을 참조한다.</p>
+<div class="section" id="id2">
+<h2>데이터의 유형<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>선형대수에서 다루는 데이터는 개수나 형태에 따라 크게 <strong>스칼라(scalar)</strong>, <strong>벡터(vector)</strong>, <strong>행렬(matrix)</strong>, <strong>텐서(tensor)</strong> 유형으로 나뉜다. 스칼라는 숫자 하나로 이루어진 데이터이고, 벡터는 여러 숫자로 이루어진 데이터 레코드(data record)이며, 행렬은 이러한 벡터, 즉 데이터 레코드가 여럿인 데이터 집합이라고 볼 수 있다. 텐서는 같은 크기의 행렬이 여러 개 있는 것이라고 생각하면 된다.</p>
+<p>데이터 분석의 연습에서 많이 사용되는 벤치마크 데이터셋(benchmark dataset) 중 하나인 붓꽃 데이터셋(iris dataset)을 살펴보며 데이터 유형을 알아보자. 이 데이터는 통계학자 피셔(Fisher)의 연구 결과에서 나온 것이다. 붓꽃 150송이에 대해 꽃받침의 길이, 꽃받침의 폭, 꽃잎의 길이, 꽃잎의 폭을 각각 측정한 것으로 150송이 중 50송이는 세토사(setosa)라는 종이고, 50송이는 베르시칼라(versicolor), 나머지 50송이는 버지니카(virginica)라는 종이다. 이 데이터셋은 붓꽃 크기를 이용하여 붓꽃의 종을 측정하는 예측(prediction) 문제로 활용된다. 이 데이터는 사이킷런 패키지에 포함되어 있다. 다음 코드는 붓꽃 데이터셋에서 첫 번째 꽃의 크기를 보여준다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>  <span class="c1"># 사이킷런 패키지 임포트</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>  <span class="c1"># 데이터 로드</span>
+<span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 첫 번째 꽃의 데이터</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.1, 3.5, 1.4, 0.2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>스칼라<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>스칼라는 하나의 숫자만으로 이루어진 데이터를 말한다. 예를 들어 어떤 붓꽃 한 송이의 꽃잎 길이를 측정하면 숫자가 하나 나올 것이다. 이 데이터는 스칼라이다. 스칼라는 보통 <span class="math notranslate nohighlight">\(x\)</span>와 같이 알파벳 소문자로 표기하며 실수(real number)인 숫자 중의 하나이므로 실수 집합 <span class="math notranslate nohighlight">\(\mathbf{R}\)</span>의 원소라는 의미에서 다음처럼 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x \in \mathbf{R} 
+\tag{2.1.1}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id4">
+<h3>벡터<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>벡터는 여러 개의 숫자가 특정한 순서대로 모여 있는 것을 말한다. 사실 대부분의 데이터 레코드는 여러 개의 숫자로 이루어진 경우가 많다. 예를 들어 붓꽃의 종을 알아내기 위해 붓꽃의 크기를 측정할 때, 꽃받침의 길이 <span class="math notranslate nohighlight">\(x_1\)</span>뿐 아니라 꽃받침의 폭 <span class="math notranslate nohighlight">\(x_2\)</span>, 꽃잎의 길이 <span class="math notranslate nohighlight">\(x_3\)</span>, 꽃잎의 폭 <span class="math notranslate nohighlight">\(x_4\)</span>라는 4개의 숫자를 측정할 수도 있다. 이렇게 측정된 4개의 숫자는 한 송이의 붓꽃에서 나온 데이터이므로 따로따로 다루기보다는 하나의 묶음(tuple)으로 묶어놓는 것이 좋다. 이때 숫자의 순서가 바뀌면 어떤 숫자가 꽃잎의 길이이고 어떤 숫자가 꽃받침의 폭인지 알 수 없으므로 숫자의 순서를 유지하는 것이 중요하다. 이런 데이터 묶음을 선형대수에서는 벡터라고 부른다.</p>
+<p>붓꽃의 크기 벡터는 4개의 데이터 <span class="math notranslate nohighlight">\((x_1, x_2, x_3, x_4)\)</span>가 하나로 묶여 있는데 이를 선형대수 기호로는 다음처럼 하나의 문자 <span class="math notranslate nohighlight">\(x\)</span>로 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x = \begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4} \\
+\end{bmatrix}
+\tag{2.1.2}
+\end{align}
+\end{split}\]</div>
+<p>이때 벡터는 복수의 가로줄, 즉 **행(row)**을 가지고 하나의 세로줄, 즉 **열(column)**을 가지는 형태로 위에서 아래로 내려써서 표기해야 한다.</p>
+<p>하나의 벡터를 이루는 데이터의 개수가 <span class="math notranslate nohighlight">\(n\)</span>개이면 이 벡터를 <strong>n-차원 벡터</strong>(n-dimensional vector)라고 하며 다음처럼 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x = \begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{N} \\
+\end{bmatrix}
+\tag{2.1.3}
+\end{align}
+\end{split}\]</div>
+<p>또는
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+x \in \mathbf{R}^N
+\tag{2.1.4}
+\end{align}
+\)</span>$</p>
+<p>위에서 예로 든 붓꽃의 크기 벡터 <span class="math notranslate nohighlight">\(x\)</span>는 실수 4개로 이루어져 있으므로 4차원 벡터라고 하고 다음처럼 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x \in \mathbf{R}^4 
+\tag{2.1.5}
+\end{align}
+\]</div>
+<p>벡터의 원소가 되는 스칼라값은 아래 첨자(subscript)를 붙여서 원소의 위치를 표시하는 것이 보통이다.
+하지만 아래 첨자가 있다고 무조건 스칼라는 아니다. 벡터가 여러 개 있으면 서로 다른 벡터를 구별하기 위해 벡터 이름에 아래 첨자를 붙일 수도 있다. 따라서 아래 첨자를 가진 알파벳 소문자 기호는 스칼라일 수도 있고 벡터일 수도 있다. 두 경우는 문맥에 따라 구별해야 한다. 책에 따라서는 벡터와 스칼라와 구별하기 위해 볼드체 벡터 기호 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>나 화살표 벡터 기호 <span class="math notranslate nohighlight">\(\vec{x}\)</span>를 사용하기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\mathbf{x} = \vec{x} =
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{N} \\
+\end{bmatrix}
+\tag{2.1.6}
+\end{align}
+\end{split}\]</div>
+<p>하지만 데이터 사이언스 분야의 책이나 논문에서는 모든 값이 벡터나 행렬이므로 굳이 볼드체 기호를 사용하지 않기 때문에 독자 스스로 문맥을 보고 스칼라인지 벡터인지 결정할 수밖에 없다. 이 책에서도 상황에 따라 여러가지 표기법을 같이 사용한다.</p>
+</div>
+<div class="section" id="id5">
+<h3>특징 벡터<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>**데이터 벡터가 예측 문제에서 입력 데이터로 사용되면 특징 벡터(feature vector)**라고 한다.</p>
+<p>예를 들어 어떤 붓꽃 표본 한 송이를 꺾어 측정하였더니 꽃받침 길이가 5.1cm, 꽃받침 폭이 3.5cm, 꽃잎 길이가 1.4cm, 꽃잎 폭이 0.2cm였다면 이 데이터 레코드를 <span class="math notranslate nohighlight">\(x_1\)</span>이라고 이름 붙이고 다음처럼 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{align}
+x_1 = 
+\begin{bmatrix}
+5.1 \\
+3.5 \\
+1.4 \\
+0.2 \\  
+\end{bmatrix}
+\tag{2.1.7}
+\end{align}
+\end{split}\]</div>
+<p>또 다른 붓꽃은 다음과 같은 벡터로 나타낼 수 있다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{align}
+x_2 = 
+\begin{bmatrix}
+4.9 \\
+3.0 \\
+1.4 \\
+0.2 \\
+\end{bmatrix}
+\tag{2.1.8}
+\end{align}
+\end{split}\]</div>
+<p>만약 이러한 붓꽃 크기 벡터를 이용하여 붓꽃 종을 결정하는 예측 문제를 풀고 있다면 붓꽃 크기 벡터는 특징 벡터이다.</p>
+</div>
+<div class="section" id="id6">
+<h3>넘파이를 사용한 벡터 표현<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>넘파이는 선형대수 문제를 풀 때 사용하는 파이썬 패키지다.
+넘파이를 사용하여 벡터를 표현할 때는 벡터를 다음처럼 열의 개수가 하나인 2차원 배열(array) 객체로 표현한다. 이때 배열의 차원은 벡터의 차원과 다른 의미다. 위에서 설명한 벡터의 차원은 원소 개수를 뜻한다. 배열은 원소 개수가 몇 개이든 한 줄로 나타낼 수 있다면 1차원 배열(1-dimensional array)이라고 한다. 원소를 가로와 세로가 있는 여러 줄의 직사각형 형태로 나타낼 수 있으면 2차원 배열(2-dimensional array)이라고 한다.</p>
+<p>예를 들어 위에서 예로 든 벡터 <span class="math notranslate nohighlight">\(x_1\)</span>을 넘파이의 2차원 배열로 표기하면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">5.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">]])</span>
+<span class="n">x1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[5.1],
+       [3.5],
+       [1.4],
+       [0.2]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>하지만 넘파이는 1차원 배열 객체도 대부분 벡터로 인정한다. 이때는 벡터가 마치 하나의 행처럼 표시되어도 실제로는 열이라는 점에 주의한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">x1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.1, 3.5, 1.4, 0.2])
+</pre></div>
+</div>
+</div>
+</div>
+<p>그러나 벡터 데이터를 처리하는 프로그램에 따라서 두 가지 표현법 중 열 표기를 정확하게 요구하는 경우도 있으므로 주의해야 한다. 예를 들어 사이킷런 패키지에서 벡터를 요구하는 경우에는 반드시 열의 개수가 1개인 2차원 배열 객체를 넣어야 한다.</p>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 2.1.1<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>NumPy를 사용해서  붓꽃 데이터 <span class="math notranslate nohighlight">\(x_2\)</span>에 대한 벡터 변수 <code class="docutils literal notranslate"><span class="pre">x2</span></code>를 만든다.</p>
+<p>예측 문제의 입력 데이터는 대부분 벡터로 표시한다. 예를 들어 숫자 이미지를 입력받아 어떤 숫자인지 분류하는 문제를 생각해보자. 이미지는 원래 2차원 데이터이지만 예측 문제에서는 보통 1차원 벡터로 변환하여 사용한다. 다음은 사이킷런 패키지에서 제공하는 MNIST 숫자 이미지(digit image) 데이터셋이다. 이 데이터는 0부터 9까지의 숫자를 손으로 쓴 후에 8x8 해상도의 이미지로 스캔한 것이다. 다음 코드는 그중 숫자 0과 1의 이미지 8개를 출력한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>  <span class="c1"># 패키지 임포트</span>
+
+<span class="n">digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span>  <span class="c1"># 데이터 로드</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>  <span class="c1"># 선택된 이미지 번호</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;image </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;숫자 0과 1 이미지&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 49707 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 51088 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 44284 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 51060 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 48120 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 51648 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 49707 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 51088 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 44284 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 51060 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 48120 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 51648 missing from current font.
+  font.set_text(s, 0, flags=flags)
+</pre></div>
+</div>
+<img alt="../_images/02.01 데이터와 행렬_21_2.png" src="../_images/02.01 데이터와 행렬_21_2.png" />
+</div>
+</div>
+<p>이 2차원 이미지를 64-크기의 1차원 벡터로 펼치면 다음과 같다. 같은 숫자에 대한 벡터가 서로 닮았다는 점에 주의하라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># 벡터화</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+               <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;벡터 </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;벡터화된 이미지&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">w_pad</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 48289 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 53552 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 54868 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 46108 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 48289 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 53552 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 54868 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 46108 missing from current font.
+  font.set_text(s, 0, flags=flags)
+</pre></div>
+</div>
+<img alt="../_images/02.01 데이터와 행렬_23_3.png" src="../_images/02.01 데이터와 행렬_23_3.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>행렬<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>행렬은 복수의 차원을 가지는 데이터 레코드가 다시 여러 개 있는 경우의 데이터를 합쳐서 표기한 것이다. 예를 들어 앞서 말한 붓꽃 예에서 붓꽃 6 송이에 대해 꽃잎과 꽃받침의 크기를 측정하였다면 4차원 붓꽃 데이터가 6개가 있다. 즉, <span class="math notranslate nohighlight">\(4 \times 6 = 24\)</span>개의 실수 숫자가 있는 것이다. 이 숫자 집합을 행렬로 나타내면 다음과 같다. 행렬은 보통 <span class="math notranslate nohighlight">\(X\)</span>와 같이 알파벳 대문자로 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+X = 
+\begin{bmatrix}
+\boxed{\begin{matrix} x_{1, 1} &amp; x_{1, 2} &amp; x_{1, 3} &amp; x_{1, 4}\end{matrix}}  \\
+\begin{matrix} x_{2, 1} &amp; x_{2, 2} &amp; x_{2, 3} &amp; x_{2, 4}\end{matrix} \\
+\begin{matrix} x_{3, 1} &amp; x_{3, 2} &amp; x_{3, 3} &amp; x_{3, 4}\end{matrix} \\
+\begin{matrix} x_{4, 1} &amp; x_{4, 2} &amp; x_{4, 3} &amp; x_{4, 4}\end{matrix} \\
+\begin{matrix} x_{5, 1} &amp; x_{5, 2} &amp; x_{5, 3} &amp; x_{5, 4}\end{matrix} \\
+\begin{matrix} x_{6, 1} &amp; x_{6, 2} &amp; x_{6, 3} &amp; x_{6, 4}\end{matrix} \\
+\end{bmatrix}
+\tag{2.1.9}
+\end{align}
+\end{split}\]</div>
+<p>행렬의 원소 하나하나는 <span class="math notranslate nohighlight">\(x_{2, 3}\)</span>처럼 두 개의 숫자 쌍을 아래첨자(subscript)로 붙여서 표기한다. 첫 번째 숫자가 행을 뜻하고 두 번째 숫자가 열을 뜻한다. 예를 들어 <span class="math notranslate nohighlight">\(x_{2, 3}\)</span>은 두 번째 행(위에서 아래로 두 번째), 세 번째 열(왼쪽에서 오른쪽으로 세 번째)의 숫자를 뜻한다. 행/열의 개수가 10보다 적을 때는 쉼표 없이 <span class="math notranslate nohighlight">\(x_{23}\)</span>이라고 표기할 때도 있다.</p>
+<p>벡터는 열의 수가 1인 행렬이라고 볼 수 있으므로 벡터를 다른 말로 **열 벡터(column vector)**라고도 한다.</p>
+<p>데이터를 행렬로 묶어서 표시할 때는 붓꽃 하나에 대한 데이터 레코드, 즉 <strong>하나의 벡터가 열이 아닌 행(row)으로 표시한다.</strong>
+붓꽃의 예에서는 하나의 데이터 레코드가 4차원 데이터였다는 점을 기억하자.</p>
+<p>**하나의 데이터 레코드를 단독으로 벡터로 나타낼 때는 하나의 열(column)**로 나타내고 **복수의 데이터 레코드 집합을 행렬로 나타낼 때는 하나의 데이터 레코드가 하나의 행(row)**으로 표기하는 것은 얼핏 보기에는 일관성이 없어 보지만 추후 다른 연산을 할 때 이런 모양이 필요하기 때문이다. 데이터 분석에서 쓰는 일반적인 관례이므로 외워두어야 한다.</p>
+<p>만약 이 데이터를 이용하여 붓꽃의 종을 결정하는 예측 문제를 풀고 있다면 이 행을 **특징 행렬(feature matrix)**이라고 하기도 한다. 이 행렬의 크기를 수식으로 표시할 때는 다음처럼 “행의 크기 곱하기 열의 크기”로 나타낸다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+X \in \mathbf{R}^{6\times 4} 
+\tag{2.1.10}
+\end{align}
+\]</div>
+<p><strong>스칼라와 벡터도 수학적으로는 행렬에 속한다</strong>. 스칼라는 열과 행의 수가 각각 1인 행렬이고 벡터는 열의 수가 1인 행렬이다. 그래서 스칼라나 벡터의 크기를 표시할 때 다음처럼 쓸 수도 있다.</p>
+<p>스칼라는</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+a \in \mathbf{R}^{1\times 1} 
+\tag{2.1.11}
+\end{align}
+\]</div>
+<p>벡터는 (예를 들어 길이가 4인 붓꽃 벡터의 경우)</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x \in \mathbf{R}^{4\times 1} 
+\tag{2.1.12}
+\end{align}
+\]</div>
+<p>로 써도 행렬이 아닌 벡터라는 뜻이다.</p>
+<p>앞에서 예로 들었던 두 송이의 붓꽃 데이터를 하나의 행렬로 합치면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+X=
+\begin{bmatrix}
+5.1 &amp; 3.5 &amp; 1.4 &amp; 0.2 \\
+4.9 &amp; 3.0 &amp; 1.4 &amp; 0.2 \\
+\end{bmatrix}
+\tag{2.1.13}
+\end{align}
+\end{split}\]</div>
+<p>NumPy를 이용하여 행렬을 표기할 때는 2차원 <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> 객체를 사용한다. 예를 들어 다음 행렬 <span class="math notranslate nohighlight">\(A\)</span>를 NumPy로 나타내면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A=
+\begin{bmatrix}
+11 &amp; 12 &amp; 13 \\
+21 &amp; 22 &amp; 23 \\
+\end{bmatrix}
+\tag{2.1.14}
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">],[</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">]])</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[11, 12, 13],
+       [21, 22, 23]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 2.1.2<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>넘파이를 사용해서 붓꽃 데이터 <span class="math notranslate nohighlight">\(X\)</span>에 대한 행렬 변수 <code class="docutils literal notranslate"><span class="pre">X</span></code>를 만든다.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>텐서<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>텐서는 같은 크기의 행렬이 여러 개 같이 묶여 있는 것을 말한다. 엄격한 수학적 정의로는 텐서는 다차원 배열로 표현되는 사상(mapping)으로 다차원 배열 자체를 뜻하지 않는다. 하지만 데이터 사이언스 분야에서는 흔히 다차원 배열을 텐서라고 부르므로 여기에서는 이러한 정의를 따르도록 한다.</p>
+<p>예를 들어 다음 컬러 이미지는 2차원의 행렬처럼 보이지만 사실 빨강, 초록, 파랑의 밝기를 나타내는 3가지의 이미지가 겹친 것이다. 컬러 이미지에서는 각각의 색을 나타내는 행렬을 채널(channel)이라고 한다. 예제 이미지는 크기가 768 x 1024이고 3개의 채널이 있으므로 768 x 1024 x 3 크기의 3차원 텐서다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">misc</span>  <span class="c1"># 패키지 임포트</span>
+
+<span class="n">img_rgb</span> <span class="o">=</span> <span class="n">misc</span><span class="o">.</span><span class="n">face</span><span class="p">()</span>  <span class="c1"># 컬러 이미지 로드</span>
+<span class="n">img_rgb</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># 데이터의 모양</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(768, 1024, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>  <span class="c1"># 컬러 이미지 출력</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;RGB 컬러 이미지&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>  <span class="c1"># red 채널 출력</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Red 채널&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>  <span class="c1"># green 채널 출력</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Green 채널&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>  <span class="c1"># blue 채널 출력</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Blue 채널&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 52972 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 47084 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 52292 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 45328 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 52972 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 47084 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 52292 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/home/trade/anaconda3/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 45328 missing from current font.
+  font.set_text(s, 0, flags=flags)
+</pre></div>
+</div>
+<img alt="../_images/02.01 데이터와 행렬_33_2.png" src="../_images/02.01 데이터와 행렬_33_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>전치 연산<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>이번에는 이러한 스칼라, 벡터, 행렬 데이터를 변형시키는 방법 즉, 연산(operation)에 대해서 알아보자. <strong>전치(transpose)</strong> 연산은 행렬에서 가장 기본이 되는 연산으로 행렬의 <strong>행과 열을 바꾸는 연산</strong>을 말한다. 전치 연산은 벡터나 행렬에 <span class="math notranslate nohighlight">\(T\)</span>라는 위첨자(superscript)를 붙여서 표기한다. 책에 따라서는 프라임(prime)기호 <span class="math notranslate nohighlight">\('\)</span>를 붙이는 경우도 있다.</p>
+<p><span class="math notranslate nohighlight">\(x\)</span>를 전치연산하면</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x \;\; \rightarrow \;\; x^T
+\tag{2.1.15}
+\end{align}
+\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x \;\; \rightarrow \;\; x' 
+\tag{2.1.16}
+\end{align}
+\]</div>
+<p>앞에서 보인 <span class="math notranslate nohighlight">\(6\times 4\)</span> 차원의 행렬을 전치 연산하면 <span class="math notranslate nohighlight">\(4\times 6\)</span> 차원의 행렬이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+X = 
+\begin{bmatrix}
+\boxed{\begin{matrix} x_{1, 1} &amp; x_{1, 2} &amp; x_{1, 3} &amp; x_{1, 4}\end{matrix}}  \\
+\begin{matrix} x_{2, 1} &amp; x_{2, 2} &amp; x_{2, 3} &amp; x_{2, 4}\end{matrix} \\
+\begin{matrix} x_{3, 1} &amp; x_{3, 2} &amp; x_{3, 3} &amp; x_{3, 4}\end{matrix} \\
+\begin{matrix} x_{4, 1} &amp; x_{4, 2} &amp; x_{4, 3} &amp; x_{4, 4}\end{matrix} \\
+\begin{matrix} x_{5, 1} &amp; x_{5, 2} &amp; x_{5, 3} &amp; x_{5, 4}\end{matrix} \\
+\begin{matrix} x_{6, 1} &amp; x_{6, 2} &amp; x_{6, 3} &amp; x_{6, 4}\end{matrix} \\
+\end{bmatrix}
+\;\; \rightarrow \;\;
+X^T = 
+\begin{bmatrix}
+\boxed{\begin{matrix} x_{1, 1} \\ x_{1, 2} \\ x_{1, 3} \\ x_{1, 4}\end{matrix}} &amp;
+\begin{matrix} x_{2, 1} \\ x_{2, 2} \\ x_{2, 3} \\ x_{2, 4}\end{matrix} &amp;
+\begin{matrix} x_{3, 1} \\ x_{3, 2} \\ x_{3, 3} \\ x_{3, 4}\end{matrix} &amp;
+\begin{matrix} x_{4, 1} \\ x_{4, 2} \\ x_{4, 3} \\ x_{4, 4}\end{matrix} &amp;
+\begin{matrix} x_{5, 1} \\ x_{5, 2} \\ x_{5, 3} \\ x_{5, 4}\end{matrix} &amp;
+\begin{matrix} x_{6, 1} \\ x_{6, 2} \\ x_{6, 3} \\ x_{6, 4}\end{matrix} &amp;
+\end{bmatrix}
+\tag{2.1.17}
+\end{align}
+\end{split}\]</div>
+<p>전치 연산으로 만든 행렬을 원래 행렬에 대한 전치행렬이라고 한다. (열)벡터 <span class="math notranslate nohighlight">\(x\)</span>에 대해 전치 연산을 적용하여 만든 <span class="math notranslate nohighlight">\(x^T\)</span>는 행의 수가 1인 행렬이므로 **행 벡터(row vector)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+x = 
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{N} \\
+\end{bmatrix}
+\; \rightarrow \;
+x^T = 
+\begin{bmatrix}
+x_{1} &amp; x_{2} &amp; \cdots &amp; x_{N}
+\end{bmatrix}
+\tag{2.1.18}
+\end{align}
+\end{split}\]</div>
+<p>NumPy에서는 <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> 객체의 <code class="docutils literal notranslate"><span class="pre">T</span></code>라는 속성을 이용하여 전치 행렬을 구한다. 이때 <code class="docutils literal notranslate"><span class="pre">T</span></code>는 메서드(method)가 아닌 속성(attribute)이므로 소괄호 <code class="docutils literal notranslate"><span class="pre">()</span></code>를 붙여서 호출하면 안 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[11, 21],
+       [12, 22],
+       [13, 23]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>다만 1차원 <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>는 전치 연산이 정의되지 않는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.1, 3.5, 1.4, 0.2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.1, 3.5, 1.4, 0.2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>연습 문제 2.1.3<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>NumPy를 사용해서 붓꽃 데이터 <span class="math notranslate nohighlight">\(X\)</span>의 전치행렬 <span class="math notranslate nohighlight">\(X^T\)</span>을 구한다.</p></li>
+<li><p>NumPy를 사용해서 위 전치행렬을 다시 전치한 행렬 <span class="math notranslate nohighlight">\((X^T)^T\)</span>을 구한다. 이 행렬과 원래 행렬 <span class="math notranslate nohighlight">\(X\)</span>을 비교한다.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>행렬의 행 표기법과 열 표기법<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>전치 연산과 행 벡터, 열 벡터를 이용하면 다음처럼 행렬을 복수의 열 벡터 <span class="math notranslate nohighlight">\(c_i\)</span>, 또는 복수의 행 벡터 <span class="math notranslate nohighlight">\(r_j^T\)</span> 을 합친(concatenated) 형태로 표기할 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+X 
+=
+\begin{bmatrix}
+c_1 &amp; c_2 &amp; \cdots &amp; c_M
+\end{bmatrix}
+=
+\begin{bmatrix}
+r_1^T  \\
+r_2^T  \\ 
+\vdots \\ 
+r_N^T  \\  
+\end{bmatrix}
+\tag{2.1.19}
+\end{align}
+\end{split}\]</div>
+<p>위 식에서 행렬과 벡터의 크기는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+X \in \mathbf{R}^{N\times M}
+\tag{2.1.20}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+c_i \in \mathbf{R}^{N \times 1} \; (i=1,\cdots,M)
+\tag{2.1.21}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+r_j^T \in \mathbf{R}^{1 \times M} \; (j=1,\cdots,N) 
+\tag{2.1.22}
+\end{align}
+\]</div>
+<p>벡터의 모양을 직사각형으로 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+X = 
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_1 \\ \phantom{\LARGE\mathstrut} \end{matrix}} &amp; 
+\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_2 \\ \phantom{\LARGE\mathstrut} \end{matrix}} &amp; 
+\cdots &amp;
+\boxed{\begin{matrix} \phantom{\LARGE\mathstrut} \\ c_M \\ \phantom{\LARGE\mathstrut} \end{matrix}} 
+\end{bmatrix}
+=
+\begin{bmatrix}
+\boxed{\begin{matrix} \phantom{} &amp; \phantom{} &amp; r_1^T &amp; \phantom{} &amp; \phantom{} \end{matrix}} \\ 
+\boxed{\begin{matrix} \phantom{} &amp; \phantom{} &amp; r_2^T &amp; \phantom{} &amp; \phantom{} \end{matrix}} \\ 
+\vdots \\ 
+\boxed{\begin{matrix} \phantom{} &amp; \phantom{} &amp; r_N^T &amp; \phantom{} &amp; \phantom{} \end{matrix}} \\ 
+\end{bmatrix}
+\tag{2.1.23}
+\end{align}
+\end{split}\]</div>
+<p>위의 식은 다음과 같은 명제를 수식으로 표현한 것이다.</p>
+<blockquote>
+<div><p>“행렬 <span class="math notranslate nohighlight">\(X\)</span>의 각 열은 <span class="math notranslate nohighlight">\(c_1\)</span>, <span class="math notranslate nohighlight">\(c_2\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(c_M\)</span>라고 이름 붙인다.”</p>
+</div></blockquote>
+<p>또는</p>
+<blockquote>
+<div><p>“행렬 <span class="math notranslate nohighlight">\(X\)</span>는 열 벡터 <span class="math notranslate nohighlight">\(c_1\)</span>, <span class="math notranslate nohighlight">\(c_2\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(c_M\)</span>으로 이루어져 있다.”</p>
+</div></blockquote>
+<p>행 관점에서는</p>
+<blockquote>
+<div><p>“행렬 <span class="math notranslate nohighlight">\(X\)</span>의 각 행은 <span class="math notranslate nohighlight">\(r_1^T\)</span>, <span class="math notranslate nohighlight">\(r_2^T\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(r_N^T\)</span>라고 이름 붙인다.”</p>
+</div></blockquote>
+<p>또는</p>
+<blockquote>
+<div><p>“행렬 <span class="math notranslate nohighlight">\(X\)</span>는 행 벡터 <span class="math notranslate nohighlight">\(r_1^T\)</span>, <span class="math notranslate nohighlight">\(r_2^T\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span>, <span class="math notranslate nohighlight">\(r_N^T\)</span>으로 이루어져 있다.”</p>
+</div></blockquote>
+<p>모든 벡터는 기본적으로 열벡터이므로 <span class="math notranslate nohighlight">\(r_i\)</span>를 전치 연산하여 <span class="math notranslate nohighlight">\(r_i^T\)</span>라고 행을 표현한 점에 주의한다.</p>
+<p>예를 들어 행렬</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+X=
+\begin{bmatrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6
+\end{bmatrix}
+\tag{2.1.24}
+\end{align}
+\end{split}\]</div>
+<p>은 열 벡터</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+c_1=
+\begin{bmatrix}
+1 \\
+4 
+\end{bmatrix},
+\;
+c_2=
+\begin{bmatrix}
+2 \\
+5 
+\end{bmatrix},
+\;
+c_3=
+\begin{bmatrix}
+3 \\
+6 
+\end{bmatrix}
+\tag{2.1.25}
+\end{align}
+\end{split}\]</div>
+<p>이 합쳐진 것이라고 보거나 또는 행 벡터</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+r_1=
+\begin{bmatrix}
+1 &amp; 2 &amp; 3
+\end{bmatrix}^T,
+\;
+r_2=
+\begin{bmatrix}
+4 &amp; 5 &amp; 6
+\end{bmatrix}^T
+\tag{2.1.26}
+\end{align}
+\]</div>
+<p>로 구성되었다고 볼 수 있다.</p>
+</div>
+<div class="section" id="id14">
+<h2>특수한 벡터와 행렬<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>몇 가지 특수한 벡터와 행렬은 별도의 기호나 이름이 붙는다.</p>
+<div class="section" id="id15">
+<h3>영벡터<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>모든 원소가 0인 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터는 **영벡터(zeros-vector)**라고 하며 다음처럼 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\mathbf{0}_N = \mathbf{0} = 0 =
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+0 \\
+\end{bmatrix}
+\tag{2.1.27}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+0 \in \mathbf{R}^{N \times 1} 
+\tag{2.1.28}
+\end{align}
+\]</div>
+<p>문맥으로 벡터의 크기를 알 수 있을 때는 크기를 나타내는 아래 첨자 <span class="math notranslate nohighlight">\(N\)</span>을 생략할 수 있다.</p>
+<p>NumPy에서 영벡터는 <code class="docutils literal notranslate"><span class="pre">zeros()</span></code> 명령으로 만든다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.],
+       [0.],
+       [0.]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>일벡터<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>모든 원소가 1인 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터는 **일벡터(ones-vector)**라고 하며 다음처럼 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\mathbf{1}_N = \mathbf{1}  = 1 = 
+\begin{bmatrix}
+1 \\
+1 \\
+\vdots \\
+1 \\
+\end{bmatrix}
+\tag{2.1.29}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+1 \in \mathbf{R}^{N \times 1} 
+\tag{2.1.30}
+\end{align}
+\]</div>
+<p>마찬가지로 문맥으로 벡터의 크기를 알 수 있을 때는 크기를 나타내는 아래 첨자 <span class="math notranslate nohighlight">\(N\)</span>을 생략할 수 있다.</p>
+<p>NumPy에서 일벡터는 <code class="docutils literal notranslate"><span class="pre">ones()</span></code> 명령으로 만든다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.],
+       [1.],
+       [1.]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>정방행렬<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>행의 개수와 열의 개수가 같은 행렬을 **정방행렬(square matrix)**이라고 한다.</p>
+</div>
+<div class="section" id="id18">
+<h3>대각행렬<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>행렬에서 행과 열이 같은 위치를 주 대각(main diagonal) 또는 간단히 **대각(diagonal)**이라고 한다. 대각 위치에 있지 않은 것들은 **비대각(off-diagonal)**이라고 한다. 모든 비대각 요소가 0인 행렬을 **대각행렬(diagonal matrix)**이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+D = 
+\begin{bmatrix}
+d_{1} &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; d_{2} &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; d_{N} \\
+\end{bmatrix}
+\tag{2.1.31}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+D \in \mathbf{R}^{N \times N} 
+\tag{2.1.32}
+\end{align}
+\]</div>
+<p>대각행렬이 되려면 비대각성분이 0이기만 하면 되고 대각성분은 0이든 아니든 상관없다. 또한 반드시 정방행렬일 필요도 없다.
+예를 들어 다음 행렬도 대각행렬이라고 할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+D = 
+\begin{bmatrix}
+d_{1} &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; d_{2} &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; d_{M} \\
+0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 0 &amp; \cdots &amp; 0 \\
+\end{bmatrix}
+\tag{2.1.33}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+D \in \mathbf{R}^{N \times M} 
+\tag{2.1.34}
+\end{align}
+\]</div>
+<p>NumPy로 대각 정방행렬을 생성하려면 <code class="docutils literal notranslate"><span class="pre">diag()</span></code> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 0, 0],
+       [0, 2, 0],
+       [0, 0, 3]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3>항등행렬<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>대각행렬 중에서도 모든 대각성분의 값이 1인 대각행렬을 **항등행렬(identity matrix)**이라고 한다. 항등행렬은 보통 알파벳 대문자 <span class="math notranslate nohighlight">\(I\)</span>로 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+I = 
+\begin{bmatrix}
+1 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 1 \\
+\end{bmatrix}
+\tag{2.1.35}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+I \in \mathbf{R}^{N \times N}
+\tag{2.1.36}
+\end{align}
+\]</div>
+<p>NumPy로 항등행렬을 생성하려면 <code class="docutils literal notranslate"><span class="pre">identity()</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">eye()</span></code> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 0., 0., 0.],
+       [0., 1., 0., 0.],
+       [0., 0., 1., 0.],
+       [0., 0., 0., 1.]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id20">
+<h3>대칭행렬<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>만약 전치연산을 통해서 얻은 전치행렬과 원래의 행렬이 같으면 **대칭행렬(symmetric matrix)**이라고 한다. 정방행렬만 대칭행렬이 될 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+S^{T} = S 
+\tag{2.1.37}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+S \in \mathbf{R}^{N \times N} 
+\tag{2.1.38}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id21">
+<h3>연습 문제 2.1.4<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>영벡터, 일벡터, 정방행렬, 대각행렬, 항등행렬, 대칭행렬의 예를 하나씩 만들어본다.</p></li>
+<li><p>위의 벡터와 행렬을 NumPy로 나타내 본다.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

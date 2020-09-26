@@ -1,0 +1,1097 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.4 행렬의 미분 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/04.04 행렬의 미분.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/04.04 행렬의 미분.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/04.04 행렬의 미분.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   스칼라를 벡터로 미분하는 경우
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     연습 문제 4.4.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 4.4.2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 4.4.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   행렬미분법칙
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   행렬미분법칙 1: 선형 모형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   행렬미분법칙 2: 이차 형식
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   벡터를 스칼라로 미분하는 경우
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   벡터를 벡터로 미분하는 경우
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   행렬미분법칙 3: 행렬과 벡터의 곱의 미분
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     연습 문제 4.4.4
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     연습 문제 4.4.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   스칼라를 행렬로 미분
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
+   행렬미분법칙 4: 행렬 곱의 대각성분
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   행렬미분법칙 5: 행렬식의 로그
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>4.4 행렬의 미분<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>지금까지는 스칼라값을 입력으로 받아 스칼라값을 출력하는 함수를 생각했다. 이제부터는 벡터나 행렬을 입력으로 받아서 벡터나 행렬을 출력하는 함수를 살펴본다.</p>
+<p>여러개의 입력을 가지는 다변수 함수는 함수의 독립변수가 벡터인 경우로 볼 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+f\left( \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \right) = f(x) = f(x_1, x_2)
+\tag{4.4.1}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{vector } x \;\; \rightarrow \;\; \text{scalar } f
+\tag{4.4.2}
+\end{align}
+\]</div>
+<p>이를 확장하면 행렬을 입력으로 가지는 함수도 생각할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+f\left( \begin{bmatrix} x_{11} &amp; x_{12} \\ x_{21} &amp; x_{22} \end{bmatrix} \right) 
+= f(X) = f(x_{11}, \cdots, x_{22})
+\tag{4.4.3}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{matrix } x \;\; \rightarrow \;\; \text{scalar } f
+\tag{4.4.4}
+\end{align}
+\]</div>
+<p>반대로 벡터나 행렬을 출력하는 함수는 여러개의 함수를 합쳐놓은 것이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+f(x) =
+\begin{bmatrix}
+f_1(x) \\
+f_2(x)
+\end{bmatrix}
+\tag{4.4.5}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{scalar } x \;\; \rightarrow \;\; \text{vector } f
+\tag{4.4.6}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+f(x) =
+\begin{bmatrix}
+f_{11}(x) &amp; f_{12}(x) \\
+f_{21}(x) &amp; f_{22}(x)
+\end{bmatrix}
+\tag{4.4.7}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{scalar } x \;\; \rightarrow \;\; \text{matrix } f
+\tag{4.4.8}
+\end{align}
+\]</div>
+<p>벡터나 행렬을 입력받아 벡터나 행렬을 출력할 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+f(x) =
+\begin{bmatrix}
+f_1(x_1, x_2) \\
+f_2(x_1, x_2)
+\end{bmatrix}
+\tag{4.4.9}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{vector } x \;\; \rightarrow \;\; \text{vector } f
+\tag{4.4.10}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+f(x) =
+\begin{bmatrix}
+f_{11}(x_1, x_2) &amp; f_{12}(x_1, x_2) \\
+f_{21}(x_1, x_2) &amp; f_{22}(x_1, x_2)
+\end{bmatrix}
+\tag{4.4.11}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{vector } x \;\; \rightarrow \;\; \text{matrix } f
+\tag{4.4.12}
+\end{align}
+\]</div>
+<p>이러한 행렬을 입력이나 출력으로 가지는 함수를 미분하는 것을 **행렬미분(matrix differentiation)**이라고 한다. 사실 행렬미분은 정확하게는 미분이 아닌 편미분(partial derivative)이지만 여기에서는 편의상 미분이라고 쓰겠다. 또한 행렬미분에는 분자중심 표현법(Numerator-layout notation)과 분모중심 표현법(Denominator-layout notation) 두 가지가 있는데 여기에서는 분모중심 표현법으로 서술한다.</p>
+<div class="section" id="id2">
+<h2>스칼라를 벡터로 미분하는 경우<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>데이터 분석에서는 함수의 출력변수가 스칼라이고 입력변수 <span class="math notranslate nohighlight">\(x\)</span>가 벡터인 다변수 함수를 사용하는 경우가 많다. 따라서 편미분도 <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \cdots\)</span> 등으로 여러 개가 존재한다.</p>
+<p>이렇게 스칼라를 벡터로 미분하는 경우에는 결과를 열벡터로 표시한다. 이렇게 만들어진 벡터를 **그레디언트 벡터(gradient vector)**라고 하고 <span class="math notranslate nohighlight">\(\nabla f\)</span>로 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\nabla f = 
+\frac{\partial f}{\partial {x}} =
+\begin{bmatrix}
+\dfrac{\partial f}{\partial x_1}\\
+\dfrac{\partial f}{\partial x_2}\\
+\vdots\\
+\dfrac{\partial f}{\partial x_N}\\
+\end{bmatrix}
+\tag{4.4.13}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id3">
+<h3>예제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>다음과 같은 다변수 함수</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x, y) = 2x^2 + 6xy + 7y^2 - 26x - 54y + 107
+\tag{4.4.14}
+\end{align}
+\]</div>
+<p>에 대한 그레디언트 벡터를 구하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\nabla f = 
+\begin{bmatrix}
+\dfrac{\partial f}{\partial x}\\
+\dfrac{\partial f}{\partial y}\\
+\end{bmatrix} =
+\begin{bmatrix}
+4x + 6y - 26\\
+6x + 14y - 54\\
+\end{bmatrix}
+\tag{4.4.15}
+\end{align}
+\end{split}\]</div>
+<p>가 된다.</p>
+</div>
+<div class="section" id="id4">
+<h3>연습 문제 4.4.1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수의 그레디언트 벡터를 구하라</p>
+<p>(1)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+f(x, y, z) = x + y + z
+\tag{4.4.16}
+\end{align}
+\)</span>$</p>
+<p>(2)
+$<span class="math notranslate nohighlight">\(
+\begin{align}
+f(x, y, z) = xyz
+\tag{4.4.17}
+\end{align}
+\)</span>$</p>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 4.4.2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>그레디언트 벡터</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\nabla f = 
+\begin{bmatrix}
+4x + 6y - 26\\
+6x + 14y - 54\\
+\end{bmatrix}
+\tag{4.4.18}
+\end{align}
+\end{split}\]</div>
+<p>에 대해서 <span class="math notranslate nohighlight">\(x, y\)</span>가 다음 위치일 때 그레디언트 벡터의 값을 구하고 평면상에 화살표로 나타내라.</p>
+<p>(1) <span class="math notranslate nohighlight">\(x=7, y=1\)</span></p>
+<p>(2) <span class="math notranslate nohighlight">\(x=2, y=1\)</span></p>
+<p>2차원의 경우를 예로 들어 그레디언트 벡터를 표시하는 법을 알아보자. 2개의 입력변수를 가지는 2차원 함수 <span class="math notranslate nohighlight">\(f(x, y)\)</span>는 평면상에서 <strong>컨투어(contour)플롯</strong>으로 나타낼 수 있다. 그리고 입력 변수 <span class="math notranslate nohighlight">\(x, y\)</span> 위치에서의 그레디언트 벡터 <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\)</span>는 그 위치를 원점으로 하는 화살표로 표현할 수 있다. 그리고 그레디언트 벡터의 방향은 편미분 성분 <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x}\)</span>와 <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial y}\)</span>의 부호에 의해 결정된다.</p>
+<p>만약 어떤 위치 <span class="math notranslate nohighlight">\(x, y\)</span>에서 <span class="math notranslate nohighlight">\(x\)</span>가 증가할수록 <span class="math notranslate nohighlight">\(f\)</span>가 커지면 도함수 <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x}\)</span>은 양수이다. 반대로 <span class="math notranslate nohighlight">\(y\)</span>가 증가할수록 <span class="math notranslate nohighlight">\(f\)</span>가 작아지면 도함수 <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x}\)</span>은 음수이다. 벡터는 2차원 평면에서 화살표로 나타낼 수 있다. 가로 성분이 양수이고 세로 성분이 음수인 화살표는 우측 아래를 가리키는 화살이 될 것이다.</p>
+<p>이렇게 컨투어 플롯 위에 그레디언트 벡터를 화살표로 나타낸 것을 플롯을 <strong>퀴버(quiver)플롯</strong>이라고 한다. 퀴버플롯에서 화살표는 화살표 시작 지점의 그레디언트 벡터를 나타낸다.</p>
+</div>
+<div class="section" id="id6">
+<h3>예제<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>다음은 함수</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+2x^2 + 6xy + 7y^2 - 26x - 54y + 107
+\tag{4.4.19}
+\end{align}
+\]</div>
+<p>의 그레디언트 벡터를 표시한 퀴버플롯이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">26</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">54</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">107</span>
+
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">gx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">26</span>
+
+<span class="k">def</span> <span class="nf">gy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">14</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">54</span>
+
+<span class="n">xx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">yy2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">X2</span><span class="p">,</span> <span class="n">Y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xx2</span><span class="p">,</span> <span class="n">yy2</span><span class="p">)</span>
+<span class="n">GX</span> <span class="o">=</span> <span class="n">gx</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">Y2</span><span class="p">)</span>
+<span class="n">GY</span> <span class="o">=</span> <span class="n">gy</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">Y2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">Y2</span><span class="p">,</span> <span class="n">GX</span><span class="p">,</span> <span class="n">GY</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">minshaft</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;퀴버 플롯(quiver plot)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04.04 행렬의 미분_10_0.png" src="../_images/04.04 행렬의 미분_10_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 4.4.3<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>함수</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+2x^2 + 6xy + 7y^2 - 26x - 54y + 107
+\tag{4.4.20}
+\end{align}
+\]</div>
+<p>로 표현되는 지형을 상상하라. 이 지형의 (14, 4) 지점에 공을 두었다면 어떠한 경로로 공이 움직일지 경로를 그려라.</p>
+<p>퀴버플롯에서 그레디언트 벡터는 다음과 같은 특징이 있다.</p>
+<ol class="simple">
+<li><p>그레디언트 벡터의 크기는 기울기를 의미한다. 즉 벡터의 크기가 클수록 함수 곡면의 기울기가 커진다.</p></li>
+<li><p>그레디언트 벡터의 방향은 함수 곡면의 기울기가 가장 큰 방향, 즉 단위 길이당 함수값(높이)이 가장 크게 증가하는 방향을 가리킨다.</p></li>
+<li><p>그레디언트 벡터의 방향은 등고선(isoline)의 방향과 직교한다.</p></li>
+</ol>
+<p>어떤 점 <span class="math notranslate nohighlight">\(x_0\)</span>에서 다른 점 <span class="math notranslate nohighlight">\(x\)</span>로 이동하면서 함수 값이 얼마나 변하는지는 테일러 전개를 써서 근사할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) - f(x_0) = \Delta f \approx  \nabla f(x_0)^T (x - x_0) 
+\tag{4.4.21}
+\end{align}
+\]</div>
+<p>변화의 방향 <span class="math notranslate nohighlight">\(x - x_0\)</span>가 그레디언트 벡터와 같은 방향일 때 <span class="math notranslate nohighlight">\(\Delta f\)</span>가 가장 커지는 것을 알 수 있다.</p>
+<p>등고선은 <span class="math notranslate nohighlight">\(f(x)\)</span>의 값이 일정한 <span class="math notranslate nohighlight">\(x\)</span>의 집합이므로 다음과 같은 방정식으로 표현할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = f(x_0)
+\tag{4.4.22}
+\end{align}
+\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) - f(x_0) = 0
+\tag{4.4.23}
+\end{align}
+\]</div>
+<p>같은 등고선 위의 다른 점 <span class="math notranslate nohighlight">\(x_1\)</span>를 향해 움직이는 등고선 방향의 움직임은 <span class="math notranslate nohighlight">\(x_1 - x_0\)</span>이고 <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span> 모두 같은 등고선 위의 점이므로 <span class="math notranslate nohighlight">\(f(x_0) = f(x_1)\)</span>이다. 따라서 테일러 전개로부터</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\nabla f(x_0)^T (x_1 - x_0) = f(x_1) - f(x_0) = 0
+\tag{4.4.24}
+\end{align}
+\]</div>
+<p>등고선 방향 <span class="math notranslate nohighlight">\(x_1 - x_0\)</span>과 <span class="math notranslate nohighlight">\(\nabla f(x_0)\)</span>이 직교한다는 것을 알 수 있다.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>행렬미분법칙<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>다변수 함수를 미분하여 그레디언트 벡터를 구할 때는 다음 두가지 법칙이 유용하게 쓰인다.</p>
+</div>
+<div class="section" id="id9">
+<h2>행렬미분법칙 1: 선형 모형<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>선형 모형을 미분하면 그레디언트 벡터는 가중치 벡터이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) = w^T x 
+\tag{4.4.25}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\nabla f = \frac{\partial {w}^{T}{x}}{\partial {x}} = \frac{\partial {x}^{T}{w}}{\partial {x}} = {w} 
+\tag{4.4.26}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\dfrac{\partial ({w}^T {x})}{\partial {x}}=
+\begin{bmatrix}
+\boxed{\dfrac{\partial ({w}^T {x})}{\partial x_1}} \\
+\boxed{\dfrac{\partial ({w}^T {x})}{\partial x_2}} \\
+\vdots \\
+\boxed{\dfrac{\partial ({w}^T {x})}{\partial x_N}} \\
+\end{bmatrix} =
+\begin{bmatrix}
+\boxed{\dfrac{\partial (w_1 x_1 + \cancel{w_2 x_2} + \cdots + \cancel{w_N x_N})}{\partial x_1} \mathstrut} \\
+\boxed{\dfrac{\partial (\cancel{w_1 x_1} + w_2 x_2 + \cdots + \cancel{w_N x_N})}{\partial x_2} \mathstrut} \\
+\vdots \\
+\boxed{\dfrac{\partial (\cancel{w_1 x_1} + \cancel{w_2 x_2} + \cdots + w_N x_N)}{\partial x_N} \mathstrut} \\
+\end{bmatrix} =
+\begin{bmatrix}
+w_1 \\
+w_2 \\
+\vdots \\
+w_N \\
+\end{bmatrix}
+= {w} 
+\tag{4.4.27}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id10">
+<h2>행렬미분법칙 2: 이차 형식<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>이차 형식을 미분하면 행렬과 벡터의 곱으로 나타난다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = x^T A x
+\tag{4.4.28}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\nabla f(x) = \frac{\partial {x}^{T}{A}{x}}{\partial {x}} = ({A} + {A}^{T}){x}
+\tag{4.4.29}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\dfrac{\partial ({x}^{T}{A}{x})}{\partial {x}}
+&amp;=
+\begin{bmatrix}
+\boxed{\dfrac{\partial ({x}^{T}{A}{x})}{\partial x_1}\mathstrut} \\
+\boxed{\dfrac{\partial ({x}^{T}{A}{x})}{\partial x_2}\mathstrut}  \\
+\vdots \\
+\boxed{\dfrac{\partial ({x}^{T}{A}{x})}{\partial x_N}\mathstrut}  \\
+\end{bmatrix} \\
+&amp;=
+\begin{bmatrix}
+\boxed{\dfrac{\partial (\sum_{i=1}^{N} \sum_{j=1}^{N} a_{ij} x_i x_j)}{\partial x_1}\mathstrut} \\
+\boxed{\dfrac{\partial (\sum_{i=1}^{N} \sum_{j=1}^{N} a_{ij} x_i x_j)}{\partial x_2}\mathstrut} \\
+\vdots \\
+\boxed{\dfrac{\partial (\sum_{i=1}^{N} \sum_{j=1}^{N} a_{ij} x_i x_j)}{\partial x_N}\mathstrut} \\
+\end{bmatrix} \\
+&amp;=
+\begin{bmatrix}
+\boxed{\dfrac{\partial 
+\left(
+\begin{matrix}
+a_{11}x_1x_1 &amp;+&amp; a_{12}x_1x_2          &amp;+&amp; \cdots &amp;+&amp; a_{1N}x_1x_N          &amp;+ \\
+a_{21}x_2x_1 &amp;+&amp; \cancel{a_{22}x_2x_2} &amp;+&amp; \cdots &amp;+&amp; \cancel{a_{2N}x_2x_N} &amp;+ \\
+             &amp; &amp;    \cdots  \\
+a_{N1}x_Nx_1 &amp;+&amp; \cancel{a_{N2}x_Nx_2} &amp;+&amp; \cdots &amp;+&amp; \cancel{a_{NN}x_Nx_N} &amp;
+\end{matrix}
+\right)}{\partial x_1} \mathstrut} \\
+\boxed{\dfrac{\partial 
+\left(
+\begin{matrix}
+\cancel{a_{11}x_1x_1} &amp;+&amp; a_{12}x_1x_2 &amp;+&amp; \cdots &amp;+&amp; \cancel{a_{1N}x_1x_N} &amp;+ \\
+        a_{21}x_2x_1  &amp;+&amp; a_{22}x_2x_2 &amp;+&amp; \cdots &amp;+&amp;         a_{2N}x_2x_N  &amp;+ \\
+                      &amp; &amp;    \cdots  \\
+\cancel{a_{N1}x_Nx_1} &amp;+&amp; a_{N2}x_Nx_2 &amp;+&amp; \cdots &amp;+&amp; \cancel{a_{NN}x_Nx_N} &amp;
+\end{matrix}
+\right)}{\partial x_2}\mathstrut} \\
+\vdots \\
+\end{bmatrix} 
+\\
+&amp;=
+\begin{bmatrix}
+\boxed{\begin{matrix}
+2a_{11}x_1 &amp;+&amp; a_{12}x_2 &amp;+&amp; \cdots &amp;+&amp; a_{1N}x_N &amp;+&amp; \\
+ a_{21}x_2 &amp;+&amp; 0         &amp;+&amp; \cdots &amp;+&amp; 0         &amp;+&amp; \\
+           &amp; &amp;           &amp;   \cdots &amp; &amp;           &amp; &amp; \\
+a_{N1}x_N  &amp;+&amp; 0         &amp;+&amp; \cdots &amp;+&amp; 0         &amp; &amp; 
+\end{matrix}  \mathstrut} \\
+\boxed{\begin{matrix}
+0         &amp;+&amp;  a_{12}x_2 &amp;+&amp; \cdots &amp;+&amp; 0         &amp;+&amp; \\
+a_{21}x_1 &amp;+&amp; 2a_{22}x_2 &amp;+&amp; \cdots &amp;+&amp; a_{2N}x_N &amp;+&amp; \\
+          &amp; &amp; \cdots     &amp; &amp;        &amp; &amp;           &amp; &amp; \\
+0         &amp;+&amp;  a_{N2}x_N &amp;+&amp; \cdots &amp;+&amp; 0         &amp; &amp;
+\end{matrix}  \mathstrut} \\
+\vdots \\
+\end{bmatrix} \\
+&amp;=
+\begin{bmatrix}
+\boxed{\sum_{i=1}^{N} a_{1i} x_i + \sum_{i=1}^{N} a_{i1} x_i} \\
+\boxed{\sum_{i=1}^{N} a_{2i} x_i + \sum_{i=1}^{N} a_{i2} x_i} \\
+\vdots \\
+\boxed{\sum_{i=1}^{N} a_{Ni} x_i + \sum_{i=1}^{N} a_{iN} x_i} \\
+\end{bmatrix} \\ \\
+&amp;=
+\begin{bmatrix}
+\boxed{\sum_{i=1}^{N} a_{1i} x_i} \\
+\boxed{\sum_{i=1}^{N} a_{2i} x_i} \\
+\vdots \\
+\boxed{\sum_{i=1}^{N} a_{Ni} x_i} \\
+\end{bmatrix}
++
+\begin{bmatrix}
+\boxed{\sum_{i=1}^{N} a_{i1} x_i} \\
+\boxed{\sum_{i=1}^{N} a_{i2} x_i} \\
+\vdots \\
+\boxed{\sum_{i=1}^{N} a_{iN} x_i} \\
+\end{bmatrix} \\ \\
+&amp;=
+{A} {x}  + {A}^T {x} 
+=
+({A} + {A}^T){x} 
+\end{aligned}
+\tag{4.4.30}
+\end{align}
+\end{split}\]</div>
+<p>위의 두 가지 경우는 1차 다항식과 2차 다항식에 대한 스칼라 미분과 비슷하다. 두 경우를 비교해 보면 이 공식을 외우는데 도움이 된다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>스칼라 미분</p></th>
+<th class="head"><p>벡터/행렬미분</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(ax \;\; \rightarrow \;\; a\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(w^Tx \;\; \rightarrow \;\; w\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(ax^2 \;\; \rightarrow \;\; 2ax\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(x^TAx \;\; \rightarrow \;\; (A+A^T)x\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h2>벡터를 스칼라로 미분하는 경우<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>벡터</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+{f}(x) =
+\begin{bmatrix}
+f_1 \\
+f_2 \\
+\vdots\\
+f_M \\
+\end{bmatrix}
+\tag{4.4.35}
+\end{align}
+\end{split}\]</div>
+<p>를 스칼라 <span class="math notranslate nohighlight">\(x\)</span>로 미분하는 경우에는 결과를 행 벡터로 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\frac{\partial {f}}{\partial x} = 
+\begin{bmatrix}
+\dfrac{\partial f_1}{\partial x} &amp;
+\dfrac{\partial f_2}{\partial x} &amp;
+\cdots &amp;
+\dfrac{\partial f_M}{\partial x}
+\end{bmatrix}
+\tag{4.4.36}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id12">
+<h2>벡터를 벡터로 미분하는 경우<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>벡터 <span class="math notranslate nohighlight">\({x}\)</span>를 입력받아 벡터를 출력하는 함수 <span class="math notranslate nohighlight">\(f(x)\)</span>를 생각하자.</p>
+<p>벡터를 벡터로 미분하면 미분을 당하는 벡터의 원소가 여러개(<span class="math notranslate nohighlight">\(i=1, \dots, N\)</span>)이고 미분을 하는 벡터의 원소도 여러개(<span class="math notranslate nohighlight">\(j=1, \dots, M\)</span>)이므로 미분의 결과로 나온 도함수는 2차원 배열 즉, 행렬이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\dfrac{\partial {f}}{\partial {x}}
+= 
+\begin{bmatrix}
+\dfrac{\partial f_1}{\partial {x}} &amp;
+\dfrac{\partial f_2}{\partial {x}} &amp;
+\cdots                             &amp; 
+\dfrac{\partial f_N}{\partial {x}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\dfrac{\partial {f}}{\partial x_1} \\
+\dfrac{\partial {f}}{\partial x_2} \\
+\vdots                             \\
+\dfrac{\partial {f}}{\partial x_M}
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\dfrac{\partial f_1}{\partial x_1} &amp; \dfrac{\partial f_2}{\partial x_1} &amp; \cdots &amp; \dfrac{\partial f_N}{\partial x_1} \\
+\dfrac{\partial f_1}{\partial x_2} &amp; \dfrac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \dfrac{\partial f_N}{\partial x_2} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\dfrac{\partial f_1}{\partial x_M} &amp; \dfrac{\partial f_2}{\partial x_M} &amp; \cdots &amp; \dfrac{\partial f_N}{\partial x_M} \\
+\end{bmatrix}
+\tag{4.4.37}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id13">
+<h2>행렬미분법칙 3: 행렬과 벡터의 곱의 미분<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span>와 벡터 <span class="math notranslate nohighlight">\(x\)</span>의 곱 <span class="math notranslate nohighlight">\(Ax\)</span>를 벡터 <span class="math notranslate nohighlight">\(x\)</span>로 미분하면 행렬 <span class="math notranslate nohighlight">\(A^T\)</span>가 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(x) = Ax
+\tag{4.4.38}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\nabla f(x) = \dfrac{\partial ({Ax})}{\partial {x}} = A^T 
+\tag{4.4.39}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+{Ax} = {c_1}x_1 + {c_2}x_2 + \cdots + {c_M}x_M
+\tag{4.4.40}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\dfrac{\partial ({Ax})}{\partial {x}}
+=
+\begin{bmatrix}
+\dfrac{\partial ({Ax})}{\partial x_1} \\
+\dfrac{\partial ({Ax})}{\partial x_2} \\
+\cdots \\
+\dfrac{\partial ({Ax})}{\partial x_M}
+\end{bmatrix} 
+=
+\begin{bmatrix}
+\dfrac{\partial ({c_1}x_1 + {c_2}x_2 + \cdots + {c_M}x_M)^T}{\partial x_1} \\
+\dfrac{\partial ({c_1}x_1 + {c_2}x_2 + \cdots + {c_M}x_M)^T}{\partial x_2} \\
+\cdots \\
+\dfrac{\partial ({c_1}x_1 + {c_2}x_2 + \cdots + {c_M}x_M)^T}{\partial x_M}
+\end{bmatrix} 
+=
+\begin{bmatrix}
+{c_1}^T \\
+{c_2}^T \\
+\cdots \\
+{c_M}^T
+\end{bmatrix} 
+= A^T
+\tag{4.4.41}
+\end{align}
+\end{split}\]</div>
+<p>함수의 출력변수와 입력변수가 모두 벡터(다차원) 데이터인 경우에는 입력변수 각각과 출력변수 각각의 조합에 대해 모두 미분이 존재한다. 따라서 도함수는 행렬 형태가 된다. 이렇게 만들어진 도함수의 행렬을 <strong>자코비안 행렬(Jacobian matrix)</strong> 이라고 한다. 자코비안 행렬은 벡터함수를 벡터변수로 미분해서 생기는 행렬의 <strong>전치행렬</strong>이다. 따라서 행/열의 방향이 다르다는 점에 유의한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+Jf(x) = J = \left(\frac{\partial  f}{\partial  x}\right)^T = 
+\begin{bmatrix}
+\left(\dfrac{\partial f_1}{\partial x}\right)^T \\ \vdots \\ \left(\dfrac{\partial f_M}{\partial x}\right)^T 
+\end{bmatrix} =
+\begin{bmatrix}
+\nabla f_1^T \\  \vdots \\ \nabla f_M^T \\ 
+\end{bmatrix} =
+\begin{bmatrix}
+\dfrac{\partial f_1}{\partial x_1} &amp; \cdots &amp; \dfrac{\partial f_1}{\partial x_N}\\
+\vdots &amp; \ddots &amp; \vdots\\
+\dfrac{\partial f_M}{\partial x_1} &amp; \cdots &amp; \dfrac{\partial f_M}{\partial x_N} 
+\end{bmatrix}
+\tag{4.4.42}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id14">
+<h3>연습 문제 4.4.4<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수의 자코비안 행렬을 구하라</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+f(x) = 
+\begin{bmatrix}
+\displaystyle\sum_{i=1}^3 x_i \\
+\displaystyle\prod_{i=1}^3 x_i 
+\end{bmatrix}
+\tag{4.4.43}
+\end{align}
+\end{split}\]</div>
+<p>다변수 함수의 2차 도함수는 그레디언트 벡터를 입력변수 벡터로 미분한 것으로 **헤시안 행렬(Hessian matrix)**이라고 한다.</p>
+<p>헤시안 행렬은 그레디언트 벡터의 자코비안 행렬의 전치 행렬로 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+Hf(x) = H = J(\nabla f(x))^T
+\tag{4.4.44}
+\end{align}
+\]</div>
+<p>풀어쓰면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H_{ij} = \dfrac{\partial^2 f}{\partial x_i\,\partial x_j}
+\tag{4.4.45}
+\end{align}
+\]</div>
+<p>즉,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+H = \begin{bmatrix}
+  \dfrac{\partial^2 f}{\partial x_1^2} &amp; \dfrac{\partial^2 f}{\partial x_1\,\partial x_2} &amp; \cdots &amp; \dfrac{\partial^2 f}{\partial x_1\,\partial x_N} \\
+  \dfrac{\partial^2 f}{\partial x_2\,\partial x_1} &amp; \dfrac{\partial^2 f}{\partial x_2^2} &amp; \cdots &amp; \dfrac{\partial^2 f}{\partial x_2\,\partial x_N} \\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+  \dfrac{\partial^2 f}{\partial x_N\,\partial x_1} &amp; \dfrac{\partial^2 f}{\partial x_N\,\partial x_2} &amp; \cdots &amp; \dfrac{\partial^2 f}{\partial x_N^2}
+\end{bmatrix}
+\tag{4.4.46}
+\end{align}
+\end{split}\]</div>
+<p>함수가 연속이고 미분가능한 함수라면 헤시안 행렬은 대칭행렬이 된다.</p>
+</div>
+<div class="section" id="id15">
+<h3>연습 문제 4.4.5<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>다음 함수의 헤시안 행렬을 구하라</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) = \sum_{i=1}^3 x_i^2
+\tag{4.4.47}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>스칼라를 행렬로 미분<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>출력변수 <span class="math notranslate nohighlight">\(f\)</span>가 스칼라값이고 입력변수 <span class="math notranslate nohighlight">\(X\)</span>가 행렬인 경우에는 도함수 행렬의 모양이 입력변수 행렬 <span class="math notranslate nohighlight">\(X\)</span>와 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\dfrac{\partial f}{\partial {X}} =
+\begin{bmatrix}
+\dfrac{\partial f}{\partial x_{1,1}} &amp; \dfrac{\partial f}{\partial x_{1,2}} &amp; \cdots &amp; \dfrac{\partial f}{\partial x_{1,N}}\\
+\dfrac{\partial f}{\partial x_{2,1}} &amp; \dfrac{\partial f}{\partial x_{2,2}} &amp; \cdots &amp; \dfrac{\partial f}{\partial x_{2,N}}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+\dfrac{\partial f}{\partial x_{M,1}} &amp; \dfrac{\partial f}{\partial x_{M,2}} &amp; \cdots &amp; \dfrac{\partial f}{\partial x_{M,N}}\\
+\end{bmatrix}
+\tag{4.4.48}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id17">
+<h2>행렬미분법칙 4: 행렬 곱의 대각성분<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>두 정방행렬을 곱해서 만들어진 행렬의 대각성분(trace)는 스칼라이다. 이 스칼라를 뒤의 행렬로 미분하면 앞의 행렬의 전치행렬이 나온다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(X) = \text{tr} ({W}{X})
+\tag{4.4.49}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+{W} \in {R}^{N \times N}, {X} \in {R}^{N \times N}
+\tag{4.4.50}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\partial f}{\partial X} =
+\dfrac{\partial \, \text{tr} ({W}{X})}{\partial {X}} = {W}^T
+\tag{4.4.51}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{tr}({W}{X}) = \sum_{i=1}^N \sum_{j=1}^N w_{ji} x_{ij}
+\tag{4.4.52}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{\partial \text{tr} ({W}{X})}{\partial x_{ij}} = w_{ji}
+\tag{4.4.53}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id18">
+<h2>행렬미분법칙 5: 행렬식의 로그<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>행렬식(determinant)은 스칼라값이고 이 값의 로그 값도 스칼라이다. 이 값을 원래의 행렬로 미분하면 원래 행렬의 역행렬의 전치 행렬이 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+f(X) = \log | {X} |
+\tag{4.4.54}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\dfrac{\partial f}{\partial X} = \dfrac{\partial \log | {X} | }{\partial {X}} = ({X}^{-1})^T 
+\tag{4.4.55}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<p>행렬식의 정의에서</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{\partial}{\partial x_{i,j}} \vert X \vert = C_{i,j}
+\tag{4.4.56}
+\end{align}
+\]</div>
+<p>행렬식과 역행렬의 관계에서</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{\partial}{\partial X} \vert X \vert = C = | X | (X^{-1})^T
+\tag{4.4.57}
+\end{align}
+\]</div>
+<p>로그 함수 공식에 대입하면</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{d}{dx} \log f(x) = \dfrac{f'(x)}{f(x)} = \dfrac{\vert X \vert (X^{-1})^T}{\vert X \vert} = (X^{-1})^T
+\tag{4.4.58}
+\end{align}
+\]</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

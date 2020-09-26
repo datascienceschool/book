@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.6 조건부기댓값과 예측 문제 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/07.06 조건부기댓값과 예측 문제.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/07.06 조건부기댓값과 예측 문제.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/07.06 조건부기댓값과 예측 문제.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   예측 문제
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   조건부기댓값의 성질
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   전체 기댓값의 법칙
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 7.6.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   조건부분산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   전체 분산의 법칙
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>7.6 조건부기댓값과 예측 문제<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>확률변수 <span class="math notranslate nohighlight">\(Y\)</span>의 기댓값을 구할 때 주변 확률밀도함수 <span class="math notranslate nohighlight">\(p_Y(y)\)</span>를 사용하여 가중치를 계산하지 않고 조건부 확률밀도함수 <span class="math notranslate nohighlight">\(p_{Y\vert X}(y|x)\)</span>를 이용하여 가중치를 계산하면 <strong>조건부기댓값(conditional expectation)</strong> 혹은 **조건부평균(conditional mean)**이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{E}_Y[Y \vert X] 
+= \int_{y=-\infty}^{y=\infty} y \, p_{Y \vert X}(y|x) dy 
+\tag{7.6.1}
+\end{align}
+\]</div>
+<p>또는 간단히 다음처럼 쓴다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{E}[Y \vert X] 
+= \int y \, p(y|x) dy 
+\tag{7.6.2}
+\end{align}
+\]</div>
+<p>조건부기댓값에서 조건이 되는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 값 <span class="math notranslate nohighlight">\(x\)</span>는 조건부기댓값을 사용하는 사용자가 지정해야 하는 독립변수이다. 따라서 <strong>조건부기댓값은 조건이 되는 확률변수의 값에 따라서 값이 달라지는 확률변수</strong>이다. 또한 <span class="math notranslate nohighlight">\(\text{E}[Y \vert X]\)</span>는 조건이 되는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 값 <span class="math notranslate nohighlight">\(x\)</span>를 입력으로 가지는 <strong>함수</strong>다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{E}[Y \vert X=x] = f(x) 
+\tag{7.6.3}
+\end{align}
+\]</div>
+<p>이 식은 간단히 다음처럼 쓰기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{E}[Y \vert x] = f(x) 
+\tag{7.6.4}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(f(x)\)</span>는 조건이 되는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 값 <span class="math notranslate nohighlight">\(x\)</span>를 입력받아서 결과가 되는 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>의 기댓값을 출력하는 함수다.</p>
+<img src="https://datascienceschool.net/upfiles/a431d3d480b84085ab5a60e715e203d6.png" width="100%;" /><p>그림 7.6.1 : 조건부기댓값</p>
+<div class="section" id="id2">
+<h2>예측 문제<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>두 확률변수가 <span class="math notranslate nohighlight">\(X, Y\)</span>에서 <span class="math notranslate nohighlight">\(X\)</span>의 값을 알고 있을 때 <span class="math notranslate nohighlight">\(Y\)</span>의 값을 알아내는 것을 **예측(prediction)**문제라고 한다. <span class="math notranslate nohighlight">\(Y\)</span>가 연속확률변수면 회귀분석(regression analysis), <span class="math notranslate nohighlight">\(Y\)</span>가 이산확률변수면 분류(classification)라고도 한다. <span class="math notranslate nohighlight">\(X\)</span>의 값 <span class="math notranslate nohighlight">\(x\)</span>을 알면 조건부확률분포 <span class="math notranslate nohighlight">\(P(y|x)\)</span>의 분포를 알 수 있지만 가장 대표성이 있는 하나의 값이 되어야하므로 일반적으로 조건부확률분포의 기댓값인 조건부기댓값을 예측문제의 답으로 하는 경우가 많다.
+경우에 따라서는 예측문제의 답으로 중앙값이나 최빈값 등을 계산할 수도 있다. 예측문제의 답은 <span class="math notranslate nohighlight">\(\hat{y}\)</span>기호로 표기하기도 한다. 조건부기댓값은 <span class="math notranslate nohighlight">\(x\)</span>값의 함수이므로 이 함수를 구할 수 있으면 모든 <span class="math notranslate nohighlight">\(x\)</span>값에 대한 예측결과를 구한 것과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x \xrightarrow {\text{예측}} \hat{y} = E[y|x] = f(x)
+\tag{7.6.5}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id3">
+<h2>조건부기댓값의 성질<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>조건부기댓값 <span class="math notranslate nohighlight">\(\text{E}[Y \vert X]\)</span>가 <span class="math notranslate nohighlight">\(X\)</span>의 함수, 즉 변환(transform)이므로 <strong>조건부기댓값 <span class="math notranslate nohighlight">\(\text{E}[Y \vert X]\)</span>도 확률변수</strong>다.</p>
+<p>만약 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>가 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 값을 독립변수로 하는 결정론적 함수값이라면</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+Y = g(X)
+\tag{7.6.6}
+\end{align}
+\]</div>
+<p>사용자가 <span class="math notranslate nohighlight">\(X\)</span>의 값을 어떤 값 <span class="math notranslate nohighlight">\(x\)</span>로 정하는 순간 <span class="math notranslate nohighlight">\(Y\)</span>의 값도 결정되어 버리기 때문에 <span class="math notranslate nohighlight">\(Y=g(X)\)</span>는 더이상 확률적인 값이 아니라 상수가 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[Y \vert X] = \text{E}[g(X) \vert X] = g(X)
+\tag{7.6.7}
+\end{align}
+\]</div>
+<p>같은 방식으로 확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>가 결정론적 함수 관계가 아닐 때도 다음 등식이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[g(X) Y \vert X] = g(X) \text{E}[Y \vert X]
+\tag{7.6.8}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id4">
+<h2>전체 기댓값의 법칙<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>조건부기댓값은 확률변수이므로 조건이 되는 확률변수에 대해 다시 기댓값을 구할 수 있다. 이렇게 반복하여 구한 조건부기댓값의 기댓값은 원래 확률변수의 댓값과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}_X[\text{E}_Y[Y \vert X]] = \text{E}_Y[Y]
+\tag{7.6.9}
+\end{align}
+\]</div>
+<p>간단히 다음처럼 쓰기도 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[\text{E}[Y \vert X]] = \text{E}[Y]
+\tag{7.6.10}
+\end{align}
+\]</div>
+<p>이를 <strong>전체 기댓값의 법칙(law of total expectation)</strong> 또는 **반복 기댓값의 법칙(law of iterated expectation)**이라고 한다.</p>
+<p><span class="math notranslate nohighlight">\(X, Y\)</span>가 이산확률변수인 경우에는 다음처럼 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{E}_X[\text{E}_Y[Y|X]] 
+&amp;= \sum_{x_i\in X} p(x_i) \text{E}_Y[Y|X] \\
+&amp;= \sum_{x_i\in X} p(x_i) \sum_{y_j \in Y} p(y_j|x_i) y_j \\
+&amp;= \sum_{x_i\in X} \sum_{y_j \in Y} p(x_i) p(y_j|x_i) y_j \\
+&amp;= \sum_{x_i\in X} \sum_{y_j \in Y} p(x_i, y_j) y_j \\
+&amp;= \sum_{y_j \in Y} p(y_j) y_j \\
+&amp;= \text{E}_Y[Y]
+\end{aligned}
+\tag{7.6.11}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id5">
+<h3>연습 문제 7.6.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>전체 기댓값의 법칙을 사용하여 다음을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[(Y - \text{E}[Y \vert X])g(X)] = 0
+\tag{7.6.12}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>조건부분산<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>조건부기댓값을 정의한 것처럼 조건부분산(conditional variance)도 다음처럼 정의할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{Var}_Y[Y \vert X] 
+= \text{E}_Y[(Y - \text{E}_Y[Y \vert X])^2 \vert X] 
+= \int (Y - \text{E}_Y[Y \vert X])^2 f_{Y \vert X}(y \vert x) dy 
+\tag{7.6.13}
+\end{align}
+\]</div>
+<p>조건부분산은 <span class="math notranslate nohighlight">\(x\)</span>의 값을 알고 있을 때 이에 대한 조건부확률분포 <span class="math notranslate nohighlight">\(p(y|x)\)</span>의 분산이다.</p>
+<p>예측문제의 관점으로 보면 조건부분산은 예측의 불확실성, 즉 예측으로 맞출 수 없는 범위를 뜻한다.</p>
+<img src="https://datascienceschool.net/upfiles/fb36773b998049f2b171e2e4abd5afaa.png" width="100%;" /><p>그림 7.6.2 : 조건부분산</p>
+</div>
+<div class="section" id="id7">
+<h2>전체 분산의 법칙<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>확률변수의 분산은 조건부분산의 기댓값과 조건부기댓값의 분산의 합과 같다. 이를 **전체 분산의 법칙(law of total variance)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{Var}[Y] = \text{E}[\text{Var}[Y\vert X]] + \text{Var}[\text{E}[Y\vert X]]
+\tag{7.6.14}
+\end{align}
+\]</div>
+<p>전체 기댓값의 법칙을 사용하여 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{Var}[Y] 
+&amp;= \text{E}[Y^2] - (\text{E}[Y])^2 \\
+&amp;= \text{E} \left[\text{E}[Y^2\mid X]\right] - (\text{E} [\text{E}[Y\mid X]])^2 \\
+&amp;= \text{E} \left[\text{Var}[Y\mid X] + (\text{E}[Y\mid X])^2\right] - (\text{E}[\text{E}[Y\mid X]])^2 \\
+&amp;= \text{E} [\text{Var}[Y\mid X]] + \left(\text{E} [[\text{E}[Y\mid X]]^2] - (\text{E} [\text{E}[Y\mid X]])^2\right) \\
+&amp;= \text{E} [\text{Var}[Y\mid X]] + \text{Var} [\text{E}[Y\mid X]]
+\end{aligned}
+\tag{7.6.15}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\text{E}[Y\mid X] = \hat{y}\)</span>로 표현하면 다음과 같이 쓸 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{Var}[Y] = \text{E}[(\hat{y}-y)^2] + \text{Var}[\hat{y}]
+\tag{7.6.16}
+\end{align}
+\]</div>
+<p>예측문제의 관점에서 조건부분산의 기댓값 <span class="math notranslate nohighlight">\(\text{E}[(\hat{y}-y)^2]\)</span>은 예측 오차 즉, 편향(bias)의 평균적인 크기를 뜻한다. 조건부기댓값의 분산 <span class="math notranslate nohighlight">\(\text{Var}[\hat{y}]\)</span>은 예측값의 변동 크기다. 예측값의 변동 크기가 증가한다는 것은 예측모형이 복잡하고 비선형적이며 주어진 데이터에 과최적화되기 쉽다는 의미다. 따라서 전체 분산의 법칙이 말하고자 하는 바는 예측 오차의 크기과 예측값의 변동의 합이 일정하므로 예측 오차를 줄이면 모형이 복잡해지고 과최적화가 되며 반대로 모형을 과최적화를 막기위해 단순하게 하면 예측 오차가 증가한다. 이를 <strong>편향-분산 상충(Bias–variance Tradeoff)</strong> 법칙이라고도 한다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

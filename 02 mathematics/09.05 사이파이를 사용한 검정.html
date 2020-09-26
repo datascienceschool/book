@@ -1,0 +1,1134 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9.5 사이파이를 사용한 검정 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/09.05 사이파이를 사용한 검정.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/09.05 사이파이를 사용한 검정.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/09.05 사이파이를 사용한 검정.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   이항검정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 9.5.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 9.5.2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 9.5.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   카이제곱검정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     연습 문제 9.5.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   카이제곱  독립검정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     연습 문제 9.5.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#z">
+   단일표본 z검정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#t">
+   단일표본 t검정
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
+   독립표본 t검정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id20">
+     연습 문제 9.5.6
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id21">
+   대응표본 t검정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id23">
+   등분산검정
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id24">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id25">
+   정규성검정
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>9.5 사이파이를 사용한 검정<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>앞 절에서 검정 방법을 공부하고 통계량분포의 누적분포함수를 사용하여 유의확률을 계산하는 방법을 살펴보았다. 사이파이 패키지는 다음과 같은 다양한 검정 명령을 제공한다. 따라서 사이파이 패키지를 사용하면 여러분이 직접 통계량을 계산하거나 통계량분포의 누적분포함수로 유의확률을 계산할 필요가 없다. 또한 검정으로 내린 결론이 틀린 경우인 1종오류와 2종오류에 대해서도 살펴본다.</p>
+<ul class="simple">
+<li><p>이항검정(Binomial Test)</p></li>
+<li><p>카이제곱검정(Chi-squared Test)</p></li>
+<li><p>카이제곱 독립검정(Chi-squared Contingency Test)</p></li>
+<li><p>단일표본 z검정(One-sample z-Test)</p></li>
+<li><p>단일표본 t검정(One-sample t-Test)</p></li>
+<li><p>독립표본 t검정(Independent two-sample t-Test)</p></li>
+<li><p>대응표본 t검정(Paired two-sample t-Test)</p></li>
+<li><p>등분산검정(Equal-variance Test)</p></li>
+<li><p>정규성검정(Normality Test)</p></li>
+</ul>
+<div class="section" id="id2">
+<h2>이항검정<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>이항검정은 이항분포를 이용하여 베르누이 확률변수의 모수 <span class="math notranslate nohighlight">\(\mu\)</span>에 대한 가설을 조사하는 검정 방법이다. 사이파이 stats 서브패키지의 <code class="docutils literal notranslate"><span class="pre">binom_test</span></code> 명령은 이항검정의 유의확률을 계산한다. 디폴트 귀무가설은 <span class="math notranslate nohighlight">\(\mu = 0.5\)</span>이다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom_test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;two-sided&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: 검정통계량. 1이 나온 횟수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: 총 시도 횟수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code>: 귀무가설의 <span class="math notranslate nohighlight">\(\mu\)</span>값</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alternative</span></code>: 양측검정인 경우에는 <code class="docutils literal notranslate"><span class="pre">'two-sided'</span></code>, 단측검정인 경우에는 <code class="docutils literal notranslate"><span class="pre">'less'</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">'greater'</span></code></p></li>
+</ul>
+<div class="section" id="id3">
+<h3>예제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>실제 모수 <span class="math notranslate nohighlight">\(\mu_0=0.5\)</span>인 베르누이 확률 변수의 시뮬레이션을 통해 이항검정을 실습해보자. 데이터 개수 <span class="math notranslate nohighlight">\(N=10\)</span>일 때 1이 나온 횟수가 7이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">mu_0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+<p>모수가 0.5인 베르누이 분포라면 가장 가능성이 높은 5가 나와야 하는데 여기에는 7이 나왔다. 그렇다면 이 확률변수의 모수는 0.5가 아니라 0.7일까? 모수가 0.5라는 귀무가설의 신빙성을 확인하기 위해 <code class="docutils literal notranslate"><span class="pre">binom_test</span></code> 이항검정 명령으로 유의확률을 구하면 약 34%이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom_test</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3437499999999999
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 높으므로 모수가 0.5라는 귀무가설을 기각할 수 없다.</p>
+</div>
+<div class="section" id="id4">
+<h3>예제<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>이항검정은 <strong>두 가지 값을 가지는 확률변수의 분포를 판단</strong>하는데 도움을 준다. 예를 들어 위에서 사용한 데이터가 사실은 어떤 자격시험 합격자 10명 중 7명이 대학졸업자라는 것을 뜻하는 데이터였다고 하자. 그렇다면 이 데이터로부터 ‘대학졸업자가 비졸업자보다 실력이 좋다’고 주장할 수 있는가?</p>
+<p>합격자의 대학졸업 유무가 베르누이 확률분포로 결정되는 값이라고 가정하자. 만약 베르누이 확률분포의 모수가 0.5이면 대학졸업자와 비졸업자의 실력은 같은 것이다.
+위의 검정 결과에서 보듯이 대학졸업자와 비졸업자 동등한 실력을 가진 경우에도 7명 혹은 그보다 더 많은 대학졸업자가 합격할 확률인 유의확률은 34%나 된다. 따라서 ‘대학졸업자가 비졸업자보다 실력이 좋다’는 주장은 유의하지 않다.</p>
+</div>
+<div class="section" id="id5">
+<h3>예제<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(\mu=0.5\)</span>라고 생각되는 확률변수에서 데이터 개수 <span class="math notranslate nohighlight">\(N=100\)</span>번 시뮬레이션하여 1이 49번 나온 경우 대해 이항검정을 실시해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">mu_0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>49
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom_test</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9204107626128206
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 92%로 높으므로 귀무가설을 기각할 수 없다. 따라서 <span class="math notranslate nohighlight">\(\mu=0.5\)</span>다.</p>
+</div>
+<div class="section" id="id6">
+<h3>예제<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>이번에는 실제 모수 <span class="math notranslate nohighlight">\(\mu_0=0.35\)</span>인 경우에 대해 시뮬레이션을 했더니 1이 100번 중 31번 나왔다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mf">0.35</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">mu_0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 결과를 귀무가설 <span class="math notranslate nohighlight">\(H_0: \mu = 0.5\)</span>로 이항검정 명령을 실시하면 유의확률은 0.018%이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom_test</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00018314322488235352
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 낮으므로 귀무가설을 기각할 수 있다. 따라서 <span class="math notranslate nohighlight">\(\mu \neq 0.5\)</span>다. 이는 우리가 시뮬레이션한 진실과 일치한다.</p>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 9.5.1<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>동전을 <span class="math notranslate nohighlight">\(N\)</span>번 던져 앞면이 나오는 횟수를 측정했다. 다음 질문에 답하여라.</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(N=10\)</span>이고  유의 수준이 10%라면 앞면이 나온 횟수가 몇 번이어야 동전이 공정하지 않다고 이야기 할 수 있을까?</p></li>
+<li><p><span class="math notranslate nohighlight">\(N=1000\)</span>이고  유의 수준이 10%라면 앞면이 나온 횟수가 몇 번이어야 동전이 공정하지 않다고 이야기 할 수 있을까? 이 때 <span class="math notranslate nohighlight">\(1\sim N\)</span>의 횟수 범위 중에서 동전이 공정하다고 이야기할 수 있는 횟수의 범위(비율)는 <span class="math notranslate nohighlight">\(N=10\)</span>일 때와 비교하여 넓은가 혹은 좁은가?</p></li>
+</ol>
+</div>
+<div class="section" id="id8">
+<h3>연습 문제 9.5.2<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>다음 코드를 실행하면 어느 식당의 매출과 팁(tip) 데이터를 구할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>하나의 레코드(행)이 한 명의 손님을 나타낸다고 가정하자. 열마다 성별(sex), 흡연유무(smoker), 점심/저녁(time) 등을 나타내는 데이터가 있다.</p>
+<p>이항검정을 사용하여 다음 문제를 풀어라. 유의수준은 10%다.</p>
+<ol class="simple">
+<li><p>여자 손님 중 비흡연자가 흡연자보다 많다고 할 수 있는가?</p></li>
+<li><p>저녁에 오는 여자 손님 중 비흡연자가 흡연자보다 많다고 할 수 있는가?</p></li>
+</ol>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 9.5.3<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>어떤 주제에 대해 찬반을 묻는 설문조사를 실시했고 설문조사 결과 응답자의 70%가 찬성이라는 결과가 나왔다. 전체 국민의 삼분의 이(2/3)가 넘게 찬성한다는 결론을 유의수준 1%에서 얻기 위해 필요한 응답자수는 얼마인가? 단 응답자수가 바뀌어도 찬성 70%라는 결과는 바뀌지 않는다고 가정한다.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>카이제곱검정<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>앞에서 베르누이분포의 모수에 대해 검정을 하려면 베르누이분포 표본의 합이라는 통계량이 이항분포를 따른다는 성질을 이용하면 된다고 배웠다. 그러면 카테고리분포의 모수에 대해 검정을 하려면 카테고리분포 표본의 합이라는 통계량이 다항분포를 따른다는 성질을 이용할 수 있을까?</p>
+<p>결론을 말하자면 통계량으로 카테고리분포 표본의 합은 이용할 수 없다. 왜냐하면 이 통계량은 스칼라가 아닌 벡터값을 가지기 때문이다. 이 때는 **카이제곱검정(Chi-squared test)**이라는 방법을 사용한다.</p>
+<p>카이제곱검정은 범주형 확률분포의 모수 <span class="math notranslate nohighlight">\(\mu=(\mu_1, \ldots, \mu_K)\)</span>에 대한 가설을 조사하는 검정 방법으로 **적합도검정(goodness of fit test)**이라고도 부른다. 원래 범주형 값 <span class="math notranslate nohighlight">\(k\)</span>가 나와야 할 횟수의 기댓값 <span class="math notranslate nohighlight">\(m_k\)</span>와 실제 나온 횟수 <span class="math notranslate nohighlight">\(x_k\)</span>의 차이를 이용하여 다음처럼 검정통계량을 구한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\sum_{k=1}^K \dfrac{(x_k - m_k)^2}{m_k}
+\tag{9.5.1}
+\end{align}
+\]</div>
+<p>사이파이 stats 서브패키지의 <code class="docutils literal notranslate"><span class="pre">chisquare</span></code> 명령은 카이제곱검정의 검정통계량과 유의확률을 계산한다. <code class="docutils literal notranslate"><span class="pre">f_exp</span></code>이 주어지지 않는 경우의 디폴트 귀무가설은 <span class="math notranslate nohighlight">\(\mu = \left(\frac{1}{K}, \ldots, \frac{1}{K} \right)\)</span>이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scipy.stats.chisquare(f_obs,</span> <span class="pre">f_exp=None)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f_obs</span></code> : 데이터 행렬</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f_exp</span></code> : 기댓값 행렬</p></li>
+</ul>
+<div class="section" id="id11">
+<h3>예제<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>데이터 개수 <span class="math notranslate nohighlight">\(N=10\)</span>, 귀무가설 모수 <span class="math notranslate nohighlight">\(\mu_0=(0.25, 0.25, 0.25, 0.25)\)</span>, 실제 데이터 <span class="math notranslate nohighlight">\((0, 3, 5, 2)\)</span>인 경우 대해 카이제곱검정 명령을 실시해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">K</span><span class="p">)</span><span class="o">/</span><span class="n">K</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">mu_0</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="n">K</span><span class="p">)</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 3, 5, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chisquare</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Power_divergenceResult(statistic=5.199999999999999, pvalue=0.157724450396663)
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 17.8%로 높으므로 귀무가설을 기각할 수 없다. 따라서 <span class="math notranslate nohighlight">\(\mu_0=(0.25, 0.25, 0.25, 0.25)\)</span>다.</p>
+</div>
+<div class="section" id="id12">
+<h3>예제<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>이번에는 데이터 개수 <span class="math notranslate nohighlight">\(N=100\)</span>, 귀무가설  모수 <span class="math notranslate nohighlight">\(\mu_0=(0.25,0.25,0.25,0.25)\)</span>, 실제 데이터 <span class="math notranslate nohighlight">\((37, 32, 20, 11)\)</span>인 경우 대해 카이제곱검정 명령을 실시해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">mu_0</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="n">K</span><span class="p">)</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([37, 32, 20, 11])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chisquare</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Power_divergenceResult(statistic=16.56, pvalue=0.0008703471978912127)
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 0.087%이므로 귀무가설을 기각할 수 있다. 따라서 <span class="math notranslate nohighlight">\(\mu \neq (0.25,0.25,0.25,0.25)\)</span>다.</p>
+</div>
+<div class="section" id="id13">
+<h3>연습 문제 9.5.4<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>6면체 주사위를 5번 던졌다. 5번 모두 6이 나왔다면 주사위가 공정하다는 귀무가설의 유의확률은 얼마인가?</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>카이제곱  독립검정<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p><strong>카이제곱검정은 어떤 범주형 확률변수 <span class="math notranslate nohighlight">\(X\)</span>가 다른 범주형 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>와 독립인지 상관관계를 가지는가를 검증</strong>하는데도 사용할 수 있다. 카이제곱검정을 독립을 확인하는데 사용하면 카이제곱 독립검정이라고 부른다.</p>
+<p>확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>가 독립이라면 결합 확률질량함수 <span class="math notranslate nohighlight">\(P(x, y)\)</span>는 각 확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>의 주변 확률밀도함수 <span class="math notranslate nohighlight">\(P(x)\)</span>, <span class="math notranslate nohighlight">\(P(y)\)</span>의 곱이다. 예를 들어 다음과 같은 확률분포는 가진다면  <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>는 독립이다.</p>
+<html>
+    <table>
+        <tr><td></td><td>P(Y=0)=0.3</td><td>P(Y=1)=0.7</td></tr>
+        <tr><td>P(X=0)=0.4</td><td>0.12</td><td>0.28</td></tr>
+        <tr><td>P(X=1)=0.6</td><td>0.18</td><td>0.42</td></tr>
+    </table>
+</html><p>이런 확률변수의 표본을 측정하여 그 횟수를 표로 나타낸 것을 분할표(contingency table)라고 한다. 예를 들어 50개의 표본을 측정한 분할표가 다음과 같다면 확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>가 독립이라고 주장할 수 있을 것이다.</p>
+<html>
+    <table>
+        <tr><td></td><td>Y=0</td><td>Y=1</td></tr>
+        <tr><td>X=0</td><td>6</td><td>14</td></tr>
+        <tr><td>X=1</td><td>9</td><td>21</td></tr>
+    </table>
+</html><p>그런데 만약 분할표가 다음과 같다면 독립일까 독립이 아닐까? 원래 독립인데 표본오차에 의해 약간의 차이가 생긴 것인지 아니면 원래부터 독립이 아니라서 저런 결과가 나온 것일까?</p>
+<html>
+    <table>
+        <tr><td></td><td>Y=0</td><td>Y=1</td></tr>
+        <tr><td>X=0</td><td>5</td><td>15</td></tr>
+        <tr><td>X=1</td><td>10</td><td>20</td></tr>
+    </table>
+</html><p>이 문제는 카이제곱검정을 사용하여 풀 수 있다. 만약 두 확률변수가 독립이라면 <span class="math notranslate nohighlight">\(X=0\)</span>일 때의 <span class="math notranslate nohighlight">\(Y\)</span>분포와 <span class="math notranslate nohighlight">\(X=1\)</span>일 때의 <span class="math notranslate nohighlight">\(Y\)</span>분포가 같아야 한다. 따라서 두 경우의 표본 집합이 같은 확률분포에서 나왔다는 것을 귀무가설로 하는 카이제곱검정을 하여 채택된다면 두 확률변수는 독립이다. 만약 기각된다면 두 확률변수는 상관관계가 있다.</p>
+<p>사이파이의 <code class="docutils literal notranslate"><span class="pre">chi2_contingency()</span></code> 명령은 이러한 검정을 수행한다. <span class="math notranslate nohighlight">\(X\)</span>의 값에 따른 각각의 <span class="math notranslate nohighlight">\(Y\)</span>분포가 2차원 표(contingency table)의 형태로 주어지면 독립인 경우의 분포와 실제 y 표본본포의 차이를 검정통계량으로 계산한다. 이 값이 충분히 크다면 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>는 상관관계가 있다. <code class="docutils literal notranslate"><span class="pre">chi2_contingency()</span></code> 명령의 결과는 튜플로 반환되며 첫번째 값이 검정통계량, 두번째 값이 유의확률이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0992063492063492, 0.7527841326498471, 1, array([[ 6., 14.],
+        [ 9., 21.]]))
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 때 카이제곱 독립검정의 유의확률은 75%다. 즉 <span class="math notranslate nohighlight">\(X\)</span>와 <span class="math notranslate nohighlight">\(Y\)</span>는 상관관계가 있다고 말할 수 없다.</p>
+<div class="section" id="id15">
+<h3>연습 문제 9.5.5<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>예를 들어 데이터 사이언스 스쿨 수업을 들었는가의 여부가 나중에 대학원에서 머신러닝 수업의 학점과 상관관계가 있는지를 알기 위해 데이터를 구한 결과가 다음과 같다고 하자.</p>
+<ul class="simple">
+<li><p>데이터 사이언스 스쿨 수업을 듣지 않은 경우 즉, <span class="math notranslate nohighlight">\(X\)</span>가 0이면 A, B, C 학점(<span class="math notranslate nohighlight">\(Y\)</span> 값)을 받은 학생의 분포가 <span class="math notranslate nohighlight">\(4, 16, 20\)</span>이다.</p></li>
+<li><p>데이터 사이언스 스쿨 수업을 들은 사람의 경우 즉, <span class="math notranslate nohighlight">\(X\)</span>가 1일 때 A, B, C 학점(<span class="math notranslate nohighlight">\(Y\)</span> 값)을 받은 학생의 분포가 <span class="math notranslate nohighlight">\(23, 18, 19\)</span>다.</p></li>
+</ul>
+<p>이 결과로부터 데이터 사이언스 스쿨 수업을 들었는가의 여부가 머신러닝 수업의 학점과 상관관계가 있다고 말할 수 있는가?</p>
+</div>
+</div>
+<div class="section" id="z">
+<h2>단일표본 z검정<a class="headerlink" href="#z" title="Permalink to this headline">¶</a></h2>
+<p>**단일표본 z검정(One-sample z-test)**은 분산 <span class="math notranslate nohighlight">\(\sigma^2\)</span>의 값을 정확히 알고 있는 정규분포의 표본에 대해 기댓값을 조사하는 검정방법이다. 단일표본 z검정의 경우에는 많이 사용되지 않고 사이파이에 별도의 함수가 준비되어 있지 않으므로 <code class="docutils literal notranslate"><span class="pre">norm</span></code> 명령의 <code class="docutils literal notranslate"><span class="pre">cdf</span></code> 메서드를 사용하여 직접 구현해야 한다.</p>
+<div class="section" id="id16">
+<h3>예제<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>실제 모수 <span class="math notranslate nohighlight">\(\mu_0=0\)</span>, <span class="math notranslate nohighlight">\(\sigma^2=1\)</span>인 경우 대해 표본 데이터 <span class="math notranslate nohighlight">\(N=10\)</span>개를 시뮬레이션으로 구하여 귀무가설 <span class="math notranslate nohighlight">\(\mu_0=0\)</span>에 대한 단일표본 z검정 명령을 실시해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 1.76405235,  0.40015721,  0.97873798,  2.2408932 ,  1.86755799,
+       -0.97727788,  0.95008842, -0.15135721, -0.10321885,  0.4105985 ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>단일표본 z검정 함수를 다음처럼 구현할 수 있다. 이 함수는 검정통계량과 유의확률을 튜플형태로 반환한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ztest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+
+<span class="n">ztest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2.3338341854824276, 0.019604406021683538)
+</pre></div>
+</div>
+</div>
+</div>
+<p>만약 유의 수준이 5%면 유의확률이 1.96%이므로 귀무가설을 기각할 수 있다. 따라서 <span class="math notranslate nohighlight">\(\mu \neq 0\)</span>이다. 이 경우는 검정 결과가 오류인 예다. 검정 결과가 오류로 나온 이유는 데이터 수가 10개로 부족하기 때문이다.
+이러한 오류는 귀무가설이 진실임에도 불구하고 기각된 경우로 **1종오류(Type 1 Error)**라고 한다. 1종오류가 나오려면 귀무가설이 진실이지만 유의확률은 유의수준보다 작아야한다. <strong>1종오류가 나올 확률은 유의수준과 같다.</strong></p>
+<p>데이터 개수 <span class="math notranslate nohighlight">\(N=100\)</span>, 실제 모수 <span class="math notranslate nohighlight">\(\mu_0=0\)</span>인 경우 대해 단일표본 z검정 명령을 실시해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">ztest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.5980801553448499, 0.5497864508624168)
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 54.98%이므로 귀무가설을 기각할 수 없다. 따라서 <span class="math notranslate nohighlight">\(\mu = 0\)</span>이다.</p>
+</div>
+</div>
+<div class="section" id="t">
+<h2>단일표본 t검정<a class="headerlink" href="#t" title="Permalink to this headline">¶</a></h2>
+<p>**단일표본 t검정(One-sample t-test)**은 정규분포의 표본에 대해 기댓값을 조사하는 검정방법이다. 검정통계량으로 스튜던트 t분포를 가진 t통계량을 사용한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\dfrac{\bar{x} - \mu_0}{\dfrac{s}{\sqrt{N}}}
+\tag{9.5.2}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(\bar{x}\)</span>는 표본평균, <span class="math notranslate nohighlight">\(s\)</span>는 표본표준편차다.</p>
+<p>사이파이의 stats 서브 패키지의 <code class="docutils literal notranslate"><span class="pre">ttest_1samp</span></code> 명령을 사용한다.  <code class="docutils literal notranslate"><span class="pre">ttest_1samp</span></code> 명령의 경우에는 디폴트 모수가 없으므로 기댓값을 나타내는 <code class="docutils literal notranslate"><span class="pre">popmean</span></code> 인수를 직접 지정해야 한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scipy.stats.ttest_1samp(a,</span> <span class="pre">popmean)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: 표본 데이터 배열</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">popmean</span></code>: 귀무가설의 기댓값</p></li>
+</ul>
+<p>데이터 개수 <span class="math notranslate nohighlight">\(N=10\)</span>, 실제 모수 <span class="math notranslate nohighlight">\(\mu_0=0\)</span>인 경우 대해 단일표본 t검정 명령을 실시해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">popmean</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ttest_1sampResult(statistic=2.28943967238967, pvalue=0.04781846490857058)
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 4.78%이므로 만약 유의 수준이 5% 이상 이라면 귀무가설을 기각할 수 있다. 따라서 <span class="math notranslate nohighlight">\(\mu \neq 0\)</span>다. 이 경우도 유형 1 오류의 예라고 볼 수 있다. 실제 모수 <span class="math notranslate nohighlight">\(\mu_0\)</span>가 <span class="math notranslate nohighlight">\(0\)</span>인데도 시뮬레이션 결과에 대한 검정 결과가 오류로 나온 이유는 데이터 수가 10개로 부족하기 때문이다.</p>
+<p>이번에는 데이터의 개수 <span class="math notranslate nohighlight">\(N\)</span>이 <span class="math notranslate nohighlight">\(100\)</span>인 경우에 대해 단일표본 t검정 명령을 실시해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_0</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">popmean</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ttest_1sampResult(statistic=0.5904283402851698, pvalue=0.5562489158694675)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>독립표본 t검정<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>**독립표본 t검정(Independent-two-sample t-test)**은 두 개의 독립적인 정규분포에서 나온 <span class="math notranslate nohighlight">\(N_1\)</span>, <span class="math notranslate nohighlight">\(N_2\)</span>개의 데이터 셋을 사용하여 두 정규분포의 기댓값이 동일한지를 검사한다.</p>
+<p>검정통계량으로는 두 정규분포의 분산이 같은 경우에는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+t = \dfrac{\bar{x}_1 - \bar{x}_2}{s \cdot \sqrt{\dfrac{1}{N_1}+\dfrac{1}{N_2}}}
+\tag{9.5.3}
+\end{align}
+\]</div>
+<p>을 사용한다. 여기에서 <span class="math notranslate nohighlight">\(\bar{x}_1\)</span>, <span class="math notranslate nohighlight">\(\bar{x}_2\)</span>는 각각의 표본평균이고 표본표준편차 <span class="math notranslate nohighlight">\(s\)</span>는 각각의 표본분산 <span class="math notranslate nohighlight">\(s_1^2\)</span>, <span class="math notranslate nohighlight">\(s_2^2\)</span>로부터 다음처럼 구한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+s = \sqrt{\dfrac{\left(N_1-1\right)s_{1}^2+\left(N_2-1\right)s_{2}^2}{N_1+N_2-2}}
+\tag{9.5.4}
+\end{align}
+\]</div>
+<p>이 통계량은 자유도가 <span class="math notranslate nohighlight">\(N_1 + N_2 − 2\)</span>인 스튜던트-t분포를 따른다.</p>
+<p>두 정규분포의 분산이  다른 경우에는 검정통계량으로</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+t = \dfrac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{N_1} + \dfrac{s_2^2}{N_2}}}
+\tag{9.5.5}
+\end{align}
+\]</div>
+<p>를 사용한다. 이 값은 자유도(degree of freedom)가 다음과 같은 스튜던트-t분포를 따른다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{dof} =
+\dfrac{\left(\dfrac{s_1^2}{N_1} + \dfrac{s_2^2}{N_2}\right)^2}{\dfrac{\left(s_1^2/N_1\right)^2}{N_1-1} + \dfrac{\left(s_2^2/N_2\right)^2}{N_2-1}}
+\tag{9.5.6}
+\end{align}
+\]</div>
+<p>독립표본 t검정은 사이파이 stats 서브패키지의 <code class="docutils literal notranslate"><span class="pre">ttest_ind</span></code> 명령을 사용하여 계산한다. 독립표본 t검정은 두 정규분포의 분산값이 같은 경우와 같지 않은 경우에 사용하는 검정통계량이 다르기 때문에 <code class="docutils literal notranslate"><span class="pre">equal_var</span></code> 인수를 사용하여 이를 지정해 주어야 한다. 두 분포의 분산이 같은지 다른지는 다음에 나올 등분산검정(equal-variance test)을 사용하면 된다. 만약 잘 모르겠으면 <code class="docutils literal notranslate"><span class="pre">equal_var=False</span></code>로 놓으면 된다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scipy.stats.ttest_inds(a,</span> <span class="pre">b,</span> <span class="pre">equal_var=True)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: 1번 표본 집합 데이터</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: 2번 표본 집합 데이터</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">equal_var</span></code>: 두 표본 집합의 분산이 같은경우에는 <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+<div class="section" id="id18">
+<h3>예제<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>두 정규분포의 기댓값이 <span class="math notranslate nohighlight">\(\mu_1 = 0\)</span>, <span class="math notranslate nohighlight">\(\mu_2 = 0.5\)</span>로 다르고  분산은 <span class="math notranslate nohighlight">\(\sigma_1 = \sigma_2 = 1\)</span> 으로 같으며 표본의 수가 <span class="math notranslate nohighlight">\(N_1=N_2=10\)</span>인 경우를 시뮬레이션해보자. 우리는 분산 값이 정말 같은지 모르므로 일단 <code class="docutils literal notranslate"><span class="pre">equal_var=False</span></code>로 놓는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_1</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">mu_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sigma_1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">N_2</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">mu_2</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_1</span><span class="p">,</span> <span class="n">sigma_1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N_1</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_2</span><span class="p">,</span> <span class="n">sigma_2</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N_2</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;1번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/09.05 사이파이를 사용한 검정_69_0.png" src="../_images/09.05 사이파이를 사용한 검정_69_0.png" />
+</div>
+</div>
+<p>이 두 표본집합의 표본평균은 각각 0.74, 0.9로 다르다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.7380231707288347, 0.9006460151624349)
+</pre></div>
+</div>
+</div>
+</div>
+<p>하지만 t검정의 결과는 유의확률 68.4%이므로 두 기댓값이 같다는 귀무가설을 기각할 수 없다. 따라서 <span class="math notranslate nohighlight">\(\mu_1 = \mu_2\)</span>다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ttest_indResult(statistic=-0.4139968526988655, pvalue=0.6843504889824326)
+</pre></div>
+</div>
+</div>
+</div>
+<p>시뮬레이션에 사용한 두 정규분포의 모수가 원래는 다르기 때문에 이 경우는 검정 결과가 오류인 또 다른 예다.
+이러한 오류는 귀무가설이 거짓임에도 불구하고 진실로 나온 경우로 **2종오류(Type 2 Error)**라고 한다.
+데이터 수가 증가하면 이러한 오류가 발생할 가능성이 줄어든다.</p>
+</div>
+<div class="section" id="id19">
+<h3>예제<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>데이터의 개수를 50개와 100개로 증가시킨 경우에 유의확률은 0.8%로 감소했다. 따라서 두 확률분포의 기댓값이 일치한다는 귀무가설은 기각할 수 있고 2종오류는 발생하지 않는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_1</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">mu_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sigma_1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">N_2</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">mu_2</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_1</span><span class="p">,</span> <span class="n">sigma_1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N_1</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_2</span><span class="p">,</span> <span class="n">sigma_2</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N_2</span><span class="p">)</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ttest_indResult(statistic=-2.6826951236616963, pvalue=0.008133970915722658)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id20">
+<h3>연습 문제 9.5.6<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>1반과 2반 학생 들의 성적이 각각 다음과 같다고 가정하자.</p>
+<ul class="simple">
+<li><p>1반 : 80점, 75점, 85점, 50점, 60점, 75점, 45점, 70점, 90점, 95점, 85점, 80점. 평균 74.1점</p></li>
+<li><p>2반 : 80점, 85점, 70점, 80점, 35점, 55점, 80점 . 평균 69.2점</p></li>
+</ul>
+<p>1반의 실력이 2반보다 좋다고 이야기 할 수 있는가?</p>
+</div>
+</div>
+<div class="section" id="id21">
+<h2>대응표본 t검정<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<p>대응표본 t검정(Paired-two-sample t-test)은 독립표본 t검정을 두 집단의 표본이 1대1 대응하는 경우에 대해 수정한 것이다. 즉, 독립표본 t검정과 마찬가지로 두 정규분포의 기댓값이 같은지 확인하기 위한 검정이다. 통계량은 대응하는 표본 값의 차이 <span class="math notranslate nohighlight">\(x_d = x_{i,i} - x_{i,2}\)</span>에서 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+t = \dfrac{\bar{x}_d - \mu_0}{\dfrac{s_d}{\sqrt{N}}}
+\tag{9.5.7}
+\end{align}
+\]</div>
+<p>예를 들어 어떤 반의 학생들이 데이터 사이언스 스쿨을 수강하기 전과 수강한 이후에 본 같은 학생의 두 시험점수는 일대일(pair)로 대응할 수 있다. 이 대응 정보를 알고 있다면 보통의 독립표본 t검정에서 발생할 수 있는 표본간의 차이의 영향을 없앨 수 있기 때문에 특강 수강의 영향을 보다 정확하게 추정할 수 있다.</p>
+<p>대응표본 t검정은 <code class="docutils literal notranslate"><span class="pre">ttest_rel</span></code> 명령을 사용한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ttest_rel(a,</span> <span class="pre">b)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: 1번 표본 집합 데이터</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: 2번 표본 집합 데이터</p></li>
+</ul>
+<div class="section" id="id22">
+<h3>예제<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(\mu_1 = 0 \rightarrow 0.4\)</span>로 평균이 달라진 경우에 대해 대응표본 t검정을 실시해보자. 데이터 개수 <span class="math notranslate nohighlight">\(N\)</span>은 5다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">mu_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">mu_2</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;1번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/09.05 사이파이를 사용한 검정_82_0.png" src="../_images/09.05 사이파이를 사용한 검정_82_0.png" />
+</div>
+</div>
+<p>5 개의 데이터만으로도  두 평균이 다르다는 것을 유의확률 0.48%로 알아내었음을 확인할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ttest_relResult(statistic=-5.662482449248929, pvalue=0.0047953456833781305)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id23">
+<h2>등분산검정<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ttest_inds</span></code> 명령을 사용하려면 두 데이터집합의 분산이 같은지 먼저 알아내야 한다.</p>
+<p>등분산검정(Equal-variance test)은 두 정규분포로부터 생성된 두 개의 데이터 집합으로부터 두 정규분포의 분산 모수가 같은지 확인하기 위한 검정이다. 바틀렛(bartlett), 플리그너(fligner), 레빈(levene) 검정을 주로 사용한다. 사이파이의 stats 서브패키지는 이를 위한  <code class="docutils literal notranslate"><span class="pre">bartlett</span></code>, <code class="docutils literal notranslate"><span class="pre">fligner</span></code>, <code class="docutils literal notranslate"><span class="pre">levene</span></code> 명령을 제공한다.</p>
+<div class="section" id="id24">
+<h3>예제<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<p>실제로 분산이 다른 두 개의 데이터 집합을 만들어보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N1</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">N2</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">sigma_1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma_1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma_2</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N2</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;1번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/09.05 사이파이를 사용한 검정_88_0.png" src="../_images/09.05 사이파이를 사용한 검정_88_0.png" />
+</div>
+</div>
+<p>다른 등분산검정을 적용한 결과는 서로 다를 수 있다. 따라서 검정 결과도 이러한 점을 고려하여 결정한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">x2</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.0078822447165796, 1.2416003969261071)
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의수준 1% 기준에서 <code class="docutils literal notranslate"><span class="pre">bartlett</span></code> 명령의 결과는 두 데이터 집합의 분산이 같다고 계산하지만 <code class="docutils literal notranslate"><span class="pre">fligner</span></code>,  <code class="docutils literal notranslate"><span class="pre">levene</span></code> 명령은 두 데이터 집합의 분산이 다르다고 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">bartlett</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BartlettResult(statistic=4.253473837232266, pvalue=0.039170128783651344)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">fligner</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FlignerResult(statistic=7.224841990409457, pvalue=0.007190150106748367)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">levene</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LeveneResult(statistic=7.680708947679437, pvalue=0.0061135154970207925)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id25">
+<h2>정규성검정<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<p>회귀 분석 등에서는 <strong>확률분포가 가우시안 정규분포를 따르는지 아닌지를 확인</strong>하는 것이 중요하다. 이러한 검정을 **정규성검정(normality test)**이라고 한다. 정규성분포는 중요한만큼 다양한 검정 방법들이 개발되어 있으며 사이파이 패키지 이외에 통계분석에 많이 사용되는 스탯츠모델즈(StatsModels) 패키지도 다양한 정규성검정 명령어를 제공한다.</p>
+<ul class="simple">
+<li><p>사이파이 에서 제공하는 정규성검정 명령어</p></li>
+<li><p>콜모고로프-스미르노프 검정(Kolmogorov-Smirnov test) : <code class="docutils literal notranslate"><span class="pre">scipy.stats.ks_2samp</span></code></p></li>
+<li><p>샤피로-윌크 검정(Shapiro–Wilk test) : <code class="docutils literal notranslate"><span class="pre">scipy.stats.shapiro</span></code></p></li>
+<li><p>앤더스-달링 검정(Anderson–Darling test) : <code class="docutils literal notranslate"><span class="pre">scipy.stats.anderson</span></code></p></li>
+<li><p>다고스티노 K-제곱 검정(D’Agostino’s K-squared test) : <code class="docutils literal notranslate"><span class="pre">scipy.stats.mstats.normaltest</span></code></p></li>
+<li><p>StatsModels에서 제공하는 정규성검정 명령어</p>
+<ul>
+<li><p>콜모고로프-스미르노프 검정(Kolmogorov-Smirnov test) : <code class="docutils literal notranslate"><span class="pre">statsmodels.stats.diagnostic.kstest_normal</span></code></p></li>
+<li><p>옴니버스 검정(Omnibus Normality test) : <code class="docutils literal notranslate"><span class="pre">statsmodels.stats.stattools.omni_normtest</span></code></p></li>
+<li><p>자크-베라 검정(Jarque–Bera test) : <code class="docutils literal notranslate"><span class="pre">statsmodels.stats.stattools.jarque_bera</span></code></p></li>
+<li><p>릴리포스 검정(Lilliefors test) : <code class="docutils literal notranslate"><span class="pre">statsmodels.stats.diagnostic.lillifors</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>이 중에서 콜모고로프-스미르노프 검정(Kolmogorov-Smirnov test)은 사실 정규분포에 국한되지 않고 두 표본이 같은 분포를 따르는지 확인할 수 있는 방법이다. 예를 들어 다음처럼 두 개의 다른 정규분포에서 50개와 100개의 데이터 집합을 각각 생성해서 같은 분포에서 나왔는지 검정해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">N1</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">N2</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N2</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;1번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2번 데이터 집합&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_linestyle</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/09.05 사이파이를 사용한 검정_99_0.png" src="../_images/09.05 사이파이를 사용한 검정_99_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ks_2sampResult(statistic=0.23, pvalue=0.055507233643215415)
+</pre></div>
+</div>
+</div>
+</div>
+<p>유의확률이 4.95%로 만약 유의 수준이 5%라면 두 분포는 서로 다른 분포라고 볼 수 있다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

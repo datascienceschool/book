@@ -1,0 +1,1063 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.5 결합확률과 조건부확률 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/06.05 결합확률과 조건부확률.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/06.05 결합확률과 조건부확률.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/06.05 결합확률과 조건부확률.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   범인 찾기 문제
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   결합확률과 조건부확률
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     연습 문제 6.5.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 6.5.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   독립
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   원인과 결과, 근거와 추론, 가정과 조건부 결론
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 6.5.3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 6.5.4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   사슬 법칙
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   확률변수
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     연습 문제 6.5.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   피지엠파이 패키지
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     연습 문제 6.5.6
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     연습 문제 6.5.7
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     연습 문제 6.5.8
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>6.5 결합확률과 조건부확률<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 결합확률과 조건부확률의 개념을 공부한다. 조건부확률은 데이터로부터 어떤 결론을 얻을 수 있는가를 나타내는 숫자이므로 데이터 분석에 있어서 가장 중요한 개념이다.</p>
+<div class="section" id="id2">
+<h2>범인 찾기 문제<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>살인 사건이 발생했다고 가정하자. 경찰은 전체 용의자 목록을 가지고 있다. 베이지안 확률론 관점에서 전체 용의자 목록은 바로 표본공간이다. 우리가 알고 싶은 것은 전체 용의자 목록(표본공간)에서 누가 범인(선택된 표본)인가 하는 점이다. 현재 표본공간은 용의자  20명으로 구성되어 있으며 이 중 남자가 12명, 여자가 8명이라고 가정한다.</p>
+<p>만약 담당 형사가 범인은 남자라고 생각한다면, ‘범인이 남자이다’라는 주장은 확률론적 관점에서 남성인 용의자(표본)로만 이루어진 사건(표본공간의 부분 집합)이 된다. 이를 사건 <span class="math notranslate nohighlight">\(A\)</span>라고 하자.</p>
+<p>이때 우리가 관심을 가지는 것은 “범인이 남자”라는 사건 <span class="math notranslate nohighlight">\(A\)</span>의 신뢰도 즉, 사건 <span class="math notranslate nohighlight">\(A\)</span>의 확률 <span class="math notranslate nohighlight">\(P(A)\)</span>다. 아무런 추가 정보가 없다면 모든 사람이 범인일 가능성이 같기 때문에 범인이 남자일 확률 <span class="math notranslate nohighlight">\(P(A)\)</span>는 다음과 같이 전체 용의자 수로 남자 용의자 수를 나눈 값이 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A) = \dfrac{|A|}{|\Omega|} = \dfrac{12}{12 + 8} = \dfrac{12}{20} = 0.6
+\tag{6.5.1}
+\end{align}
+\]</div>
+<p>반대로 “범인은 여자”라는 사건은 여집합 <span class="math notranslate nohighlight">\(A^C\)</span>로 표현할 수 있고 “범인이 여자일 확률”은 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A^C) = \dfrac{\left|A^C\right|}{|\Omega|} = \dfrac{8}{12 + 8} = \dfrac{8}{20} = 0.4
+\tag{6.5.2}
+\end{align}
+\]</div>
+<p>이때 새로운 사건 <span class="math notranslate nohighlight">\(B\)</span>가 발생했다고 하자. 범인의 것으로 추정되는 긴 머리카락을 발견했다. 이머리카락에서 범인은 머리카락이 길다는 가능성이 제시되었다.</p>
+<p>이 새로운 사건 <span class="math notranslate nohighlight">\(B\)</span>는 확률론적으로는 새로운 용의자 목록, 즉 머리카락이 긴 사람의 목록이라는 표본공간의 새로운 부분 집합을 의미한다. 그리고 사건 <span class="math notranslate nohighlight">\(B\)</span>가 발생했다는 것은 이 용의자 목록에 진짜로 범인이 포함되었다는 뜻이다.</p>
+<p>현재 표본공간 즉, 전체 용의자 목록에는 머리카락이 긴 사람이 10명, 머리카락이 짧은 사람이 10명이다. 만약 이 사건이 진실이라는 보장이 없다면, 사건 <span class="math notranslate nohighlight">\(B\)</span>에 대한 확률 <span class="math notranslate nohighlight">\(P(B)\)</span>, 즉 머리카락이 긴 사람이 범인이라는 주장의 신뢰도는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(B) = \dfrac{|B|}{|\Omega|} = \dfrac{10}{10 + 10} = \dfrac{10}{20} = 0.5
+\tag{6.5.3}
+\end{align}
+\]</div>
+<p>반대로 머리카락이 짧은 사람의 사건은 <span class="math notranslate nohighlight">\(B^C\)</span>이고 범인이 머리카락이 짧을 확률은 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(B^C) = \dfrac{\left|B^C\right|}{|\Omega|} = \dfrac{10}{10 + 10} = \dfrac{10}{20} = 0.5
+\tag{6.5.4}
+\end{align}
+\]</div>
+<p>지금까지의 상황을 요약하면 다음과 같다.</p>
+<ul class="simple">
+<li><p>살인 사건 발생. 용의자는 20명</p>
+<ul>
+<li><p>남자 12명, 여자 8명</p></li>
+<li><p>머리카락이 긴 사람 10명, 머리카락이 짧은 사람 10명</p></li>
+</ul>
+</li>
+<li><p>범인이 남자일 확률</p>
+<ul>
+<li><p>남자 집합(사건) <span class="math notranslate nohighlight">\(A\)</span>에 범인(선택된 표본)이 속해 있다는 주장의 신뢰도: <span class="math notranslate nohighlight">\(P(A) = 0.6\)</span></p></li>
+</ul>
+</li>
+<li><p>범인이 머리카락이 길 확률</p>
+<ul>
+<li><p>머리카락이 긴 사람의 집합(사건) <span class="math notranslate nohighlight">\(B\)</span>에 범인(선택된 표본)이 속해 있다는 주장의 신뢰도 : <span class="math notranslate nohighlight">\(P(B) = 0.5\)</span></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>결합확률과 조건부확률<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>베이지안 확률론은 두 사건 <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(B\)</span>의 관계를 알고 있다면 사건 <span class="math notranslate nohighlight">\(B\)</span>가 발생하였했다는 사실로부터 기존에 알고 있는 사건 <span class="math notranslate nohighlight">\(A\)</span>에 대한 확률 <span class="math notranslate nohighlight">\(P(A)\)</span>를 좀 더 정확한 확률로 바꿀 수 있는 방법을 알려준다. 이를 위해서는 결합확률과 조건부확률이라는 두 가지 개념을 정의해야 한다.</p>
+<p>**결합확률(joint probability)**은 <strong>사건 <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(B\)</span>가 동시에 발생할 확률</strong>이다. 즉, 사건(명제/주장) <span class="math notranslate nohighlight">\(A\)</span>도 진실이고 사건(명제/주장) <span class="math notranslate nohighlight">\(
+B\)</span>도 진실이므로 사건 <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(B\)</span>의 교집합의 확률을 계산하는 것과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A \cap B) \text{ or } P(A, B) 
+\tag{6.5.5}
+\end{align}
+\]</div>
+<p>결합확률과 대비되는 개념으로 결합되지 않는 개별 사건의 확률 <span class="math notranslate nohighlight">\(P(A)\)</span> 또는 <span class="math notranslate nohighlight">\(P(B)\)</span>를 **주변확률(marginal probability)**라고 한다.</p>
+<p>또한 <span class="math notranslate nohighlight">\(B\)</span>가 사실일 경우의 사건 <span class="math notranslate nohighlight">\(A\)</span>에 대한 확률을
+**사건 <span class="math notranslate nohighlight">\(B\)</span>에 대한 사건 <span class="math notranslate nohighlight">\(A\)</span>의 조건부확률(conditional probability)**이라고 하며 다음과 같이 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A | B)
+\tag{6.5.6}
+\end{align}
+\]</div>
+<p>위 수식에서 기호 <span class="math notranslate nohighlight">\(|\)</span>는 if를 뜻한다. 즉 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A | B) \equiv \text{ new } P(A) \text{ if } P(B) = 1
+\tag{6.5.7}
+\end{align}
+\]</div>
+<p>이 조건부확률의 값은 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A|B) = \dfrac{P(A,B)}{P(B)}
+\tag{6.5.8}
+\end{align}
+\]</div>
+<p>조건부확률이 위와 같이 정의된 근거는 다음과 같다.</p>
+<ol class="simple">
+<li><p>사건 <span class="math notranslate nohighlight">\(B\)</span>가 사실이므로 모든 가능한 표본은 사건 <span class="math notranslate nohighlight">\(B\)</span>에 포함되어야 한다. 즉, 새로운 실질적 표본공간은 <span class="math notranslate nohighlight">\(\Omega_\text{new} \rightarrow B\)</span>가 된다.</p></li>
+<li><p>사건 <span class="math notranslate nohighlight">\(A\)</span>의 원소는 모두 사건 <span class="math notranslate nohighlight">\(B\)</span>의 원소도 되므로 사실상 사건 <span class="math notranslate nohighlight">\(A \cap B\)</span>의 원소가 된다. 즉, 새로운 실질적 <span class="math notranslate nohighlight">\(A_\text{new} \rightarrow A \cap B\)</span>가 된다.</p></li>
+<li><p>따라서 사건 <span class="math notranslate nohighlight">\(A\)</span>의 확률 즉, 신뢰도는 원래의 신뢰도(결합확률)를 새로운 표본공간의 신뢰도(확률)로 정규화(normalize)한 값이라고 할 수 있다.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A|B) = \dfrac{P(A_\text{new})}{P(\Omega_\text{new})} = \dfrac{P(A,B)}{P(B)}
+\tag{6.5.9}
+\end{align}
+\]</div>
+<img src="https://datascienceschool.net/upfiles/80e17c56a19047bd808b16a5e5da577e.png" width="100%"/><p>그림 6.5.1 : 조건부확률의 정의</p>
+<ul class="simple">
+<li><p>조건부확률 <span class="math notranslate nohighlight">\(P(A|B)\)</span></p>
+<ul>
+<li><p>사건 B가 발생한 경우의 사건 A의 확률</p></li>
+<li><p>표본이 이벤트 B에 속한다는 새로운 <strong>사실</strong>을 알게 되었을 때,</p></li>
+<li><p>이 표본이 사건 A에 속한다는 사실의 정확성(신뢰도)이 어떻게 변하는지를 알려준다.</p></li>
+</ul>
+</li>
+</ul>
+<p>예를 들어 범인 찾기 문제에서는 조건부확률을 다음처럼 정의한다.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P(A)\)</span>: 범인이 남자일 확률</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(B)\)</span>: 범인이 머리카락이 길 확률</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(A|B)\)</span>: 범인이 머리카락이 길다는 <strong>사실</strong>을 알게 되었을 때, 달라진(갱신된) “범인이 남자일 확률”</p></li>
+</ul>
+<p>조건부확률의 값을 구하기 위해서는 결합확률의 값을 알아야 한다. 그런데 사건 <span class="math notranslate nohighlight">\(A\)</span>와 사건 <span class="math notranslate nohighlight">\(B\)</span>의 결합확률의 값 <span class="math notranslate nohighlight">\(P(A,B)\)</span>은 기존의 사건 <span class="math notranslate nohighlight">\(A\)</span>의 확률 <span class="math notranslate nohighlight">\(P(A)\)</span>나 사건 <span class="math notranslate nohighlight">\(B\)</span>의 확률 <span class="math notranslate nohighlight">\(P(B)\)</span>와는 전혀 무관한 별개의 정보이다. 즉, 수학적으로 계산하여 구할 수 있는 값이 아니라 외부에서 주어지지 않으면 안되는 정보인 것이다.</p>
+<p>범인 찾기의 경우에도 이미 주어진 정보 <span class="math notranslate nohighlight">\(P(A)\)</span>, <span class="math notranslate nohighlight">\(P(B)\)</span>와 관계없이 <span class="math notranslate nohighlight">\(P(A,B)\)</span>는 여러 가지 경우가 있을 수 있다.</p>
+<p>예를 들어 어떤 경우에는 12명의 남자 중 머리카락이 긴 사람이 다음과 같이 3명일 수도 있고(경우 1)</p>
+<table class="table-bordered" style="width:90%">
+  <tr>
+    <td></td>
+    <td>범인이 머리카락이 길다: $P(B)=0.5$</td>
+    <td>범인이 머리카락이 길지 않다: $P(B^C)=0.5$</td> 
+    <td>계</td> 
+  </tr>
+  <tr>
+    <td>범인이 남자다: $P(A)=0.6$</td>
+    <td>3명 $\;\;\;P(A,B) = \dfrac{3}{20}$</td>
+    <td>9명 $\;\;\;P(A,B^C) = \dfrac{9}{20}$</td>
+    <td>12명</td>
+  </tr>
+  <tr>
+    <td>범인이 여자다: $P(A^C)=0.4$</td> 
+    <td>7명 $\;\;\;P(A^C,B) = \dfrac{7}{20}$</td>
+    <td>1명 $\;\;\;P(A^C,B^C) = \dfrac{1}{20}$</td> 
+    <td>8명</td> 
+  </tr>
+  <tr>
+    <td>계</td> 
+    <td>10명 </td>
+    <td>10명</td> 
+    <td></td> 
+  </tr>
+</table>
+<p>또 다른 경우에는 12명의 남자 중 머리카락이 긴 사람이 다음과 같이 6명일 수도 있다(경우 2).</p>
+<table class="table-bordered" style="width:90%">
+  <tr>
+    <td></td>
+    <td>범인이 머리카락이 길다: $P(B)=0.5$</td>
+    <td>범인이 머리카락이 길지 않다: $P(B^C)=0.5$</td> 
+    <td>계</td> 
+  </tr>
+  <tr>
+    <td>범인이 남자다: $P(A)=0.6$</td>
+    <td>6명 $\;\;\;P(A,B) = \dfrac{6}{20}$</td>
+    <td>6명 $\;\;\;P(A,B^C) = \dfrac{6}{20}$</td>
+    <td>12명</td>
+  </tr>
+  <tr>
+    <td>범인이 여자다: $P(A^C)=0.4$</td> 
+    <td>4명 $\;\;\;P(A^C,B) = \dfrac{4}{20}$</td>
+    <td>4명 $\;\;\;P(A,B^C) = \dfrac{4}{20}$</td> 
+    <td>8명</td> 
+  </tr>
+  <tr>
+    <td>계</td> 
+    <td>10명 </td>
+    <td>10명</td> 
+    <td></td> 
+  </tr>
+</table>
+<p>이 두 경우에 대해 조건부확률 <span class="math notranslate nohighlight">\(P(A|B)\)</span>를 구해보자.</p>
+<p>만약 머리카락이 긴 남자가 3명이라면</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B) = \dfrac{P(A, B)}{P(B)} = \dfrac{3/20}{10/20}  = \dfrac{3}{10}
+\tag{6.5.10}
+\end{align}
+\]</div>
+<p>이 된다. 원래 사건 <span class="math notranslate nohighlight">\(A\)</span>의 확률 <span class="math notranslate nohighlight">\(P(A)\)</span>가 0.6 즉 60% 였으므로 범인이 머리카락이 길다는 정보로 인해 남자가 범인일 확률은 절반으로 뚝 떨어졌다.</p>
+<p>만약 머리카락이 긴 남자가 6명이라면</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B) = \dfrac{P(A, B)}{P(B)} = \dfrac{6/20}{10/20}  = \dfrac{6}{10}
+\tag{6.5.11}
+\end{align}
+\]</div>
+<p>이 된다.</p>
+<p>이 경우에는 새로운 정보(사건 <span class="math notranslate nohighlight">\(B\)</span>)가 주어지든 주어지지 않든 남자가 범인일 확률은 변함없다. 이러한 경우에는 사건 <span class="math notranslate nohighlight">\(A\)</span>가 사건 <span class="math notranslate nohighlight">\(B\)</span>와 서로 **독립(independent)**이라고 한다.</p>
+<div class="section" id="id4">
+<h3>연습 문제 6.5.1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>(경우 1)에 대해 다음 확률을 구하라.</p>
+<p>(1) 범인이 머리카락이 짧다면 범인이 남자일 확률 <span class="math notranslate nohighlight">\(P(A|B^C)\)</span></p>
+<p>(2) 범인이 머리카락이 길다면 범인이 여자일 확률 <span class="math notranslate nohighlight">\(P(A^C|B)\)</span></p>
+<p>(3) 범인이 머리카락이 짧다면 범인이 여자일 확률 <span class="math notranslate nohighlight">\(P(A^C|B^C)\)</span></p>
+<p>(4) 범인이 남자라면 범인이 머리카락이 길 확률 <span class="math notranslate nohighlight">\(P(B|A)\)</span></p>
+<p>(5) 범인이 여자라면 범인이 머리카락이 길 확률 <span class="math notranslate nohighlight">\(P(B|A^C)\)</span></p>
+<p>(6) 범인이 남자라면 범인이 머리카락이 짧을 확률 <span class="math notranslate nohighlight">\(P(B^C|A)\)</span></p>
+<p>(7) 범인이 여자라면 범인이 머리카락이 짧을 확률 <span class="math notranslate nohighlight">\(P(B^C|A^C)\)</span></p>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 6.5.2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>(경우 2)에 대해 다음 확률을 구하라.</p>
+<p>(1) 범인이 머리카락이 짧다면 범인이 남자일 확률 <span class="math notranslate nohighlight">\(P(A|B^C)\)</span></p>
+<p>(2) 범인이 머리카락이 길다면 범인이 여자일 확률 <span class="math notranslate nohighlight">\(P(A^C|B)\)</span></p>
+<p>(3) 범인이 머리카락이 짧다면 범인이 여자일 확률 <span class="math notranslate nohighlight">\(P(A^C|B^C)\)</span></p>
+<p>(4) 범인이 남자라면 범인이 머리카락이 길 확률 <span class="math notranslate nohighlight">\(P(B|A)\)</span></p>
+<p>(5) 범인이 여자라면 범인이 머리카락이 길 확률 <span class="math notranslate nohighlight">\(P(B|A^C)\)</span></p>
+<p>(6) 범인이 남자라면 범인이 머리카락이 짧을 확률 <span class="math notranslate nohighlight">\(P(B^C|A)\)</span></p>
+<p>(7) 범인이 여자라면 범인이 머리카락이 짧을 확률 <span class="math notranslate nohighlight">\(P(B^C|A^C)\)</span></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>독립<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>수학적으로는 사건 <span class="math notranslate nohighlight">\(A\)</span>와 사건 <span class="math notranslate nohighlight">\(B\)</span>의 결합확률의 값이 다음과 같은 관계가 성립하면 **두 사건 <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(B\)</span>는 서로 독립(independent)**이라고 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A,B) = P(A)P(B) 
+\tag{6.5.12}
+\end{align}
+\]</div>
+<p>독립인 경우 조건부확률과 원래의 확률이 같아짐을 알 수 있다. 즉, <span class="math notranslate nohighlight">\(B\)</span>라는 사건이 발생하든 말든 사건 <span class="math notranslate nohighlight">\(A\)</span>에는 전혀 영향을 주지 않는 다는 것이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A|B) = \dfrac{P(A,B)}{P(B)} = \dfrac{P(A)P(B)}{P(B)} = P(A)
+\tag{6.5.13}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id7">
+<h2>원인과 결과, 근거와 추론, 가정과 조건부 결론<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>조건부확률 <span class="math notranslate nohighlight">\(P(A|B)\)</span>에서 사건(주장/명제) <span class="math notranslate nohighlight">\(B\)</span>, <span class="math notranslate nohighlight">\(A\)</span>는 각각</p>
+<ul class="simple">
+<li><p>‘가정과 그 가정에 따른 조건부 결론’ 또는</p></li>
+<li><p>‘원인과 결과’ 또는</p></li>
+<li><p>‘근거와 추론’</p></li>
+</ul>
+<p>으로 생각할 수도 있다.</p>
+<p>또 결합확률의 정의를 바꿔 쓰면 다음과 같이 되는데,</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A,B) = P(A|B) P(B)
+\tag{6.5.14}
+\end{align}
+\]</div>
+<p>이 식은 다음과 같은 관점에서 볼 수 있다.</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(A,B\)</span>가 모두 발생할 확률은 <span class="math notranslate nohighlight">\(B\)</span>라는 사건이 발생할 확률과 그 사건이 발생한 경우 다시 <span class="math notranslate nohighlight">\(A\)</span>가 발생할 경우의 곱</p>
+</div></blockquote>
+<div class="section" id="id8">
+<h3>예제<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>위 식을 응용하면 다음과 같은 수식도 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(A,B,C) = P(A|B,C)P(B,C)
+\tag{6.5.15}
+\end{align}
+\]</div>
+<p>확률표기에서 쉼표(comma)가 교집합을 뜻한다는 것을 기억하면 이 식은 쉽게 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+P(A,B,C) 
+&amp;= P(A \cap B \cap C) \\
+&amp;= P(A \cap (B \cap C)) \\
+&amp;= P(A|B \cap C)P(B \cap C) \\
+&amp;= P(A|B,C)P(B,C)
+\end{aligned}
+\tag{6.5.16}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id9">
+<h3>연습 문제 6.5.3<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>다음 수식을 증명하라.</p>
+<p>(1)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B,C,D) = P(A,B|C,D)P(C,D)
+\tag{6.5.17}
+\end{align}
+\]</div>
+<p>(2)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B|C)P(C) = P(A|B,C)P(B,C)
+\tag{6.5.18}
+\end{align}
+\]</div>
+<p>(3)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B,C|D,E) = \dfrac{P(A,B|C,D,E)P(C,D|E)P(E)}{P(D,E)}
+\tag{6.5.19}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id10">
+<h3>연습 문제 6.5.4<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(B,C\)</span>가 독립인 사건일 때 다음이 성립함을 증명하라.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(A,B|C) = P(A|B,C)P(B)
+\tag{6.5.20}
+\end{align}
+\]</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>사슬 법칙<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>조건부확률과 결합확률의 관계를 확장하면 복수의 사건 <span class="math notranslate nohighlight">\(X_1, X_2, \dots, X_N\)</span>에 대한 조건부 확률을 다음처럼 쓸 수 있다. 이를 **사슬 법칙(chain rule)**이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+P(X_1, X_2)           &amp;= P(X_1) P(X_2 | X_1) \\
+P(X_1, X_2, X_3)      &amp;= P(X_3 | X_1, X_2) P(X_1, X_2) \\
+                      &amp;= P(X_1) P(X_2 | X_1) P(X_3 | X_1, X_2) \\
+P(X_1, X_2, X_3, X_4) &amp;= P(X_4 | X_1, X_2, X_3) P(X_1, X_2, X_3) \\
+                      &amp;= P(X_1) P(X_2 | X_1) P(X_3 | X_1, X_2) P(X_4 | X_1, X_2, X_3) \\
+                      &amp; \vdots  \\
+P(X_1, \dots, X_N)    &amp;= P(X_1) \prod_{i=2}^{N} P( X_{i} | X_1, \dots X_{i-1})
+\end{aligned}
+\tag{6.5.21}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id12">
+<h2>확률변수<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>**확률적인 숫자 값을 출력하는 변수를 확률변수(random variable)**라고 한다. 확률변수에 대한 더 수학적인 정의는 이후에 다시 공부할 것이다. 여기에서는 주사위처럼 어떤 숫자가 나올 수 있지만 정확히 어떤 숫자가 나올지 예측할 수는 없는 기계라고 생각하면 된다. 확률변수는 보통 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>처럼 알파벳 대문자로 표기한다.</p>
+<p>위의 범인 찾기 문제에서는 두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>를 정의할 수 있다. 확률변수 <span class="math notranslate nohighlight">\(X\)</span>는 성별을 나타내고 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>는 머리카락이 긴지 짧은지를 나타낸다.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X=0\)</span>인 경우가 사건 <span class="math notranslate nohighlight">\(A\)</span> (남자인 사건)</p></li>
+<li><p><span class="math notranslate nohighlight">\(X=1\)</span>인 경우가 사건 <span class="math notranslate nohighlight">\(A^C\)</span> (여자인 사건)</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y=0\)</span>인 경우가 사건 <span class="math notranslate nohighlight">\(B\)</span> (머리카락이 긴 사건)</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y=1\)</span>인 경우가 사건 <span class="math notranslate nohighlight">\(B^C\)</span> (머리카락이 짧은 사건)</p></li>
+</ul>
+<p>확률변수는 확률분포를 그 안에 내포하고 있어서 그 확률분포에 따라 숫자를 출력할 수 있다.  확률변수 <span class="math notranslate nohighlight">\(X\)</span>가 가진 확률을 확률변수의 확률 <span class="math notranslate nohighlight">\(P(X)\)</span>라고 한다.
+위 예에서 확률변수 <span class="math notranslate nohighlight">\(X\)</span>는 사건 <span class="math notranslate nohighlight">\(A\)</span>와 사건 <span class="math notranslate nohighlight">\(A^C\)</span>를 가질 수 있고 각 사건에 할당된 확률은 다음과 같은 표로 나타낼 수 있다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 값</p></th>
+<th class="head"><p>확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 사건</p></th>
+<th class="head"><p>각 사건에 할당된 확률</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>X=0</p></td>
+<td><p><span class="math notranslate nohighlight">\(A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0) = P(A) = \dfrac{12}{20}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>X=1</p></td>
+<td><p><span class="math notranslate nohighlight">\(A^C\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=1) = P(A^C) = \dfrac{8}{20}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>결합확률의 확률분포는 각 확률변수가 가질 수 있는 값의 조합으로 나타난다. 예를 들어 확률변수 <span class="math notranslate nohighlight">\(X\)</span>는 사건 <span class="math notranslate nohighlight">\(A\)</span>와 사건 <span class="math notranslate nohighlight">\(A^C\)</span>를 가질 수 있고 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>는 사건 <span class="math notranslate nohighlight">\(B\)</span>와 사건 <span class="math notranslate nohighlight">\(B^C\)</span>를 가질 수 있으므로 두 사건의 조합에 대한 결합확률은 다음 표와 같이 표현한다. 이 표에서 확률값은 머리카락 긴 남자가 3명인 경우(경우 1)에서 구한 값이다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(X\)</span>의 값</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y\)</span>의 값</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(X\)</span>의 사건</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y\)</span>의 사건</p></th>
+<th class="head"><p>각 사건의 조합에 할당된 확률</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>X=0</p></td>
+<td><p>Y=0</p></td>
+<td><p><span class="math notranslate nohighlight">\(A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(B\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0,Y=0) = P(A, B) = \dfrac{3}{20}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>X=0</p></td>
+<td><p>Y=1</p></td>
+<td><p><span class="math notranslate nohighlight">\(A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(B^C\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0,Y=1) = P(A, B^C) = \dfrac{9}{20}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>X=1</p></td>
+<td><p>Y=0</p></td>
+<td><p><span class="math notranslate nohighlight">\(A^C\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(B\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=1,Y=0) = P(A^C, B) = \dfrac{7}{20}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>X=1</p></td>
+<td><p>Y=1</p></td>
+<td><p><span class="math notranslate nohighlight">\(A^C\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(B^C\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=1,Y=1) = P(A^C, B^C) = \dfrac{1}{20}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>가 가질 수 있는 모든 사건의 조합에 대해 독립이 성립하면 두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>가 <strong>독립</strong>이라고 한다. 위 결합확률 표에서 주변확률의 곱을 구해서 결합확률과 비교해보면 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>는 독립이 아니라는 것을 알 수 있다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(X\)</span>의 값</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y\)</span>의 값</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(X\)</span>의 확률</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y\)</span>의 확률</p></th>
+<th class="head"><p>주변확률의 곱</p></th>
+<th class="head"><p>결합확률</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>X=0</p></td>
+<td><p>Y=0</p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)=0.6\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(Y=0)=0.5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)P(Y=0)=0.3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0,Y=0)=\dfrac{3}{20}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>X=0</p></td>
+<td><p>Y=1</p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)=0.6\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(Y=0)=0.5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)P(Y=0)=0.3\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0,Y=0)=\dfrac{9}{20}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>X=1</p></td>
+<td><p>Y=0</p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)=0.4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(Y=0)=0.5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)P(Y=0)=0.2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0,Y=0)=\dfrac{7}{20}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>X=1</p></td>
+<td><p>Y=1</p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)=0.4\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(Y=0)=0.5\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0)P(Y=0)=0.2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(P(X=0,Y=0)=\dfrac{1}{20}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id13">
+<h3>연습 문제 6.5.5<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>(경우 2)에 대해 위와 같은 표를 완성하고 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>가 독립임을 보여라.</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>피지엠파이 패키지<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>pgmpy(Probabilistic Graphical Models in Python) 패키지를 사용하면 이산확률모형을 쉽게 구현할 수 있다. 피지엠파이 패키지는 다음 명령으로 설치한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pgmpy</span>
+</pre></div>
+</div>
+<p>피지엠파이 패키지의 <code class="docutils literal notranslate"><span class="pre">JointProbabilityDistribution</span></code> 클래스는 결합확률 모형을 만드는 데 사용하는 클래스다. 사용법은 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">JointProbabilityDistribution</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">cardinality</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">variables</span></code>: 확률변수의 이름 문자열의 리스트. 정의하려는 확률변수가 하나인 경우에도 리스트로 넣어야 한다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cardinality</span></code>: 각 확률변수의 표본 혹은 배타적 사건의 수의 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>: 확률변수의 모든 표본(조합)에 대한 (결합)확률값의 리스트</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">variables</span></code>에 들어가는 인수가 사건의 이름이 아니라 확률변수의 이름이라는 점에 주의하라. pgmpy에서는 사건의 이름을 명시적으로 지정할 수 없고 입력한 사건의 수가 <span class="math notranslate nohighlight">\(K\)</span>일 때, <span class="math notranslate nohighlight">\(0, 1, \ldots, K-1\)</span>와 같이 숫자로 지정된다.</p>
+<p>범인 찾기 예제에서 성별을 나타내는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 머리카락 길이를 나타내는 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>의 확률을 다음과 같이 표로 정의할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pgmpy.factors.discrete</span> <span class="kn">import</span> <span class="n">JointProbabilityDistribution</span> <span class="k">as</span> <span class="n">JPD</span>
+
+<span class="n">px</span> <span class="o">=</span> <span class="n">JPD</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">px</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+--------+
+| X    |   P(X) |
++======+========+
+| X(0) | 0.6000 |
++------+--------+
+| X(1) | 0.4000 |
++------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>연습 문제 6.5.6<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>위의 범인 찾기 문제의 예에서 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>의 확률을  <code class="docutils literal notranslate"><span class="pre">JointProbabilityDistribution</span></code> 클래스 객체 <code class="docutils literal notranslate"><span class="pre">py</span></code>로 구현하라.</p>
+<p>확률변수 <span class="math notranslate nohighlight">\(X\)</span>와 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>의 결합확률은 다음처럼 정의한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pxy</span> <span class="o">=</span> <span class="n">JPD</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pxy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+------+----------+
+| X    | Y    |   P(X,Y) |
++======+======+==========+
+| X(0) | Y(0) |   0.1500 |
++------+------+----------+
+| X(0) | Y(1) |   0.4500 |
++------+------+----------+
+| X(1) | Y(0) |   0.3500 |
++------+------+----------+
+| X(1) | Y(1) |   0.0500 |
++------+------+----------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>연습 문제 6.5.7<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>위의 범인 찾기 문제의 예에서 남자 12명 중 머리카락이 긴 사람이 6명인 경우(경우 2)의 결합확률 모형을 <code class="docutils literal notranslate"><span class="pre">JointProbabilityDistribution</span></code> 클래스 객체 <code class="docutils literal notranslate"><span class="pre">pxy2</span></code>로 구현하라.</p>
+<p><code class="docutils literal notranslate"><span class="pre">JointProbabilityDistribution</span></code> 클래스는 결합확률로부터 주변확률을 계산하는 <code class="docutils literal notranslate"><span class="pre">marginal_distribution()</span></code> 메서드, <code class="docutils literal notranslate"><span class="pre">marginalize()</span></code> 메서드와 조건부확률을 계산하는 <code class="docutils literal notranslate"><span class="pre">conditional_distribution()</span></code> 메서드를 제공한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">marginal_distribution</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>: 주변확률을 구할 확률변수의 이름 문자열 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inplace</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code>이면 객체 자신을 주변확률 모형으로 변화시킨다. <code class="docutils literal notranslate"><span class="pre">False</span></code>면 주변확률 모형 객체를 반환한다.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">marginalize</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>: 어떤 확률변수의 주변확률을 구하기 위해 없앨 확률변수의 이름 문자열 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inplace</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code>이면 객체 자신을 주변확률 모형으로 변화시킨다. <code class="docutils literal notranslate"><span class="pre">False</span></code>면 주변확률 모형 객체를 반환한다.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conditional_distribution</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>: 주변확률을 구할 확률변수의 이름 문자열과 값을 묶은 튜플의 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inplace</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code>이면 객체 자신을 조건부확률 모형으로 변화시킨다. <code class="docutils literal notranslate"><span class="pre">False</span></code>면 조건부확률 모형 객체를 반환한다.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">marginal_distribution()</span></code> 메서드는 인수로 받은 확률변수에 대한 주변확률분포를 구한다. 다음 코드는 결합확률로부터 주변확률 <span class="math notranslate nohighlight">\(P(A)\)</span>, <span class="math notranslate nohighlight">\(P(A^C)\)</span>를 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmx</span> <span class="o">=</span> <span class="n">pxy</span><span class="o">.</span><span class="n">marginal_distribution</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pmx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+--------+
+| X    |   P(X) |
++======+========+
+| X(0) | 0.6000 |
++------+--------+
+| X(1) | 0.4000 |
++------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">marginalize()</span></code> 메서드는 인수로 받은 확률변수를 주변화(marginalize)하여 나머지 확률변수에 대한 주변확률분포를 구한다. 다음 코드도 앞과 마찬가지로 결합확률로부터 주변확률 <span class="math notranslate nohighlight">\(P(A)\)</span>, <span class="math notranslate nohighlight">\(P(A^C)\)</span>를 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmx</span> <span class="o">=</span> <span class="n">pxy</span><span class="o">.</span><span class="n">marginalize</span><span class="p">([</span><span class="s1">&#39;Y&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pmx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+--------+
+| X    |   P(X) |
++======+========+
+| X(0) | 0.6000 |
++------+--------+
+| X(1) | 0.4000 |
++------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음 코드는 결합확률로부터 주변확률 <span class="math notranslate nohighlight">\(P(B)\)</span>, <span class="math notranslate nohighlight">\(P(B^C)\)</span>를 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py</span> <span class="o">=</span> <span class="n">pxy</span><span class="o">.</span><span class="n">marginal_distribution</span><span class="p">([</span><span class="s1">&#39;Y&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">py</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+--------+
+| Y    |   P(Y) |
++======+========+
+| Y(0) | 0.5000 |
++------+--------+
+| Y(1) | 0.5000 |
++------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">conditional_distribution()</span></code> 메서드를 사용하면 어떤 확률변수가 어떤 사건이 되는 조건에 대해 조건부확률값을 계산한다. 다음 코드는 결합확률로부터 조건부확률 <span class="math notranslate nohighlight">\(P(B|A)\)</span>, <span class="math notranslate nohighlight">\(P(B^C|A)\)</span>를 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py_on_x0</span> <span class="o">=</span> <span class="n">pxy</span><span class="o">.</span><span class="n">conditional_distribution</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 사건 A에 대한 조건부확률</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">py_on_x0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+--------+
+| Y    |   P(Y) |
++======+========+
+| Y(0) | 0.2500 |
++------+--------+
+| Y(1) | 0.7500 |
++------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음 코드는 결합확률로부터 조건부확률 <span class="math notranslate nohighlight">\(P(B|A^C)\)</span>, <span class="math notranslate nohighlight">\(P(B^C|A^C)\)</span>를 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">py_on_x1</span> <span class="o">=</span> <span class="n">pxy</span><span class="o">.</span><span class="n">conditional_distribution</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">py_on_x1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+--------+
+| Y    |   P(Y) |
++======+========+
+| Y(0) | 0.8750 |
++------+--------+
+| Y(1) | 0.1250 |
++------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음 코드는 결합확률로부터 조건부확률 <span class="math notranslate nohighlight">\(P(A|B)\)</span>, <span class="math notranslate nohighlight">\(P(A^C|B)\)</span>를 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">px_on_y0</span> <span class="o">=</span> <span class="n">pxy</span><span class="o">.</span><span class="n">conditional_distribution</span><span class="p">([(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 사건 B에 대한 조건부확률</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">px_on_y0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+--------+
+| X    |   P(X) |
++======+========+
+| X(0) | 0.3000 |
++------+--------+
+| X(1) | 0.7000 |
++------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">check_independence()</span></code> 메서드를 이용하면 두 확률변수 간의 독립도 확인할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pxy</span><span class="o">.</span><span class="n">check_independence</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p>두 개의 <code class="docutils literal notranslate"><span class="pre">JointProbabilityDistribution</span></code> 객체끼리 곱하면 두 분포가 독립이라는 가정하에 결합확률을 구한다. 이 값과 원래의 결합확률을 비교하면 독립이 아니라는 것을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">px</span> <span class="o">*</span> <span class="n">py</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pxy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+------+----------+
+| X    | Y    |   P(X,Y) |
++======+======+==========+
+| X(0) | Y(0) |   0.3000 |
++------+------+----------+
+| X(0) | Y(1) |   0.3000 |
++------+------+----------+
+| X(1) | Y(0) |   0.2000 |
++------+------+----------+
+| X(1) | Y(1) |   0.2000 |
++------+------+----------+
++------+------+----------+
+| X    | Y    |   P(X,Y) |
++======+======+==========+
+| X(0) | Y(0) |   0.1500 |
++------+------+----------+
+| X(0) | Y(1) |   0.4500 |
++------+------+----------+
+| X(1) | Y(0) |   0.3500 |
++------+------+----------+
+| X(1) | Y(1) |   0.0500 |
++------+------+----------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>연습 문제 6.5.8<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>위에서 구현한 <code class="docutils literal notranslate"><span class="pre">JointProbabilityDistribution</span></code> 클래스 객체 <code class="docutils literal notranslate"><span class="pre">pxy2</span></code>로부터 주변확률 모형 및 조건부확률 모형을 구하라. 또 <code class="docutils literal notranslate"><span class="pre">check_independence()</span></code> 메서드를 이용하여 사건 A, B의 독립을 확인하라.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

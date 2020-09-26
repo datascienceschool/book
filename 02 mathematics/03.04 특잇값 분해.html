@@ -1,0 +1,1740 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.4 특잇값 분해 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/03.04 특잇값 분해.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/03.04 특잇값 분해.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/03.04 특잇값 분해.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   특잇값과 특이벡터
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   특이값 분해 행렬의 크기
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   특잇값 분해의 축소형
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   파이썬을 사용한 특이분해
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 3.4.1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   특잇값과 특이벡터의 관계
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     연습 문제 3.4.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   특이분해와 고유분해의 관계
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     연습 문제 3.4.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id14">
+   1차원 근사
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   1차원 근사의 풀이
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   일반적인 풀이
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
+   랭크-1 근사문제
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k">
+   <span class="math notranslate nohighlight">
+    \(K\)
+   </span>
+   차원 근사
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   랭크-K 근사문제
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>3.4 특잇값 분해<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>정방행렬은 고유분해로 고윳값과 고유벡터를 찾을 수 있었다. 정방행렬이 아닌 행렬은 고유분해가 불가능하다. 하지만 대신 고유분해와 비슷한 특이분해를 할 수 있다.</p>
+<div class="section" id="id2">
+<h2>특잇값과 특이벡터<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(N \times M\)</span> 크기의 행렬 <span class="math notranslate nohighlight">\(A\)</span>를 다음과 같은 3개의 행렬의 곱으로 나타내는 것을 <strong>특이분해(singular-decomposition)</strong> 또는 **특잇값 분해(singular value decomposition)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A = U\Sigma V^T 
+\tag{3.4.1}
+\end{align}
+\]</div>
+<p>여기에서 <span class="math notranslate nohighlight">\(U, \Sigma, V\)</span>는 다음 조건을 만족해야 한다.</p>
+<ul class="simple">
+<li><p>대각성분이 양수인 대각행렬이어야 한다. 큰 수부터 작은 수 순서로 배열한다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Sigma \in \mathbf{R}^{N \times M}
+\tag{3.4.2}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(U\)</span>는 <span class="math notranslate nohighlight">\(N\)</span>차원 정방행렬로 모든 열벡터가 단위벡터이고 서로 직교해야 한다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+U \in \mathbf{R}^{N \times N}
+\tag{3.4.3}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(V\)</span>는 <span class="math notranslate nohighlight">\(M\)</span>차원 정방행렬로 모든 열벡터가 단위벡터이고 서로 직교해야 한다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+V \in \mathbf{R}^{M \times M}
+\tag{3.4.4}
+\end{align}
+\]</div>
+<p>위 조건을 만족하는 행렬 <span class="math notranslate nohighlight">\(\Sigma\)</span>의 대각성분들을 <strong>특잇값(singular value)</strong>, 행렬 <span class="math notranslate nohighlight">\(U\)</span>의 열벡터들을 <strong>왼쪽 특이벡터</strong>(left singular vector), 행렬 <span class="math notranslate nohighlight">\(V\)</span>의 행벡터들을 <strong>오른쪽 특이벡터</strong>(right singular vector)라고 부른다.</p>
+<blockquote>
+<div><p><strong>[정리] 특이분해는 모든 행렬에 대해 가능하다. 즉 어떤 행렬이 주어지더라도 위와 같이 특이분해할 수 있다.</strong></p>
+</div></blockquote>
+<p>증명은 이 책의 범위를 벗어나므로 생략한다.</p>
+</div>
+<div class="section" id="id3">
+<h2>특이값 분해 행렬의 크기<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><strong>특잇값의 개수는 행렬의 열과 행의 개수 중 작은 값과 같다.</strong> 특이분해된 형태를 구체적으로 쓰면 다음과 같다.</p>
+<p>만약 <span class="math notranslate nohighlight">\(N &gt; M\)</span>이면 <span class="math notranslate nohighlight">\(\Sigma\)</span> 행렬이 <span class="math notranslate nohighlight">\(M\)</span>개의 특잇값(대각성분)을 가지고 다음처럼 아랫 부분이 영행렬이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = 
+\begin{bmatrix}
+\boxed{\begin{matrix} \\ \\ \\ \\ \\ \, u_1 \, \\ \\ \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \\ \\ \, u_2 \, \\ \\ \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \\ \\ \, u_3 \, \\ \\ \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\cdots \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \\ \\  u_M  \\ \\ \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp;
+\cdots \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \\ \\ u_N \\ \\ \\ \\ \\ \\ \end{matrix}} 
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\sigma_1 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \boxed{\sigma_2 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 0 &amp; \boxed{\sigma_3 \phantom{\dfrac{}{}} \!\!} &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; \boxed{\sigma_M \phantom{\dfrac{}{}} \!\!} \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp;  &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\begin{matrix} &amp; &amp; &amp; v_1^T &amp; &amp; &amp; \end{matrix}} \\ 
+\boxed{\begin{matrix} &amp; &amp; &amp; v_2^T &amp; &amp; &amp; \end{matrix}} \\ 
+\vdots \\ 
+\boxed{\begin{matrix} &amp; &amp; &amp; v_M^T &amp; &amp; &amp; \end{matrix}} \\ 
+\end{bmatrix}
+\tag{3.4.5}
+\end{align}
+\end{split}\]</div>
+<p>반대로 <span class="math notranslate nohighlight">\(N &lt; M\)</span>이면 <span class="math notranslate nohighlight">\(\Sigma\)</span> 행렬이 <span class="math notranslate nohighlight">\(N\)</span>개의 특잇값(대각성분)을 가지고 다음처럼 오른쪽 부분이 영행렬이 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = 
+\begin{bmatrix}
+\boxed{\begin{matrix} \\ \\ \\ \, u_1 \, \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \, u_2 \, \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\cdots \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ u_N \\ \\ \\ \\ \end{matrix}} 
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\sigma_1 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \boxed{\sigma_2 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 0 &amp; \boxed{\sigma_3 \phantom{\dfrac{}{}} \!\!} &amp; \cdots &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; \boxed{\sigma_N \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; \cdots &amp; 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_1^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_2^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_3^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\vdots \\ 
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_N^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\vdots \\ 
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_M^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\end{bmatrix}
+\tag{3.4.6}
+\end{align}
+\end{split}\]</div>
+<p>행렬의 크기만 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\ \\ \\ \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+\; &amp;   &amp; \; \\
+\; &amp;   &amp; \; \\
+\; &amp; A &amp; \; \\
+\; &amp;   &amp; \; \\
+\; &amp;   &amp; \; \\
+\end{matrix}
+}}^{\large M}
+=
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\ \\ \\ \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+\; &amp; &amp; &amp; &amp; \quad \\
+\; &amp; &amp; &amp; &amp; \quad \\
+\; &amp; &amp; \; U &amp; &amp; \quad \\
+\; &amp; &amp; &amp; &amp; \quad \\
+\; &amp; &amp; &amp; &amp; \quad \\
+\end{matrix}
+}}^{\large N}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+&amp; &amp; \\
+&amp; &amp; \\
+&amp; \Sigma &amp; \\
+&amp; &amp; \\
+&amp; &amp; \\
+\end{matrix}
+}}^{\large M}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+\; &amp;   &amp; \; \\
+\; &amp; V^T &amp; \; \\
+\; &amp;   &amp; \; \\
+\end{matrix}
+}}^{\large M}
+\!\!\left.\phantom{\begin{matrix} \\ \\ \\ \end{matrix}}\right\}M
+\tag{3.4.7}
+\end{align}
+\end{split}\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\ \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\quad &amp; &amp; A &amp; &amp; \quad \\
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\end{matrix}
+}}^{\large M}
+=
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\  \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+\begin{matrix}
+\, &amp; &amp; \; \\
+\, &amp; U \; \\
+\, &amp; &amp; \; \\
+\end{matrix}
+\end{matrix}
+}}^{\large N}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\quad &amp; &amp; \Sigma &amp; &amp; \quad \\
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\end{matrix}
+}}^{\large M}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+\; &amp; &amp; &amp; &amp; \quad \\
+\; &amp; &amp; &amp; &amp; \quad \\
+\; &amp; &amp; \; V^T &amp; &amp; \quad \\
+\; &amp; &amp; &amp; &amp; \quad \\
+\; &amp; &amp; &amp; &amp; \quad \\
+\end{matrix}
+}}^{\large M}
+\!\!\left.\phantom{\begin{matrix} \\ \\ \\\\ \\ \end{matrix}}\right\}M
+\tag{3.4.8}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id4">
+<h3>예제<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+3 &amp; -1 \\
+1 &amp; 3 \\
+1 &amp; 1
+\end{bmatrix}
+\tag{3.4.9}
+\end{align}
+\end{split}\]</div>
+<p>는 다음처럼 특이분해할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+ -\frac{1}{\sqrt{6}} &amp;  \frac{2}{\sqrt{5}} &amp; -\frac{1}{\sqrt{6}} \\ 
+ -\frac{2}{\sqrt{6}} &amp; -\frac{1}{\sqrt{5}} &amp;  -\frac{2}{\sqrt{30}} \\ 
+ -\frac{1}{\sqrt{6}} &amp; 0 &amp;  \frac{5}{\sqrt{30}}
+\end{bmatrix}
+\begin{bmatrix}
+\sqrt{12} &amp; 0        \\
+       0  &amp; \sqrt{10} \\
+       0 &amp; 0 
+\end{bmatrix}
+\begin{bmatrix}
+-\frac{1}{\sqrt{2}} &amp; -\frac{1}{\sqrt{2}} \\
+ \frac{1}{\sqrt{2}} &amp; -\frac{1}{\sqrt{2}} 
+\end{bmatrix}
+\tag{3.4.10}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>특잇값 분해의 축소형<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>특잇값 대각행렬에서 0인 부분은 사실상 아무런 의미가 없기 때문에 대각행렬의 0 원소 부분과 이에 대응하는 왼쪽(혹은 오른쪽) 특이벡터들을 없애고 다음처럼 축소된 형태로 해도 마찬가지로 원래 행렬이 나온다.</p>
+<p><span class="math notranslate nohighlight">\(N\)</span>이 <span class="math notranslate nohighlight">\(M\)</span>보다 큰 경우에는 왼쪽 특이벡터 중에서 <span class="math notranslate nohighlight">\(u_{M+1}, \cdots, u_N\)</span>을 없앤다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = 
+\begin{bmatrix}
+\boxed{\begin{matrix} \\ \\ \\ \\ \\ \, u_1 \, \\ \\ \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \\ \\ \, u_2 \, \\ \\ \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\cdots \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \\ \\  u_M  \\ \\ \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp;
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\sigma_1 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \boxed{\sigma_2 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 0 &amp; \boxed{\sigma_3 \phantom{\dfrac{}{}} \!\!} &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; \boxed{\sigma_M \phantom{\dfrac{}{}} \!\!} \\
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\begin{matrix} &amp; &amp; &amp; v_1^T &amp; &amp; &amp; \end{matrix}} \\ 
+\boxed{\begin{matrix} &amp; &amp; &amp; v_2^T &amp; &amp; &amp; \end{matrix}} \\ 
+\vdots \\ 
+\boxed{\begin{matrix} &amp; &amp; &amp; v_M^T &amp; &amp; &amp; \end{matrix}} \\ 
+\end{bmatrix}
+\tag{3.4.11}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(N\)</span>이 <span class="math notranslate nohighlight">\(M\)</span>보다 작은 경우에는 오른쪽 특이벡터 중에서 <span class="math notranslate nohighlight">\(v_{N+1}, \cdots, v_M\)</span>을 없앤다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = 
+\begin{bmatrix}
+\boxed{\begin{matrix} \\ \\ \\ \, u_1 \, \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ \, u_2 \, \\ \\ \\ \\ \end{matrix}} \!\!\!\!&amp; 
+\cdots \!\!\!\!&amp; 
+\boxed{\begin{matrix} \\ \\ \\ u_N \\ \\ \\ \\ \end{matrix}} 
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\sigma_1 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \boxed{\sigma_2 \phantom{\dfrac{}{}} \!\!} &amp; 0 &amp; \cdots &amp; 0  \\
+0 &amp; 0 &amp; \boxed{\sigma_3 \phantom{\dfrac{}{}} \!\!} &amp; \cdots &amp; 0  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; \boxed{\sigma_N \phantom{\dfrac{}{}} \!\!}  \\
+\end{bmatrix}
+\begin{bmatrix}
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_1^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_2^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\vdots \\ 
+\boxed{\begin{matrix} \quad &amp; \quad &amp; \quad &amp; v_N^T &amp; \quad &amp; \quad &amp; \quad \end{matrix}} \\ 
+\end{bmatrix}
+\tag{3.4.12}
+\end{align}
+\end{split}\]</div>
+<p>축소형의 경우에도 행렬의 크기만 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\ \\ \\ \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+\; &amp;   &amp; \; \\
+\; &amp;   &amp; \; \\
+\; &amp; A &amp; \; \\
+\; &amp;   &amp; \; \\
+\; &amp;   &amp; \; \\
+\end{matrix}
+}}^{\large M}
+=
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\ \\ \\ \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+&amp; &amp; \\
+&amp; &amp; \\
+&amp; U &amp; \\
+&amp; &amp; \\
+&amp; &amp; \\
+\end{matrix}
+}}^{\large M}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+\; &amp;   &amp; \; \\
+\; &amp; \Sigma &amp; \; \\
+\; &amp;   &amp; \; \\
+\end{matrix}
+}}^{\large M}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+\; &amp;   &amp; \; \\
+\; &amp; V^T &amp; \; \\
+\; &amp;   &amp; \; \\
+\end{matrix}
+}}^{\large M}
+\!\!\left.\phantom{\begin{matrix} \\ \\ \\ \end{matrix}}\right\}M
+\tag{3.4.13}
+\end{align}
+\end{split}\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\ \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\quad &amp; &amp; A &amp; &amp; \quad \\
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\end{matrix}
+}}^{\large M}
+=
+N\;\left\{\phantom{\begin{matrix} \\ \\ \\  \end{matrix}}\right.\!\!
+\overbrace{
+\boxed{
+\begin{matrix}
+\begin{matrix}
+\, &amp; &amp; \; \\
+\, &amp; U \; \\
+\, &amp; &amp; \; \\
+\end{matrix}
+\end{matrix}
+}}^{\large N}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+\, &amp; &amp; \; \\
+\, &amp; \Sigma \; \\
+\, &amp; &amp; \; \\
+\end{matrix}
+}}^{\large N}
+\;
+\overbrace{
+\boxed{
+\begin{matrix}
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\quad &amp; &amp; V^T &amp; &amp; \quad \\
+\quad &amp; &amp;   &amp; &amp; \quad \\
+\end{matrix}
+}}^{\large M}
+\!\!\left.\phantom{\begin{matrix} \\ \\ \\ \end{matrix}}\right\}N
+\tag{3.4.14}
+\end{align}
+\end{split}\]</div>
+<div class="section" id="id6">
+<h3>예제<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+3 &amp; -1 \\
+1 &amp; 3 \\
+1 &amp; 1
+\end{bmatrix}
+\tag{3.4.15}
+\end{align}
+\end{split}\]</div>
+<p>의 특이분해 축소형은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+ -\frac{1}{\sqrt{6}} &amp;  \frac{2}{\sqrt{5}} \\ 
+ -\frac{2}{\sqrt{6}} &amp; -\frac{1}{\sqrt{5}} \\ 
+ -\frac{1}{\sqrt{6}} &amp; 0 
+\end{bmatrix}
+\begin{bmatrix}
+\sqrt{12} &amp; 0        \\
+       0  &amp; \sqrt{10} \\
+\end{bmatrix}
+\begin{bmatrix}
+-\frac{1}{\sqrt{2}} &amp; -\frac{1}{\sqrt{2}} \\
+ \frac{1}{\sqrt{2}} &amp; -\frac{1}{\sqrt{2}} 
+\end{bmatrix}
+\tag{3.4.16}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>파이썬을 사용한 특이분해<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>numpy.linalg 서브패키지와 scipy.linalg 서브패키지에서는 특이분해를 할 수 있는 <code class="docutils literal notranslate"><span class="pre">svd()</span></code> 명령을 제공한다. 오른쪽 특이행렬은 전치행렬로 출력된다는 점에 주의하라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">svd</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">f2f232bcc7d5</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">svd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-4.08248290e-01,  8.94427191e-01, -1.82574186e-01],
+       [-8.16496581e-01, -4.47213595e-01, -3.65148372e-01],
+       [-4.08248290e-01, -2.06937879e-16,  9.12870929e-01]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.46410162, 3.16227766])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[3.46410162, 0.        ],
+       [0.        , 3.16227766],
+       [0.        , 0.        ]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">VT</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.70710678, -0.70710678],
+       [ 0.70710678, -0.70710678]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">@</span> <span class="n">VT</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 3., -1.],
+       [ 1.,  3.],
+       [ 1.,  1.]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>축소형을 구하려면 인수 <code class="docutils literal notranslate"><span class="pre">full_matrices=False</span></code>로 지정한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U2</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="n">VT2</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-4.08248290e-01,  8.94427191e-01],
+       [-8.16496581e-01, -4.47213595e-01],
+       [-4.08248290e-01, -2.06937879e-16]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.46410162, 3.16227766])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">VT2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.70710678, -0.70710678],
+       [ 0.70710678, -0.70710678]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U2</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S2</span><span class="p">)</span> <span class="o">@</span> <span class="n">VT2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 3., -1.],
+       [ 1.,  3.],
+       [ 1.,  1.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>연습 문제 3.4.1<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>NumPy를 사용하여 다음 행렬을 특잇값 분해를 한다(축소형이 아닌 방법과 축소형 방법을 각각 사용한다). 또한 다시 곱해서 원래의 행렬이 나오는 것을 보여라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+B =
+\begin{bmatrix}
+3 &amp; 2 &amp; 2 \\
+2 &amp; 3 &amp; -2
+\end{bmatrix}
+\tag{3.4.17}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+C =
+\begin{bmatrix}
+2 &amp; 4 \\
+1 &amp; 3 \\
+0 &amp; 0 \\
+0 &amp; 0 \\
+\end{bmatrix}
+\tag{3.4.18}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>특잇값과 특이벡터의 관계<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>행렬 <span class="math notranslate nohighlight">\(V\)</span>는 정규직교(orthonormal)행렬이므로 전치행렬이 역행렬이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+V^T = V^{-1}
+\tag{3.4.19}
+\end{align}
+\]</div>
+<p>특이분해된 등식의 양변에 <span class="math notranslate nohighlight">\(V\)</span>를 곱하면,</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+AV = U\Sigma V^TV = U\Sigma
+\tag{3.4.20}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A 
+\begin{bmatrix}
+v_1 &amp; v_2 &amp; \cdots &amp; v_M
+\end{bmatrix}
+= 
+\begin{bmatrix}
+u_1 &amp; u_2 &amp; \cdots &amp; u_N
+\end{bmatrix}
+\begin{bmatrix}
+\sigma_1 &amp; 0 &amp; \cdots \\
+0 &amp; \sigma_2 &amp; \cdots \\
+\vdots &amp; \vdots &amp; \ddots \\
+\end{bmatrix}
+\tag{3.4.21}
+\end{align}
+\end{split}\]</div>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span>를 곱하여 정리하면 <span class="math notranslate nohighlight">\(M\)</span>이 <span class="math notranslate nohighlight">\(N\)</span>보다 클 때는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\begin{bmatrix}
+Av_1 &amp; Av_2 &amp; \cdots &amp; Av_N
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\sigma_1u_1 &amp; \sigma_2u_2 &amp; \cdots &amp; \sigma_Nu_N
+\end{bmatrix}
+\tag{3.4.22}
+\end{align}
+\]</div>
+<p>이 되고 <span class="math notranslate nohighlight">\(N\)</span>이 <span class="math notranslate nohighlight">\(M\)</span>보다 클 때는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\begin{bmatrix}
+Av_1 &amp; Av_2 &amp; \cdots &amp; Av_M
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\sigma_1u_1 &amp; \sigma_2u_2 &amp; \cdots &amp; \sigma_Mu_M
+\end{bmatrix}
+\tag{3.4.23}
+\end{align}
+\]</div>
+<p>이 된다.</p>
+<p>즉, <span class="math notranslate nohighlight">\(i\)</span>번째 특잇값 <span class="math notranslate nohighlight">\(\sigma_i\)</span>와 특이벡터 <span class="math notranslate nohighlight">\(u_i\)</span>, <span class="math notranslate nohighlight">\(v_i\)</span>는 다음과 같은 관계가 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+Av_i = \sigma_i u_i \;\; (i=1, \ldots, \text{min}(M,N))
+\tag{3.4.24}
+\end{align}
+\]</div>
+<p>이 관계는 고유분해와 비슷하지만 고유분해와는 달리 좌변과 우변의 벡터가 다르다.</p>
+<div class="section" id="id10">
+<h3>예제<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>위에서 예로 들었던 행렬의 경우,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+3 &amp; -1 \\
+1 &amp; 3 \\
+1 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+-\frac{1}{\sqrt{2}} \\
+-\frac{1}{\sqrt{2}} 
+\end{bmatrix}
+=
+\sqrt{12}
+\begin{bmatrix}
+-\frac{1}{\sqrt{6}} \\ -\frac{2}{\sqrt{6}} \\ -\frac{1}{\sqrt{6}}
+\end{bmatrix}
+\tag{3.4.25}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{bmatrix}
+3 &amp; -1 \\
+1 &amp; 3 \\
+1 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+ \frac{1}{\sqrt{2}} \\
+-\frac{1}{\sqrt{2}} 
+\end{bmatrix}
+=
+\sqrt{10}
+\begin{bmatrix}
+ \frac{2}{\sqrt{5}} \\  
+-\frac{1}{\sqrt{5}} \\ 
+ 0 \\ 
+\end{bmatrix}
+\tag{3.4.26}
+\end{align}
+\end{split}\]</div>
+<p>가 성립한다.</p>
+</div>
+<div class="section" id="id11">
+<h3>연습 문제 3.4.2<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>NumPy를 사용하여 다음 행렬에 대해</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+Av_i = \sigma_i u_i
+\tag{3.4.27}
+\end{align}
+\]</div>
+<p>가 성립한다는 것을 계산으로 보여라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+B =
+\begin{bmatrix}
+3 &amp; 2 &amp; 2 \\
+2 &amp; 3 &amp; -2
+\end{bmatrix}
+\tag{3.4.28}
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+C =
+\begin{bmatrix}
+2 &amp; 4 \\
+1 &amp; 3 \\
+0 &amp; 0 \\
+0 &amp; 0 \\
+\end{bmatrix}
+\tag{3.4.29}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>특이분해와 고유분해의 관계<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span>의 분산행렬 <span class="math notranslate nohighlight">\(A^TA^{}\)</span>는</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+A^TA^{} 
+= (V^{} \Sigma^T U^T)( U^{}\Sigma^{} V^T) 
+= V^{} \Lambda^{} V^T 
+\tag{3.4.30}
+\end{align}
+\]</div>
+<p>가 되어 행렬 <span class="math notranslate nohighlight">\(A\)</span>의 특잇값의 제곱(과 0)이 분산행렬 <span class="math notranslate nohighlight">\(A^TA^{}\)</span>의 고유값, <strong>행렬 <span class="math notranslate nohighlight">\(A\)</span>의 오른쪽 특이벡터가 분산행렬 <span class="math notranslate nohighlight">\(A^TA^{}\)</span>의 고유벡터</strong>가 된다.</p>
+<p>위 식에서 <span class="math notranslate nohighlight">\(\Lambda\)</span>은 <span class="math notranslate nohighlight">\(N\)</span>이 <span class="math notranslate nohighlight">\(M\)</span>보다 크면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\Lambda
+= 
+\begin{bmatrix}
+\sigma_1^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma_2^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma_M^2  \\
+\end{bmatrix}
+\tag{3.4.31}
+\end{align}
+\end{split}\]</div>
+<p>이고 <span class="math notranslate nohighlight">\(N\)</span>이 <span class="math notranslate nohighlight">\(M\)</span>보다 작으면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\Lambda
+= 
+\begin{bmatrix}
+\sigma_1^2 &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma_2^2 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma_N^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \cdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 0 &amp; \cdots &amp; 0 \\
+\end{bmatrix}
+= \text{diag}(\sigma_1^2, \sigma_2^2, \cdots, \sigma_N^2, 0, \cdots, 0)
+\tag{3.4.32}
+\end{align}
+\end{split}\]</div>
+<p>이다.</p>
+<p>마찬가지 방법으로 <strong>행렬 <span class="math notranslate nohighlight">\(A\)</span>의 왼쪽 특이벡터가 행렬 <span class="math notranslate nohighlight">\(AA^T\)</span>의 고유벡터</strong>가 된다는 것을 증명할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span>  <span class="c1"># A.T A의 고윳값</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([12., 10.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># A의 특잇값의 제곱</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([12., 10.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span>  <span class="c1"># A.T A의 고유벡터</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.70710678, -0.70710678],
+       [ 0.70710678,  0.70710678]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">VT</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># A의 오른쪽 특이벡터</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.70710678,  0.70710678],
+       [-0.70710678, -0.70710678]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>연습 문제 3.4.3<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>NumPy를 사용하여 행렬 <span class="math notranslate nohighlight">\(A\)</span>의 왼쪽 특이벡터가 행렬 <span class="math notranslate nohighlight">\(AA^T\)</span>의 고유벡터가 된다는 것을 보여라.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+3 &amp; -1 \\
+1 &amp; 3 \\
+1 &amp; 1
+\end{bmatrix}
+\tag{3.4.33}
+\end{align}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>1차원 근사<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>2차원 평면 위에 3개의 2차원 벡터 <span class="math notranslate nohighlight">\(a_1, a_2, a_3\)</span>가 있다. 원점을 지나면서 모든 점들과 가능한 한 가까이 있는 직선을 만들고 싶다면 직선의 방향을 어떻게 해야 할까? 직선의 방향을 나타내는 단위 벡터를 <span class="math notranslate nohighlight">\(w\)</span>라고 하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">black</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">}</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;kP&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">black</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;g:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;g:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.2</span><span class="p">],</span> <span class="p">[</span><span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.6</span><span class="p">],</span> <span class="s1">&#39;g:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$w$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$a_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$a_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$a_3$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.04 특잇값 분해_41_0.png" src="../_images/03.04 특잇값 분해_41_0.png" />
+</div>
+</div>
+<p>벡터 <span class="math notranslate nohighlight">\(w\)</span>와 점 <span class="math notranslate nohighlight">\(a_i\)</span>의 거리의 제곱은 다음처럼 계산할 수 있다.(연습 문제 3.1.9)</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Vert a_i^{\perp w}\Vert^2 = \Vert a_i\Vert^2 - \Vert a_i^{\Vert w}\Vert^2 = \Vert a_i\Vert^2 - (a_i^Tw)^2
+\tag{3.4.34}
+\end{align}
+\]</div>
+<p>벡터 <span class="math notranslate nohighlight">\(a_1, a_2, a_3\)</span>를 행벡터로 가지는 행렬 <span class="math notranslate nohighlight">\(A\)</span>를 가정하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = \begin{bmatrix} a_1^T \\ a_2^T \\ a_3^T \end{bmatrix}
+\tag{3.4.35}
+\end{align}
+\end{split}\]</div>
+<p>행벡터의 놈의 제곱의 합은 행렬의 놈이므로 모든 점들과의 거리의 제곱의 합은 행렬의 놈으로 계산된다. (연습 문제 2.3.2)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\sum_{i=1}^3 \Vert a_i^{\perp w}\Vert^2 
+&amp;= \sum_{i=1}^3 \Vert a_i\Vert^2 - \sum_{i=1}^3  (a_i^Tw)^2 \\
+&amp;= \Vert A \Vert^2 - \Vert Aw\Vert^2 \\
+\end{aligned}
+\tag{3.4.36}
+\end{align}
+\end{split}\]</div>
+<p>점 <span class="math notranslate nohighlight">\(a_i\)</span>의 위치가 고정되어 있으므로 행렬 <span class="math notranslate nohighlight">\(A\)</span>의 놈 값은 고정되어 있다. 따라서 이 값이 가장 작아지려면 <span class="math notranslate nohighlight">\(\Vert Aw\Vert^2\)</span>의 값이 가장 크게 만드는 <span class="math notranslate nohighlight">\(w\)</span>를 찾아야 한다.이 문제는 다음처럼 수식으로 쓸 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\arg\max_w \Vert Aw \Vert^2 
+\tag{3.4.37}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id15">
+<h2>1차원 근사의 풀이<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>위에서 예로 든 행렬 <span class="math notranslate nohighlight">\(A \in \mathbf{R}^{3 \times 2}\)</span>를 특이분해하면 2개의 특잇값, 왼쪽/오른쪽 특이벡터를 가진다. 이를 각각 다음처럼 이름붙인다.</p>
+<ul class="simple">
+<li><p>첫 번째 특잇값: <span class="math notranslate nohighlight">\(\sigma_1\)</span>, 첫 번째 왼쪽 특이벡터 <span class="math notranslate nohighlight">\(u_1 \in \mathbf{R}^{3}\)</span>, 첫 번째 오른쪽 특이벡터 <span class="math notranslate nohighlight">\(v_1 \in \mathbf{R}^{2}\)</span></p></li>
+<li><p>두 번째 특잇값: <span class="math notranslate nohighlight">\(\sigma_2\)</span>, 두 번째 왼쪽 특이벡터 <span class="math notranslate nohighlight">\(u_2 \in \mathbf{R}^{3}\)</span>, 두 번째 오른쪽 특이벡터 <span class="math notranslate nohighlight">\(v_2 \in \mathbf{R}^{2}\)</span></p></li>
+</ul>
+<p>첫 번째 특잇값 <span class="math notranslate nohighlight">\(\sigma_1\)</span>은 두 번째 특잇값 <span class="math notranslate nohighlight">\(\sigma_2\)</span>보다 같거나 크다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\sigma_1 \geq \sigma_2
+\tag{3.4.38}
+\end{align}
+\]</div>
+<p>또한 위에서 알아낸 것처럼 A에 오른쪽 특이벡터를 곱하면 왼쪽 특이벡터 방향이 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A v_1 = \sigma_1 u_1
+\tag{3.4.39}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+A v_2 = \sigma_2 u_2
+\tag{3.4.40}
+\end{align}
+\]</div>
+<p>오른쪽 특이벡터 <span class="math notranslate nohighlight">\(v_1, v_2\)</span>는 서로 직교하므로 (같은 방향이 아니라서) 선형독립이고 2차원 평면공간의 기저벡터가 될 수 있다.</p>
+<p>우리는 <span class="math notranslate nohighlight">\(\Vert Aw\Vert\)</span>의 값이 가장 크게 만드는 <span class="math notranslate nohighlight">\(w\)</span>를 찾아야 하는데 <span class="math notranslate nohighlight">\(w\)</span>는 2차원 벡터이므로 2차원 평면공간의 기저벡터인 <span class="math notranslate nohighlight">\(v_1, v_2\)</span>의 선형조합으로 표현할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+w = w_{1} v_1 + w_{2} v_2
+\tag{3.4.41}
+\end{align}
+\]</div>
+<p>단, <span class="math notranslate nohighlight">\(w\)</span>도 단위벡터이므로 <span class="math notranslate nohighlight">\(w_{1}, w_{2}\)</span>는 다음 조건을 만족해야 한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+w_{1}^2 + w_{2}^2 = 1
+\tag{3.4.42}
+\end{align}
+\]</div>
+<p>이때 <span class="math notranslate nohighlight">\(\Vert Aw\Vert\)</span>의 값은</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\Vert Aw\Vert^2 
+&amp;= \Vert A(w_{1} v_1 + w_{2} v_2)\Vert^2 \\
+&amp;= \Vert w_{1}Av_1 + w_{2}Av_2 \Vert^2 \\
+&amp;= \Vert w_{1} \sigma_1 u_1 + w_{2} \sigma_2 u_2 \Vert^2 \\
+&amp;= \Vert w_{1} \sigma_1 u_1 \Vert^2 + \Vert w_{2} \sigma_2 u_2 \Vert^2 \;\; \text{(orthogonal)} \\
+&amp;= w_{1}^2 \sigma_1^2 \Vert  u_1 \Vert^2 + w_{2}^2 \sigma_2^2 \Vert  u_2 \Vert^2 \\
+&amp;= w_{1}^2 \sigma_1^2 + w_{2}^2 \sigma_2^2  \;\; \text{(unit vector)}\\
+\end{aligned}
+\tag{3.4.43}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\sigma_1 &gt; \sigma_2 &gt; 0\)</span> 이므로 <span class="math notranslate nohighlight">\(w_{1}^2 + w_{2}^2 = 1\)</span>라는 조건을 만족하면서 위 값을 가장 크게 하는 <span class="math notranslate nohighlight">\(w_{1}, w_{2}\)</span>값은</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+w_{1} = 1, w_{2} = 0
+\tag{3.4.44}
+\end{align}
+\]</div>
+<p>이다. 즉, 첫 번째 오른쪽 특이벡터 방향으로 하는 것이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+w = v_1
+\tag{3.4.45}
+\end{align}
+\]</div>
+<p>이때 <span class="math notranslate nohighlight">\(\Vert Aw\Vert\)</span>는 첫 번째 특잇값이 된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Vert Aw\Vert = \Vert Av_1\Vert = \Vert \sigma_1 u_1\Vert = \sigma_1 \Vert u_1\Vert = \sigma_1
+\tag{3.4.46}
+\end{align}
+\]</div>
+<p>위에서 예로 들었던 행렬</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A = 
+\begin{bmatrix}
+3 &amp; -1 \\
+1 &amp; 3 \\
+1 &amp; 1
+\end{bmatrix}
+\tag{3.4.47}
+\end{align}
+\end{split}\]</div>
+<p>첫 번째 오른쪽 특이벡터</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+v_1 = 
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} \\
+\frac{\sqrt{2}}{2} \\
+\end{bmatrix}
+\tag{3.4.48}
+\end{align}
+\end{split}\]</div>
+<p>가 가장 거리의 합이 작은 방향이 된다. 그리고 이때의 거리의 제곱의 합은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\Vert A \Vert^2 - \Vert Aw\Vert^2
+=\Vert A \Vert^2 - \sigma_1^2
+\tag{3.4.49}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.999999999999998
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">black</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">}</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;kP&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">black</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;g:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;g:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$w$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$a_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$a_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$a_3$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.04 특잇값 분해_47_0.png" src="../_images/03.04 특잇값 분해_47_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>일반적인 풀이<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>만약 <span class="math notranslate nohighlight">\(N=3\)</span>이 아니라 일반적인 경우에는 다음처럼 풀 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\Vert Aw \Vert^2 
+&amp;= \sum_{i=1}^{N}  (a_i^Tw)^2 \\
+&amp;= \sum_{i=1}^{N}  (a_i^Tw)^T(a_i^Tw) \\
+&amp;= \sum_{i=1}^{N}  w^Ta_ia_i^Tw \\
+&amp;= w^T \left( \sum_{i=1}^{N}  a_ia_i^T \right) w \\
+&amp;= w^T A^TA w \\
+\end{aligned}
+\tag{3.4.50}
+\end{align}
+\end{split}\]</div>
+<p>분산행렬의 고유분해 공식을 이용하면,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+w^T A^TA w 
+&amp;= w^T V \Lambda V^T w \\
+&amp;= w^T \left( \sum_{i=1}^{M}  \sigma^2_iv_iv_i^T \right) w \\
+&amp;= \sum_{i=1}^{M}\sigma^2_i(w^Tv_i)(v_i^Tw) \\
+&amp;= \sum_{i=1}^{M}\sigma^2_i\Vert v_i^Tw\Vert^2 \\
+\end{aligned}
+\tag{3.4.51}
+\end{align}
+\end{split}\]</div>
+<p>이 된다. 이 식에서 <span class="math notranslate nohighlight">\(M\)</span>은 0이 아닌 특잇값 개수다.</p>
+<p>즉, 우리가 풀어야 할 문제는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\arg\max_w \Vert Aw \Vert^2 = \arg\max_w \sum_{i=1}^{M}\sigma^2_i\Vert v_i^Tw\Vert^2 
+\tag{3.4.52}
+\end{align}
+\]</div>
+<p>이 값을 가장 크게 하려면 <span class="math notranslate nohighlight">\(w\)</span>를 가장 큰 특잇값에 대응하는 오른쪽 고유벡터 <span class="math notranslate nohighlight">\(v_1\)</span>으로 해야 한다.</p>
+</div>
+<div class="section" id="id17">
+<h2>랭크-1 근사문제<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>또 <span class="math notranslate nohighlight">\(a_i\)</span>를 <span class="math notranslate nohighlight">\(w\)</span>에 투영한 벡터는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+a^{\Vert w}_i = (a_i^Tw)w
+\tag{3.4.53}
+\end{align}
+\]</div>
+<p>이므로 <span class="math notranslate nohighlight">\(w\)</span> 벡터를 이용하면 <span class="math notranslate nohighlight">\(N\)</span>개의 <span class="math notranslate nohighlight">\(M\)</span>차원 벡터 <span class="math notranslate nohighlight">\(a_1, a_2, \cdots, a_N\;(a_i \in \mathbf{R}^M)\)</span>를 1차원으로 투영(projection)하여 가장 비슷한 <span class="math notranslate nohighlight">\(N\)</span>개의 1차원 벡터 <span class="math notranslate nohighlight">\(a^{\Vert w}_1, a^{\Vert w}_2, \cdots, a^{\Vert w}_N\;(a^{\Vert w}_i \in \mathbf{R}^1)\)</span>를 만들 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A'=
+\begin{bmatrix}
+\left(a^{\Vert w}_1\right)^T \\
+\left(a^{\Vert w}_2\right)^T \\
+\vdots \\
+\left(a^{\Vert w}_N\right)^T
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_1^Tw^{}w^T \\
+a_2^Tw^{}w^T \\
+\vdots \\
+a_N^Tw^{}w^T
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_1^T \\
+a_2^T \\
+\vdots \\
+a_N^T
+\end{bmatrix}
+w^{}w^T
+=
+Aw^{}w^T
+\tag{3.4.54}
+\end{align}
+\end{split}\]</div>
+<p>이 답은 원래 행렬 <span class="math notranslate nohighlight">\(A\)</span>에 랭크-1 행렬 <span class="math notranslate nohighlight">\(w^{}w^T\)</span>를 곱해서 원래의 행렬 <span class="math notranslate nohighlight">\(A\)</span>와 가장 비슷한 행렬 <span class="math notranslate nohighlight">\(A'\)</span>을 만드는 문제와 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\arg\min_w \Vert A - A' \Vert = \arg\min_w \Vert A^{} - A^{}w^{}w^T \Vert 
+\tag{3.4.55}
+\end{align}
+\]</div>
+<p>따라서 문제를 **랭크-1 근사문제(rank-1 approximation problem)**라고도 한다.</p>
+</div>
+<div class="section" id="k">
+<h2><span class="math notranslate nohighlight">\(K\)</span>차원 근사<a class="headerlink" href="#k" title="Permalink to this headline">¶</a></h2>
+<p>이번에는 <span class="math notranslate nohighlight">\(N\)</span>개의 <span class="math notranslate nohighlight">\(M\)</span>차원 벡터 <span class="math notranslate nohighlight">\(a_1, a_2, \cdots, a_N\;(a_i \in \mathbf{R}^M)\)</span>를 1차원이 아니라 정규직교인 기저벡터 <span class="math notranslate nohighlight">\(w_1, w_2, \cdots, w_K\)</span>로 이루어진 <span class="math notranslate nohighlight">\(K\)</span>차원 벡터공간으로 투영하여 가장 비슷한 <span class="math notranslate nohighlight">\(N\)</span>개의 <span class="math notranslate nohighlight">\(K\)</span>차원 벡터 <span class="math notranslate nohighlight">\(a^{\Vert w}_1, a^{\Vert w}_2, \cdots, a^{\Vert w}_N\;\)</span>를 만들기 위한 정규직교 기저벡터 <span class="math notranslate nohighlight">\(w_1, w_2, \cdots, w_K\)</span>를 찾는 문제를 생각하자. 이 문제는 랭크-<span class="math notranslate nohighlight">\(K\)</span> 근사문제라고 한다.</p>
+<p>기저벡터행렬을 <span class="math notranslate nohighlight">\(W\)</span>라고 하자.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+W = \begin{bmatrix} w_1 &amp; w_2 &amp; \cdots &amp; w_K \end{bmatrix}
+\tag{3.4.56}
+\end{align}
+\]</div>
+<p>정규직교 기저벡터에 대한 벡터 <span class="math notranslate nohighlight">\(a_i\)</span>의 투영 <span class="math notranslate nohighlight">\(a^{\Vert w}_i\)</span>는 각 기저벡터에 대한 내적으로 만들 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+a^{\Vert w}_i 
+&amp;= 
+(a_i^Tw_1)w_1 +
+(a_i^Tw_2)w_2 +
+\cdots
++ (a_i^Tw_K)w_K \\
+\end{aligned}
+=
+\sum_{k=1}^K (a_i^Tw_k)w_k
+\tag{3.4.57}
+\end{align}
+\end{split}\]</div>
+<p>벡터 <span class="math notranslate nohighlight">\(a_1, a_2, \cdots, a_N\)</span>를 행벡터로 가지는 행렬 <span class="math notranslate nohighlight">\(A\)</span>를 가정하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+A = \begin{bmatrix} a_1^T \\ a_2^T \\ \vdots \\ a_N^T \end{bmatrix}
+\tag{3.4.58}
+\end{align}
+\end{split}\]</div>
+<p>모든 점들과의 거리의 제곱의 합은 다음처럼 행렬의 놈으로 계산할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\sum_{i=1}^N \Vert a_i^{\perp w}\Vert^2 
+&amp;= \sum_{i=1}^N \Vert a_i\Vert^2 - \sum_{i=1}^N \Vert a^{\Vert w}_i\Vert^2 \\
+&amp;= \Vert A \Vert^2 - \sum_{i=1}^N \Vert a^{\Vert w}_i\Vert^2 \\
+\end{aligned}
+\tag{3.4.59}
+\end{align}
+\end{split}\]</div>
+<p>행렬 <span class="math notranslate nohighlight">\(A\)</span>는 이미 주어져있으므로 이 값을 가장 작게 하려면 두 번째 항의 값을 가장 크게 하면 된다.
+두 번째 항은 K=1일 때와 같은 방법으로 분산행렬 형태로 바꿀 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\sum_{i=1}^N \Vert a^{\Vert w}_i\Vert^2 
+&amp;= \sum_{i=1}^N \sum_{k=1}^K \Vert (a_i^Tw_k)w_k \Vert^2 \\
+&amp;= \sum_{i=1}^N \sum_{k=1}^K \Vert a_i^Tw_k \Vert^2 \\
+&amp;= \sum_{k=1}^K w_k^T A^TA w_k \\
+\end{aligned}
+\tag{3.4.60}
+\end{align}
+\end{split}\]</div>
+<p>분산행렬의 고유분해를 사용하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\sum_{k=1}^K w_k^T A^TA w_k 
+&amp;= \sum_{k=1}^K w_k^T V \Lambda V^T w_k \\
+&amp;= \sum_{k=1}^K w_k^T \left( \sum_{i=1}^{M}  \sigma^2_iv_iv_i^T \right) w_k \\
+&amp;= \sum_{k=1}^K \sum_{i=1}^{M}\sigma^2_i\Vert v_i^Tw_k\Vert^2 \\
+\end{aligned}
+\tag{3.4.61}
+\end{align}
+\end{split}\]</div>
+<p>이 문제도 1차원 근사문제처럼 풀면 다음과 같은 답을 얻을 수 있다.</p>
+<blockquote>
+<div><p><strong>가장 큰 <span class="math notranslate nohighlight">\(K\)</span>개의 특잇값에 대응하는 오른쪽 특이벡터가 기저벡터일 때 가장 값이 커진다.</strong></p>
+</div></blockquote>
+</div>
+<div class="section" id="id18">
+<h2>랭크-K 근사문제<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>우리가 찾아야 하는 것은 이 값을 가장 크게 하는 <span class="math notranslate nohighlight">\(K\)</span>개의 영벡터가 아닌 직교하는 단위벡터 <span class="math notranslate nohighlight">\(w_k\)</span>이다. 고유분해의 성질로부터 <strong>오른쪽 기저벡터 중 가장 큰 <span class="math notranslate nohighlight">\(K\)</span>개의 특잇값에 대응하는 오른쪽 특이벡터가 우리가 찾는 기저벡터가 된다.</strong></p>
+<p>이 문제는 다음처럼 랭크-<span class="math notranslate nohighlight">\(K\)</span> 근사문제의 형태로 만들 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+a^{\Vert w}_i 
+&amp;= 
+(a_i^Tw_1)w_1 +
+(a_i^Tw_2)w_2 +
+\cdots
++ (a_i^Tw_K)w_K \\
+&amp;=
+\begin{bmatrix} w_1 &amp; w_2 &amp; \cdots &amp; w_K \end{bmatrix}
+\begin{bmatrix} a_i^Tw_1 \\ a_i^Tw_2 \\ \vdots \\ a_i^Tw_K \end{bmatrix} \\
+&amp;=
+\begin{bmatrix} w_1 &amp; w_2 &amp; \cdots &amp; w_K \end{bmatrix}
+\begin{bmatrix} w_1^T \\ w_2^T \\ \vdots \\ w_K^T \end{bmatrix} a_i \\
+&amp;=
+WW^Ta_i
+\end{aligned}
+\tag{3.4.62}
+\end{align}
+\end{split}\]</div>
+<p>이러한 투영벡터를 모아놓은 행렬 <span class="math notranslate nohighlight">\(A'\)</span>는</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+A'=
+\begin{bmatrix}
+\left(a^{\Vert w}_1\right)^T \\
+\left(a^{\Vert w}_2\right)^T \\
+\vdots \\
+\left(a^{\Vert w}_N\right)^T
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_1^TW^{}W^T \\
+a_2^TW^{}W^T\\
+\vdots \\
+a_N^TW^{}W^T
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_1^T \\
+a_2^T \\
+\vdots \\
+a_N^T
+\end{bmatrix}
+W^{}W^T
+=
+AW^{}W^T
+\tag{3.4.63}
+\end{align}
+\end{split}\]</div>
+<p>따라서 이 문제는 원래 행렬 <span class="math notranslate nohighlight">\(A\)</span>에 랭크-K 행렬 <span class="math notranslate nohighlight">\(W_{}W^T\)</span>를 곱해서 원래의 행렬 <span class="math notranslate nohighlight">\(A\)</span>와 가장 비슷한 행렬 <span class="math notranslate nohighlight">\(A'\)</span>을 만드는 문제와 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\arg\min_{w_1,\cdots,w_K} \Vert A - AW^{}W^T \Vert 
+\tag{3.4.64}
+\end{align}
+\]</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

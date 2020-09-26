@@ -1,0 +1,481 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파이썬 조건문 기초 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/02.05 파이썬 조건문 기초.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/02.05 파이썬 조건문 기초.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/02.05 파이썬 조건문 기초.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#if-else">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     if
+    </span>
+    <span class="pre">
+     ~
+    </span>
+    <span class="pre">
+     else
+    </span>
+   </code>
+   명령
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     연습 문제 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     연습 문제 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#if-elif-else">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     if
+    </span>
+    <span class="pre">
+     ~
+    </span>
+    <span class="pre">
+     elif
+    </span>
+    <span class="pre">
+     ~
+    </span>
+    <span class="pre">
+     else
+    </span>
+   </code>
+   명령
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     연습 문제 3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   중첩 조건문
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 5
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>파이썬 조건문 기초<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="if-else">
+<h2><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">~</span> <span class="pre">else</span></code> 명령<a class="headerlink" href="#if-else" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">~</span> <span class="pre">else</span></code> 명령을 사용하면 조건에 따라 다른 명령을 수행할 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">~</span> <span class="pre">else</span></code> 명령은 다음과 같이 만든다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">참</span> <span class="n">또는</span> <span class="n">거짓을</span> <span class="n">가지는</span> <span class="n">값</span><span class="p">:</span>
+    <span class="n">조건이</span> <span class="n">참일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령들</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">조건이</span> <span class="n">거짓일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령들</span>
+</pre></div>
+</div>
+<p>이때 주의할 점은 참 또는 거짓일 때 실행되는 명령들은 빈칸을 4칸 띄우고 써야 한다. 이를 들여쓰기(indentation)라고 한다(들여쓰기에 대해서는 다시 자세히 설명하겠다). “참 또는 거짓을 가지는 값”은 조건(condition)이라고 부른다. 예를 들어, 어떤 수가 짝수인지 홀수인지는 2로 나눈 나머지를 보면 알 수 있다. 즉, 2로 나눈 나머지가 0이면 짝수이고 아니면 홀수이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;짝수&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;홀수&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>홀수
+</pre></div>
+</div>
+</div>
+</div>
+<p>만약 어떤 수가 2자리 수의 짝수인지 알고 싶다면 다음과 같이 조건문을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="mi">55</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">b</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">b</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2자리 수의 짝수이다.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2자리 수의 짝수가 아니다.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2자리 수의 짝수가 아니다.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>연습 문제 1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>a 를 짝수로 하여 위의 코드를 다시 실행한다.</p></li>
+<li><p>b 를 다른 수로 하여 위의 코드를 다시 실행한다.</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h3>연습 문제 2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>변수 y의 값이 윤년이면 “윤년입니다”를 출력하고 아니라면 “윤년이 아닙니다”라고 출력하는 프로그램을 만든다. 윤년은 2월 29일이 있는 해로 다음과 같이 정해진다.</p>
+<ul class="simple">
+<li><p>서력 기원 연수가 4로 나누어 떨어지는 해는 윤년으로 한다(2004년, 2008년, 2012년, 2016년, 2020년, 2024년, …).</p></li>
+<li><p>이 중에서 100으로 나누어 떨어지는 해는 평년으로 한다(1900년, 2100년, 2200년, 2300년, 2500년, …).</p></li>
+<li><p>이 중에서 400으로 나누어 떨어지는 해는 윤년으로 둔다(1600년, 2000년, 2400년, …).</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="if-elif-else">
+<h2><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">~</span> <span class="pre">elif</span> <span class="pre">~</span> <span class="pre">else</span></code> 명령<a class="headerlink" href="#if-elif-else" title="Permalink to this headline">¶</a></h2>
+<p>조건으로 나누어야 할 경우의 수가 두 가지가 아니라 여러 가지일 때는 다음과 같이 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">~</span> <span class="pre">elif</span> <span class="pre">~</span> <span class="pre">else</span></code> 명령을 사용할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">조건1</span><span class="p">:</span>
+    <span class="n">조건1이</span> <span class="n">참일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령</span>
+<span class="k">elif</span> <span class="n">조건2</span><span class="p">:</span>
+    <span class="n">조건1이</span> <span class="n">거짓이고</span> <span class="n">조건2가</span> <span class="n">참일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령</span>
+<span class="k">elif</span> <span class="n">조건3</span><span class="p">:</span>
+    <span class="n">조건1과</span> <span class="n">조건2가</span> <span class="n">거짓이고</span> <span class="n">조건3가</span> <span class="n">참일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령</span>
+
+<span class="o">...</span><span class="p">(</span><span class="n">생략</span><span class="p">)</span><span class="o">...</span>
+
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">지금까지의</span> <span class="n">어떤</span> <span class="n">조건도</span> <span class="n">참이</span> <span class="n">아니면</span> <span class="n">실행되는</span> <span class="n">명령</span>
+</pre></div>
+</div>
+<p>만약 10문제를 보는 시험에서 8개 이상을 맞으면 성적이 “A”, 8개 미만이고 5개 이상을 맞으면 “B”, ” 5개 미만을 맞으면 “C”가 된다면 점수는 다음과 같이 계산할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="k">if</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>연습 문제 3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>위의 시험 성적 예제에서 <code class="docutils literal notranslate"><span class="pre">c</span></code>를 다른 수로 하여 다시 실행한다.</p>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 4<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>어떤 농장에서는 수박이 10kg이 넘으면 1등급, 그렇지 않고 7kg이 넘으면 2등급,, 그렇지 않고 4kg이 넘으면 3등급, 나머지는 4등급을 준다고 한다. 이 수박의 등급을 정하는 파이썬 코드를 작성한다.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>중첩 조건문<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>때로는 조건문 안에 조건문이 포함된 형태도 있다. 이러한 형태를 중첩(nesting)이라고 한다. 조건문 내부에 다시 조건문을 중첩하면 4칸을 더 들여써야 한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">조건1</span><span class="p">:</span>
+    <span class="n">조건1이</span> <span class="n">참일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령</span>
+    <span class="k">if</span> <span class="n">조건2</span><span class="p">:</span>
+        <span class="n">조건1과</span> <span class="n">조건2가</span> <span class="n">모두</span> <span class="n">참일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">조건1은</span> <span class="n">참이고</span> <span class="n">조건2는</span> <span class="n">거짓일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">조건1이</span> <span class="n">거짓일</span> <span class="n">때</span> <span class="n">실행되는</span> <span class="n">명령</span>
+</pre></div>
+</div>
+<p>예를 들어 중학교에서 팔굽혀펴기 시험을 보는데 남자는 10번 이상을 해야 합격(Pass)이고 아니면 불합격(Fail)이다. 여자는 5번 이상을 해야 합격이라면 다음과 같이 프로그램을 만들 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sex</span> <span class="o">=</span> <span class="s2">&quot;boy&quot;</span>
+<span class="n">pushup</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="k">if</span> <span class="n">sex</span> <span class="o">==</span> <span class="s2">&quot;boy&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pushup</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">grade</span> <span class="o">=</span> <span class="s2">&quot;Pass&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">grade</span> <span class="o">=</span> <span class="s2">&quot;Fail&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pushup</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">grade</span> <span class="o">=</span> <span class="s2">&quot;Pass&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">grade</span> <span class="o">=</span> <span class="s2">&quot;Fail&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">grade</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fail
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 5<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>‘죄수의 딜레마’는 게임 이론의 유명한 사례이다(자세한 내용은 위키피디아를 참조한다: https://ko.wikipedia.org/wiki/죄수의_딜레마). 두 명의 범죄자 A, B가 체포되어 서로 다른 취조실에서 격리되어 심문을 받고 있다. 이들에게 자백 여부에 따라 다음의 선택이 가능하다.</p>
+<ul class="simple">
+<li><p>둘 중 하나가 배신하여 죄를 자백하면 자백한 사람은 즉시 풀어주고 나머지 한 명이 10년을 복역해야 한다.</p></li>
+<li><p>둘 모두 서로를 배신하여 죄를 자백하면 둘 다 5년을 복역한다.</p></li>
+<li><p>둘 모두 죄를 자백하지 않으면 둘 다 1년을 복역한다.</p></li>
+</ul>
+<p>죄수를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">XA</span></code>, <code class="docutils literal notranslate"><span class="pre">XB</span></code>는 자백하면 <code class="docutils literal notranslate"><span class="pre">True</span></code>, 그렇지 않으면 <code class="docutils literal notranslate"><span class="pre">False</span></code>를 가지는 값이다. 이때 변수 <code class="docutils literal notranslate"><span class="pre">XA</span></code>, <code class="docutils literal notranslate"><span class="pre">XB</span></code> 값에 따라 각각이 복역해야 하는 연 수를 변수 <code class="docutils literal notranslate"><span class="pre">YA</span></code>, <code class="docutils literal notranslate"><span class="pre">YB</span></code>라고 할 때 <code class="docutils literal notranslate"><span class="pre">YA</span></code>, <code class="docutils literal notranslate"><span class="pre">YB</span></code>를 계산하는 프로그램을 만든다.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

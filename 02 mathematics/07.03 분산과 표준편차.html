@@ -1,0 +1,848 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.3 분산과 표준편차 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/07.03 분산과 표준편차.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/07.03 분산과 표준편차.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/07.03 분산과 표준편차.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   확률분포의 분산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   분산의 성질
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   두 확률변수의 합의 분산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   확률변수의 독립
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     연습 문제 7.3.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 7.3.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   표본평균의 분산
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 7.3.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   표본분산의 기댓값
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   비대칭도와 첨도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   모멘트
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>7.3 분산과 표준편차<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 확률분포함수의 모양을 설명하는 두 번째 특성인 분산을 공부한다. 분산은 확률분포함수에서 확률이 모여있는지 퍼져있는지를 나타내는 값이다. 기댓값이 확률변수에서 어떤 값이 나올지를 예측한 것이라면 분산은 그 예측의 정확도 혹은 신뢰성을 표현한 것이라고 볼 수 있다.</p>
+<div class="section" id="id2">
+<h2>확률분포의 분산<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>확률밀도함수 <span class="math notranslate nohighlight">\(p(x)\)</span>의 수식을 알고 있다면 이론적인 분산을 구할 수 있다. 분산을 구하는 연산은 영어 Variance의 앞글자를 따서 <span class="math notranslate nohighlight">\(\text{Var}[\cdot]\)</span>로 표기하고 이 연산으로 계산된 분산값은 <span class="math notranslate nohighlight">\(\sigma^2\)</span>으로 표기한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\sigma^2 = \text{Var}[X] = \text{E}[(X - \mu)^2] 
+\tag{7.3.1}
+\end{align}
+\]</div>
+<p>이산확률변수의 분산은 평균으로부터 표본 데이터까지 거리의 제곱을 확률질량함수 <span class="math notranslate nohighlight">\(p(x)\)</span>로 가중하여 더한 값이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\sigma^2 = \sum_{x_i \in \Omega} (x_i - \mu)^2 p(x_i)
+\tag{7.3.2}
+\end{align}
+\]</div>
+<p>연속확률변수의 분산은 평균으로부터 표본 데이터까지 거리의 제곱을 확률밀도함수 <span class="math notranslate nohighlight">\(p(x)\)</span>로 가중하여 적분한 값이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\sigma^2 = \int_{-\infty}^{\infty} (x - \mu)^2 p(x)dx
+\tag{7.3.3}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id3">
+<h2>분산의 성질<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>분산은 다음과 같은 성질을 만족한다.</p>
+<ul class="simple">
+<li><p>분산은 항상 0 또는 양수이다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{Var}[X] \geq 0
+\tag{7.3.4}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p>확률변수가 아닌 상수 값 <span class="math notranslate nohighlight">\(c\)</span>에 대해 다음 식이 성립한다.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{Var}[c] = 0
+\tag{7.3.5}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{Var}[cX] = c^2 \text{Var}[X]
+\tag{7.3.6}
+\end{align}
+\]</div>
+<p>또한 기댓값의 성질을 이용하여 다음 성질을 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{Var}[X] = \text{E}[X^2] - (\text{E}[X])^2  = \text{E}[X^2] - \mu^2 
+\tag{7.3.7}
+\end{align}
+\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{E}[X^2] = \mu^2 + \text{Var}[X] 
+\tag{7.3.8}
+\end{align}
+\]</div>
+<p>(증명)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\text{Var}[X] 
+&amp;= \text{E}[(X - \mu)^2] \\
+&amp;= \text{E}[X^2 - 2\mu X + \mu^2] \\
+&amp;= \text{E}[X^2] - 2\mu\text{E}[X] + \mu^2 \\
+&amp;= \text{E}[X^2] - 2\mu^2 + \mu^2 \\
+&amp;= \text{E}[X^2] - \mu^2\\
+\end{aligned}
+\tag{7.3.9}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id4">
+<h2>두 확률변수의 합의 분산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>의 합의 분산은 각 확률변수의 분산의 합과 다음과 같은 관계가 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{Var}\left[ X + Y \right] =
+\text{Var}\left[ X \right] + \text{Var}\left[ Y \right]+ 2\text{E}\left[ (X-\mu_X)(Y-\mu_Y) \right]
+\tag{7.3.10}
+\end{align}
+\]</div>
+<p>마지막 항은 양수도 될 수 있고 음수도 될 수 있다.</p>
+<p>이 식의 증명은 다음과 같다. 우선 확률변수 <span class="math notranslate nohighlight">\(X+Y\)</span>의 기댓값은 기댓값의 성질로부터 각 확률변수의 기댓값의 합과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[X + Y] = \mu_X + \mu_Y
+\tag{7.3.11}
+\end{align}
+\]</div>
+<p>분산의 정의와 기댓값의 성질로부터 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\text{Var}\left[ X + Y \right] 
+&amp;= \text{E}\left[ (X + Y - (\mu_X + \mu_Y))^2 \right] \\
+&amp;= \text{E}\left[ ((X -\mu_X) + (Y - \mu_Y))^2 \right] \\
+&amp;= \text{E}\left[ (X -\mu_X)^2 + (Y - \mu_Y)^2 + 2(X-\mu_X)(Y-\mu_Y) \right] \\
+&amp;= \text{E}\left[ (X -\mu_X)^2 \right] + \text{E}\left[ (Y - \mu_Y)^2 \right] + 2\text{E}\left[ (X-\mu_X)(Y-\mu_Y) \right] \\
+&amp;= \text{Var}\left[ X \right] + \text{Var}\left[ Y \right] + 2\text{E}\left[ (X-\mu_X)(Y-\mu_Y) \right]
+\end{aligned}
+\tag{7.3.12}
+\end{align}
+\end{split}\]</div>
+</div>
+<div class="section" id="id5">
+<h2>확률변수의 독립<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>**두 확률변수가 서로 독립(independent)**이라는 것은 두 확률변수가 가질 수 있는 모든 사건의 조합에 대해 결합사건의 확률이 각 사건의 확률의 곱과 같다는 뜻이다. 쉽게 생각하면 <strong>두 확률변수가 서로에게 영향을 미치지 않는다</strong>라는 의미로 생각해도 된다. 예를 들어 주사위를 두 번 던져 각각 나오는 값을 나타내는 확률변수 <span class="math notranslate nohighlight">\(X_1\)</span>과 <span class="math notranslate nohighlight">\(X_2\)</span>는 서로 독립이다.</p>
+<p>독립의 반대, 즉 **두 확률변수에서 하나의 확률변수의 값이 특정한 값이면 다른 확률변수의 확률분포가 영향을 받아 변하게 되면 종속(dependent)**이라고 한다. 쉽게 생각하면 <strong>두 확률변수가 서로에게 영향을 미치는 경우</strong>이다. 예를 들어 주사위를 두 번 던져 나오는 값의 합은 각각의 주사위에서 나온 값에 종속적이다.</p>
+<div class="section" id="id6">
+<h3>연습 문제 7.3.1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>서로 독립이라고 생각되는 두 확률변수의 예를 들어라.</p></li>
+<li><p>서로 종속이라고 생각되는 두 확률변수의 예를 들어라.</p></li>
+</ol>
+<p>두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>가 서로 독립이면 다음 식이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{E}\left[ (X-\mu_X)(Y-\mu_Y) \right] = 0 
+\tag{7.3.13}
+\end{align}
+\]</div>
+<p>왜 이 등식이 성립하는가는 추후 설명하기로 한다. 이 등식을 이용하면 서로 독립인 두 확률변수의 합의 분산은 각 확률변수의 분산의 합과 같다는 것을 보일 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\text{Var}\left[ X + Y \right] =  \text{Var}\left[ X \right] + \text{Var}\left[ Y \right] 
+\tag{7.3.14}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 7.3.2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>넘파이를 사용하여 숫자 100개를 무작위로 생성하여 표본집합을 구한다. 이 표본집합을 확률변수 <span class="math notranslate nohighlight">\(X_1\)</span>의 표본이라고 하자.</p></li>
+<li><p>같은 방식으로 숫자 100개를 생성하며 확률변수 <span class="math notranslate nohighlight">\(X_2\)</span>의 표본집합을 구한다.</p></li>
+<li><p>두 확률변수의 표본 쌍의 값을 더하여 확률변수 <span class="math notranslate nohighlight">\(X_1 + X_2\)</span>의 표본집합을 구한다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_1 + X_2\)</span>의 표본분산과 <span class="math notranslate nohighlight">\(X_1\)</span>, <span class="math notranslate nohighlight">\(X_2\)</span>의 표본분산값의 합을 각각 계산하여 두 값이 비슷함을 보여라.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>표본평균의 분산<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 표본평균 <span class="math notranslate nohighlight">\(\bar{X}\)</span>도 확률변수이고 그 기댓값 <span class="math notranslate nohighlight">\(\text{E}[\bar{X}]\)</span>은 원래 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 기댓값 <span class="math notranslate nohighlight">\(\text{E}[{X}]\)</span>과 같다는 것을 증명한 적이 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[\bar{X}] = \text{E}[{X}]
+\tag{7.3.15}
+\end{align}
+\]</div>
+<p>표본평균 <span class="math notranslate nohighlight">\(\bar{X}\)</span>의 분산 <span class="math notranslate nohighlight">\(\text{Var}[\bar{X}]\)</span>은 원래 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 분산 <span class="math notranslate nohighlight">\(\text{Var}[{X}]\)</span>과 다음 관계를 가진다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{Var}[\bar{X}] = \dfrac{1}{N} \text{Var}[{X}]
+\tag{7.3.16}
+\end{align}
+\]</div>
+<p>따라서 <strong>표본평균을 계산한 표본 개수가 커지면 표본평균의 값의 변동은 작아진다</strong>. 표본의 수가 무한대가 되면 표본평균의 값은 항상 일정한 값이 나온다. 즉 확률적인 값이 아니라 결정론적인 값이 된다.</p>
+<p>증명은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\text{Var}[\bar{X}] 
+&amp;= \text{E} \left[ \left( \bar{X} -  \text{E} \left[ \bar{X} \right] \right)^2 \right] \\
+&amp;= \text{E} \left[ \left( \bar{X} -  \mu \right)^2 \right] \\
+&amp;= \text{E} \left[ \left( \dfrac{1}{N} \sum_{i=1}^N X_i - \mu \right)^2 \right] \\
+&amp;= \text{E} \left[ \left( \dfrac{1}{N} \sum_{i=1}^N X_i - \dfrac{1}{N}N\mu \right)^2 \right] \\
+&amp;= \text{E} \left[ \left( \dfrac{1}{N} \left( \sum_{i=1}^N X_i - N\mu \right) \right)^2 \right] \\
+&amp;= \text{E} \left[ \left( \dfrac{1}{N} \sum_{i=1}^N (X_i - \mu) \right)^2 \right] \\
+&amp;= \text{E} \left[ \dfrac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N (X_i - \mu) (X_j - \mu)  \right] \\
+&amp;= \dfrac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N \text{E} \left[  (X_i - \mu) (X_j - \mu)  \right] \\
+\end{aligned}
+\tag{7.3.17}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(i\)</span>번째 표본값은 <span class="math notranslate nohighlight">\(j\)</span>번째(<span class="math notranslate nohighlight">\(i\neq j\)</span>) 표본값에 영향을 미치지 않으므로 <span class="math notranslate nohighlight">\(X_i\)</span>와 <span class="math notranslate nohighlight">\(X_j\)</span> (<span class="math notranslate nohighlight">\( i \neq j \)</span>)는 독립이다. 따라서</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}\left[ (X_i-\mu)(X_j-\mu) \right] = 0 \;\; (i \neq j)
+\tag{7.3.18}
+\end{align}
+\]</div>
+<p>라는 사실을 이용하면 <span class="math notranslate nohighlight">\(i=j\)</span>인 항, 즉 제곱항만 남는다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{Var}[\bar{X}]
+&amp;= \dfrac{1}{N^2} \sum_{i=1}^N \text{E} \left[ (X_i - \mu)^2 \right] \\
+&amp;= \dfrac{1}{N^2} \sum_{i=1}^N \text{E} \left[ (X - \mu)^2 \right] \\
+&amp;= \dfrac{1}{N^2} N \text{E} \left[ (X - \mu)^2 \right] \\
+&amp;= \dfrac{1}{N} \text{E} \left[ (X - \mu)^2 \right] \\
+&amp;= \dfrac{1}{N} \text{Var}[X] \\
+\end{aligned}
+\tag{7.3.19}
+\end{align}
+\end{split}\]</div>
+<p>위 식이 의미하는 바는 다음과 같다.</p>
+<ul class="simple">
+<li><p>데이터를 생성하는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 기댓값을 구하려면 확률밀도함수 <span class="math notranslate nohighlight">\(p(x)\)</span>의 수식을 알아야 한다.</p></li>
+<li><p>그런데 우리는 데이터를 생성하는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 확률밀도함수 <span class="math notranslate nohighlight">\(p(x)\)</span>의 수식을 정확히 알지 못한다.</p></li>
+<li><p>하지만 표본평균이라는 새로운 확률변수 <span class="math notranslate nohighlight">\(\bar{X}\)</span>의 기댓값 <span class="math notranslate nohighlight">\(\text{E}[\bar{X}]\)</span>은 원래 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 기댓값 <span class="math notranslate nohighlight">\(\text{E}[X]\)</span>과 같으므로 표본평균 <span class="math notranslate nohighlight">\(\bar{x}\)</span>는 원래 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 기댓값 <span class="math notranslate nohighlight">\(\text{E}[X]\)</span>과 비슷한 값이 나올 것이다. 하지만 정확한 값은 아니다.</p></li>
+<li><p>만약 표본 개수 <span class="math notranslate nohighlight">\(N\)</span>이 크면 표본평균 <span class="math notranslate nohighlight">\(\bar{x}\)</span>의 분산이 아주 작아지므로 표본평균의 값 <span class="math notranslate nohighlight">\(\bar{x}\)</span>은 항상 표본평균의 기댓값 <span class="math notranslate nohighlight">\(\text{E}[\bar{X}]=\text{E}[X]\)</span> 근처의 거의 일정한 값이 나올 것이다.</p></li>
+<li><p>따라서 <strong>표본 개수 <span class="math notranslate nohighlight">\(N\)</span>가 크면 표본평균 <span class="math notranslate nohighlight">\(\bar{x}\)</span>은 원래 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 기댓값 <span class="math notranslate nohighlight">\(\text{E}[X]\)</span>의 근삿값</strong>이라고 할 수 있다.</p></li>
+</ul>
+<div class="section" id="id9">
+<h3>연습 문제 7.3.3<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>(1) 넘파이를 사용하여 숫자 100개를 무작위로 생성하여 표본집합을 구한다. 이 표본집합을 확률변수 <span class="math notranslate nohighlight">\(X_1\)</span>의 표본이라고 하자. <span class="math notranslate nohighlight">\(X_1\)</span>의 표본분산을 계산한다.</p>
+<p>(2) 같은 작업을 50번 반복하여 확률변수 <span class="math notranslate nohighlight">\(X_2, X_3, \ldots, X_{50}\)</span>의 표본집합을 구한다.</p>
+<p>(3) 확률변수 <span class="math notranslate nohighlight">\(X_i\)</span>의  표본집합의 표본평균 <span class="math notranslate nohighlight">\(\bar{x}_i\)</span>를 각각 계산한다. 이 값들은 표본평균 확률변수 <span class="math notranslate nohighlight">\(\bar{X}\)</span>의 표본집합이다.</p>
+<p>(4) 확률변수 <span class="math notranslate nohighlight">\(\bar{X}\)</span>의 표본분산값을 계산하고 <span class="math notranslate nohighlight">\(X_1\)</span>의 표본분산과의 비율을 계산한다.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>표본분산의 기댓값<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>앞에서 표본평균의 기댓값을 구하면 이론적인 평균 즉, 기댓값과 같아진다는 것을 증명했다.</p>
+<p>그런데 표본분산 <span class="math notranslate nohighlight">\(S^2\)</span>의 기대값을 구하면 이론적인 분산  <span class="math notranslate nohighlight">\(\sigma^2\)</span>과 같아지는 것이 아니라 이론적인 분산값의 <span class="math notranslate nohighlight">\(\frac{N - 1}{N}\)</span>배가 된다. 즉 표본분산값이 이론적인 분산값보다 더 작아진다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[S^2] = \dfrac{N-1}{N}\sigma^2 
+\tag{7.3.20}
+\end{align}
+\]</div>
+<p>증명은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\text{E}[S^2] 
+&amp;= \text{E} \left[ \dfrac{1}{N}\sum_{i=1}^N (X_i - \bar{X})^2 \right] 
+= \text{E} \left[ \dfrac{1}{N}\sum_{i=1}^N \left\{ (X_i -\mu) - (\bar{X} - \mu) \right \}^2  \right] \\
+&amp;= \text{E} \left[ \dfrac{1}{N}\sum_{i=1}^N \left\{ (X_i -\mu)^2 - 2 (X_i -\mu)(\bar{X} - \mu) +  (\bar{X} - \mu)^2 \right \}  \right] \\
+&amp;=  \text{E} \left[ \dfrac{1}{N} \sum_{i=1}^N (X_i -\mu)^2 \right] 
+  - 2 \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (X_i -\mu)(\bar{X} - \mu) } \right] 
+  +  \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (\bar{X} - \mu)^2 } \right] 
+\end{aligned} 
+\tag{7.3.21}
+\end{align}
+\end{split}\]</div>
+<p>이때 첫 번째 항은</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\text{E} \left[ \dfrac{1}{N} \sum_{i=1}^N (X_i -\mu)^2 \right] 
+&amp;= \text{E} \left[ \dfrac{1}{N} \sum_{i=1}^N (X -\mu)^2 \right] \\
+&amp;= \text{E} \left[ \dfrac{1}{N} N (X -\mu)^2 \right] \\
+&amp;= \text{E} \left[ (X -\mu)^2 \right] \\
+&amp;= \text{Var}[X] \\
+&amp;= \sigma^2 
+\end{aligned} 
+\tag{7.3.22}
+\end{align}
+\end{split}\]</div>
+<p>두 번째 항은</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (X_i -\mu)(\bar{X} - \mu) } \right] 
+&amp;= \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (X_i -\mu) \left( \dfrac{1}{N} \sum_{j=1}^N X_j - \mu \right) } \right]  \\
+&amp;= \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (X_i -\mu) \left( \dfrac{1}{N} \sum_{j=1}^N ( X_j - \mu ) \right) } \right]  \\
+&amp;= \text{E} \left[ { \dfrac{1}{N^2} \sum_{i=1}^N \sum_{j=1}^N (X_i -\mu)  ( X_j - \mu )} \right]  \\
+\end{aligned} 
+\tag{7.3.23}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(X_i\)</span>와 <span class="math notranslate nohighlight">\(X_j\)</span> (<span class="math notranslate nohighlight">\( i \neq j \)</span>)는 독립일 때,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}\left[ (X_i-\mu)(X_j-\mu) \right] = 0 \;\; (i \neq j)
+\tag{7.3.24}
+\end{align}
+\]</div>
+<p>라는 성질을 이용하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (X_i -\mu)(\bar{X} - \mu) } \right] 
+&amp;= \text{E} \left[ { \dfrac{1}{N^2} \sum_{i=1}^N  (X_i -\mu)^2} \right]  \\
+&amp;= \dfrac{1}{N} \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N  (X_i -\mu)^2} \right]  \\
+&amp;= \dfrac{1}{N} \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N  (X -\mu)^2} \right]  \\
+&amp;= \dfrac{1}{N} \text{E} \left[ { \dfrac{1}{N} N  (X -\mu)^2} \right]  \\
+&amp;= \dfrac{1}{N} \text{E} \left[ { (X -\mu)^2} \right]  \\
+&amp;= \dfrac{1}{N} \text{Var}[X] \\
+&amp;= \dfrac{\sigma^2}{N}
+\end{aligned} 
+\tag{7.3.25}
+\end{align}
+\end{split}\]</div>
+<p>세 번째 항은 다음과 같아진다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (\bar{X} - \mu)^2 } \right]
+&amp;= \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N \left( \dfrac{1}{N} \sum_{j=1}^N X_j - \mu \right)^2 } \right]  \\
+&amp;= \text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N \left( \dfrac{1}{N} \sum_{j=1}^N (X_j - \mu) \right)^2 } \right]  \\
+&amp;= \text{E} \left[ \dfrac{1}{N^3} \sum_{i=1}^N \sum_{j=1}^N \sum_{k=1}^N (X_j - \mu)(X_k - \mu)  \right]  \\
+\end{aligned} 
+\tag{7.3.26}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(X_j\)</span>와 <span class="math notranslate nohighlight">\(X_k\)</span> (<span class="math notranslate nohighlight">\( j \neq k \)</span>)는 독립일때,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}\left[ (X_j-\mu)(X_k-\mu) \right] = 0 \;\; (j \neq k)
+\tag{7.3.27}
+\end{align}
+\]</div>
+<p>라는 성질을 이용하면</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{E} \left[ { \dfrac{1}{N} \sum_{i=1}^N (\bar{X} - \mu)^2 } \right]
+&amp;= \text{E} \left[ \dfrac{1}{N^3} \sum_{i=1}^N \sum_{j=1}^N  (X_j - \mu)^2  \right]  \\
+&amp;= \text{E} \left[ \dfrac{1}{N^3} N \sum_{j=1}^N  (X_j - \mu)^2  \right]  \\
+&amp;= \text{E} \left[ \dfrac{1}{N^2} \sum_{j=1}^N  (X_j - \mu)^2  \right]  \\
+&amp;= \dfrac{1}{N}  \text{E} \left[ \dfrac{1}{N} \sum_{j=1}^N  (X_j - \mu)^2  \right]  \\
+&amp;= \dfrac{1}{N} \text{Var}[X] \\
+&amp;= \dfrac{\sigma^2}{N}
+\end{aligned} 
+\tag{7.3.28}
+\end{align}
+\end{split}\]</div>
+<p>따라서 세 항의 합은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{E}[S^2] = \sigma^2 - \dfrac{2\sigma^2}{N} + \dfrac{\sigma^2}{N} = \dfrac{N-1}{N}\sigma^2 
+\tag{7.3.29}
+\end{align}
+\]</div>
+<p>그러므로 표본분산의 기대값이 정확하게 <span class="math notranslate nohighlight">\(\sigma^2\)</span>이 되려면 평균과의 거리의 제곱의 평균을 구할 때 분모가 <span class="math notranslate nohighlight">\(N\)</span>이 아니라 <span class="math notranslate nohighlight">\(N-1\)</span>으로 써야 한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\sigma^2 
+&amp;= \dfrac{N}{N-1} \text{E}[S^2] \\
+&amp;= \dfrac{N}{N-1} \text{E} \left[ \dfrac{1}{N} \sum (X_i-\bar{X})^2 \right] \\
+&amp;= \text{E} \left[ \dfrac{1}{N-1} \sum (X_i-\bar{X})^2 \right]
+\end{aligned}
+\tag{7.3.30}
+\end{align}
+\end{split}\]</div>
+<p>따라서 기댓값이 정확한 분산값과 일치하는 비편향 표본분산은 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+S^2_{\text{unbiased}} \equiv \dfrac{1}{N-1} \sum (X_i-\bar{X})^2
+\tag{7.3.31}
+\end{align}
+\]</div>
+<p>이렇게 표본분산이 실제 분산보다 작아지는 이유는 다음과 같다.</p>
+<ol class="simple">
+<li><p>표본분산을 계산할 때 사용하는 표본평균의 값이 데이터가 많이 몰려있는 쪽으로 편향되게 나온다.</p></li>
+<li><p>이렇게 데이터가 몰려있는 위치에 있는 표본평균을 기준으로 각 데이터까지의 거리를 계산하면 원래의 기댓값으로부터의 거리보다 작게 나올 수 있다.</p></li>
+</ol>
+<p>실제 데이터로 예를 들어 살펴보자. 기댓값 <span class="math notranslate nohighlight">\(\mu=0\)</span>, 분산이 <span class="math notranslate nohighlight">\(\sigma^2=1\)</span>인 정규분포로부터 7개의 표본을 뽑는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">)))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="n">f4b0bdd08ad</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">)))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 표본의 표본평균은 약 -0.46이다. 우연히 음수인 표본이 많이 나오는 바람에 원래의 기댓값 0에서 음수쪽으로 떨어진 값이 나왔다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">mean</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.46494862738581794
+</pre></div>
+</div>
+</div>
+</div>
+<p>데이터와 표본평균의 위치를 그림으로 그리면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">rugplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;실제 기댓값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;표본평균&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.03 분산과 표준편차_33_0.png" src="../_images/07.03 분산과 표준편차_33_0.png" />
+</div>
+</div>
+<p>표본표준편차는 표본평균으로부터 각 데이터가 떨어진 거리(의 제곱)의 평균이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distance_from_sample_mean</span> <span class="o">=</span> <span class="n">data</span> <span class="o">-</span> <span class="n">mean</span>
+<span class="n">distance_from_sample_mean</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 0.80423333,  0.70051752,  0.30904009,  0.15262015, -0.03684105,
+       -0.63091342, -1.29865663])
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 거리들은 진짜 평균(기댓값)으로부터 각 데이터가 떨어진 거리보다 평균적으로 작게 나온다. 그 이유는 우리가 생각한 기댓값인 표본평균이 우연히 왼쪽으로 몰려나온 데이터들 중간에 있기 때문이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_variance</span> <span class="o">=</span> <span class="p">(</span><span class="n">distance_from_sample_mean</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sample_variance</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4774618257836171
+</pre></div>
+</div>
+</div>
+</div>
+<p>따라서 표본분산값은 정확한 분산값인 <span class="math notranslate nohighlight">\(1\)</span>보다 작은 값이다. <span class="math notranslate nohighlight">\(N-1\)</span>로 나누어 편향 보정한 값은 다음과 같다,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_variance</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5570387967475533
+</pre></div>
+</div>
+</div>
+</div>
+<p>주의할 점은 표본분산의 기댓값이 원래의 분산값보다 작은 값이 나오는 경향이 있다는 것이지 항상 원래의 분산값보다 작게 나온다는 뜻은 아니다.</p>
+</div>
+<div class="section" id="id11">
+<h2>비대칭도와 첨도<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>비대칭도(skew)는 3차 모멘트 값에서 계산하고 확률밀도함수의 비대칭 정도를 가리킨다. 비대칭도가 0이면 확률분포가 대칭이다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\operatorname{E}\left[\left(\frac{X-\mu}{\sigma}\right)^3 \right] = \frac{\mu_3}{\sigma^3}
+\tag{7.3.32}
+\end{align}
+\]</div>
+<p>첨도(kurtosis)는 4차 모멘트 값에서 계산하며 확률이 정규분포와 대비하여 중심에 모여있는지 바깥으로 퍼져있는지를 나타낸다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\operatorname{E}\left[\left(\frac{X-\mu}{\sigma}\right)^4 \right] = \frac{\mu_4}{\sigma^4}
+\tag{7.3.33}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id12">
+<h2>모멘트<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>앞서 구한 기댓값이나 분산은 확률분포의 **모멘트(moment)**의 하나다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mu_n = \operatorname{E}[(X-\mu)^n] = \int (x - \mu)^n p(x)dx
+\tag{7.3.34}
+\end{align}
+\]</div>
+<p>모멘트는 확률분포에서 계산한 특징값이다. 만약 두 확률분포 <span class="math notranslate nohighlight">\(X, Y\)</span>가 있고 1차부터 무한대 차수에 이르기까지 두 확률분포의 모든 모멘트값이 서로 같다면 두 확률분포는 같은 확률분포다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+\text{E}[X] &amp;= \text{E}[Y] \\
+\text{E}[(X-\mu_X)^2] &amp;= \text{E}[(Y-\mu_Y)^2] \\
+\text{E}[(X-\mu_X)^3] &amp;= \text{E}[(Y-\mu_Y)^3] \\
+\text{E}[(X-\mu_X)^4] &amp;= \text{E}[(Y-\mu_Y)^4] \\
+\text{E}[(X-\mu_X)^5] &amp;= \text{E}[(Y-\mu_Y)^5] \\
+ &amp; \vdots &amp; \\
+\end{aligned}
+\tag{7.3.35}
+\end{align}
+\end{split}\]</div>
+<p>이면</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+X \stackrel d= Y
+\tag{7.3.36}
+\end{align}
+\]</div>
+<p>이다. <span class="math notranslate nohighlight">\(\stackrel d=\)</span> 는 두 확률변수가 같은 분포(distribution)를 가진다는 것을 표시하는 기호다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

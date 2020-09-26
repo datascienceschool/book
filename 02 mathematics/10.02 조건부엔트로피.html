@@ -1,0 +1,925 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.2 조건부엔트로피 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/10.02 조건부엔트로피.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/10.02 조건부엔트로피.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/10.02 조건부엔트로피.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   결합엔트로피
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   조건부엔트로피
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   예측에 도움이 되는 경우
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   예측에 도움이 되지 않는 경우
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   조건부엔트로피를 사용한 스팸메일 분류문제
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   조건부엔트로피를 사용한 붓꽃 분류문제
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 10.2.1
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>10.2 조건부엔트로피<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 두 확률변수의 결합엔트로피와 조건부엔트로피를 정의하는 방법을 공부하고 분류문제에 어떻게 활용할 수 있는지 살펴본다.</p>
+<div class="section" id="id2">
+<h2>결합엔트로피<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>**결합엔트로피(joint entropy)**는 결합확률분포를 사용하여 정의한 엔트로피를 말한다.</p>
+<p>이산확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>에 대해 결합엔트로피는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[X, Y] = - \sum_{i=1}^{K_X} \sum_{j=1}^{K_Y} \,p(x_i, y_j) \log_2 p(x_i, y_j)
+\tag{10.2.1}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(K_X\)</span>, <span class="math notranslate nohighlight">\(K_Y\)</span>는 각각 X와 Y가 가질 수 있는 값의 개수고 <span class="math notranslate nohighlight">\(p\)</span>는 확률질량함수다.</p>
+<p>연속확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>에 대해 결합엔트로피는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[X, Y] = - \int_{x} \int_{y} \,p(x, y) \log_2 p(x, y)  \; dxdy
+\tag{10.2.2}
+\end{align}
+\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(p\)</span>는 확률밀도함수다.</p>
+<p>결합엔트로피도 결합확률분포라는 점만 제외하면 일반적인 엔트로피와 같다. 모든 경우에 대해 골고루 확률이 분포되어 있으면 엔트로피값이 커지고 특정한 한 가지 경우에 대해 확률이 모여있으면 엔트로피가 0에 가까와진다.</p>
+</div>
+<div class="section" id="id3">
+<h2>조건부엔트로피<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>**조건부엔트로피(conditional entropy)**는 어떤 확률변수 <span class="math notranslate nohighlight">\(X\)</span>가 다른 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>의 값을 예측하는데 도움이 되는지를 측정하는 방법 중의 하나다. 만약 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 값이 어떤 특정한 하나의 값을 가질 때 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>도 마찬가지로 특정한 값이 된다면 <span class="math notranslate nohighlight">\(X\)</span>로 <span class="math notranslate nohighlight">\(Y\)</span>를 예측할 수 있다. 반대로 확률변수 <span class="math notranslate nohighlight">\(X\)</span>의 값이 어떤 특정한 하나의 값을 가져도 확률변수 <span class="math notranslate nohighlight">\(Y\)</span>가 여러 값으로 골고루 분포되어 있다면 <span class="math notranslate nohighlight">\(X\)</span>는 <span class="math notranslate nohighlight">\(Y\)</span>의 값을 예측하는데 도움이 안된다.</p>
+<p>조건부엔트로피의 정의는 다음과 같이 유도한다. 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>가 모두 이산확률변수라고 가정하고 <span class="math notranslate nohighlight">\(X\)</span>가 특정한 값 <span class="math notranslate nohighlight">\(x_i\)</span>를 가질 때의 <span class="math notranslate nohighlight">\(Y\)</span>의 엔트로피 <span class="math notranslate nohighlight">\(H[Y \mid X=x_i]\)</span>는 다음처럼 조건부확률분포의 엔트로피로 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y \mid X=x_i] = - \sum_{j=1}^{K_Y} p(y_j \mid x_i)  \log_2 p(y_j \mid x_i) 
+\tag{10.2.3}
+\end{align}
+\]</div>
+<p>조건부엔트로피는 확률변수 <span class="math notranslate nohighlight">\(X\)</span>가 가질 수 있는 모든 경우에 대해 <span class="math notranslate nohighlight">\(H[Y \mid X=x_i]\)</span>를 가중평균한 값으로 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+H[Y \mid X] 
+&amp;= \sum_{i=1}^{K_X} \,p(x_i)\,H[Y \mid X=x_i]  \\ 
+&amp;= - \sum_{i=1}^{K_X} \sum_{j=1}^{K_Y} p(y_j \mid x_i)p(x_i)  \log_2 p(y_j \mid x_i)  \\
+&amp;= - \sum_{i=1}^{K_X} \sum_{j=1}^{K_Y} p(x_i, y_j)  \log_2 p(y_j \mid x_i)  \\
+\tag{10.2.4}
+\end{align}
+\end{split}\]</div>
+<p>연속확률변수의 경우에는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y \mid X=x] = - \int_{y} p(y \mid x)  \log_2 p(y \mid x)\; dy
+\tag{10.2.5}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+H[Y \mid X] 
+&amp;= - \int_{x} \,p(x) \,H[Y \mid X=x] \; dx \\
+&amp;= - \int_{x} p(x) \left( \int_{y} p(y \mid x)  \log_2 p(y \mid x)\; dy \right) \; dx   \\
+&amp;= - \int_{x} \int_{y} p(y \mid x_i) p(x) \log_2 p(y \mid x) \; dxdy \\
+&amp;= - \int_{x} \int_{y} \,p(x, y) \log_2 p(y \mid x) \; dxdy \\
+\tag{10.2.6}
+\end{align}
+\end{split}\]</div>
+<p>따라서 조건부엔트로피의 최종적인 수학적 정의는 다음과 같다.</p>
+<p>이산확률변수의 경우에는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[Y \mid X] = - \sum_{i=1}^{K_X} \sum_{j=1}^{K_Y} \,p(x_i, y_j) \log_2 p(y_j \mid x_i)
+\tag{10.2.7}
+\end{align}
+\]</div>
+<p>연속확률변수의 경우에는 다음처럼 정의한다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+H[Y \mid X] = - \int_{x} \int_{y} \,p(x, y) \log_2 p(y \mid x)  \; dxdy
+\tag{10.2.8}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id4">
+<h2>예측에 도움이 되는 경우<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>예를 들어  <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> 값의 관계가 다음과 같다고 하자.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span/></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 1\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(X = 0\)</span></p></td>
+<td><p>0.4</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(X = 1\)</span></p></td>
+<td><p>0.0</p></td>
+<td><p>0.6</p></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math notranslate nohighlight">\(X=0, X=1\)</span>일 때의 조건부확률분포는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(Y=0|X=0) = 1, \;\; P(Y=1|X=0) = 0
+\tag{10.2.9}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(Y=0|X=1) = 0, \;\; P(Y=1|X=1) =1
+\tag{10.2.10}
+\end{align}
+\]</div>
+<p>이때 <span class="math notranslate nohighlight">\(Y\)</span>의 엔트로피는 모두 0이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y \mid X=0] = 0
+\tag{10.2.11}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y \mid X=1] = 0
+\tag{10.2.12}
+\end{align}
+\]</div>
+<p>따라서 조건부엔트로피도 0이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y|X] = 0
+\tag{10.2.13}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">pXY</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pXY</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;조건부확률분포 p(Y|X=0)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;조건부확률분포 p(Y|X=1)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">w_pad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;조건부엔트로피 H[Y|X]=0&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/10.02 조건부엔트로피_11_0.png" src="../_images/10.02 조건부엔트로피_11_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>예측에 도움이 되지 않는 경우<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>예를 들어 두 확률변수 <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> 값의 관계가 다음과 같다고 하자. 이 경우 두 확률변수는 서로 독립이다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span/></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 1\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(X = 0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{9}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{2}{9}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(X = 1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{2}{9}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{4}{9}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math notranslate nohighlight">\(X=0, X=1\)</span>일 때의 조건부확률분포는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(Y=0|X=0) = \dfrac{1}{3}, \;\; P(Y=1|X=0) = \dfrac{2}{3}
+\tag{10.2.14}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+P(Y=0|X=1) = \dfrac{1}{3}, \;\; P(Y=1|X=1) = \dfrac{2}{3}
+\tag{10.2.15}
+\end{align}
+\]</div>
+<p>두 경우 모두 <span class="math notranslate nohighlight">\(Y\)</span>의 엔트로피는 약 0.92다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y \mid X=0] = H[Y \mid X=1] = -\frac{1}{3} \log_2 \frac{1}{3} -\frac{2}{3} \log_2 \frac{2}{3} \approx 0.92
+\tag{10.2.16}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">],</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9182958340544894
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 값을 가중평균하면 조건부엔트로피값은 똑같이 약 0.92다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+H[Y|X] = \frac{1}{3} H[Y \mid X=0] + \frac{2}{3} H[Y \mid X=1] \approx 0.92
+\tag{10.2.17}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">pXY</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">9</span><span class="p">]]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pXY</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;조건부확률분포 p(Y|X=0)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;조건부확률분포 p(Y|X=1)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">w_pad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;조건부엔트로피 H[Y|X]=0.92&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/10.02 조건부엔트로피_17_0.png" src="../_images/10.02 조건부엔트로피_17_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>조건부엔트로피를 사용한 스팸메일 분류문제<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>조건부엔트로피가 분류문제에 어떻게 도움이 되는지 알아보기 위해 스팸메일 분류문제를 살펴보자. 스팸메일 분류모형을 만들기 위한 학습용 메일 데이터가 80개 있다고 가정한다. 이 중 40개가 정상 메일(<span class="math notranslate nohighlight">\(Y=0\)</span>), 40개가 스팸 메일(<span class="math notranslate nohighlight">\(Y=1\)</span>)이다.</p>
+<p>스팸메일인지 아닌지를 특정 키워드가 존재하는지(<span class="math notranslate nohighlight">\(X=1\)</span>) 혹은 존재하지 않는지(<span class="math notranslate nohighlight">\(X=0\)</span>)의 여부로 알아보고자 한다. 키워드 후보로는 <span class="math notranslate nohighlight">\(X_1\)</span>, <span class="math notranslate nohighlight">\(X_2\)</span>, <span class="math notranslate nohighlight">\(X_3\)</span> 세가지가 있다.</p>
+<p><span class="math notranslate nohighlight">\(X_1\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>의 관계는 다음과 같다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span/></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 1\)</span></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(X_1 = 0\)</span></p></td>
+<td><p>30</p></td>
+<td><p>10</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(X_1 = 1\)</span></p></td>
+<td><p>10</p></td>
+<td><p>30</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+<td><p>80</p></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math notranslate nohighlight">\(X_2\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>의 관계는 다음과 같다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span/></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 1\)</span></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(X_2 = 0\)</span></p></td>
+<td><p>20</p></td>
+<td><p>40</p></td>
+<td><p>60</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(X_2 = 1\)</span></p></td>
+<td><p>20</p></td>
+<td><p>0</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+<td><p>80</p></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math notranslate nohighlight">\(X_3\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>의 관계는 다음과 같다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span/></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 0\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(Y = 1\)</span></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(X_3 = 0\)</span></p></td>
+<td><p>0</p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(X_3 = 1\)</span></p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+<td><p>80</p></td>
+</tr>
+</tbody>
+</table>
+<p>이 세가지 키워드 중 하나만 골라야 한다면 어떤 키워드가 가장 좋은 키워드인가? 당연히 <span class="math notranslate nohighlight">\(X_3\)</span>다. 그렇다면 <span class="math notranslate nohighlight">\(X_1\)</span>과 <span class="math notranslate nohighlight">\(X_2\)</span> 중에서는 누가 더 좋은 키워드인가?</p>
+<p>조건부엔트로피값을 사용하면 이 문제를 해결할 수 있다. 조건부엔트로피값이 가장 작아지는 것이 가장 좋은 키워드일 것이다.</p>
+<p><span class="math notranslate nohighlight">\(X_1,Y\)</span>의 조건부엔트로피는 다음과 같이 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+H[Y \mid X_1 ] 
+&amp;= p(X_1=0)\,H[Y \mid X_1=0] + p(X_1=1)\,H[Y \mid X_1=1] \\
+&amp;= \dfrac{40}{80} \cdot 0.81 + \dfrac{40}{80} \cdot 0.81 = 0.81
+\end{aligned}
+\tag{10.2.18}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(X_2,Y\)</span>의 조건부엔트로피는 다음과 같이 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+H[Y \mid X_2 ] 
+&amp;= p(X_2=0)\,H[Y \mid X_2=0] + p(X_2=1)\,H[Y \mid X_2=1] \\
+&amp;= \dfrac{60}{80} \cdot 0.92 + \dfrac{20}{80} \cdot 0 = 0.69
+\end{aligned}
+\tag{10.2.19}
+\end{align}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(X_3,Y\)</span>의 조건부엔트로피는 다음과 같이 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\begin{aligned}
+H[Y \mid X_3 ] 
+&amp;= p(X_3=0)\,H[Y \mid X_3=0] + p(X_3=1)\,H[Y \mid X_3=1]  = 0
+\end{aligned}
+\tag{10.2.20}
+\end{align}
+\]</div>
+<p>조건부엔트로피의 값으로부터 <span class="math notranslate nohighlight">\(X_2\)</span>가 <span class="math notranslate nohighlight">\(X_1\)</span>보다는 좋은 키워드임을 알 수 있다. 의사결정나무(decision tree)라는 분류모형은 조건부엔트로피를 사용하여 가장 좋은 특징값과 기준을 찾는다.</p>
+</div>
+<div class="section" id="id7">
+<h2>조건부엔트로피를 사용한 붓꽃 분류문제<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>다음은 붓꽃 데이터 중 버지니카(virginica)와 베르시칼라(versicolor) 종의 데이터만 임포트하는 코드다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>95</th>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;sepal length (cm)&quot;</span><span class="p">],</span> <span class="n">hist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;버지니카&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">species</span> <span class="o">==</span> <span class="mi">2</span><span class="p">][</span><span class="s2">&quot;sepal length (cm)&quot;</span><span class="p">],</span> <span class="n">hist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;베르시칼라&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;꽃받침의 길이&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;꽃받침의 길이와 붓꽃 종&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/10.02 조건부엔트로피_24_0.png" src="../_images/10.02 조건부엔트로피_24_0.png" />
+</div>
+</div>
+<p>꽃받침의 길이(sepal length)로 두 종을 구별하고 싶다고 하자. 기준값을 무엇으로 정해야 할까?</p>
+<p>만약 6cm를 기준으로 구분하면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;X1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal length (cm)&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">6</span>
+<span class="n">pivot_table1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;X1&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">pivot_table1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>species</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+    <tr>
+      <th>X1</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>False</th>
+      <td>30</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>True</th>
+      <td>20</td>
+      <td>41</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 때의 조건부엔트로피는 0.86이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cond_entropy</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">pYX0</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">pYX1</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">HYX0</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">pYX0</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">HYX1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">pYX1</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">HYX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">HYX0</span><span class="p">,</span> <span class="n">HYX1</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HYX</span>
+
+<span class="n">cond_entropy</span><span class="p">(</span><span class="n">pivot_table1</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.860714271586387
+</pre></div>
+</div>
+</div>
+</div>
+<p>6.5cm를 기준으로 구분하면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;X2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal length (cm)&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">6.5</span>
+<span class="n">pivot_table2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;X2&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+<span class="n">pivot_table2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>species</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+    <tr>
+      <th>X2</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>False</th>
+      <td>42</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>True</th>
+      <td>8</td>
+      <td>22</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>이 때의 조건부엔트로피는 0.93이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond_entropy</span><span class="p">(</span><span class="n">pivot_table2</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9306576387006182
+</pre></div>
+</div>
+</div>
+</div>
+<p>따라서 6cm를 기준값으로 잡는 것이 6.5cm보다는 더 좋은 선택이다.</p>
+<div class="section" id="id8">
+<h3>연습 문제 10.2.1<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>(1) 붓꽃 데이터에서 꽃받침의 길이(sepal length)의 최솟값과 최댓값 구간을 0.05 간격으로 나누어 각각의 값을 기준값으로 하였을 때 조건부엔트로피가 어떻게 변하는지 그래프로 그려라.</p>
+<p>(2) 꽃받침의 길이를 특징으로 사용하였을 때 어떤 값을 기준값으로 하는 것이 가장 좋은가?</p>
+<p>(3) 꽃받침의 폭(sepal width)에 대해 위의 분석을 실시하라. 이 때는 기준값이 어떻게 되는가?</p>
+<p>(4) 꽃받침의 길이(sepal length)와 꽃받침의 폭(sepal width) 중 하나를 특징으로 선택해야 한다면 어떤 것을 선택해야 하는가?</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

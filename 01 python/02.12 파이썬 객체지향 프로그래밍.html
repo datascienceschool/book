@@ -1,0 +1,995 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파이썬 객체지향 프로그래밍 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/02.12 파이썬 객체지향 프로그래밍.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01 python/02.12 파이썬 객체지향 프로그래밍.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/01 python/02.12 파이썬 객체지향 프로그래밍.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   객체
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   클래스
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   생성자
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 2.12.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     연습 문제 2.12.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   게임 캐릭터와 객체
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   클래스 상속
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   메서드 오버라이딩
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overloading">
+   참조: 오버로딩 Overloading
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     연습 문제 2.12.3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     연습 문제 2.12.4
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     연습 문제 2.12.5
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   특수 메서드
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     연습 문제 2.12.6
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>파이썬 객체지향 프로그래밍<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>객체<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>프로그램이 어떤 작업을 수행하기 위해서는 (1)데이터와 (2)데이터를 조작하는 행위, 두 가지 요소가 필요하다. 일반적으로 데이터는 변수(variable)에 넣어서 사용하고 데이터를 조작하는 일은 함수(function)로 구성해서 쉽게 실행할 수 있도록 만들어 놓는다.</p>
+<p><strong>객체</strong>(object)는 서로 연관된 데이터와 그 데이터를 조작하기 위한 함수를 하나의 집합에 모아놓은 것을 말한다. 이 때 집합의 원소가 되는 변수나 함수는 <strong>멤버</strong>(member) 또는 <strong>속성</strong>(attribute)이라고 한다. 특히 객체의 속성인 함수는 <strong>메서드</strong>(method)라고 부른다.</p>
+<p>예를 들어 사각형의 면적을 구하는 프로그램을 만든다고 하자. 필요한 변수와 함수는 다음과 같다.</p>
+<ol class="simple">
+<li><p>가로 길이와 세로 길이라는 두 개의 데이터를 넣을 변수</p></li>
+<li><p>두 길이를 곱해서 면적을 구하는 함수</p></li>
+</ol>
+<p>객체지향을 사용하지 않고 파이썬으로 구현하면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mi">20</span>
+
+
+<span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">h</span> <span class="o">*</span> <span class="n">v</span>
+
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">area</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200
+</pre></div>
+</div>
+</div>
+</div>
+<p>위 프로그램에서 사각형의 가로 길이를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">h</span></code>, 사각형의 세로 길이를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">v</span></code>, 그리고 이 사각형의 면적을 계산하는 함수 <code class="docutils literal notranslate"><span class="pre">area()</span></code>는 제각기 떨어져 있다. 하지만 객체지향 프로그래밍에서는 이 세가지를 하나의 객체(object)로 묶을 수 있다.</p>
+<p>다음은 이 프로그램을 객체지향 방식으로 다시 구현한 것이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 부분은 클래스(class) 구현이라고 한다. 실제로 길이 변수들을 저장하고 면적을 계산하는 코드는 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200
+</pre></div>
+</div>
+</div>
+</div>
+<p>위 프로그램에서 <code class="docutils literal notranslate"><span class="pre">r</span></code>이 바로 객체이다. 어떻게 위와 같은 코드를 만드는지에 대해서는 곧 자세히 설명할 것이다.</p>
+<p>객체 <code class="docutils literal notranslate"><span class="pre">r</span></code>은 사각형의 가로 길이와 세로 길이를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">h</span></code>와 <code class="docutils literal notranslate"><span class="pre">v</span></code> 그리고 면적을 계산하는 함수 <code class="docutils literal notranslate"><span class="pre">area()</span></code>가 합쳐져서 만들어진 것이다. 객체 <code class="docutils literal notranslate"><span class="pre">r</span></code>에 포함된 이 변수들과 함수, 즉 속성을 꺼내려면 객체 이름 뒤에 점(.)을 붙인 다음 속성 이름을 입력하면 된다. 다음과 같이 입력해 보면 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">.</span><span class="n">h</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">.</span><span class="n">v</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>클래스<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>객체지향 프로그래밍에서 객체를 만들려면 객체를 바로 만들지 못하고 항상 클래스(class)라는 것을 만든 후에 그 클래스를 이용하여 객체를 만들어야 한다.</p>
+<p>위 예제에서 <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code>은 클래스이고 <code class="docutils literal notranslate"><span class="pre">r</span></code>은 <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> 클래스로 만들어진 객체이다. 객체와 클래스의 관계는 “붕어빵”과 “붕어빵을 굽는 틀”에 비유할 수 있다. 즉, 정해진 속성, 여기에서는 가로 길이 <code class="docutils literal notranslate"><span class="pre">h</span></code>와 세로 길이 <code class="docutils literal notranslate"><span class="pre">v</span></code>라는 속성을 가지도록 사각형 클래스를 한 번 만들어 놓으면 이 속성을 가지는 실제 사각형은 얼마든지 많이 만들 수 있다.</p>
+<img src="https://datascienceschool.net/upfiles/4aac5f2a9d454d398e8e73cc2f4bc9b9.png" style="width:100%;"><p>그림 3.2.2 : 붕어빵을 굽는 틀(클래스)과 붕어빵(객체)</p>
+<p>예를 들어 위에서 만들어 놓은 <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> 클래스로 다음과 같이 5개의 사각형을 만들 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># 가로 1, 세로 1인 사각형</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># 가로 2, 세로 1인 사각형</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>   <span class="c1"># 가로 4, 세로 2인 사각형</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>   <span class="c1"># 가로 6, 세로 3인 사각형</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>   <span class="c1"># 가로 8, 세로 5인 사각형</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 사각형들의 면적은 다음과 같이 계산한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+2
+8
+18
+40
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>생성자<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>파이썬에서 클래스를 정의하는 문법은 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">클래스이름</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">속성값1</span><span class="p">,</span> <span class="n">속성값2</span><span class="p">,</span> <span class="n">속성값3</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">속성이름1</span> <span class="o">=</span> <span class="n">속성값1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">속성이름2</span> <span class="o">=</span> <span class="n">속성값2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">속성이름3</span> <span class="o">=</span> <span class="n">속성값3</span>
+
+</pre></div>
+</div>
+<p>이때 속성값 인수는 필요하지 않다면 없어도 된다. 여기에서 <code class="docutils literal notranslate"><span class="pre">class</span></code> 블럭 안에 정의된 <code class="docutils literal notranslate"><span class="pre">__init__</span></code>란 함수는 생성자(constructor)라고 하며 클래스 정의에서 가장 중요한 함수이다.</p>
+<p>객체를 생성할 때는 <code class="docutils literal notranslate"><span class="pre">클래스이름</span></code>을 함수처럼 호출해야 하는데, 이때 실제로는 __init__로 정의된 생성자 함수가 호출된다. 생성자 함수 내부에서는 생성자를 호출할 때 넣은 입력 변수, 즉 인자의 값을 속성값으로 저장한다.</p>
+<div class="section" id="id5">
+<h3>연습 문제 2.12.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>삼각형의 넓이를 계산하기 위한 클래스를 만든다. 이 클래스는 다음과 같은 속성을 가진다.</p>
+<ul class="simple">
+<li><p>밑변의 길이 <code class="docutils literal notranslate"><span class="pre">b</span></code> 와 높이 <code class="docutils literal notranslate"><span class="pre">h</span></code></p></li>
+<li><p>삼각형의 넓이를 계산하는 메서드 <code class="docutils literal notranslate"><span class="pre">area</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>연습 문제 2.12.2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>사각 기둥의 부피를 계산하기 위한 클래스를 만든다. 이 클래스는 다음과 같은 속성을 가진다.</p>
+<ul class="simple">
+<li><p>밑면의 가로 길이 <code class="docutils literal notranslate"><span class="pre">a</span></code>, 밑면의 세로 길이 <code class="docutils literal notranslate"><span class="pre">b</span></code>, 높이 <code class="docutils literal notranslate"><span class="pre">h</span></code></p></li>
+<li><p>부피를 계산하는 메서드 <code class="docutils literal notranslate"><span class="pre">volume</span></code></p></li>
+<li><p>겉넓이를 계산하는 메서드 <code class="docutils literal notranslate"><span class="pre">surface</span></code></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>게임 캐릭터와 객체<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>이번에는 컴퓨터 게임의 캐릭터를 만드는 예제를 통해 클래스 상속(Inheritance)의 개념을 공부한다. 컴퓨터 게임에 사용되는 플레이어의 캐릭터는 객체지향 프로그램을 통해 만든다고 생각해 보자. 캐릭터의 능력치, 경험치 등의 숫자는 캐릭터마다 다르게 관리되어야 하므로 객체의 속성이 될 수 있다. 또한 모든 캐릭터 조작에 공통적으로 필요한 이동, 공격 등의 조작은 메서드로 구현할 수 있을 것이다.</p>
+<ul class="simple">
+<li><p>플레이어의 캐릭터</p></li>
+<li><p>속성: 캐릭터의 능력치, 경험치 등</p></li>
+<li><p>메서드: 캐릭터를 움직이는 방법, 이동, 공격 등</p></li>
+</ul>
+<p>이를 기반으로 캐릭터를 만들어내는 <code class="docutils literal notranslate"><span class="pre">Character</span></code>라는 클래스를 만든다. 이 클래스로 만든 캐릭터는 1,000이라는 <code class="docutils literal notranslate"><span class="pre">life</span></code> 속성값을 가지고 생성되며 게임상에서 공격받을 때는 <code class="docutils literal notranslate"><span class="pre">attacked</span></code>라는 메서드가 호출되어 <code class="docutils literal notranslate"><span class="pre">life</span></code> 속성값을 10만큼 감소시키고 공격받았음을 표시한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Character</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">life</span> <span class="o">=</span> <span class="mi">1000</span>
+
+    <span class="k">def</span> <span class="nf">attacked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">life</span> <span class="o">-=</span> <span class="mi">10</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;공격받음! 생명력 =&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">life</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 클래스로 <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code> 세 개의 캐릭터 객체를 생성한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Character</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Character</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Character</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>모든 객체의 초기 life 속성값은 모두 1000이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">life</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">life</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">life</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000, 1000, 1000)
+</pre></div>
+</div>
+</div>
+</div>
+<p>하지만 공격을 받은 캐릭터의 생명력은 감소된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격받음! 생명력 = 990
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격받음! 생명력 = 990
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격받음! 생명력 = 980
+공격받음! 생명력 = 970
+공격받음! 생명력 = 960
+공격받음! 생명력 = 950
+공격받음! 생명력 = 940
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">life</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">life</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">life</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(940, 990, 1000)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>클래스 상속<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>이제 클래스 상속(class inheritance)이라는 개념을 생각한다. 앞에서 만들어 본 클래스는 모든 캐릭터에 공통적인 life 속성만을 가지고 있었다. 하지만 만약 전사(Warrior), 마법사(Wizard) 등 다양한 직업을 가진 캐릭터가 있고, 각 캐릭터는 서로 다른 초기 속성값을 가지고 태어난다면 어떻게 프로그램해야 할까?</p>
+<p>각각의 직업 캐릭터를 별도의 클래스로 만들어도 되겠지만, 클래스 상속을 사용하면 이미 만들어진 클래스 코드를 재사용하여 다른 클래스를 생성할 수 있다. 즉, 상속 과정에서 공통으로 사용하는 속성이나 메서드는 두 번 반복해서 코딩할 필요가 없다. 이때 상속을 받는 클래스를 <strong>자식 클래스(child class)</strong>, 상속의 대상이 되는 클래스를 **부모 클래스(parent class)**라고 한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Character</span></code> 부모 클래스에서 상속을 통해 <code class="docutils literal notranslate"><span class="pre">Warrior</span></code> 라는 자식 클래스와  <code class="docutils literal notranslate"><span class="pre">Wizard</span></code> 라는 자식 클래스를 만든다 상속을 위한 파이썬 문법은 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">자식클래스이름</span><span class="p">(</span><span class="n">부모클래스이름</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">속성값1</span><span class="p">,</span> <span class="n">속성값2</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">자식클래스이름</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">자식</span> <span class="n">클래스의</span> <span class="n">초기화</span> <span class="n">코드</span>
+</pre></div>
+</div>
+<p>사실 우리가 지금까지 쓰던 클래스 정의를 살펴보면 <code class="docutils literal notranslate"><span class="pre">object</span></code>라는 부모 클래스에서 상속받는 것이었다.</p>
+<p>이 코드에서 <code class="docutils literal notranslate"><span class="pre">super(자식클래스이름,</span> <span class="pre">self).__init()__</span></code> 부분은 부모 클래스의 초기화 생성자를 호출하는 부분이다. 예를 들어 <code class="docutils literal notranslate"><span class="pre">Warrior</span></code> 라는 클래스에서 부모 클래스인 <code class="docutils literal notranslate"><span class="pre">Character</span></code> 클래스의 생성자를 호출하면 life라는 속성값을 초기화하므로 자식 클래스에서는 이 속성값을 초기화해줄 필요가 없다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Warrior</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Warrior</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intelligence</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Wizard</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Wizard</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intelligence</span> <span class="o">=</span> <span class="mi">15</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 클래스의 객체를 만들어 보면 명시적으로 만들지 않았지만 life라는 속성과 attacked 라는 메서드를 가진다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Warrior</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Wizard</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">life</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">life</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000, 1000)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">strength</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">strength</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(15, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">intelligence</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">intelligence</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5, 15)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격받음! 생명력 = 990
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격받음! 생명력 = 990
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>메서드 오버라이딩<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>메서드 오버라이딩(Method Overriding)이란, 여러 클래스에 걸쳐서 같은 이름의 메서드를 만드는 것이다. 예를 들어 부모 클래스, 전사 캐릭터 클래스, 마법사 캐릭터 클래스에 공통으로 attack이라는 메서드가 있지만, 각각 하는 일이 다를 때는 다음처럼 같은 이름의 메서드를 클래스별로 구현하면 된다. 이렇게 되면 부모 클래스에서 만든 메서드 정의를 자식 클래스에서는 변경해서 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Character</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">life</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intelligence</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">attacked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">life</span> <span class="o">-=</span> <span class="mi">10</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;공격받음! 생명력 =&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">life</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;공격!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Warrior</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Warrior</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intelligence</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;육탄 공격!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Wizard</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Wizard</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intelligence</span> <span class="o">=</span> <span class="mi">15</span>
+
+    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;마법 공격!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Character</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Warrior</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Wizard</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">attack</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">attack</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>육탄 공격!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">attack</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>마법 공격!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격받음! 생명력 = 990
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">attacked</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>공격받음! 생명력 = 990
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="overloading">
+<h2>참조: 오버로딩 Overloading<a class="headerlink" href="#overloading" title="Permalink to this headline">¶</a></h2>
+<p>이와 비슷한 이름으로 오버로딩(Overloading)이라는 것이 있는데 이는 전혀 다른 개념이다. 오버로딩은 같은 메서드가 인수의 자료형이나 개수를 다르게 받을 수 있는 것을 말한다. C++, Java 등에서는 지원하지만, 파이썬에서는 오버로딩을 지원하지 않으므로 프로그래머가 내부적으로 알아서 처리해야 한다</p>
+<p>다음은 C++에서 오버로딩을 지원하는 함수 선언의 예이다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">length</span><span class="p">(</span><span class="nb">list</span> <span class="n">p1</span><span class="p">,</span> <span class="nb">list</span> <span class="n">p2</span><span class="p">);</span>                  <span class="o">//</span> <span class="n">점</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="n">까지의</span> <span class="n">길이</span>
+<span class="nb">float</span> <span class="n">length</span><span class="p">(</span><span class="nb">int</span> <span class="n">x1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">x2</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y2</span><span class="p">);</span>    <span class="o">//</span> <span class="n">점</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="n">까지의</span> <span class="n">길이</span>
+</pre></div>
+</div>
+<div class="section" id="id10">
+<h3>연습 문제 2.12.3<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>게임 캐릭터 코드에서 <code class="docutils literal notranslate"><span class="pre">attacked</span></code> 메서드도 오버라이딩을 하여 전사와 마법사가 공격을 받을 때 life 속성값이 다르게 감소하도록 한다.</p>
+</div>
+<div class="section" id="id11">
+<h3>연습 문제 2.12.4<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>다음과 같이 자동차를 나타내는 <code class="docutils literal notranslate"><span class="pre">Car</span></code> 클래스를 구현한다.</p>
+<ul class="simple">
+<li><p>이 클래스는 최고 속도를 의미하는 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code>라는 속성과 현재 속도를 나타내는 <code class="docutils literal notranslate"><span class="pre">speed</span></code>라는 속성을 가진다.</p></li>
+<li><p>객체 생성시 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code> 속성은  160이 되고 <code class="docutils literal notranslate"><span class="pre">speed</span></code> 속성은 0이 된다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speed_up</span></code>, <code class="docutils literal notranslate"><span class="pre">speed_down</span></code>이라는 메서드를 가진다. <code class="docutils literal notranslate"><span class="pre">speed_up</span></code>을 호출하면 <code class="docutils literal notranslate"><span class="pre">speed</span></code> 속성이 20씩 증가하고 <code class="docutils literal notranslate"><span class="pre">speed_down</span></code>을 호출하면 <code class="docutils literal notranslate"><span class="pre">speed</span></code> 속성이 20씩 감소한다.</p></li>
+<li><p>스피드 속성 <code class="docutils literal notranslate"><span class="pre">speed</span></code>의 값은 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code> 속성 값, 즉 160을 넘을 수 없다. 또 0 미만으로 감소할 수도 없다.</p></li>
+<li><p>메서드는 호출시 속도 정보를 출력하고 명시적인 반환값을 가지지 않는다.</p></li>
+<li><p>위 기능이 모두 정상적으로 구현되었음을 보이는 코드를 추가한다.</p></li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>연습 문제 2.12.5<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Car</span></code> 클래스를 기반으로 <code class="docutils literal notranslate"><span class="pre">SportCar</span></code>와 <code class="docutils literal notranslate"><span class="pre">Truck</span></code>이라는 두 개의 자식 클래스를 구현한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SportCar</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code> 속성이 200 이고 <code class="docutils literal notranslate"><span class="pre">speed_up</span></code>, <code class="docutils literal notranslate"><span class="pre">speed_down</span></code> 호출시 속도가 45씩 증가 혹은 감소한다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Truck</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code> 속성이 100 이고 <code class="docutils literal notranslate"><span class="pre">speed_up</span></code>, <code class="docutils literal notranslate"><span class="pre">speed_down</span></code> 호출시 속도가 15씩 증가 혹은 감소한다.</p></li>
+<li><p>스피드 속성 <code class="docutils literal notranslate"><span class="pre">speed</span></code>의 값은 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code> 속성 값을 넘을 수 없다. 또 0 미만으로 감소할 수도 없다.</p></li>
+<li><p>메서드는 호출시 속도 정보를 출력하고 명시적인 반환값을 가지지 않는다.</p></li>
+<li><p>위 기능이 모두 정상적으로 구현되었음을 보이는 코드를 추가한다.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>특수 메서드<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>파이썬에는 특수 메서드(Special Methods)라는 것이 존재한다. 메서드 이름의 앞과 뒤에 두 개의 밑줄(underscore)이 붙어있는 메서드이다.
+이 메서드들은 특수한 용도에 사용하는 것이다</p>
+<p>예를 들어 파이선 셸에서 변수 이름을 입력하고 <Enter> 키(주피터 노트북에서는 <Shift> + <Enter>)를 누르면 변수의 값이 호출되는데, 사실 이것은 해당 변수가 가지는 <code class="docutils literal notranslate"><span class="pre">__repr__</span></code>이라는 메서드가 호출되는 것이다. <code class="docutils literal notranslate"><span class="pre">repr</span></code>은 representation의 약자이다. 또 변수를 <code class="docutils literal notranslate"><span class="pre">str</span></code>이라는 함수에 넣으면 변수를 문자열로 변환해 주는데, 이것도 사실은 <code class="docutils literal notranslate"><span class="pre">__str__</span></code>이라는 메서드가 호출되는 것이다.</p>
+<p>예를 들어 다음과 같이 복소수에 대한 클래스인 <code class="docutils literal notranslate"><span class="pre">Complex</span></code> 클래스를 만든다. <code class="docutils literal notranslate"><span class="pre">r</span></code>이라는 속성에 실수부를, <code class="docutils literal notranslate"><span class="pre">i</span></code>이라는 속성에 실수부를 넣는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Complex</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">realpart</span><span class="p">,</span> <span class="n">imagpart</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">realpart</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">=</span> <span class="n">imagpart</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__repr__</span></code> 메서드를 정의하지 않으면 <code class="docutils literal notranslate"><span class="pre">object</span></code> 클래스가 가진 기본 <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> 메서드를 사용한다. 이 함수는 클래스 이름과 변수가 위치하고 있는 메모리 주소를 <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code>안에 써서 반환한다. 기본 <code class="docutils literal notranslate"><span class="pre">__str__</span></code> 메서드도 마찬가지이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">Complex</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">c</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.Complex at 0x7f16f7789940&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;&lt;__main__.Complex object at 0x7f16f7789940&gt;&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>이번에는 <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> 메서드와 <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> 메서드를 다음과 같이 새로 정의하여 오버라이딩한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Complex2</span><span class="p">(</span><span class="n">Complex</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Complex: real = </span><span class="si">%f</span><span class="s2"> imag = </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;[for str] &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c2</span> <span class="o">=</span> <span class="n">Complex2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">c2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Complex: real = 1.000000 imag = 1.000000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">str</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[for str] Complex: real = 1.000000 imag = 1.000000&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> 메서드를 정의하면 마치 리스트나 사전처럼 <code class="docutils literal notranslate"><span class="pre">[]</span></code> 기호를 사용한 인덱싱을 할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Complex3</span><span class="p">(</span><span class="n">Complex2</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;r&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;i&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">i</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c3</span> <span class="o">=</span> <span class="n">Complex3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">c3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Complex: real = 1.000000 imag = 2.000000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c3</span><span class="p">[</span><span class="s2">&quot;i&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>연습 문제 2.12.6<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>학생의 학번, 이름, 수학 성적, 영어 성적을 저장할 수 있는 클래스를 만들고 평균 성적을 출력하는 메서드를 추가한다.
+주피터 노트북 셸에서 이 클래스 객체의 이름을 입력하면 바로 이름과 학번이 나와야 하고 <code class="docutils literal notranslate"><span class="pre">str</span></code> 명령을 수행하면 이름을 반환한다. 또한, 다음과 같이 수학과 영어 성적을 읽을 수 있어야 한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span><span class="p">[</span><span class="s2">&quot;math&quot;</span><span class="p">],</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;english&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,1005 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 2020-05-29 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/Test20200529.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/Test20200529.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/Test20200529.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   1.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   2.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     답
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   3.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   4.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   5.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   6.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   7.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id15">
+   8.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
+   9.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id18">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id19">
+   10.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id20">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id21">
+   11.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#t">
+     답:  스튜던트 t분포
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id22">
+   12.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id23">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id24">
+   13.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id25">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id26">
+   14.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id27">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id28">
+   15.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id29">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id30">
+   16.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id31">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id32">
+   17.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id33">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id34">
+   18.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id35">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id36">
+   19.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id37">
+     답:
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="test-2020-05-29">
+<h1>Test 2020-05-29<a class="headerlink" href="#test-2020-05-29" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>1.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>다음 데이터의 비편향 공분산 행렬(unbiased covariance matrix)과 상관계수를 계산하라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample 1&quot;</span><span class="p">,</span> <span class="s2">&quot;sample 2&quot;</span><span class="p">,</span> <span class="s2">&quot;sample 3&quot;</span><span class="p">])</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e026a4ab3416</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample 1&quot;</span><span class="p">,</span> <span class="s2">&quot;sample 2&quot;</span><span class="p">,</span> <span class="s2">&quot;sample 3&quot;</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">X</span>
+
+<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>답:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>표본 평균:
+$<span class="math notranslate nohighlight">\(m_X = m_Y = 2\)</span>$</p>
+<p>비편향 표본 분산
+$<span class="math notranslate nohighlight">\(s_{X}^2 = s_{Y}^2 = \dfrac{(3-2)^2 + (2-2)^2 + (1-2)^2}{3-1} = 1 \)</span>$</p>
+<p>비편향 표본 공분산
+$<span class="math notranslate nohighlight">\(s_{XY}^2 = s_{YX}^2 = \dfrac{(3-2)(2-2) + (1-2)(1-2) + (2-2)(3-2)}{3-1} =  0.5 \)</span>$</p>
+<p>공분산 행렬
+$<span class="math notranslate nohighlight">\(
+\begin{bmatrix}
+1 &amp; 0.5 \\ 0.5 &amp; 1
+\end{bmatrix}
+\)</span>$</p>
+<p>상관계수
+$<span class="math notranslate nohighlight">\( \dfrac{s_{XY}^2}{\sqrt{s_X^2s_X^2}} = \dfrac{0.5}{1} = 0.5 \)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>x</th>
+      <td>1.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>2.<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>다음 중 독립이 아닌 것은?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">XX</span><span class="p">,</span> <span class="n">YY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">rv1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
+<span class="n">rv2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">rv1</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">]))</span><span class="o">+</span><span class="n">rv2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">])))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;(A)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">rv</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">])))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;(B)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">rv</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">])))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;(C)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">rv1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
+<span class="n">rv2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]])</span>
+<span class="n">rv3</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">rv1</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">]))</span><span class="o">+</span><span class="n">rv2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">]))</span><span class="o">+</span><span class="n">rv3</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">])))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;(D)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Test20200529_6_0.png" src="../_images/Test20200529_6_0.png" />
+</div>
+</div>
+<div class="section" id="id4">
+<h3>답<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>D</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>3.<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>상관(correlation)계수 <span class="math notranslate nohighlight">\(\rho\)</span>에 대한 다음 보기 중 옳지 않은 것은?</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\( -1 \leq \rho \leq 1 \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \rho = 0 \)</span> 이면 상관관계가 없다.</p></li>
+<li><p>상관계수가 0이면 서로 독립이다.</p></li>
+<li><p>비선형 상관관계는 상관계수로 측정할 수 없다.</p></li>
+</ol>
+<div class="section" id="id6">
+<h3>답:<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>3번. 독립이 아니어도 상관계수가 0일 수 있다.</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>4.<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>다음과 같은 모수를 가지는 다변수 정규분포(Multivariate Gaussian Normal)의 확률분포 수식을 쓰세요.</p>
+<ul class="simple">
+<li><p>데이터의 차원(dimension of feature): <span class="math notranslate nohighlight">\(D\)</span></p></li>
+<li><p>평균 벡터 = <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
+<li><p>분산 행렬 = <span class="math notranslate nohighlight">\(\Sigma\)</span></p></li>
+</ul>
+<div class="section" id="id8">
+<h3>답:<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[ N(x|\mu, \Sigma) = \dfrac{1}{(2\pi)^{D/2} |\Sigma|^{1/2}} \exp \left( -\dfrac{1}{2} (x-\mu)^T \Sigma^{-1} (x-\mu) \right) \]</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>5.<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>다음에서 설명하는 확률 변수는 ?</p>
+<ul class="simple">
+<li><p>가설 검정을 위해 사용하는 확률 변수로서 원래의 확률 변수와 관련이 있으며 증명하고자 하는 원래 확률 변수의 확률 분포에 의해 이 확률 변수의 분포가 결정된다.</p></li>
+</ul>
+<div class="section" id="id10">
+<h3>답:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>검정통계량 (test statistics)</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>6.<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>베르누이 확률 변수의 표본 <span class="math notranslate nohighlight">\(x\)</span>에 대한 검정 결과가 다음과 같은 경우 이 동전은 공정(fair)한가 그렇지 않은가?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># hide</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom_test</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.5135807758500593e-08
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>답:<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>p-value가 0에 가까우므로 fair하지 않다.</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>7.<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>각각의 검정을 위해 사용하는 검정의 명칭을 영어로 쓰세요</p>
+<ol class="simple">
+<li><p>베르누이 분포의 파라미터 값이 특정한 값인가 아닌가</p></li>
+<li><p>분산의 값을 알지 못하는 정규 분포의 기대값이 특정한 값인가 아닌가</p></li>
+<li><p>두 독립 정규 분포의 기대값이 같은가 다른가</p></li>
+<li><p>분포가 정규 분포인가 아닌가</p></li>
+</ol>
+<div class="section" id="id14">
+<h3>답:<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>베르누이 분포의 파라미터 값이 특정한 값인가 아닌가: 이항 검정 (Binomial Test)</p></li>
+<li><p>분산의 값을 알지 못하는 정규 분포의 기대값이 특정한 값인가 아닌가: 단일표본 t검정(One-sample t-test)</p></li>
+<li><p>두 독립 정규 분포의 기대값이 같은가 다른가: 독립표본 t검정(Independent Two-sample t-test)</p></li>
+<li><p>분포가 정규 분포인가 아닌가: 정규성 검정(Normality test)</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>8.<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>다음중 정규성 검정이 아닌 것은?</p>
+<ol class="simple">
+<li><p>Omnibus test</p></li>
+<li><p>Jarque–Bera test</p></li>
+<li><p>Kolmogorov-Smirnov test</p></li>
+<li><p>Ljung-Box test</p></li>
+</ol>
+<div class="section" id="id16">
+<h3>답:<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>4번. Ljung-Box test 는 상관관계 검정이다.</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>9.<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>정규분포 확률변수로부터 다음과 같은 3개의 데이터를 얻었다. 이 확률변수의 기댓값을 최대 가능도 추정법으로 추정하려고 한다. 가능도 함수를 구하고 이 가능도 함수를 최대화하는 기댓값 추정치를 구하라.</p>
+<div class="math notranslate nohighlight">
+\[ \{ 1, 0, -3 \} \]</div>
+<div class="section" id="id18">
+<h3>답:<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>가능도 함수:</p>
+<p>\begin{eqnarray}
+L(\theta; x_1, x_2, x_3) &amp;=&amp;
+\dfrac{1}{\sqrt{2\pi\sigma^2}} \exp\left({-\frac{(1-\mu)^2}{2\sigma^2}}\right) \cdot
+\dfrac{1}{\sqrt{2\pi\sigma^2}} \exp\left({-\frac{(0-\mu)^2}{2\sigma^2}}\right) \cdot
+\dfrac{1}{\sqrt{2\pi\sigma^2}} \exp\left({-\frac{(-3-\mu)^2}{2\sigma^2}}\right) \
+&amp;=&amp;
+\dfrac{1}{(2\pi\sigma^2)^{\frac{3}{2}}}
+\exp\left({-\frac{\mu^2 + (1-\mu)^2 + (-3-\mu)^2}{2\sigma^2}}\right) \
+&amp;=&amp;
+\dfrac{1}{(2\pi\sigma^2)^{\frac{3}{2}}}
+\exp\left({-\frac{3\mu^2+4\mu+10}{2\sigma^2}}\right) \
+&amp;=&amp;
+\dfrac{1}{(2\pi\sigma^2)^{\frac{3}{2}}}
+\exp\left({-\frac{3\left(\mu+\frac{2}{3}\right)^2+\frac{26}{4}}{2\sigma^2}}\right)
+\end{eqnarray}</p>
+<p>기댓값 추정치 = <span class="math notranslate nohighlight">\(-\dfrac{2}{3}\)</span></p>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>10.<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>동전이 있다. 이 동전을 던져 앞면이 나올 확률은 베르누이 확률분포의 모수 <span class="math notranslate nohighlight">\(\mu\)</span>로 표현할 수 있고 <span class="math notranslate nohighlight">\(\mu\)</span>값의 추정 결과는 베이지안 추정법을 사용하여 베타 분포의 모수로 표현할 수 있다. 동전을 던지기 전에는 동전에 대해 아는 바가 전혀 없다고 가정하면 동전을 10번 던져서 6번 앞면이 나온 경우 베타 분포의 모수는 얼마인가?</p>
+<div class="section" id="id20">
+<h3>답:<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>동전을 던져 앞면이 나온 횟수를 <span class="math notranslate nohighlight">\(N_1\)</span>, 뒷면이 나온 횟수를 <span class="math notranslate nohighlight">\(N_0\)</span>라고 하면 관측 이전의 베타 분포 모수 <span class="math notranslate nohighlight">\(a, b\)</span>와 관측 이후의 베타 분포 모수 <span class="math notranslate nohighlight">\(a', b'\)</span>는 다음과 같은 관계가 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+a' &amp;=&amp; N_1 + a \\
+b' &amp;=&amp; N_0 + b 
+\end{eqnarray}
+\end{split}\]</div>
+<p>동전을 던지기 전에는 동전에 대해 아는 바가 전혀 없으므로 <span class="math notranslate nohighlight">\(a=b=1\)</span>이다. 따라서</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+a' &amp;=&amp; 6 + 1 = 7 \\
+b' &amp;=&amp; 4 + 1 = 5
+\end{eqnarray}
+\end{split}\]</div>
+<p>이다.</p>
+</div>
+</div>
+<div class="section" id="id21">
+<h2>11.<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<p>평균이 <span class="math notranslate nohighlight">\(\mu\)</span>인 가우시안 정규 분포에서 샘플 <span class="math notranslate nohighlight">\(x_1, \cdots, x_n\)</span>를 생성하여 다음과 같이 변환하였을 경우, 어떤 분포를 이루는지 쓰세요.</p>
+<div class="math notranslate nohighlight">
+\[ \dfrac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}  \]</div>
+<p>여기에서</p>
+<div class="math notranslate nohighlight">
+\[  \bar{x} = \frac{x_1+\cdots+x_n}{n} \;\;\;\;\;\;\;\; s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2 \]</div>
+<div class="section" id="t">
+<h3>답:  스튜던트 t분포<a class="headerlink" href="#t" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id22">
+<h2>12.<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<p>1이 나올 확률 파라미터 <span class="math notranslate nohighlight">\(\theta\)</span>를 가지는 베르누이 분포에서 <span class="math notranslate nohighlight">\(N\)</span>개의 샘플 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_N\)</span>을 뽑았을 때, 이 값에서 최대가능도 방법으로 <span class="math notranslate nohighlight">\(\theta\)</span>를 추정하고자 합니다. 로그가능도(Log-Likelihood)를 구하세요</p>
+<ul class="simple">
+<li><p>참조: Bernoulli 분포</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ P(x | \theta ) = \text{Bern}(x | \theta ) = \theta^x (1 - \theta)^{1-x}\]</div>
+<div class="section" id="id23">
+<h3>답:<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>가능도</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ L = P(x_{1:N}|\theta) = \prod_{i=1}^N  \theta^{x_i} (1 - \theta)^{1-x_i} \]</div>
+<ul class="simple">
+<li><p>로그가능도</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{eqnarray*}
+\log L 
+&amp;=&amp; \log P(x_{1:N}|\theta)  \\
+&amp;=&amp; \sum_{i=1}^N \big\{ {x_i} \log\theta + (1-x_i)\log(1 - \theta) \big\} \\
+&amp;=&amp;  \sum_{i=1}^N {x_i} \log\theta +  \left( N-\sum_{i=1}^N x_i \right) \log( 1 - \theta ) \\
+\end{eqnarray*}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id24">
+<h2>13.<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(y\)</span>에 대해 선형모형 <span class="math notranslate nohighlight">\(w^Tx\)</span>로 회귀분석할 때 OLS 방법으로 모형 계수 <span class="math notranslate nohighlight">\(w\)</span>를 구하세요</p>
+<ol class="simple">
+<li><p>Residual 잔차
+$<span class="math notranslate nohighlight">\( e_i = {y}_i - x_i^T w \)</span>$</p></li>
+<li><p>Stacking (Vector Form)
+$<span class="math notranslate nohighlight">\( e = {y} - Xw \)</span>$</p></li>
+<li><p>Residual Sum of Squares (RSS)
+$<span class="math notranslate nohighlight">\(\begin{eqnarray}
+\text{RSS} 
+&amp;=&amp; \sum (y_i - \hat{y}_i)^2 \\
+&amp;=&amp; \sum e_i^2 = e^Te \\
+&amp;=&amp; (y - Xw)^T(y - Xw) \\
+&amp;=&amp; y^Ty - 2y^T X w - w^TX^TXw  
+\end{eqnarray}\)</span>$</p></li>
+<li><p>Minimize using Gradient
+$<span class="math notranslate nohighlight">\( \text{???} \)</span>$</p></li>
+</ol>
+<div class="section" id="id25">
+<h3>답:<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[ \dfrac{\partial \text{RSS}}{\partial w} = -2 X^T y + 2 X^TX w = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ X^TX w = X^T y \]</div>
+<div class="math notranslate nohighlight">
+\[  w = (X^TX)^{-1} X^T y \]</div>
+</div>
+</div>
+<div class="section" id="id26">
+<h2>14.<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<p>결정 계수 Coefficient of Determination <span class="math notranslate nohighlight">\(R^2\)</span>의 정의를 쓰세요 (TSS, ESS, RSS 사용)</p>
+<div class="section" id="id27">
+<h3>답:<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[R^2 \equiv 1 - \dfrac{\text{RSS}}{\text{TSS}}\ = \dfrac{\text{ESS}}{\text{TSS}} \]</div>
+</div>
+</div>
+<div class="section" id="id28">
+<h2>15.<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h2>
+<p>확률적 모형으로 선형회귀를 할 때 사용되는 조건부 확률의 모형을 수식으로 쓰세요</p>
+<ul class="simple">
+<li><p>target <span class="math notranslate nohighlight">\(y\)</span>에 대해 선형모형 <span class="math notranslate nohighlight">\(w^Tx\)</span> 사용</p></li>
+<li><p>가우시안 정규 분포 <span class="math notranslate nohighlight">\(N(x| \mu, \sigma^2)\)</span> 사용</p></li>
+</ul>
+<div class="section" id="id29">
+<h3>답:<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<p>셋 중 어느 것도 답</p>
+<div class="math notranslate nohighlight">
+\[ p(y \,|\, x, \theta) = N(y \,|\, w^Tx, \sigma^2 ) \]</div>
+<div class="math notranslate nohighlight">
+\[ y \sim N(w^Tx, \sigma^2) \]</div>
+<div class="math notranslate nohighlight">
+\[ y - w^Tx = \epsilon \sim  N(0,\sigma^2) \]</div>
+</div>
+</div>
+<div class="section" id="id30">
+<h2>16.<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h2>
+<p>다음 회귀 모형 결과 보고서를 보고 답하세요</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="n">X0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;X1&quot;</span><span class="p">,</span> <span class="s2">&quot;X2&quot;</span><span class="p">])</span>
+<span class="n">dfy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">dfy</span><span class="p">,</span> <span class="n">dfX</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                 OLS Regression Results                                
+=======================================================================================
+Dep. Variable:                      y   R-squared (uncentered):                   0.777
+Model:                            OLS   Adj. R-squared (uncentered):              0.772
+Method:                 Least Squares   F-statistic:                              170.6
+Date:                Sat, 30 Nov 2019   Prob (F-statistic):                    1.21e-32
+Time:                        14:33:22   Log-Likelihood:                          15.397
+No. Observations:                 100   AIC:                                     -26.79
+Df Residuals:                      98   BIC:                                     -21.58
+Df Model:                           2                                                  
+Covariance Type:            nonrobust                                                  
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+X1             0.0125      0.021      0.594      0.554      -0.029       0.054
+X2             0.4021      0.022     18.305      0.000       0.359       0.446
+==============================================================================
+Omnibus:                        2.003   Durbin-Watson:                   1.789
+Prob(Omnibus):                  0.367   Jarque-Bera (JB):                1.478
+Skew:                          -0.137   Prob(JB):                        0.477
+Kurtosis:                       3.529   Cond. No.                         1.12
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
+<li><p>필요 없는 독립변수는?</p></li>
+<li><p>정규성(Normality)에 대한 유의확률(p-value) 둘을 쓰세요</p></li>
+</ol>
+<div class="section" id="id31">
+<h3>답:<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>필요없는 독립 변수는 X1</p></li>
+<li></li>
+</ol>
+<ul class="simple">
+<li><p>Prob(Omnibus):                  0.367</p></li>
+<li><p>Prob(JB):                        0.477</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id32">
+<h2>17.<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h2>
+<p>아래 plot의 명칭은?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dfX</span><span class="p">,</span> <span class="n">dfy</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">plot_partregress</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;X1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;X2&quot;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Test20200529_41_0.png" src="../_images/Test20200529_41_0.png" />
+</div>
+</div>
+<div class="section" id="id33">
+<h3>답:<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<p>부분회귀 플롯(partial regression plot) 또는 added variable plot</p>
+</div>
+</div>
+<div class="section" id="id34">
+<h2>18.<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h2>
+<p>다음 모형을 위한 R-style formula 문자열을 쓰세요.</p>
+<ul class="simple">
+<li><p>독립 변수는 real value X1, category value X2</p></li>
+<li><p>category value X2는 풀랭크(full-rank) 방식으로 더미변수화 한다.</p></li>
+<li><p>X2값에 따라 X1이 y에 미치는 영향력이 달라진다.</p></li>
+</ul>
+<div class="section" id="id35">
+<h3>답:<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<p>다음 중 어느 것도 답</p>
+<ul class="simple">
+<li><p>“X1*C(X2)+0”</p></li>
+<li><p>“X1*C(X2)-1”</p></li>
+<li><p>“X1 + C(X2) + X1:C(X2) -1”</p></li>
+<li><p>“X1 + C(X2) + X1:C(X2) +0”</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id36">
+<h2>19.<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h2>
+<p>다음 정규화 방법의 이름을 쓰세요</p>
+<ol>
+<li><div class="math notranslate nohighlight">
+\[
+\begin{eqnarray}
+\text{cost} 
+&amp;=&amp; \sum e_i^2 + \lambda \sum w_i^2
+\end{eqnarray}
+\]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[
+\begin{eqnarray}
+\text{cost} 
+&amp;=&amp; \sum e_i^2 + \lambda \sum | w_i |
+\end{eqnarray}
+\]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[
+\begin{eqnarray}
+\text{cost} 
+&amp;=&amp; \sum e_i^2 + \lambda_1 \sum | w_i | + \lambda_2 \sum w_i^2
+\end{eqnarray}
+\]</div>
+</li>
+</ol>
+<div class="section" id="id37">
+<h3>답:<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Ridge</p></li>
+<li><p>Lasso</p></li>
+<li><p>ElasticNet</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="id38">
+<h1>20.<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h1>
+<p>다음 plot에서  <span class="math notranslate nohighlight">\(\lambda\)</span>는 최적화 가중치(regularization weight)를 뜻한다. (<span class="math notranslate nohighlight">\(\lambda\)</span>가 클수록 정규화 비중이 커짐) 이러한 곡선의 이름은?</p>
+<img src="https://docs.google.com/drawings/d/1lh0UWzxOc4euF_csqmQf7xaA5FsHHaoTzaWMqZH1deI/pub?w=322&h=312" style="width:50%; margin: 0 auto 0 auto 0;"><div class="section" id="id39">
+<h2>답:<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h2>
+<p>검증성능곡선(validation curve)</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

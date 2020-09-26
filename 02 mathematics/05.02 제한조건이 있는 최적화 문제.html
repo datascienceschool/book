@@ -1,0 +1,1015 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5.2 제한조건이 있는 최적화 문제 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_python.html">
+   데이터 사이언스 스쿨 - 파이썬 편
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../book_math.html">
+   데이터 사이언스 스쿨 - 수학 편
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/02 mathematics/05.02 제한조건이 있는 최적화 문제.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/02 mathematics/05.02 제한조건이 있는 최적화 문제.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/02 mathematics/05.02 제한조건이 있는 최적화 문제.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   등식 제한조건이 있는 최적화 문제
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   라그랑주 승수법
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     연습 문제 5.2.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 5.2.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   사이파이를 사용하여 등식 제한조건이 있는 최적화 문제 계산하기
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   라그랑주 승수의 의미
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     예제
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   부등식 제한조건이 있는 최적화 문제
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     예제
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     연습 문제 5.2.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   사이파이를 사용하여 부등식 제한조건이 있는 최적화 문제 계산하기
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     연습 문제 5.2.4
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>5.2 제한조건이 있는 최적화 문제<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 제한조건(constraint)을 가지는 최적화 문제를 풀어본다. 제한조건은 연립방정식 또는 연립부등식이다. 연립방정식 제한조건이 있는 경우에는 라그랑주 승수법을 사용하여 새로운 최적화 문제를 풀어야 한다. 연립부등식 제한조건의 경우에는 KKT 조건이라는 것을 만족하도록 하는 복잡한 과정을 거쳐야 한다.</p>
+<div class="section" id="id2">
+<h2>등식 제한조건이 있는 최적화 문제<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>현실의 최적화 문제에서는 여러가지 <strong>제한조건이 있는 최적화(constrained optimization)</strong> 문제가 많다. 가장 간단한 경우는 다음과 같이 연립방정식 제한조건이 있는 경우다. <strong>등식(equality) 제한조건</strong>이라고도 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x^{\ast} = \text{arg} \min_x f(x)
+\tag{5.2.1}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x \in \mathbf{R}^N  
+\tag{5.2.2}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g_j(x) = 0 \;\; (j=1, \ldots, M)  
+\tag{5.2.3}
+\end{align}
+\]</div>
+<p>첫 번째 식만 보면 단순히 목적함수 <span class="math notranslate nohighlight">\(f(x)\)</span>를 가장 작게 하는 <span class="math notranslate nohighlight">\(N\)</span>차원 벡터 <span class="math notranslate nohighlight">\(x\)</span>값을 찾는 문제다. 하지만 마지막 식에 있는 <span class="math notranslate nohighlight">\(M\)</span>개의 등식 제한 조건이 있으면 <span class="math notranslate nohighlight">\(M\)</span>개 연립 방정식</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+g_1(x) &amp;= 0 \\
+g_2(x) &amp;= 0 \\
+&amp;\vdots \\
+g_M(x) &amp;= 0 \\
+\end{aligned}
+\tag{5.2.4}
+\end{align}
+\end{split}\]</div>
+<p>를 동시에 모두 만족시키면서 목적함수 <span class="math notranslate nohighlight">\(f(x)\)</span>를 가장 작게 하는 <span class="math notranslate nohighlight">\(x\)</span>값을 찾아야 한다.</p>
+<div class="section" id="id3">
+<h3>예제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>목적 함수 <span class="math notranslate nohighlight">\(f\)</span>와 등식 제한조건 <span class="math notranslate nohighlight">\(g\)</span>이 다음과 같은 경우를 생각하자.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x_1, x_2) = x_1^2 + x_2^2 
+\tag{5.2.5}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g(x_1, x_2) = x_1 + x_2 - 1 = 0 
+\tag{5.2.6}
+\end{align}
+\]</div>
+<p>이 문제는 다음 그림처럼 <span class="math notranslate nohighlight">\(g(x_1, x_2)=0\)</span>으로 정의되는 직선상에서 가장 <span class="math notranslate nohighlight">\(f(x_1, x_2)\)</span>값이 작아지는 점 <span class="math notranslate nohighlight">\((x_1^{\ast}, x_2^{\ast})\)</span>를 찾는 문제가 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 목적함수 f(x) = x1^2 + x2^2</span>
+<span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x1</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">X1</span><span class="p">,</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f1</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+
+<span class="c1"># 등식 제한조건 방정식 g(x) = x1 + x2 - 1 = 0</span>
+<span class="n">x2_g</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">x1</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">32</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2_g</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;rP&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;등식 제한조건이 있는 최적화 문제&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.02 제한조건이 있는 최적화 문제_6_0.png" src="../_images/05.02 제한조건이 있는 최적화 문제_6_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>라그랑주 승수법<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>이렇게 등식 제한조건이 있는 최적화 문제는 **라그랑주 승수법(Lagrange multiplier)**을 사용하여 최적화할 수 있다.</p>
+<p>라그랑주 승수 방법에서는 목적함수를 원래의 목적함수 <span class="math notranslate nohighlight">\(f(x)\)</span>를 사용하지 않는다. 대신 제한조건 등식에 <span class="math notranslate nohighlight">\(\lambda\)</span>라는 새로운 변수를 곱해서 더한 함수</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+h(x, \lambda) 
+&amp;= h(x_1, x_2, \ldots , x_N, \lambda_1, \ldots , \lambda_M) \\
+&amp;= f(x) + \sum_{j=1}^M \lambda_j g_j(x)
+\end{aligned}
+\tag{5.2.7}
+\end{align}
+\end{split}\]</div>
+<p>를 목적함수로 간주하여 최적화한다. 이때 제한조건 등식 하나마다 새로운 <span class="math notranslate nohighlight">\(\lambda_i\)</span>를 추가해주어야 한다. 따라서 만약 제한조건이 <span class="math notranslate nohighlight">\(M\)</span>개이면 <span class="math notranslate nohighlight">\(\lambda_1, \cdots , \lambda_M\)</span>개의 변수가 새로 생긴 것과 같다.
+이렇게 확장된 목적함수 <span class="math notranslate nohighlight">\(h\)</span>는 입력변수가 더 늘어났기 때문에 그레디언트 벡터를 영벡터로 만드는 최적화 필요 조건이 다음처럼 <span class="math notranslate nohighlight">\(N+M\)</span>개가 된다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\dfrac{\partial h}{\partial x_1} 
+&amp;= \dfrac{\partial f}{\partial x_1} + \sum_{j=1}^M \lambda_j\dfrac{\partial g_j}{\partial x_1} = 0 \\
+\dfrac{\partial h}{\partial x_2} 
+&amp;= \dfrac{\partial f}{\partial x_2} + \sum_{j=1}^M \lambda_j\dfrac{\partial g_j}{\partial x_2} = 0 \\
+&amp; \vdots  \\
+\dfrac{\partial h}{\partial x_N} 
+&amp;= \dfrac{\partial f}{\partial x_N} + \sum_{j=1}^M \lambda_j\dfrac{\partial g_j}{\partial x_N} = 0 \\
+\dfrac{\partial h}{\partial \lambda_1} 
+&amp;= g_1 = 0 \\
+&amp; \vdots  \\
+\dfrac{\partial h}{\partial \lambda_M} 
+&amp;= g_M = 0 
+\end{aligned}
+\tag{5.2.8}
+\end{align}
+\end{split}\]</div>
+<p>이 <span class="math notranslate nohighlight">\(N+M\)</span>개의 연립 방정식을 풀면 <span class="math notranslate nohighlight">\(N+M\)</span>개의 미지수</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x_1, x_2, \ldots, x_N, , \lambda_1, \ldots , \lambda_M
+\tag{5.2.9}
+\end{align}
+\]</div>
+<p>를 구할 수 있다. 구한 결과에서</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_1, x_2, \cdots, x_N
+\tag{5.2.10}
+\end{align}
+\]</div>
+<p>이 우리가 찾는 최소값 <span class="math notranslate nohighlight">\(x\)</span>이다. 라그랑주 승숫값은 필요없다.</p>
+<div class="section" id="id5">
+<h3>예제<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>위에서 제시한 예제를 라그랑주 승수법으로 풀어보자. 새로운 목적함수는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+h(x_1, x_2, \lambda) 
+= f(x_1, x_2) + \lambda g(x_1, x_2) 
+= x_1^2 + x_2^2 + \lambda ( x_1 + x_2 - 1 ) 
+\tag{5.2.11}
+\end{align}
+\]</div>
+<p>라그랑주 승수법을 적용하여 그레디언트 벡터가 영벡터인 위치를 구한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\dfrac{\partial h}{\partial x_1} 
+&amp;= 2{x_1} + \lambda = 0 \\
+\dfrac{\partial h}{\partial x_2} 
+&amp;= 2{x_2} + \lambda = 0 \\
+\dfrac{\partial h}{\partial \lambda} 
+&amp;= x_1 + x_2 - 1 = 0 
+\end{aligned}
+\tag{5.2.12}
+\end{align}
+\end{split}\]</div>
+<p>위 방정식을 풀면 해는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_1 = x_2 = \dfrac{1}{2}, \;\;\; \lambda = -1
+\tag{5.2.13}
+\end{align}
+\]</div>
+</div>
+<div class="section" id="id6">
+<h3>연습 문제 5.2.1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>제한조건이</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x_1 + x_2 = 1 
+\tag{5.2.14}
+\end{align}
+\]</div>
+<p>일 때 목적 함수</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) = - \log{x_1} - \log{x_2} 
+\tag{5.2.15}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_1, x_2 &gt; 0 
+\tag{5.2.16}
+\end{align}
+\]</div>
+<p>을 최소화하는 <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> 값을 라그랑주 승수법으로 계산하라.</p>
+</div>
+<div class="section" id="id7">
+<h3>연습 문제 5.2.2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>제한조건이</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_1^2 + x_2^2 = 1 
+\tag{5.2.17}
+\end{align}
+\]</div>
+<p>일 때 목적 함수</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) = x_1 + x_2  
+\tag{5.2.18}
+\end{align}
+\]</div>
+<p>를 최소화하는 <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> 값을 라그랑주 승수법으로 계산하라.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>사이파이를 사용하여 등식 제한조건이 있는 최적화 문제 계산하기<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>사이파이의 optimize 서브패키지는 제한조건이 있는 최적화 문제를 푸는 <code class="docutils literal notranslate"><span class="pre">fmin_slsqp()</span></code> 명령을 제공한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fmin_slsqp</span><span class="p">(</span><span class="n">func_objective</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">eqcons</span><span class="o">=</span><span class="p">[</span><span class="n">func_constraint1</span><span class="p">,</span> <span class="n">func_constraint2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">fmin_slsqp()</span></code> 명령은 목적함수와 초깃값, 그리고 제한조건 함수의 리스트를 인수로 받는다. 목적함수는 배열인 인수를 받도록 구현되어야 하고 제한조건 함수의 경우에는 항상 <code class="docutils literal notranslate"><span class="pre">eqcons</span></code> 인수를 명시해야 한다.</p>
+<div class="section" id="id9">
+<h3>예제<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>다음은 위 예제를 <code class="docutils literal notranslate"><span class="pre">fmin_slsqp()</span></code> 명령으로 푸는 코드다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f1array</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+
+
+<span class="k">def</span> <span class="nf">eq_constraint</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+
+
+<span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">fmin_slsqp</span><span class="p">(</span><span class="n">f1array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">eqcons</span><span class="o">=</span><span class="p">[</span><span class="n">eq_constraint</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 0.5000000000000002
+            Iterations: 2
+            Function evaluations: 8
+            Gradient evaluations: 2
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.5, 0.5])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>라그랑주 승수의 의미<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>만약 최적화 문제에서 등식 제한조건 <span class="math notranslate nohighlight">\(g_i\)</span>이 있는가 없는가에 따라 해의 값이 달라진다면 이 등식 제한조건에 대응하는 라그랑주 승수 <span class="math notranslate nohighlight">\(\lambda_i\)</span>는 0이 아닌 값이어야 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\lambda_i \neq 0 
+\tag{5.2.19}
+\end{align}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\lambda_i = 0\)</span>일 때만 원래의 문제와 제한조건이 있는 문제의 최적화 조건이 같아지므로 최적화 해의 위치도 같게 나오기 때문이다.</p>
+<div class="section" id="id11">
+<h3>예제<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>목적함수가</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x) = x_1^2 + x_2^2
+\tag{5.2.20}
+\end{align}
+\]</div>
+<p>인 최소화 문제의 답은</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x_1 = x_2 = 0
+\tag{5.2.21}
+\end{align}
+\]</div>
+<p>이다.</p>
+<p>여기에 다음 제한조건이 있다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g(x_1, x_2) = x_1 + x_2 = 0
+\tag{5.2.22}
+\end{align}
+\]</div>
+<p>라그랑주 승수법에서 새로운 목적함수는</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+h(x_1, x_2, \lambda) 
+= f(x_1, x_2) + \lambda g(x_1, x_2) 
+= x_1^2 + x_2^2 + \lambda ( x_1 + x_2) 
+\tag{5.2.23}
+\end{align}
+\]</div>
+<p>이고 최적화 조건은</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{align}
+\begin{aligned}
+\dfrac{\partial h}{\partial x_1} 
+&amp;= 2{x_1} + \lambda = 0 \\
+\dfrac{\partial h}{\partial x_2} 
+&amp;= 2{x_2} + \lambda = 0 \\
+\dfrac{\partial h}{\partial \lambda} 
+&amp;= x_1 + x_2 = 0 
+\end{aligned}
+\tag{5.2.24}
+\end{align}
+\end{split}\]</div>
+<p>이를 풀면</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x_1 = x_2 = \lambda = 0
+\tag{5.2.25}
+\end{align}
+\]</div>
+<p>로 제한조건이 있으나 없으나 해는 같고 라그랑주 승수가 0이다.</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>부등식 제한조건이 있는 최적화 문제<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>이번에는 다음과 같이 <strong>부등식(inequality) 제한조건</strong>이 있는 최적화 문제를 생각하자.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+x^{\ast} = \text{arg} \min_x f(x) 
+\tag{5.2.26}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x \in \mathbf{R}^N  
+\tag{5.2.27}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g_j(x) \leq 0 \;\; (j=1, \ldots, M)  
+\tag{5.2.28}
+\end{align}
+\]</div>
+<p>만약 부등식이</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+g_j(x) \geq 0
+\tag{5.2.29}
+\end{align}
+\]</div>
+<p>과 같다면 양변에 -1을 곱하여 부등호의 방향을 바꾼다.</p>
+<p>이렇게 부등식 제한조건이 있는 최적화 문제도 라그랑주 승수 방법과 목적함수를 다음처럼 바꾸어 푼다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+h(x, \lambda) = f(x) + \sum_{j=1}^M \lambda_j g_j(x)
+\tag{5.2.30}
+\end{align}
+\]</div>
+<p>다만 이 경우, 최적화 해의 필요조건은 방정식 제한조건이 있는 최적화 문제와 다르게 <strong>KKT(Karush-Kuhn-Tucker) 조건</strong>이라고 하며 다음처럼 3개의 조건으로 이루어진다.</p>
+<p>(1) 모든 독립 변수 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots , x_N\)</span>에 대한 미분값이 0이다.</p>
+<div class="math notranslate nohighlight">
+\[  
+\begin{align}
+\dfrac{\partial h(x, \lambda)}{\partial x_i} = 0 
+\tag{5.2.31}
+\end{align}
+\]</div>
+<p>(2) 모든 라그랑주 승수 <span class="math notranslate nohighlight">\(\lambda_1, \ldots , \lambda_M\)</span>과 제한조건 부등식(<span class="math notranslate nohighlight">\(\lambda\)</span>에 대한 미분값)의 곱이 0이다.</p>
+<div class="math notranslate nohighlight">
+\[  
+\begin{align}
+\lambda_j \cdot \dfrac{\partial h(x, \lambda)}{\partial \lambda_j} = \lambda_j \cdot g_j = 0 
+\tag{5.2.32}
+\end{align}
+\]</div>
+<p>(3) 라그랑주 승수는 음수가 아니어야 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\lambda_j \geq 0 
+\tag{5.2.33}
+\end{align}
+\]</div>
+<p>첫 번째 조건은 방정식 제한조건의 경우와 같다. 다먄 변수 <span class="math notranslate nohighlight">\(x\)</span>들에 대한 미분값만 0이어야 한다. <strong>라그랑주 승수 <span class="math notranslate nohighlight">\(\lambda\)</span>에 대한 미분은 0이 아니어도 된다.</strong></p>
+<p>두 번째 조건을 보면 확장된 목적함수를 라그랑주 승수로 미분한 값은 변수 <span class="math notranslate nohighlight">\(x\)</span>들에 대한 미분값과는 달리 반드시 0이 될 필요는 없다는 것을 알 수 있다. 이렇게 하려면 두 경우가 가능한데 등식 제한조건의 경우처럼 라그랑주 승수 <span class="math notranslate nohighlight">\(\lambda\)</span>에 대한 미분값이 0이어도 되고 아니면 <strong>라그랑주 승수 <span class="math notranslate nohighlight">\(\lambda\)</span> 값 자체가 0이 되어도 된다.</strong></p>
+<p>마지막 조건은 KKT 조건이 실제로 부등식 제한조건이 있는 최적화 문제와 같은 문제임을 보장하는 조건이다.</p>
+<div class="section" id="id13">
+<h3>예제<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>부등식 제한조건을 가지는 최적화의 예를 풀어보자.</p>
+<p>목적 함수는</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+f(x_1, x_2) = x_1^2 + x_2^2 
+\tag{5.2.34}
+\end{align}
+\]</div>
+<p>이다.</p>
+<p>이 예제에서는 두가지 제한 조건을 고려해볼 텐데 하나는 다음 그림 중 왼쪽 그림처럼 부등식 제한조건이</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g(x_1, x_2) = x_1 + x_2 - 1 \leq 0 
+\tag{5.2.35}
+\end{align}
+\]</div>
+<p>이다. 다른 하나는 오른쪽 그림처럼 부등식 제한조건이</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g(x_1, x_2) = -x_1 - x_2 + 1 \leq 0 
+\tag{5.2.36}
+\end{align}
+\]</div>
+<p>인 경우다. 이 그림에서는 제한조건을 만족하는 영역을 어둡게 표시했다.</p>
+<p>최적점의 위치는 점으로 표시했다. 첫 번째 제한조건의 경우에는 부등식 제한조건이 있기는 하지만 원래의 최적화 문제의 해가 부등식 제한조건이 제시하는 영역 안에 있기 때문에 최적점의 위치가 달라지지 않는다. 두 번째 제한조건의 경우에는  원래의 최적화 문제의 해가 부등식 제한조건이 제시하는 영역 바깥에 있기 때문에 최적점의 위치가 달라졌다. 하지만 최적점의 위치가 영역의 경계선(boundary line)에 있다는 점에 주의하라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2_g</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="n">x2_g</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;최적해가 부등식과 관계없는 경우&quot;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2_g</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x2_g</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x_1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;최적해가 부등식에 의해 결정되는 경우&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;부등식 제한조건이 있는 최적화 문제&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.02 제한조건이 있는 최적화 문제_26_0.png" src="../_images/05.02 제한조건이 있는 최적화 문제_26_0.png" />
+</div>
+</div>
+<p>그림에서 보듯이 부등식 제한조건이 있는 최적화 문제를 풀면 그 제한조건은 다음 두 가지 경우의 하나가 되어 버린다.</p>
+<ul class="simple">
+<li><p>최적화 결과에 전혀 영향을 주지 않는 <strong>쓸모없는</strong> 제한조건</p></li>
+<li><p>최적화 결과에 영향을 주는 <strong>등식(equality)인</strong> 제한조건</p></li>
+</ul>
+<p>어느 경우이든 부등식 제한조건 문제로 시작했지만 결과는 제한조건이 없거나 등식 제한조건 문제를 푸는 것과 같아진다.</p>
+<p>KKT조건 중 두 번째 조건이 뜻하는 바는 다음과 같다. 다음 식에서 <span class="math notranslate nohighlight">\(x^{\ast}, \lambda^{\ast}\)</span>는 KKT 조건을 풀어서 구한 최적해의 값이다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+\lambda^{\ast} = 0 \;\; \text{or} \;\;  g(x^{\ast}) = 0 
+\tag{5.2.37}
+\end{align}
+\]</div>
+<p>만약 <span class="math notranslate nohighlight">\(g_i = 0\)</span>이면 이 조건은 부등식 제한조건이 아닌 <strong>등식</strong> 제한조건이 된다. 그리고 등식 제한조건에서 말한 바와 같이 (이 제한조건이 있으나 없으나 해가 바뀌지 않는 특수한 경우를 제외하면) <strong>라그랑주 승수는 0이 아닌 값</strong>을 가진다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g_i = 0 \;\; \rightarrow \;\; \lambda_i \neq 0 \; (\lambda_i &gt; 0)
+\tag{5.2.38}
+\end{align}
+\]</div>
+<p>반대로  <span class="math notranslate nohighlight">\(g_i \neq 0 \; (g_i &lt; 0)\)</span>이면 해가 <span class="math notranslate nohighlight">\(g_i\)</span>가 표현하는 곡선으로부터 떨어져 있기 때문에 부등식 제한조건이 아무런 의미가 없어진다. 즉, 제한조건이 있을 때와 없을 때의 해가 같다. 따라서
+목적함수 <span class="math notranslate nohighlight">\(h(x, \lambda)\)</span>는  <span class="math notranslate nohighlight">\(\lambda_ig_i (g_i \neq 0)\)</span> 항이 있으나 없으나 상관없이 같은 해를 가진다. 따라서 <span class="math notranslate nohighlight">\(\lambda_i=0\)</span>이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g_i \neq 0 \;\; \rightarrow \;\; \lambda_i = 0  
+\tag{5.2.39}
+\end{align}
+\]</div>
+<p>따라서 부등식 제한조건이 있는 최적화 문제는 각 제한조건에 대해 위의 두 가지 경우를 가정하여 각각 풀어보면서 최적의 답을 찾는다.</p>
+</div>
+<div class="section" id="id14">
+<h3>예제<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>다음은 복수의 부등식 제한조건이 있는 또다른 2차원 최적화 문제의 예다.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{arg} \min_x \; (x_1-4)^2 + (x_2-2)^2
+\tag{5.2.40}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+g_1(x) = x_1 + x_2 - 1\leq 0
+\tag{5.2.41}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+g_2(x) = -x_1 + x_2 - 1\leq 0
+\tag{5.2.42}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+g_3(x) = -x_1 - x_2 - 1\leq 0
+\tag{5.2.43}
+\end{align}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+g_4(x) = x_1 - x_2 - 1\leq 0
+\tag{5.2.44}
+\end{align}
+\]</div>
+<p>이 4개의 제한조건은 다음과 같은 하나의 부등식으로 나타낼 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g(x) 
+= \left\vert\, x_1 \right\vert + \left\vert\, x_2 \right\vert - 1 
+= \sum_{i=1}^{2} \left\vert\, x_i \right\vert - 1 \leq 0 
+\tag{5.2.45}
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f2plt</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x1</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">X1</span><span class="p">,</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f2plt</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+            <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># 제한 조건의 상수</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">x12</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">x13</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x12</span><span class="p">,</span> <span class="n">x12</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="o">-</span><span class="n">k</span> <span class="o">-</span> <span class="n">x12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x13</span><span class="p">,</span> <span class="n">x13</span> <span class="o">-</span> <span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">-</span> <span class="n">x13</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># 최적점 위치</span>
+<span class="n">x1_sol</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x2_sol</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1_sol</span><span class="p">,</span> <span class="n">x2_sol</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$|x_1| + |x_2| \leq </span><span class="si">{}</span><span class="s2">$ 제한조건을 가지는 최적화 문제&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.02 제한조건이 있는 최적화 문제_30_0.png" src="../_images/05.02 제한조건이 있는 최적화 문제_30_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>연습 문제 5.2.3<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>위 예제에서 최적해가</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+x_1 = 1, \; x_2 = 0
+\tag{5.2.46}
+\end{align}
+\]</div>
+<p>이라는 사실을 이용하여
+라그랑주 승수 <span class="math notranslate nohighlight">\(\lambda_1\)</span>, <span class="math notranslate nohighlight">\(\lambda_2\)</span>, <span class="math notranslate nohighlight">\(\lambda_3\)</span>, <span class="math notranslate nohighlight">\(\lambda_4\)</span> 중 어느 값이 0이 되는지 알아내라.</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>사이파이를 사용하여 부등식 제한조건이 있는 최적화 문제 계산하기<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">fmin_slsqp()</span></code> 명령은 이렇게 부등식 제한조건이 있는 경우에도 사용할 수 있다. 제한조건 인수의 이름이 <code class="docutils literal notranslate"><span class="pre">ieqcons</span></code>로 달라졌다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fmin_slsqp</span><span class="p">(</span><span class="n">func_objective</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">ieqcons</span><span class="o">=</span><span class="p">[</span><span class="n">func_constraint1</span><span class="p">,</span> <span class="n">func_constraint2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>단 <code class="docutils literal notranslate"><span class="pre">ieqcons</span></code> 인수에 들어가는 부등호의 부호는 우리가 지금까지 사용한 방식과 달리 0 또는 양수이어야 한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g \geq 0
+\tag{5.2.47}
+\end{align}
+\]</div>
+<p>사실 <code class="docutils literal notranslate"><span class="pre">fmin_slsqp()</span></code> 명령은 등식 제한조건과 부등식 제한조건을 동시에 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 제한 조건 상수</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">def</span> <span class="nf">ieq_constraint</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+
+<span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">fmin_slsqp</span><span class="p">(</span><span class="n">f2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">ieqcons</span><span class="o">=</span><span class="p">[</span><span class="n">ieq_constraint</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 3.6055512804550336
+            Iterations: 11
+            Function evaluations: 77
+            Gradient evaluations: 11
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([9.99999982e-01, 1.79954011e-08])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>연습 문제 5.2.4<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>위 문제에서 제한조건을 다음과 같이 바꾼다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{align}
+g(x) 
+= \left\vert\, x_1 \right\vert + \left\vert\, x_2 \right\vert - k 
+= \sum_{i=1}^{2} \left\vert\, x_i \right\vert - k \leq 0 
+\tag{5.2.48}
+\end{align}
+\]</div>
+<p>여기에서 <span class="math notranslate nohighlight">\(k\)</span>의 값을 0.1부터 10까지 다양하게 변화시키면서 최적화의 해가 어떻게 달라지는지 살펴보라.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02 mathematics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

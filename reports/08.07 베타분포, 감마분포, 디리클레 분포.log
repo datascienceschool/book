@@ -1,0 +1,52 @@
+Traceback (most recent call last):
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 1082, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/trade/anaconda3/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 535, in async_execute
+    await self.async_execute_cell(
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 827, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/home/trade/anaconda3/lib/python3.8/site-packages/nbclient/client.py", line 735, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+xx = np.linspace(0, 1, 1000)
+plt.subplot(221)
+plt.fill_between(xx, sp.stats.beta(1.0001, 1.0001).pdf(xx))
+plt.ylim(0, 6)
+plt.title("(A) a=1, b=1")
+plt.subplot(222)
+plt.fill_between(xx, sp.stats.beta(4, 2).pdf(xx))
+plt.ylim(0, 6)
+plt.title("(B) a=4, b=2, 최빈값={0}".format((4-1)/(4+2-2)))
+plt.subplot(223)
+plt.fill_between(xx, sp.stats.beta(8, 4).pdf(xx))
+plt.ylim(0, 6)
+plt.title("(C) a=8, b=4, 최빈값={0}".format((8-1)/(8+4-2)))
+plt.subplot(224)
+plt.fill_between(xx, sp.stats.beta(30, 12).pdf(xx))
+plt.ylim(0, 6)
+plt.title("(D) a=30, b=12, 최빈값={0}".format((30-1)/(30+12-2)))
+plt.tight_layout()
+plt.show()
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-1-b8c8a224e743>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mxx[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0mlinspace[0m[0;34m([0m[0;36m0[0m[0;34m,[0m [0;36m1[0m[0;34m,[0m [0;36m1000[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0mplt[0m[0;34m.[0m[0msubplot[0m[0;34m([0m[0;36m221[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0mplt[0m[0;34m.[0m[0mfill_between[0m[0;34m([0m[0mxx[0m[0;34m,[0m [0msp[0m[0;34m.[0m[0mstats[0m[0;34m.[0m[0mbeta[0m[0;34m([0m[0;36m1.0001[0m[0;34m,[0m [0;36m1.0001[0m[0;34m)[0m[0;34m.[0m[0mpdf[0m[0;34m([0m[0mxx[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0mplt[0m[0;34m.[0m[0mylim[0m[0;34m([0m[0;36m0[0m[0;34m,[0m [0;36m6[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0mplt[0m[0;34m.[0m[0mtitle[0m[0;34m([0m[0;34m"(A) a=1, b=1"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mNameError[0m: name 'np' is not defined
+NameError: name 'np' is not defined
+

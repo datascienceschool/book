@@ -295,11 +295,6 @@ commentsRunWhenDOMLoaded(addUtterances);
        6.6 베이즈 정리
       </a>
      </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="#id5">
-       피지엠파이를 사용한 베이즈 정리 적용
-      </a>
-     </li>
     </ul>
    </li>
    <li class="toctree-l2">
@@ -372,21 +367,6 @@ commentsRunWhenDOMLoaded(addUtterances);
      <li class="toctree-l3">
       <a class="reference internal" href="08.06 다변수정규분포.html">
        8.6 다변수정규분포
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="08.06 다변수정규분포.html#id4">
-       다변수정규분포와 고윳값 분해
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="08.06 다변수정규분포.html#id6">
-       다변수정규분포의 조건부확률분포
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="08.06 다변수정규분포.html#id7">
-       다변수정규분포의 주변확률분포
       </a>
      </li>
      <li class="toctree-l3">
@@ -562,6 +542,38 @@ commentsRunWhenDOMLoaded(addUtterances);
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
    검사 시약 문제
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   피지엠파이를 사용한 베이즈 정리 적용
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   베이즈 정리의 확장 2
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     연습 문제 6.6.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     연습 문제 6.6.2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     연습 문제 6.6.3
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   몬티 홀 문제
   </a>
  </li>
 </ul>
@@ -808,9 +820,8 @@ P(D|S)
 \end{split}\]</div>
 <p>시약 반응에서 양성 반응을 보이는 사람이 실제로 병에 걸려 있을 확률은 약 3.8%에 불과하다.</p>
 </div>
-</div>
 <div class="section" id="id5">
-<h1>피지엠파이를 사용한 베이즈 정리 적용<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<h2>피지엠파이를 사용한 베이즈 정리 적용<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>피지엠파이 패키지는 베이즈 정리에 적용하는 <code class="docutils literal notranslate"><span class="pre">BayesianModel</span></code> 클래스를 제공한다. 베이즈 정리를 적용하려면 조건부확률을 구현하는 <code class="docutils literal notranslate"><span class="pre">TabularCPD</span></code> 클래스를 사용하여 사전확률과 가능도를 구현해야 한다. <code class="docutils literal notranslate"><span class="pre">TabularCPD</span></code> 클래스 객체는 다음과 같이 만든다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TabularCPD</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">variable_card</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">evidence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evidence_card</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -922,6 +933,7 @@ P(D|S)
 | X(1) |   0.0382 |
 +------+----------+
 </pre></div>
+</div>
 </div>
 </div>
 </div>

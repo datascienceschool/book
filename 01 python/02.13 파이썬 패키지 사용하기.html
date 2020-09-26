@@ -80,13 +80,13 @@
 </ul>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="../book_python.html">
-   데이터 사이언스 스쿨 - 파이썬 편
+  <a class="reference internal" href="00.00 김도형의 데이터 사이언스 스쿨 - 파이썬 편.html">
+   김도형의 데이터 사이언스 스쿨 - 파이썬 편
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../book_math.html">
-   데이터 사이언스 스쿨 - 수학 편
+  <a class="reference internal" href="../02 mathematics/00.00 김도형의 데이터 사이언스 스쿨 - 수학 편.html">
+   김도형의 데이터 사이언스 스쿨 - 수학 편
   </a>
  </li>
 </ul>
@@ -248,7 +248,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;__SKLEARN_SETUP__&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;_ASSUME_FINITE&#39;,
+ &#39;__SKLEARN_SETUP__&#39;,
  &#39;__all__&#39;,
  &#39;__builtins__&#39;,
  &#39;__cached__&#39;,
@@ -261,21 +262,22 @@
  &#39;__path__&#39;,
  &#39;__spec__&#39;,
  &#39;__version__&#39;,
- &#39;_config&#39;,
- &#39;_distributor_init&#39;,
+ &#39;_contextmanager&#39;,
  &#39;base&#39;,
  &#39;clone&#39;,
  &#39;config_context&#39;,
  &#39;exceptions&#39;,
+ &#39;externals&#39;,
  &#39;get_config&#39;,
  &#39;logger&#39;,
  &#39;logging&#39;,
  &#39;os&#39;,
+ &#39;re&#39;,
  &#39;set_config&#39;,
  &#39;setup_module&#39;,
- &#39;show_versions&#39;,
  &#39;sys&#39;,
- &#39;utils&#39;]
+ &#39;utils&#39;,
+ &#39;warnings&#39;]
 </pre></div>
 </div>
 </div>
@@ -297,7 +299,7 @@
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Binarizer&#39;,
  &#39;FunctionTransformer&#39;,
- &#39;KBinsDiscretizer&#39;,
+ &#39;Imputer&#39;,
  &#39;KernelCenterer&#39;,
  &#39;LabelBinarizer&#39;,
  &#39;LabelEncoder&#39;,
@@ -306,9 +308,7 @@
  &#39;MultiLabelBinarizer&#39;,
  &#39;Normalizer&#39;,
  &#39;OneHotEncoder&#39;,
- &#39;OrdinalEncoder&#39;,
  &#39;PolynomialFeatures&#39;,
- &#39;PowerTransformer&#39;,
  &#39;QuantileTransformer&#39;,
  &#39;RobustScaler&#39;,
  &#39;StandardScaler&#39;,
@@ -322,19 +322,16 @@
  &#39;__package__&#39;,
  &#39;__path__&#39;,
  &#39;__spec__&#39;,
- &#39;_csr_polynomial_expansion&#39;,
- &#39;_data&#39;,
- &#39;_discretization&#39;,
- &#39;_encoders&#39;,
  &#39;_function_transformer&#39;,
- &#39;_label&#39;,
  &#39;add_dummy_feature&#39;,
  &#39;binarize&#39;,
+ &#39;data&#39;,
+ &#39;imputation&#39;,
+ &#39;label&#39;,
  &#39;label_binarize&#39;,
  &#39;maxabs_scale&#39;,
  &#39;minmax_scale&#39;,
  &#39;normalize&#39;,
- &#39;power_transform&#39;,
  &#39;quantile_transform&#39;,
  &#39;robust_scale&#39;,
  &#39;scale&#39;]
@@ -422,29 +419,29 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">c43e34e6d405</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">&lt;ipython-input-10-c43e34e6d405&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">f</span><span class="p">()</span>
 
-<span class="nn">~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">__call__</span><span class="nt">(self, *args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">778</span> 
-<span class="g g-Whitespace">    </span><span class="mi">779</span>     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">780</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">freeze</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="fm">__call__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">freeze</span><span class="o">.</span><span class="vm">__doc__</span>
-<span class="g g-Whitespace">    </span><span class="mi">782</span> 
+<span class="nn">~/anaconda3/lib/python3.6/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">__call__</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">770</span> 
+<span class="g g-Whitespace">    </span><span class="mi">771</span>     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">772</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">freeze</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">773</span>     <span class="fm">__call__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">freeze</span><span class="o">.</span><span class="vm">__doc__</span>
+<span class="g g-Whitespace">    </span><span class="mi">774</span> 
 
-<span class="nn">~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">freeze</span><span class="nt">(self, *args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">775</span> 
-<span class="g g-Whitespace">    </span><span class="mi">776</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">777</span><span class="s2">         return rv_frozen(self, *args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">778</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">779</span><span class="s2">     def __call__(self, *args, **kwds):</span>
+<span class="nn">~/anaconda3/lib/python3.6/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">freeze</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">767</span> 
+<span class="g g-Whitespace">    </span><span class="mi">768</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">769</span><span class="s2">         return rv_frozen(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">770</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">771</span><span class="s2">     def __call__(self, *args, **kwds):</span>
 
-<span class="nn">~/anaconda3/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">__init__</span><span class="nt">(self, dist, *args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">422</span><span class="s2">         self.dist = dist.__class__(**dist._updated_ctor_param())</span>
-<span class="g g-Whitespace">    </span><span class="mi">423</span><span class="s2"> </span>
-<span class="ne">--&gt; </span><span class="mi">424</span><span class="s2">         shapes, _, _ = self.dist._parse_args(*args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">425</span><span class="s2">         self.a, self.b = self.dist._get_support(*shapes)</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span><span class="s2"> </span>
+<span class="nn">~/anaconda3/lib/python3.6/site-packages/scipy/stats/_distn_infrastructure.py</span> in <span class="ni">__init__</span><span class="nt">(self, dist, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">435</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">436</span><span class="s2">         # a, b may be set in _argcheck, depending on *args, **kwds. Ouch.</span>
+<span class="ne">--&gt; </span><span class="mi">437</span><span class="s2">         shapes, _, _ = self.dist._parse_args(*args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span><span class="s2">         self.dist._argcheck(*shapes)</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span><span class="s2">         self.a, self.b = self.dist.a, self.dist.b</span>
 
 <span class="ne">TypeError</span>: _parse_args() missing 2 required positional arguments: &#39;dfn&#39; and &#39;dfd&#39;
 </pre></div>

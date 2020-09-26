@@ -80,13 +80,13 @@
 </ul>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="../../book_python.html">
-   데이터 사이언스 스쿨 - 파이썬 편
+  <a class="reference internal" href="../../01 python/00.00 김도형의 데이터 사이언스 스쿨 - 파이썬 편.html">
+   김도형의 데이터 사이언스 스쿨 - 파이썬 편
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../book_math.html">
-   데이터 사이언스 스쿨 - 수학 편
+  <a class="reference internal" href="../00.00 김도형의 데이터 사이언스 스쿨 - 수학 편.html">
+   김도형의 데이터 사이언스 스쿨 - 수학 편
   </a>
  </li>
 </ul>
@@ -192,59 +192,6 @@
   <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> tikzmagic
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">997</span><span class="n">c417649e4</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;load_ext&#39;</span><span class="p">,</span> <span class="s1">&#39;tikzmagic&#39;</span><span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.8/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2324</span>                 <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span><span class="o">.</span><span class="n">f_locals</span>
-<span class="g g-Whitespace">   </span><span class="mi">2325</span>             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2326</span>                 <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2327</span>             <span class="k">return</span> <span class="n">result</span>
-<span class="g g-Whitespace">   </span><span class="mi">2328</span> 
-
-<span class="nn">&lt;decorator-gen-64&gt;</span> in <span class="ni">load_ext</span><span class="nt">(self, module_str)</span>
-
-<span class="nn">~/anaconda3/lib/python3.8/site-packages/IPython/core/magic.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(f, *a, **k)</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="c1"># but it&#39;s overkill for just that one bit of state.</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="k">def</span> <span class="nf">magic_deco</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">187</span>         <span class="n">call</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span> 
-<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-
-<span class="nn">~/anaconda3/lib/python3.8/site-packages/IPython/core/magics/extension.py</span> in <span class="ni">load_ext</span><span class="nt">(self, module_str)</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">module_str</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>             <span class="k">raise</span> <span class="n">UsageError</span><span class="p">(</span><span class="s1">&#39;Missing module name.&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">33</span>         <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">extension_manager</span><span class="o">.</span><span class="n">load_extension</span><span class="p">(</span><span class="n">module_str</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span> 
-<span class="g g-Whitespace">     </span><span class="mi">35</span>         <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="s1">&#39;already loaded&#39;</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.8/site-packages/IPython/core/extensions.py</span> in <span class="ni">load_extension</span><span class="nt">(self, module_str)</span>
-<span class="g g-Whitespace">     </span><span class="mi">78</span>             <span class="k">if</span> <span class="n">module_str</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span>                 <span class="k">with</span> <span class="n">prepended_to_syspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ipython_extension_dir</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">80</span>                     <span class="n">mod</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="n">module_str</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span>                     <span class="k">if</span> <span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ipython_extension_dir</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span>                         <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Loading extensions from </span><span class="si">{dir}</span><span class="s2"> is deprecated. &quot;</span>
-
-<span class="nn">~/anaconda3/lib/python3.8/importlib/__init__.py</span> in <span class="ni">import_module</span><span class="nt">(name, package)</span>
-<span class="g g-Whitespace">    </span><span class="mi">125</span>                 <span class="k">break</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span>             <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">--&gt; </span><span class="mi">127</span>     <span class="k">return</span> <span class="n">_bootstrap</span><span class="o">.</span><span class="n">_gcd_import</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">level</span><span class="p">:],</span> <span class="n">package</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span> 
-<span class="g g-Whitespace">    </span><span class="mi">129</span> 
-
-<span class="nn">~/anaconda3/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_gcd_import</span><span class="nt">(name, package, level)</span>
-
-<span class="nn">~/anaconda3/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_find_and_load</span><span class="nt">(name, import_)</span>
-
-<span class="nn">~/anaconda3/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tikzmagic&#39;
 </pre></div>
 </div>
 </div>

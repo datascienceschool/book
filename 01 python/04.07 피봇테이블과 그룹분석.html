@@ -80,13 +80,13 @@
 </ul>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="../book_python.html">
-   데이터 사이언스 스쿨 - 파이썬 편
+  <a class="reference internal" href="00.00 김도형의 데이터 사이언스 스쿨 - 파이썬 편.html">
+   김도형의 데이터 사이언스 스쿨 - 파이썬 편
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../book_math.html">
-   데이터 사이언스 스쿨 - 수학 편
+  <a class="reference internal" href="../02 mathematics/00.00 김도형의 데이터 사이언스 스쿨 - 수학 편.html">
+   김도형의 데이터 사이언스 스쿨 - 수학 편
   </a>
  </li>
 </ul>
@@ -286,18 +286,90 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">831974</span><span class="n">da126e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="p">}</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;인구&quot;</span><span class="p">,</span> <span class="s2">&quot;지역&quot;</span><span class="p">]</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">df1</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>도시</th>
+      <th>연도</th>
+      <th>인구</th>
+      <th>지역</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>서울</td>
+      <td>2015</td>
+      <td>9904312</td>
+      <td>수도권</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>서울</td>
+      <td>2010</td>
+      <td>9631482</td>
+      <td>수도권</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>서울</td>
+      <td>2005</td>
+      <td>9762546</td>
+      <td>수도권</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>부산</td>
+      <td>2015</td>
+      <td>3448737</td>
+      <td>경상권</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>부산</td>
+      <td>2010</td>
+      <td>3393191</td>
+      <td>경상권</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>부산</td>
+      <td>2005</td>
+      <td>3512547</td>
+      <td>경상권</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>인천</td>
+      <td>2015</td>
+      <td>2890451</td>
+      <td>수도권</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>인천</td>
+      <td>2010</td>
+      <td>263203</td>
+      <td>수도권</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>이 데이터를 도시 이름이 열 인덱스가 되고 연도가 행 인덱스가 되어 행과 열 인덱스만 보면 어떤 도시의 어떤 시점의 인구를 쉽게 알 수 있도록 피봇테이블로 만들어보자. <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 명령으로 사용하고 행 인덱스 인수로는 <code class="docutils literal notranslate"><span class="pre">&quot;도시&quot;</span></code>, 열 인덱스 인수로는 <code class="docutils literal notranslate"><span class="pre">&quot;연도&quot;</span></code>, 데이터 이름으로 <code class="docutils literal notranslate"><span class="pre">&quot;인구&quot;</span></code>를 입력하면 된다.</p>
 <div class="cell docutils container">

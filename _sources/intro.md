@@ -1,7 +1,8 @@
-데이터사이언스스쿨 수학편
+데이터 사이언스 스쿨
 ==============================================================================
 
-This is a small sample book to give you a feel for how book content is
-structured.
+데이터 사이언스 스쿨은 데이터 사이언스에 대한 모든 지식을 공유하는 장입니다.
 
-Check out the content pages bundled with this sample book to get started.
+* 파이썬 편
+* 수학 편
+* 머신러닝 편

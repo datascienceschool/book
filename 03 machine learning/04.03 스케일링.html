@@ -1,0 +1,1323 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.3 스케일링 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.4 범주형 독립변수" href="04.04 범주형 독립변수.html" />
+    <link rel="prev" title="4.2 선형회귀분석의 기초" href="04.02 선형회귀분석의 기초.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.01 커맨드 라인 인터페이스.html">
+   1.1 커맨드 라인 인터페이스
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.02 파이썬 설치하기.html">
+   1.2 파이썬 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.03 파이썬 처음 사용하기.html">
+   1.3 파이썬 처음 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.04 파이썬 패키지 설치하기.html">
+   1.4 파이썬 패키지 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.05 데이터 분석용 파이썬 패키지 소개.html">
+   1.5 데이터 분석용 파이썬 패키지 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.06 아이파이썬 및 주피터 설정.html">
+   1.6 아이파이썬 및 주피터 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.07 구글 코랩 사용법.html">
+   1.7 구글 코랩 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.01 파이썬을 계산기로 사용하기.html">
+   파이썬을 계산기로 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.02 부동소수점 실수 자료형.html">
+   부동소수점 실수 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.03 파이썬으로 글자를 출력하기.html">
+   파이썬으로 글자를 출력하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.04 파이썬의 문자열 형식화.html">
+   파이썬의 문자열 형식화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.05 파이썬 조건문 기초.html">
+   파이썬 조건문 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.06 파이썬 함수.html">
+   파이썬 함수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.07 파이썬 for 반복문.html">
+   파이썬 for 반복문
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.08 여러 개의 자료를 한 변수에 담기.html">
+   여러 개의 자료를 한 변수에 담기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.09 파이썬에서 리스트 자료형 다루기.html">
+   파이썬에서 리스트 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.10 리스트와 반복문을 사용하여 계산하기.html">
+   리스트와 반복문을 사용하여 계산하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.11 파이썬에서 딕셔너리 자료형 다루기.html">
+   파이썬에서 딕셔너리 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.12 파이썬 객체지향 프로그래밍.html">
+   파이썬 객체지향 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.13 파이썬 패키지 사용하기.html">
+   파이썬 패키지 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.14 파이썬의 자료형.html">
+   파이썬의 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.15 파이썬의 문자열 인코딩.html">
+   파이썬의 문자열 인코딩
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.16 파이썬에서 날짜와 시간 다루기.html">
+   파이썬에서 날짜와 시간 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.01 NumPy 배열.html">
+   NumPy 배열
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.02 배열의 생성과 변형.html">
+   배열의 생성과 변형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.03 배열의 연산.html">
+   배열의 연산
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.04 기술 통계.html">
+   기술 통계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.05 난수 발생과 카운팅.html">
+   난수 발생과 카운팅
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.01 Pandas 패키지의 소개.html">
+   Pandas 패키지의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.02 데이터 입출력.html">
+   데이터 입출력
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.03 데이터프레임 고급 인덱싱.html">
+   데이터프레임 고급 인덱싱
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.04 데이터프레임의 데이터 조작.html">
+   데이터프레임의 데이터 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.05 데이터프레임 인덱스 조작.html">
+   데이터프레임 인덱스 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.06 데이터프레임 합성.html">
+   데이터프레임 병합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.07 피봇테이블과 그룹분석.html">
+   피봇테이블과 그룹분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.08 시계열 자료 다루기.html">
+   시계열 자료 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.09 Dask 사용법 기초.html">
+   Dask 사용법 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.01 시각화 패키지 Matplotlib 소개.html">
+   시각화 패키지 Matplotlib 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.02 Matplotlib의 여러가지 플롯.html">
+   Matplotlib의 여러가지 플롯
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.03 Matplotlib의 삼각 그리드 사용법.html">
+   Matplotlib의 triangular grid 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.04 Seaborn을 사용한 데이터 분포 시각화.html">
+   Seaborn을 사용한 데이터 분포 시각화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.05 Pandas의 시각화 기능.html">
+   Pandas의 시각화 기능
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.02 범주형 데이터 처리.html">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.02 KoNLPy 한국어 처리 패키지.html">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01 확률론적 선형 회귀모형.html">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07.01 추천 시스템.html">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.01 선형판별분석법과 이차판별분석법.html">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.02 K-평균 군집화.html">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03 machine learning/04.03 스케일링.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/03 machine learning/04.03 스케일링.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/03 machine learning/04.03 스케일링.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   조건수
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   회귀분석과 조건수
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>4.3 스케일링<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>이 절에서는 회귀분석에 있어 필수적인 스케일링의 목적과 방법에 대해 공부한다.</p>
+<div class="section" id="id2">
+<h2>조건수<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>보스턴 집값 데이터 예측문제를 statsmodels 패키지로 풀어 summary 리포트를 출력해보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
+
+<span class="n">boston</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">dfy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MEDV&quot;</span><span class="p">])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dfX</span><span class="p">,</span> <span class="n">dfy</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">model1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="s2">&quot;MEDV ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">result1</span> <span class="o">=</span> <span class="n">model1</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result1</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   MEDV   R-squared:                       0.741
+Model:                            OLS   Adj. R-squared:                  0.734
+Method:                 Least Squares   F-statistic:                     108.1
+Date:                Sun, 05 Jul 2020   Prob (F-statistic):          6.72e-135
+Time:                        13:20:08   Log-Likelihood:                -1498.8
+No. Observations:                 506   AIC:                             3026.
+Df Residuals:                     492   BIC:                             3085.
+Df Model:                          13                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     36.4595      5.103      7.144      0.000      26.432      46.487
+CRIM          -0.1080      0.033     -3.287      0.001      -0.173      -0.043
+ZN             0.0464      0.014      3.382      0.001       0.019       0.073
+INDUS          0.0206      0.061      0.334      0.738      -0.100       0.141
+CHAS           2.6867      0.862      3.118      0.002       0.994       4.380
+NOX          -17.7666      3.820     -4.651      0.000     -25.272     -10.262
+RM             3.8099      0.418      9.116      0.000       2.989       4.631
+AGE            0.0007      0.013      0.052      0.958      -0.025       0.027
+DIS           -1.4756      0.199     -7.398      0.000      -1.867      -1.084
+RAD            0.3060      0.066      4.613      0.000       0.176       0.436
+TAX           -0.0123      0.004     -3.280      0.001      -0.020      -0.005
+PTRATIO       -0.9527      0.131     -7.283      0.000      -1.210      -0.696
+B              0.0093      0.003      3.467      0.001       0.004       0.015
+LSTAT         -0.5248      0.051    -10.347      0.000      -0.624      -0.425
+==============================================================================
+Omnibus:                      178.041   Durbin-Watson:                   1.078
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              783.126
+Skew:                           1.521   Prob(JB):                    8.84e-171
+Kurtosis:                       8.281   Cond. No.                     1.51e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.51e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre></div>
+</div>
+</div>
+</div>
+<p>가장 하단에 다음과 같은 경고 메세지를 볼 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">The</span> <span class="n">condition</span> <span class="n">number</span> <span class="ow">is</span> <span class="n">large</span><span class="p">,</span> <span class="mf">1.51e+04</span><span class="o">.</span> <span class="n">This</span> <span class="n">might</span> <span class="n">indicate</span> <span class="n">that</span> <span class="n">there</span> <span class="n">are</span>
+<span class="n">strong</span> <span class="n">multicollinearity</span> <span class="ow">or</span> <span class="n">other</span> <span class="n">numerical</span> <span class="n">problems</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>해석하면 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">조건수</span><span class="p">(</span><span class="n">conditiona</span> <span class="n">number</span><span class="p">)</span><span class="n">가</span> <span class="mi">15100</span><span class="n">으로</span> <span class="n">너무</span> <span class="n">큽니다</span><span class="o">.</span> 
+<span class="n">강한</span> <span class="n">다중공선성</span><span class="p">(</span><span class="n">multicollinearity</span><span class="p">)</span><span class="n">이나</span> <span class="n">다른</span> <span class="n">수치적</span> <span class="n">문제가</span> <span class="n">있을</span> <span class="n">수</span> <span class="n">있습니다</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>행렬의 <strong>조건수</strong>(conditional number)는 가장 큰 고유치와 가장 작은 고유치의 비율을 뜻한다. 회귀분석에서는 공분산행렬 <span class="math notranslate nohighlight">\(X^TX\)</span>의 가장 큰 고유치와 가장 작은 고유치의 비율이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{condition number} = \dfrac{\lambda_{\text{max}}}{\lambda_{\text{min}}} \]</div>
+<p>여기에서는 다음 연립방정식을 예로 들어 설명을 하겠다.</p>
+<div class="math notranslate nohighlight">
+\[ Ax = b \]</div>
+<p>이런 연립방정식이 있을 때 행렬 <span class="math notranslate nohighlight">\(A\)</span>의 조건수가 크면 계수행렬 <span class="math notranslate nohighlight">\(A\)</span>와 상수벡터 <span class="math notranslate nohighlight">\(b\)</span>에 대한 해 <span class="math notranslate nohighlight">\(x\)</span>의 민감도가 커지고 따라서 계수행렬이나 상수벡터에 존재하는 오차가 해에 미치는 영향이 커진다.</p>
+<p>조건수는 가장 작은 경우의 예는 행렬 <span class="math notranslate nohighlight">\(A\)</span>가 단위 행렬인 경우다. 이 때 조건수의 값은 1이다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{cond}(I) = 1 \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 행렬 <span class="math notranslate nohighlight">\(A\)</span>와 곱해져서 상수 벡터 <span class="math notranslate nohighlight">\(b\)</span>가 되는 벡터 <span class="math notranslate nohighlight">\(x\)</span>를 역행렬 <span class="math notranslate nohighlight">\(A^{-1}\)</span>을 사용하여 계산할 수 있다. 이 예에서는 상수 벡터 <span class="math notranslate nohighlight">\(b\)</span>가 1-벡터이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1., 1., 1., 1.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>만약 상수 벡터에 약간의 오차가 있었다면 연립방정식의 해에도 동일한 수준의 오차가 발행한다. 다음 코드과 실행결과는 행렬 <span class="math notranslate nohighlight">\(A\)</span>에 1/10000 오차가 있으면 해 <span class="math notranslate nohighlight">\(x\)</span>에도 유사한 정도의 오차가 생기는 것을 보이고 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_error</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="mf">0.0001</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">x_error</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.99990001, 0.99990001, 0.99990001, 0.99990001])
+</pre></div>
+</div>
+</div>
+</div>
+<p>이번에는 다음과 같은 행렬을 생각하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.        , 0.5       , 0.33333333, 0.25      ],
+       [0.5       , 0.33333333, 0.25      , 0.2       ],
+       [0.33333333, 0.25      , 0.2       , 0.16666667],
+       [0.25      , 0.2       , 0.16666667, 0.14285714]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 행렬은 4차 힐버트 행렬(Hilbert matrix)이라는 행렬로 조건수가 15000이 넘는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15513.738738929038
+</pre></div>
+</div>
+</div>
+</div>
+<p>이렇게 연립방정식을 이루는 행렬의 조건수가 커지면 상수항 오차가 작은 경우에도 해의 오차가 커지게 된다. 오차가 없는 경우의 해 <span class="math notranslate nohighlight">\(x\)</span>는 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  -4.,   60., -180.,  140.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>하지만 이 경우에는 계수행렬이나 상수벡터에 약간의 오차만 있어도 해가 전혀 다른 값을 가진다. 다음 코드는 계수행렬에 1/10000의 오차가 있을 때 해의 값이 전혀 달라지는 것을 보인다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="mf">0.0001</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ -0.58897672,  21.1225671 , -85.75912499,  78.45650825])
+</pre></div>
+</div>
+</div>
+</div>
+<p>따라서 <strong>공분산행렬 <span class="math notranslate nohighlight">\(X^TX\)</span>의  조건수가 크면 회귀분석을 사용한 예측값도 오차가 커진다.</strong></p>
+</div>
+<div class="section" id="id3">
+<h2>회귀분석과 조건수<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>회귀분석에서 조건수가 커지는 경우는 크게 두 가지가 있다.</p>
+<ol class="simple">
+<li><p>변수들의 단위 차이로 인해 숫자의 스케일이 크게 달라지는 경우. 이 경우에는 스케일링(scaling)으로 해결한다.</p></li>
+<li><p>다중 공선성 즉, 상관관계가 큰 독립 변수들이 있는 경우, 이 경우에는 변수 선택이나 PCA를 사용한 차원 축소 등으로 해결한다.</p></li>
+</ol>
+<p>이를 독립변수의 분포모양으로 설명하면 다음 그림과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> tikzmagic
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">tikz</span> -p kotex,pgfplots -l arrows.meta,calc -s 2000,1200 -f png
+
+\coordinate (leftbottom) at (0,0);
+\coordinate (righttop) at (17,7);
+\fill[white,use as bounding box] (leftbottom) rectangle (righttop);
+\draw[help lines, white] (leftbottom) grid (righttop);
+\tikzset{
+    &gt;=stealth,font={\ttfamily\large}
+}
+
+\node at (4.5,6.5) {(1) 스케일링이 안된 경우};
+\draw[-&gt;] (0.5,1) -- (8,1);
+\draw[-&gt;] (1,0.5) -- (1,5);
+\node at (8,0.7) {$x_1$}; 
+\node at (0.7,5) {$x_2$}; 
+\draw (4.5,3) circle (1cm and 0.1cm);
+\draw (4.5,3) circle (2cm and 0.2cm);
+\draw (4.5,3) circle (3cm and 0.3cm);
+\draw (4.5,3) circle (4cm and 0.4cm);
+\draw[-&gt;, line width=2pt] (4.5,3) -- (8,3);
+\draw[-&gt;, line width=2pt] (4.5,3) -- (4.5,3.4);
+\node at (8,3.5) {$\lambda_{max}$};
+\node at (4.5,3.8) {$\lambda_{min}$};
+
+\node at (12.5,6.5) {(2) 다중공선성이 있는 경우};
+\draw[-&gt;] (8.5,1) -- (16,1);
+\draw[-&gt;] (9,0.5) -- (9,5);
+\node at (16,0.7) {$x_1$}; 
+\node at (8.7,5) {$x_2$}; 
+\begin{scope}[shift={(12.5,3)},rotate=30]
+\draw (0,0) circle (1cm and 0.1cm);
+\draw (0,0) circle (2cm and 0.2cm);
+\draw (0,0) circle (3cm and 0.3cm);
+\draw (0,0) circle (4cm and 0.4cm);
+\draw[-&gt;, line width=2pt] (0,0) -- (3.5,0);
+\draw[-&gt;, line width=2pt] (0,0) -- (0,0.4);
+\end{scope}
+\node at (15,5.2) {$\lambda_{max}$};
+\node at (12,3.7) {$\lambda_{min}$};
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04.03 스케일링_26_0.png" src="../_images/04.03 스케일링_26_0.png" />
+</div>
+</div>
+<p>보스턴 집값 문제의 경우 각 독립변수들이 0.1 수준부터 100 수준까지 제각각의 크기를 가지고 있기 때문이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfX</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CRIM         8.601545
+ZN          23.322453
+INDUS        6.860353
+CHAS         0.253994
+NOX          0.115878
+RM           0.702617
+AGE         28.148861
+DIS          2.105710
+RAD          8.707259
+TAX        168.537116
+PTRATIO      2.164946
+B           91.294864
+LSTAT        7.141062
+Name: std, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>이렇게 독립변수가 스케일링 안되면 조건수가 커져서 예측 오차가 증폭될 가능성이 커진다. 이 효과를 확실하게 보기 위하여 일부러 다음처럼 TAX 변수를 크게 만들어 조건수를 증폭시켜 보았다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfX2</span> <span class="o">=</span> <span class="n">dfX</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">dfX2</span><span class="p">[</span><span class="s2">&quot;TAX&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">1e13</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dfX2</span><span class="p">,</span> <span class="n">dfy</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">model2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="s2">&quot;MEDV ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">df2</span><span class="p">)</span>
+<span class="n">result2</span> <span class="o">=</span> <span class="n">model2</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result2</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   MEDV   R-squared:                       0.333
+Model:                            OLS   Adj. R-squared:                  0.329
+Method:                 Least Squares   F-statistic:                     83.39
+Date:                Sun, 05 Jul 2020   Prob (F-statistic):           8.62e-44
+Time:                        13:20:18   Log-Likelihood:                -1737.9
+No. Observations:                 506   AIC:                             3484.
+Df Residuals:                     502   BIC:                             3501.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -0.0038      0.000     -8.543      0.000      -0.005      -0.003
+CRIM          -0.1567      0.046     -3.376      0.001      -0.248      -0.066
+ZN             0.1273      0.016      7.752      0.000       0.095       0.160
+INDUS         -0.1971      0.019    -10.433      0.000      -0.234      -0.160
+CHAS           0.0034      0.000     12.430      0.000       0.003       0.004
+NOX           -0.0023      0.000     -9.285      0.000      -0.003      -0.002
+RM             0.0267      0.002     14.132      0.000       0.023       0.030
+AGE            0.1410      0.017      8.443      0.000       0.108       0.174
+DIS           -0.0286      0.004     -7.531      0.000      -0.036      -0.021
+RAD            0.1094      0.018      6.163      0.000       0.075       0.144
+TAX         1.077e-15   2.66e-16      4.051      0.000    5.55e-16     1.6e-15
+PTRATIO       -0.1124      0.011    -10.390      0.000      -0.134      -0.091
+B              0.0516      0.003     19.916      0.000       0.046       0.057
+LSTAT         -0.6569      0.056    -11.790      0.000      -0.766      -0.547
+==============================================================================
+Omnibus:                       39.447   Durbin-Watson:                   0.863
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               46.611
+Skew:                           0.704   Prob(JB):                     7.56e-11
+Kurtosis:                       3.479   Cond. No.                     1.19e+17
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.19e+17. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre></div>
+</div>
+</div>
+</div>
+<p>조건수가 1000조 수준으로 증가한 것을 볼 수 있다. <code class="docutils literal notranslate"><span class="pre">R-squared</span></code>로 표시되는 성능지표도 크게 감소하였다. 이 성능지표에 대해서는 추후 분산분석에서 자세히 다룬다.</p>
+<p>statsmodels에서는 모형지정 문자열에서 <code class="docutils literal notranslate"><span class="pre">scale()</span></code> 명령을 사용하여 스케일링을 할 수 있다. 이 방식으로 스케일을 하면 스케일링에 사용된 평균과 표준편차를 저장하였다가 나중에 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 명령을 사용할 때도 같은 스케일을 사용하기 때문에 편리하다. 카테고리 더미변수인 <code class="docutils literal notranslate"><span class="pre">CHAS</span></code>는 스케일을 하지 않는다는 점에 주의한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">feature_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;CHAS&quot;</span><span class="p">)</span> 
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scale(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">feature_names</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;CHAS&quot;</span><span class="p">]</span>
+<span class="n">model3</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="s2">&quot;MEDV ~ &quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">feature_names</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">df2</span><span class="p">)</span>
+<span class="n">result3</span> <span class="o">=</span> <span class="n">model3</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   MEDV   R-squared:                       0.741
+Model:                            OLS   Adj. R-squared:                  0.734
+Method:                 Least Squares   F-statistic:                     108.1
+Date:                Sun, 05 Jul 2020   Prob (F-statistic):          6.72e-135
+Time:                        13:20:19   Log-Likelihood:                -1498.8
+No. Observations:                 506   AIC:                             3026.
+Df Residuals:                     492   BIC:                             3085.
+Df Model:                          13                                         
+Covariance Type:            nonrobust                                         
+==================================================================================
+                     coef    std err          t      P&gt;|t|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept         22.3470      0.219    101.943      0.000      21.916      22.778
+scale(CRIM)       -0.9281      0.282     -3.287      0.001      -1.483      -0.373
+scale(ZN)          1.0816      0.320      3.382      0.001       0.453       1.710
+scale(INDUS)       0.1409      0.421      0.334      0.738      -0.687       0.969
+scale(NOX)        -2.0567      0.442     -4.651      0.000      -2.926      -1.188
+scale(RM)          2.6742      0.293      9.116      0.000       2.098       3.251
+scale(AGE)         0.0195      0.371      0.052      0.958      -0.710       0.749
+scale(DIS)        -3.1040      0.420     -7.398      0.000      -3.928      -2.280
+scale(RAD)         2.6622      0.577      4.613      0.000       1.528       3.796
+scale(TAX)        -2.0768      0.633     -3.280      0.001      -3.321      -0.833
+scale(PTRATIO)    -2.0606      0.283     -7.283      0.000      -2.617      -1.505
+scale(B)           0.8493      0.245      3.467      0.001       0.368       1.331
+scale(LSTAT)      -3.7436      0.362    -10.347      0.000      -4.454      -3.033
+CHAS               2.6867      0.862      3.118      0.002       0.994       4.380
+==============================================================================
+Omnibus:                      178.041   Durbin-Watson:                   1.078
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              783.126
+Skew:                           1.521   Prob(JB):                    8.84e-171
+Kurtosis:                       8.281   Cond. No.                         10.6
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<p>스케일링만으로 조건수가 10.6이 된 것을 확인할 수 있다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03 machine learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="04.02 선형회귀분석의 기초.html" title="previous page">4.2 선형회귀분석의 기초</a>
+    <a class='right-next' id="next-link" href="04.04 범주형 독립변수.html" title="next page">4.4 범주형 독립변수</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

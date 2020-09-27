@@ -1,0 +1,1232 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-평균 군집화 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="디비스캔 군집화" href="16.03 디비스캔 군집화.html" />
+    <link rel="prev" title="군집화" href="16.01 군집화.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.01 커맨드 라인 인터페이스.html">
+   1.1 커맨드 라인 인터페이스
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.02 파이썬 설치하기.html">
+   1.2 파이썬 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.03 파이썬 처음 사용하기.html">
+   1.3 파이썬 처음 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.04 파이썬 패키지 설치하기.html">
+   1.4 파이썬 패키지 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.05 데이터 분석용 파이썬 패키지 소개.html">
+   1.5 데이터 분석용 파이썬 패키지 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.06 아이파이썬 및 주피터 설정.html">
+   1.6 아이파이썬 및 주피터 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.07 구글 코랩 사용법.html">
+   1.7 구글 코랩 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.01 파이썬을 계산기로 사용하기.html">
+   파이썬을 계산기로 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.02 부동소수점 실수 자료형.html">
+   부동소수점 실수 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.03 파이썬으로 글자를 출력하기.html">
+   파이썬으로 글자를 출력하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.04 파이썬의 문자열 형식화.html">
+   파이썬의 문자열 형식화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.05 파이썬 조건문 기초.html">
+   파이썬 조건문 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.06 파이썬 함수.html">
+   파이썬 함수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.07 파이썬 for 반복문.html">
+   파이썬 for 반복문
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.08 여러 개의 자료를 한 변수에 담기.html">
+   여러 개의 자료를 한 변수에 담기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.09 파이썬에서 리스트 자료형 다루기.html">
+   파이썬에서 리스트 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.10 리스트와 반복문을 사용하여 계산하기.html">
+   리스트와 반복문을 사용하여 계산하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.11 파이썬에서 딕셔너리 자료형 다루기.html">
+   파이썬에서 딕셔너리 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.12 파이썬 객체지향 프로그래밍.html">
+   파이썬 객체지향 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.13 파이썬 패키지 사용하기.html">
+   파이썬 패키지 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.14 파이썬의 자료형.html">
+   파이썬의 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.15 파이썬의 문자열 인코딩.html">
+   파이썬의 문자열 인코딩
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.16 파이썬에서 날짜와 시간 다루기.html">
+   파이썬에서 날짜와 시간 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.01 NumPy 배열.html">
+   NumPy 배열
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.02 배열의 생성과 변형.html">
+   배열의 생성과 변형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.03 배열의 연산.html">
+   배열의 연산
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.04 기술 통계.html">
+   기술 통계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.05 난수 발생과 카운팅.html">
+   난수 발생과 카운팅
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.01 Pandas 패키지의 소개.html">
+   Pandas 패키지의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.02 데이터 입출력.html">
+   데이터 입출력
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.03 데이터프레임 고급 인덱싱.html">
+   데이터프레임 고급 인덱싱
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.04 데이터프레임의 데이터 조작.html">
+   데이터프레임의 데이터 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.05 데이터프레임 인덱스 조작.html">
+   데이터프레임 인덱스 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.06 데이터프레임 합성.html">
+   데이터프레임 병합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.07 피봇테이블과 그룹분석.html">
+   피봇테이블과 그룹분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.08 시계열 자료 다루기.html">
+   시계열 자료 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.09 Dask 사용법 기초.html">
+   Dask 사용법 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.01 시각화 패키지 Matplotlib 소개.html">
+   시각화 패키지 Matplotlib 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.02 Matplotlib의 여러가지 플롯.html">
+   Matplotlib의 여러가지 플롯
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.03 Matplotlib의 삼각 그리드 사용법.html">
+   Matplotlib의 triangular grid 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.04 Seaborn을 사용한 데이터 분포 시각화.html">
+   Seaborn을 사용한 데이터 분포 시각화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.05 Pandas의 시각화 기능.html">
+   Pandas의 시각화 기능
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.02 범주형 데이터 처리.html">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.02 KoNLPy 한국어 처리 패키지.html">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.03 스케일링.html">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01 확률론적 선형 회귀모형.html">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07.01 추천 시스템.html">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.01 선형판별분석법과 이차판별분석법.html">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03 machine learning/16.02 K-평균 군집화.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/03 machine learning/16.02 K-평균 군집화.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/03 machine learning/16.02 K-평균 군집화.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   K-평균++ 알고리즘
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     연습 문제 14.2.1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     연습 문제 14.2.2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   미니배치 K-평균 군집화
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     연습 문제 14.2.3
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="k">
+<h1>K-평균 군집화<a class="headerlink" href="#k" title="Permalink to this headline">¶</a></h1>
+<p>K-평균 군집화 방법은 가장 단순하고 빠른 군집화 방법의 하나이다.
+다음과 같은 목적함수 값이 최소화될 때까지 군집의 중심위치와 각 데이터가 소속될 군집를 반복해서 찾는다. 이 값을 관성(inertia)이라 한다.</p>
+<div class="math notranslate nohighlight">
+\[ J = \sum_{k=1}^K \sum_{i \in C_k} d(x_i, \mu_k)  \]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(K\)</span>는 군집의 갯수이고 <span class="math notranslate nohighlight">\(C_k\)</span>는 <span class="math notranslate nohighlight">\(k\)</span>번째 군집에 속하는 데이터의 집합, <span class="math notranslate nohighlight">\(\mu_k\)</span>는 <span class="math notranslate nohighlight">\(k\)</span>번째 군집의 중심위치(centroid), <span class="math notranslate nohighlight">\(d\)</span>는 <span class="math notranslate nohighlight">\(x_i, \mu_k\)</span> 두 데이터 사이의 거리 혹은 비유사도(dissimilarity)로 정의한다. 만약 유클리드 거리를 사용한다면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ d(x_i, \mu_k) = || x_i - \mu_k ||^2 \]</div>
+<p>위 식은 다음처럼 표현할 수도 있다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+J = \sum_{i=1}^{N}\min_{\mu_j \in C}(||x_i - \mu_j||^2)  
+\]</div>
+<p>세부 알고리즘은 다음과 같다.</p>
+<ol class="simple">
+<li><p>임의의 중심위치 <span class="math notranslate nohighlight">\(\mu_k\,(k=1,\ldots,K)\)</span>를 고른다. 보통 데이터 표본 중에서 <span class="math notranslate nohighlight">\(K\)</span>개를 선택한다.</p></li>
+<li><p>모든 데이터 <span class="math notranslate nohighlight">\(x_i\,(i=1,\ldots, N)\)</span>에서 각각의 중심위치 <span class="math notranslate nohighlight">\(\mu_k\)</span>까지의 거리를 계산한다.</p></li>
+<li><p>각 데이터에서 가장 가까운 중심위치를 선택하여 각 데이터가 속하는 군집을 정한다.</p></li>
+<li><p>각 군집에 대해 중심위치 <span class="math notranslate nohighlight">\(\mu_k\)</span>를 다시 계산한다.</p></li>
+<li><p>2 ~ 4를 반복한다.</p></li>
+</ol>
+<p>K-평균 군집화란 명칭은 각 군집의 중심위치를 구할 때 해당 군집에 속하는 데이터의 평균(mean)값을 사용하는데서 유래하였다. 만약 평균 대신 중앙값(median)을 사용하면 K-중앙값(K-Median) 군집화라 한다.</p>
+<p>scikit-learn의 cluster 서브패키지는 K-평균 군집화를 위한 <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> 클래스를 제공한다. 다음과 같은 인수를 받을 수 있다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n_clusters</span></code>: 군집의 갯수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">init</span></code>: 초기화 방법. <code class="docutils literal notranslate"><span class="pre">&quot;random&quot;</span></code>이면 무작위, <code class="docutils literal notranslate"><span class="pre">&quot;k-means++&quot;</span></code>이면 K-평균++ 방법. 또는 각 데이터의 군집 라벨.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_init</span></code>: 초기 중심위치 시도 횟수. 디폴트는 10이고 10개의 무작위 중심위치 목록 중 가장 좋은 값을 선택한다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iter</span></code>: 최대 반복 횟수.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random_state</span></code>: 시드값.</p></li>
+</ul>
+<p>다음은 <code class="docutils literal notranslate"><span class="pre">make_blobs</span></code> 명령으로 만든 데이터를 2개로 K-평균 군집화하는 과정을 나타낸 것이다. 각각의 그림은 군집을 정하는 단계 3에서 멈춘 것이다. 마커(marker)의 모양은 소속된 군집을 나타내고 크기가 큰 마커가 해당 군집의 중심위치다. 각 단계에서 중심위치는 전단계의 군집의 평균으로 다시 계산되는 것을 확인할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_KMeans</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s2">&quot;random&quot;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">c0</span><span class="p">,</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">cluster_centers_</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;반복횟수=</span><span class="si">{}</span><span class="s2">, 관성=</span><span class="si">{:5.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">321</span><span class="p">)</span>
+<span class="n">plot_KMeans</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">322</span><span class="p">)</span>
+<span class="n">plot_KMeans</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">323</span><span class="p">)</span>
+<span class="n">plot_KMeans</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">324</span><span class="p">)</span>
+<span class="n">plot_KMeans</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/16.02 K-평균 군집화_4_0.png" src="../_images/16.02 K-평균 군집화_4_0.png" />
+</div>
+</div>
+<p>K-평균 군집화는 항상 수렴하지만 최종 군집화 결과가 전역 최적점이라는 보장은 없다. 군집화 결과는 초기 중심위치에 따라 달라질 수 있다.</p>
+<div class="section" id="id1">
+<h2>K-평균++ 알고리즘<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>K-평균++ 알고리즘은 초기 중심위치를 설정하기 위한 알고리즘이다. 다음과 같은 방법을 통해 되도록 멀리 떨어진 중심위치 집합을 찾아낸다.</p>
+<ol class="simple">
+<li><p>중심위치를 저장할 집합 <span class="math notranslate nohighlight">\(M\)</span> 준비</p></li>
+<li><p>일단 하나의 중심위치 <span class="math notranslate nohighlight">\(\mu_0\)</span>를 랜덤하게 선택하여 <span class="math notranslate nohighlight">\(M\)</span>에 넣는다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(M\)</span>에 속하지 않는 모든 표본 <span class="math notranslate nohighlight">\(x_i\)</span>에 대해 거리 <span class="math notranslate nohighlight">\(d(M, x_i)\)</span>를 계산. <span class="math notranslate nohighlight">\(d(M, x_i)\)</span>는 <span class="math notranslate nohighlight">\(M\)</span>안의 모든 샘플 <span class="math notranslate nohighlight">\(\mu_k\)</span>에 대해  <span class="math notranslate nohighlight">\(d(\mu_k, x_i)\)</span>를 계산하여 가장 작은 값 선택</p></li>
+<li><p><span class="math notranslate nohighlight">\(d(M, x_i)\)</span>에 비례한 확률로 다음 중심위치 <span class="math notranslate nohighlight">\(\mu\)</span>를 선택.</p></li>
+<li><p><span class="math notranslate nohighlight">\(K\)</span>개의 중심위치를 선택할 때까지 반복</p></li>
+<li><p>K-평균 방법 사용</p></li>
+</ol>
+<p>다음은 K-평균++ 방법을 사용하여 MNIST Digit 이미지 데이터를 군집화한 결과이다. 각 군집에서 10개씩의 데이터만 표시하였다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+
+<span class="n">digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s2">&quot;k-means++&quot;</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">labels_</span>
+
+<span class="k">def</span> <span class="nf">show_digits</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+<span class="k">def</span> <span class="nf">show_cluster</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">cluster_number</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">cluster_number</span><span class="p">]</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">cluster_number</span><span class="p">]</span>
+    <span class="n">show_digits</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">show_cluster</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/16.02 K-평균 군집화_9_0.png" src="../_images/16.02 K-평균 군집화_9_0.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_1.png" src="../_images/16.02 K-평균 군집화_9_1.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_2.png" src="../_images/16.02 K-평균 군집화_9_2.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_3.png" src="../_images/16.02 K-평균 군집화_9_3.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_4.png" src="../_images/16.02 K-평균 군집화_9_4.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_5.png" src="../_images/16.02 K-평균 군집화_9_5.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_6.png" src="../_images/16.02 K-평균 군집화_9_6.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_7.png" src="../_images/16.02 K-평균 군집화_9_7.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_8.png" src="../_images/16.02 K-평균 군집화_9_8.png" />
+<img alt="../_images/16.02 K-평균 군집화_9_9.png" src="../_images/16.02 K-평균 군집화_9_9.png" />
+</div>
+</div>
+<p>이미지의 제목에 있는 숫자는 군집 번호에 지나지 않으므로 원래 숫자의 번호와 일치하지 않는다. 하지만 이를 예측문제라고 가정하고 분류결과 행렬을 만들면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">confusion_matrix</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[  1,   0,   0,   0,   0, 177,   0,   0,   0,   0],
+       [  0,   1,  55,  24,   0,   0,   0,   2,   1,  99],
+       [  0,  13,   2, 148,   2,   1,   3,   0,   0,   8],
+       [  0, 155,   0,   1,  11,   0,   7,   0,   2,   7],
+       [163,   0,   7,   0,   0,   0,   7,   0,   0,   4],
+       [  2,   1,   0,   0,  42,   0,   0,   1, 136,   0],
+       [  0,   0,   1,   0,   0,   1,   0, 177,   0,   2],
+       [  0,   0,   0,   0,   0,   0, 177,   0,   0,   2],
+       [  0,   4,   6,   3,  48,   0,   5,   2,   4, 102],
+       [  0,   6,  20,   0, 139,   0,   7,   0,   6,   2]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 군집화 결과의 ARI, AMI, 실루엣계수값은 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">adjusted_mutual_info_score</span><span class="p">,</span> <span class="n">adjusted_rand_score</span><span class="p">,</span> <span class="n">silhouette_score</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ARI:&quot;</span><span class="p">,</span> <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AMI:&quot;</span><span class="p">,</span> <span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Silhouette Score:&quot;</span><span class="p">,</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ARI: 0.6703800183468681
+AMI: 0.7417664506416767
+Silhouette Score: 0.18249069204151275
+</pre></div>
+</div>
+</div>
+</div>
+<p>군집화 결과를 주성분 분석을 통해 2차원에 투영하면 다음과 같다. 겹쳐져 있는 부분은 고차원상에서는 떨어져 있을 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Set1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/16.02 K-평균 군집화_15_0.png" src="../_images/16.02 K-평균 군집화_15_0.png" />
+</div>
+</div>
+<div class="section" id="id2">
+<h3>연습 문제 14.2.1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>K-평균 군집화는 유클리드 거리를 사용하므로 너무 차원이 높을 때는 군집화 성능이 떨이질 수 있다. 이때는 차원축소를 한 후 군집화를 하는 것이 도움이 될 수도 있다.</p>
+<p>MNIST Digit 데이터를 10차원으로 차원축소하여 K-평균 군집화하고 ARI, AMI, 실루엣계수를 각각 계산하여 차원축소를 하지 않았을 때와 비교하라.</p>
+</div>
+<div class="section" id="id3">
+<h3>연습 문제 14.2.2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>붓꽃 데이터를 K=3인 K-평균 군집화하여 ARI, AMI, 실루엣계수를 각각 계산하고 군집화 결과를 2차원상에 투영하여 표시하라.</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>미니배치 K-평균 군집화<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>K-평균 방법에서는 중심위치와 모든 데이터 사이의 거리를 계산해야 하기 때문에 데이터의 갯수가 많아지면 계산량도 늘어단다. 데이터의 수가 너무 많을 때는 미니배치 K-평균(Mini-batch) 군집화 방법을 사용하면 계산량을 줄일 수 있다. 미니배치 K-평균 군집화는 데이터를 미니배치 크기만큼 무작위로 분리하여 K-평균 군집화를 한다. 모든 데이터를 한꺼번에 썼을 때와 결과가 다를 수는 있지만 큰 차이가 없다.</p>
+<p>사이킷런의 cluster 서브패키지는 미니배치 K-평균 군집화를 위한 <code class="docutils literal notranslate"><span class="pre">MiniBatchKMeans</span></code> 클래스를 제공한다. 미니배치 크기 <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> 인수를 추가로 받는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">MiniBatchKMeans</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>150,000개의 데이터를 사용하여 실행 시간을 비교하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">150000</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">170</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>미니배치 군집화의 속도가 훨씬 빠른 것을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">model1</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1.48 s, sys: 3.32 s, total: 4.81 s
+Wall time: 10 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">model2</span> <span class="o">=</span> <span class="n">MiniBatchKMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">compute_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 340 ms, sys: 1 s, total: 1.34 s
+Wall time: 2.9 s
+</pre></div>
+</div>
+</div>
+</div>
+<p>군집화 결과는 그다지 차이가 없다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">150000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">model1</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;K-평균 군집화&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">model2</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;미니배치 K-평균 군집화&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/16.02 K-평균 군집화_28_0.png" src="../_images/16.02 K-평균 군집화_28_0.png" />
+</div>
+</div>
+<div class="section" id="id5">
+<h3>연습 문제 14.2.3<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>20 뉴스그룹 데이터를 K-평균 군집화하여 ARI, AMI, 실루엣계수를 각각 계산하고 군집화 결과를 2차원상에 투영하여 표시하라.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03 machine learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="16.01 군집화.html" title="previous page">군집화</a>
+    <a class='right-next' id="next-link" href="16.03 디비스캔 군집화.html" title="next page">디비스캔 군집화</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

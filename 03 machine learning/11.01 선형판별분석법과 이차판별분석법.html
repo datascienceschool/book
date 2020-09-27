@@ -1,0 +1,1420 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7.1 선형판별분석법과 이차판별분석법 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7.2 나이브베이즈 분류모형" href="11.02 나이브베이즈 분류모형.html" />
+    <link rel="prev" title="6.1 로지스틱 회귀분석" href="10.01 로지스틱 회귀분석.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.01 커맨드 라인 인터페이스.html">
+   1.1 커맨드 라인 인터페이스
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.02 파이썬 설치하기.html">
+   1.2 파이썬 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.03 파이썬 처음 사용하기.html">
+   1.3 파이썬 처음 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.04 파이썬 패키지 설치하기.html">
+   1.4 파이썬 패키지 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.05 데이터 분석용 파이썬 패키지 소개.html">
+   1.5 데이터 분석용 파이썬 패키지 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.06 아이파이썬 및 주피터 설정.html">
+   1.6 아이파이썬 및 주피터 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.07 구글 코랩 사용법.html">
+   1.7 구글 코랩 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.01 파이썬을 계산기로 사용하기.html">
+   파이썬을 계산기로 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.02 부동소수점 실수 자료형.html">
+   부동소수점 실수 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.03 파이썬으로 글자를 출력하기.html">
+   파이썬으로 글자를 출력하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.04 파이썬의 문자열 형식화.html">
+   파이썬의 문자열 형식화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.05 파이썬 조건문 기초.html">
+   파이썬 조건문 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.06 파이썬 함수.html">
+   파이썬 함수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.07 파이썬 for 반복문.html">
+   파이썬 for 반복문
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.08 여러 개의 자료를 한 변수에 담기.html">
+   여러 개의 자료를 한 변수에 담기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.09 파이썬에서 리스트 자료형 다루기.html">
+   파이썬에서 리스트 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.10 리스트와 반복문을 사용하여 계산하기.html">
+   리스트와 반복문을 사용하여 계산하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.11 파이썬에서 딕셔너리 자료형 다루기.html">
+   파이썬에서 딕셔너리 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.12 파이썬 객체지향 프로그래밍.html">
+   파이썬 객체지향 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.13 파이썬 패키지 사용하기.html">
+   파이썬 패키지 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.14 파이썬의 자료형.html">
+   파이썬의 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.15 파이썬의 문자열 인코딩.html">
+   파이썬의 문자열 인코딩
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.16 파이썬에서 날짜와 시간 다루기.html">
+   파이썬에서 날짜와 시간 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.01 NumPy 배열.html">
+   NumPy 배열
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.02 배열의 생성과 변형.html">
+   배열의 생성과 변형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.03 배열의 연산.html">
+   배열의 연산
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.04 기술 통계.html">
+   기술 통계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.05 난수 발생과 카운팅.html">
+   난수 발생과 카운팅
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.01 Pandas 패키지의 소개.html">
+   Pandas 패키지의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.02 데이터 입출력.html">
+   데이터 입출력
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.03 데이터프레임 고급 인덱싱.html">
+   데이터프레임 고급 인덱싱
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.04 데이터프레임의 데이터 조작.html">
+   데이터프레임의 데이터 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.05 데이터프레임 인덱스 조작.html">
+   데이터프레임 인덱스 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.06 데이터프레임 합성.html">
+   데이터프레임 병합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.07 피봇테이블과 그룹분석.html">
+   피봇테이블과 그룹분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.08 시계열 자료 다루기.html">
+   시계열 자료 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.09 Dask 사용법 기초.html">
+   Dask 사용법 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.01 시각화 패키지 Matplotlib 소개.html">
+   시각화 패키지 Matplotlib 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.02 Matplotlib의 여러가지 플롯.html">
+   Matplotlib의 여러가지 플롯
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.03 Matplotlib의 삼각 그리드 사용법.html">
+   Matplotlib의 triangular grid 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.04 Seaborn을 사용한 데이터 분포 시각화.html">
+   Seaborn을 사용한 데이터 분포 시각화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.05 Pandas의 시각화 기능.html">
+   Pandas의 시각화 기능
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.02 범주형 데이터 처리.html">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.02 KoNLPy 한국어 처리 패키지.html">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.03 스케일링.html">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01 확률론적 선형 회귀모형.html">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07.01 추천 시스템.html">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.02 K-평균 군집화.html">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03 machine learning/11.01 선형판별분석법과 이차판별분석법.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/03 machine learning/11.01 선형판별분석법과 이차판별분석법.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/03 machine learning/11.01 선형판별분석법과 이차판별분석법.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   생성모형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   이차판별분석법
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     연습 문제 1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   선형판별분석법
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     연습 문제 2
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>7.1 선형판별분석법과 이차판별분석법<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>선형판별분석법(linear discriminant analysis, LDA)과 이차판별분석법(quadratic discriminant analysis, QDA)는 대표적인 확률론적 생성모형(generative model)이다. 가능도 즉, y의 클래스값에 따른 x의 분포에 대한 정보를 먼저 알아낸 후, 베이즈 정리를 사용하여 주어진 x에 대한 y의 확률분포를 찾아낸다.</p>
+<div class="section" id="id2">
+<h2>생성모형<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>생성모형에서는 베이즈 정리를 사용하여 조건부확률 <span class="math notranslate nohighlight">\(p(y = k \mid x)\)</span> 을 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+P(y = k \mid x) = \dfrac{P(x \mid y = k)\; P(y = k)}{P(x)}
+\]</div>
+<p>분류문제를 풀기 위해서는 각 클래스 <span class="math notranslate nohighlight">\(k\)</span>에 대한 확률을 비교하여 가장 큰 값을 선택한다. 따라서 모든 클래스에 대해 값이 같은 분모 <span class="math notranslate nohighlight">\({P(x)}\)</span>은 굳이 계산하지 않아도 괜찮다.</p>
+<div class="math notranslate nohighlight">
+\[
+P(y = k \mid x) \;\; \propto \;\; P(x \mid y = k) \; P(y = k)
+\]</div>
+<p>여기에서 사전확률 <span class="math notranslate nohighlight">\(P(y = k)\)</span>는 특별한 정보가 없는 경우, 다음처럼 계산한다.</p>
+<div class="math notranslate nohighlight">
+\[
+P(y = k) \approx \frac{\;\;\;\; y = k \text{인 데이터의 수 } \text{ }\;\;\;\;\;\; }{{\text{ }}\text{    모든 데이터의 수    }\;\;\;\;\;\;\;\;}
+\]</div>
+<p>만약 다른 지식이나 정보로 알고 있는 사전확률값이 있다면 그 값을 사용하면 된다.</p>
+<p><span class="math notranslate nohighlight">\(y\)</span>에 대한 <span class="math notranslate nohighlight">\(x\)</span>의 조건부확률인 가능도는 다음과 같이 계산한다.</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(P(x \mid y = k)\)</span> 가 특정한 확률분포 모형을 따른다고 가정한다. 즉, 확률밀도함수의 형태를 가정한다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span>번째 클래스에 속하는 학습 데이터 <span class="math notranslate nohighlight">\(\{x_1, \cdots, x_N\}\)</span>을 사용하여 이 모형의 모수값을 구한다.</p></li>
+<li><p>모수값을 알고 있으므로 <span class="math notranslate nohighlight">\(P(x \mid y = k)\)</span>의 확률 밀도 함수를 구한 것이다. 즉, 새로운 독립변수 값 <span class="math notranslate nohighlight">\(x\)</span>이 어떤 값이 되더라도 <span class="math notranslate nohighlight">\(P(x \mid y = k)\)</span>의 값을 계산할 수 있다.</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>이차판별분석법<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>이차판별분석법에서는 독립변수 <span class="math notranslate nohighlight">\(x\)</span>가 실수이고 확률분포가 다변수 정규분포라고 가정한다. 단 <span class="math notranslate nohighlight">\(x\)</span> 분포의 위치와 형태는 클래스에 따라 달라질 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+p(x \mid y = k) = \dfrac{1}{(2\pi)^{D/2} |\Sigma_k|^{1/2}} \exp \left( -\dfrac{1}{2} (x-\mu_k)^T \Sigma_k^{-1} (x-\mu_k) \right)
+\]</div>
+<p>이 분포들을 알고 있으면 독립변수 <span class="math notranslate nohighlight">\(x\)</span>에 대한 <span class="math notranslate nohighlight">\(y\)</span> 클래스의 조건부확률분포는 다음과 같이 베이즈 정리와 전체 확률의 법칙으로 구할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+P(y=k \mid x) = \dfrac{p(x \mid y = k)P(y=k)}{p(x)} = \dfrac{p(x \mid y = k)P(y=k)}{\sum_l p(x \mid y = l)P(y=l) }
+\]</div>
+<p>예를 들어 <span class="math notranslate nohighlight">\(y\)</span>가  1, 2, 3 이라는 3개의 클래스를 가지고 각 클래스에서의 <span class="math notranslate nohighlight">\(x\)</span>의 확률분포가 다음과 같은 기대값 및 공분산 행렬을 가진다고 가정하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mu_1 = \begin{bmatrix}  0 \\ 0 \end{bmatrix}, \;\;
+\mu_2 = \begin{bmatrix}  1 \\ 1 \end{bmatrix}, \;\;
+\mu_3 = \begin{bmatrix}-1  \\ 1 \end{bmatrix}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma_1 = \begin{bmatrix} 0.7 &amp;   0 \\ 0   &amp; 0.7 \end{bmatrix}, \;\;
+\Sigma_2 = \begin{bmatrix} 0.8 &amp; 0.2 \\ 0.2 &amp; 0.8 \end{bmatrix}, \;\;
+\Sigma_3 = \begin{bmatrix} 0.8 &amp; 0.2 \\ 0.2 &amp; 0.8 \end{bmatrix}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(y\)</span>의 사전 확률은 다음과 같이 동일하다</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y=1) = P(Y=2) = P(Y=3) = \dfrac{1}{3}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">rv1</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]])</span>
+<span class="n">rv2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]])</span>
+<span class="n">rv3</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">rv1</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">rv2</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">X3</span> <span class="o">=</span> <span class="n">rv3</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">X3</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X1</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;class 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;class 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X3</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X3</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;class 3&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11.01 선형판별분석법과 이차판별분석법_9_0.png" src="../_images/11.01 선형판별분석법과 이차판별분석법_9_0.png" />
+</div>
+</div>
+<p>Scikit-Learn은 이차판별분석법을 위한 <code class="docutils literal notranslate"><span class="pre">QuadraticDiscriminantAnalysis</span></code> 클래스를 제공한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">QuadraticDiscriminantAnalysis</span>
+
+<span class="n">qda</span> <span class="o">=</span> <span class="n">QuadraticDiscriminantAnalysis</span><span class="p">(</span><span class="n">store_covariance</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>학습용 데이터에서 가능도를 추정한 후에는 다음과 같은 속성을 가지게 된다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">priors_</span></code>: 각 클래스 <span class="math notranslate nohighlight">\(k\)</span>의 사전확률.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">means_</span></code>: 각 클래스 <span class="math notranslate nohighlight">\(k\)</span>에서 <span class="math notranslate nohighlight">\(x\)</span>의 기댓값 벡터 <span class="math notranslate nohighlight">\(\mu_k\)</span>의 추정치 벡터.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">covariance_</span></code>: 각 클래스 <span class="math notranslate nohighlight">\(k\)</span>에서 <span class="math notranslate nohighlight">\(x\)</span>의 공분산 행렬 <span class="math notranslate nohighlight">\(\Sigma_k\)</span>의 추정치 행렬. (생성자 인수 <code class="docutils literal notranslate"><span class="pre">store_covariance</span></code> 값이 True인 경우에만 제공)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda</span><span class="o">.</span><span class="n">priors_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.33333333, 0.33333333, 0.33333333])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda</span><span class="o">.</span><span class="n">means_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-8.01254084e-04,  1.19457204e-01],
+       [ 1.16303727e+00,  1.03930605e+00],
+       [-8.64060404e-01,  1.02295794e+00]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda</span><span class="o">.</span><span class="n">covariance_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.73846319, -0.01762041],
+       [-0.01762041,  0.72961278]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda</span><span class="o">.</span><span class="n">covariance_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.66534246, 0.21132313],
+       [0.21132313, 0.78806006]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda</span><span class="o">.</span><span class="n">covariance_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.9351386 , 0.22880955],
+       [0.22880955, 0.79142383]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 확률분포를 사용하여 분류를 한 결과는 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1min</span><span class="p">,</span> <span class="n">x1max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
+<span class="n">x2min</span><span class="p">,</span> <span class="n">x2max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+<span class="n">XX1</span><span class="p">,</span> <span class="n">XX2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x1min</span><span class="p">,</span> <span class="n">x1max</span><span class="p">,</span> <span class="p">(</span><span class="n">x1max</span><span class="o">-</span><span class="n">x1min</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">),</span>
+                       <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x2min</span><span class="p">,</span> <span class="n">x2max</span><span class="p">,</span> <span class="p">(</span><span class="n">x2max</span><span class="o">-</span><span class="n">x2min</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>
+<span class="n">YY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">qda</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">XX1</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">XX2</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">XX1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">([</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">as_hex</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">XX1</span><span class="p">,</span> <span class="n">XX2</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X1</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;클래스 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;클래스 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X3</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X3</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;클래스 3&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x1min</span><span class="p">,</span> <span class="n">x1max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">x2min</span><span class="p">,</span> <span class="n">x2max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;이차판별분석법 결과&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11.01 선형판별분석법과 이차판별분석법_19_0.png" src="../_images/11.01 선형판별분석법과 이차판별분석법_19_0.png" />
+</div>
+</div>
+<div class="section" id="id4">
+<h3>연습 문제 1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>이차판별분석법을 사용하여 붓꽃 분류문제를 풀고 성능을 분류결과표와 분류보고서를 출력하라. 그리고 각 클래스에 대한 ROC 커브를 그려라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">QuadraticDiscriminantAnalysis</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">QuadraticDiscriminantAnalysis</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+<span class="n">y1_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y1_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[50,  0,  0],
+       [ 0, 48,  2],
+       [ 0,  1, 49]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y1_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        50
+           1       0.98      0.96      0.97        50
+           2       0.96      0.98      0.97        50
+
+    accuracy                           0.98       150
+   macro avg       0.98      0.98      0.98       150
+weighted avg       0.98      0.98      0.98       150
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">label_binarize</span>
+
+<span class="n">y1_vec</span> <span class="o">=</span> <span class="n">label_binarize</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">QuadraticDiscriminantAnalysis</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1_vec</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thr</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y1_vec</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11.01 선형판별분석법과 이차판별분석법_23_0.png" src="../_images/11.01 선형판별분석법과 이차판별분석법_23_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>선형판별분석법<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>선형판별분석법에서는 각 Y 클래스에 대한 독립변수 X의 조건부확률분포가 <strong>공통된 공분산 행렬을 가지는</strong> 다변수 정규분포(multivariate Gaussian normal distribution)이라고 가정한다. 즉</p>
+<div class="math notranslate nohighlight">
+\[ \Sigma_k = \Sigma \;\;\; \text{ for all } k \]</div>
+<p>이다.</p>
+<p>이 때는 조건부확률분포를 다음과 같이 정리할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+\log p(x \mid y = k) 
+&amp;=&amp; \log \dfrac{1}{(2\pi)^{D/2} |\Sigma|^{1/2}} -  \dfrac{1}{2} (x-\mu_k)^T \Sigma^{-1} (x-\mu_k) \\
+&amp;=&amp; C_0 - \dfrac{1}{2} (x-\mu_k)^T \Sigma^{-1} (x-\mu_k) \\
+&amp;=&amp; C_0 - \dfrac{1}{2} \left( x^T\Sigma^{-1}x - 2\mu_k^T \Sigma^{-1}x + \mu_k^T \Sigma^{-1}\mu_k \right) \\
+&amp;=&amp; C(x)  + \mu_k^T \Sigma^{-1}x - \dfrac{1}{2} \mu_k^T \Sigma^{-1}\mu_k \\
+\end{eqnarray}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+p(x \mid y = k) 
+&amp;=&amp; C'(x)\exp(w_k^Tx + w_{k0}) \\
+\end{eqnarray}
+\end{split}\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(C'(x) = \exp C(x) \)</span>이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+P(y=k \mid x) 
+&amp;=&amp; \dfrac{p(x \mid y = k)P(y=k)}{\sum_l p(x \mid y = l)P(y=l) } \\
+&amp;=&amp; \dfrac{C'(x)\exp(w_k^Tx + w_{k0}) P(y=k)}{\sum_l C'(x)\exp(w_l^Tx + w_{l0})P(y=l) } \\
+&amp;=&amp; \dfrac{C'(x)\exp(w_k^Tx + w_{k0}) P(y=k)}{C'(x)\sum_l \exp(w_l^Tx + w_{l0})P(y=l) } \\
+&amp;=&amp; \dfrac{P(y=k) \exp(w_k^Tx + w_{k0}) }{\sum_l P(y=l) \exp(w_l^Tx + w_{k0})} \\
+&amp;=&amp; \dfrac{P(y=k) \exp(w_k^Tx + w_{k0}) }{P(x)} \\
+\end{eqnarray}
+\end{split}\]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(P(x)\)</span>는 <span class="math notranslate nohighlight">\(y\)</span> 클래스값에 영향을 받지 않는다.</p>
+<p>따라서</p>
+<div class="math notranslate nohighlight">
+\[
+\log P(y=k \mid x) = \log P(y=k) + w_k^Tx + w_{k0} - \log{P(x)} = w_k^Tx + C''_k
+\]</div>
+<p>모든 클래스 <span class="math notranslate nohighlight">\(k\)</span>에 대해 위와 같은 식이 성립하므로 클래스 <span class="math notranslate nohighlight">\(k_1\)</span>과 클래스 <span class="math notranslate nohighlight">\(k_2\)</span>의 경계선, 즉 두 클래스에 대한 확률값이 같아지는 <span class="math notranslate nohighlight">\(x\)</span> 위치를 찾으면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[  w_{k_1}^Tx + C''_{k_1} = w_{k_2}^Tx + C''_{k_2} \]</div>
+<div class="math notranslate nohighlight">
+\[  (w_{k_1} - w_{k_2})^Tx + (C''_{k_1} - C''_{k_2}) = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[  w^Tx + C = 0 \]</div>
+<p>즉, 판별함수가 x에 대한 선형방정식이 되고 경계선의 모양이 직선이 된다.</p>
+<p>Scikit-Learn은 선형판별분석법을 위한 <code class="docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code> 클래스를 제공한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
+
+<span class="n">lda</span> <span class="o">=</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;svd&quot;</span><span class="p">,</span> <span class="n">store_covariance</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>선형판별분석법에서는 기댓값 벡터만 클래스에 따라 달라지고 공분산 행렬은 공통으로 추정한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lda</span><span class="o">.</span><span class="n">means_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-8.01254084e-04,  1.19457204e-01],
+       [ 1.16303727e+00,  1.03930605e+00],
+       [-8.64060404e-01,  1.02295794e+00]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lda</span><span class="o">.</span><span class="n">covariance_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.7718516 , 0.13942905],
+       [0.13942905, 0.7620019 ]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>결과는 다음처럼 직선인 경계선을 가진다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1min</span><span class="p">,</span> <span class="n">x1max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
+<span class="n">x2min</span><span class="p">,</span> <span class="n">x2max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+<span class="n">XX1</span><span class="p">,</span> <span class="n">XX2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x1min</span><span class="p">,</span> <span class="n">x1max</span><span class="p">,</span> <span class="p">(</span><span class="n">x1max</span><span class="o">-</span><span class="n">x1min</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">),</span>
+                       <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x2min</span><span class="p">,</span> <span class="n">x2max</span><span class="p">,</span> <span class="p">(</span><span class="n">x2max</span><span class="o">-</span><span class="n">x2min</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>
+<span class="n">YY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lda</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">XX1</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">XX2</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">XX1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">([</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">as_hex</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">XX1</span><span class="p">,</span> <span class="n">XX2</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X1</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;클래스 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;클래스 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X3</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X3</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;클래스 3&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">x1min</span><span class="p">,</span> <span class="n">x1max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">x2min</span><span class="p">,</span> <span class="n">x2max</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;LDA 분석 결과&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11.01 선형판별분석법과 이차판별분석법_35_0.png" src="../_images/11.01 선형판별분석법과 이차판별분석법_35_0.png" />
+</div>
+</div>
+<div class="section" id="id6">
+<h3>연습 문제 2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>선형판별분석법을 사용하여 붓꽃 분류문제를 풀고 성능을 분류결과표와 분류보고서를 출력하라. 그리고 각 클래스에 대한 ROC 커브를 그려라.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">y2_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">y2_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[50,  0,  0],
+       [ 0, 48,  2],
+       [ 0,  1, 49]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">y2_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        50
+           1       0.98      0.96      0.97        50
+           2       0.96      0.98      0.97        50
+
+    accuracy                           0.98       150
+   macro avg       0.98      0.98      0.98       150
+weighted avg       0.98      0.98      0.98       150
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">label_binarize</span>
+
+<span class="n">y2_vec</span> <span class="o">=</span> <span class="n">label_binarize</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y2_vec</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thr</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y2_vec</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X2</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11.01 선형판별분석법과 이차판별분석법_39_0.png" src="../_images/11.01 선형판별분석법과 이차판별분석법_39_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03 machine learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="10.01 로지스틱 회귀분석.html" title="previous page">6.1 로지스틱 회귀분석</a>
+    <a class='right-next' id="next-link" href="11.02 나이브베이즈 분류모형.html" title="next page">7.2 나이브베이즈 분류모형</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

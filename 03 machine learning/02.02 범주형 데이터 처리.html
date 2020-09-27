@@ -1,0 +1,1468 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.2 범주형 데이터 처리 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NLTK 자연어 처리 패키지" href="03.01.01 NLTK 자연어 처리 패키지.html" />
+    <link rel="prev" title="2.1 데이터 전처리 기초" href="02.01 데이터 전처리 기초.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.01 커맨드 라인 인터페이스.html">
+   1.1 커맨드 라인 인터페이스
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.02 파이썬 설치하기.html">
+   1.2 파이썬 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.03 파이썬 처음 사용하기.html">
+   1.3 파이썬 처음 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.04 파이썬 패키지 설치하기.html">
+   1.4 파이썬 패키지 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.05 데이터 분석용 파이썬 패키지 소개.html">
+   1.5 데이터 분석용 파이썬 패키지 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.06 아이파이썬 및 주피터 설정.html">
+   1.6 아이파이썬 및 주피터 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.07 구글 코랩 사용법.html">
+   1.7 구글 코랩 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.01 파이썬을 계산기로 사용하기.html">
+   파이썬을 계산기로 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.02 부동소수점 실수 자료형.html">
+   부동소수점 실수 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.03 파이썬으로 글자를 출력하기.html">
+   파이썬으로 글자를 출력하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.04 파이썬의 문자열 형식화.html">
+   파이썬의 문자열 형식화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.05 파이썬 조건문 기초.html">
+   파이썬 조건문 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.06 파이썬 함수.html">
+   파이썬 함수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.07 파이썬 for 반복문.html">
+   파이썬 for 반복문
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.08 여러 개의 자료를 한 변수에 담기.html">
+   여러 개의 자료를 한 변수에 담기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.09 파이썬에서 리스트 자료형 다루기.html">
+   파이썬에서 리스트 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.10 리스트와 반복문을 사용하여 계산하기.html">
+   리스트와 반복문을 사용하여 계산하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.11 파이썬에서 딕셔너리 자료형 다루기.html">
+   파이썬에서 딕셔너리 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.12 파이썬 객체지향 프로그래밍.html">
+   파이썬 객체지향 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.13 파이썬 패키지 사용하기.html">
+   파이썬 패키지 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.14 파이썬의 자료형.html">
+   파이썬의 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.15 파이썬의 문자열 인코딩.html">
+   파이썬의 문자열 인코딩
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.16 파이썬에서 날짜와 시간 다루기.html">
+   파이썬에서 날짜와 시간 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.01 NumPy 배열.html">
+   NumPy 배열
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.02 배열의 생성과 변형.html">
+   배열의 생성과 변형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.03 배열의 연산.html">
+   배열의 연산
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.04 기술 통계.html">
+   기술 통계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.05 난수 발생과 카운팅.html">
+   난수 발생과 카운팅
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.01 Pandas 패키지의 소개.html">
+   Pandas 패키지의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.02 데이터 입출력.html">
+   데이터 입출력
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.03 데이터프레임 고급 인덱싱.html">
+   데이터프레임 고급 인덱싱
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.04 데이터프레임의 데이터 조작.html">
+   데이터프레임의 데이터 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.05 데이터프레임 인덱스 조작.html">
+   데이터프레임 인덱스 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.06 데이터프레임 합성.html">
+   데이터프레임 병합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.07 피봇테이블과 그룹분석.html">
+   피봇테이블과 그룹분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.08 시계열 자료 다루기.html">
+   시계열 자료 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.09 Dask 사용법 기초.html">
+   Dask 사용법 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.01 시각화 패키지 Matplotlib 소개.html">
+   시각화 패키지 Matplotlib 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.02 Matplotlib의 여러가지 플롯.html">
+   Matplotlib의 여러가지 플롯
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.03 Matplotlib의 삼각 그리드 사용법.html">
+   Matplotlib의 triangular grid 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.04 Seaborn을 사용한 데이터 분포 시각화.html">
+   Seaborn을 사용한 데이터 분포 시각화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.05 Pandas의 시각화 기능.html">
+   Pandas의 시각화 기능
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.02 KoNLPy 한국어 처리 패키지.html">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.03 스케일링.html">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01 확률론적 선형 회귀모형.html">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07.01 추천 시스템.html">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.01 선형판별분석법과 이차판별분석법.html">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.02 K-평균 군집화.html">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03 machine learning/02.02 범주형 데이터 처리.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/03 machine learning/02.02 범주형 데이터 처리.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/03 machine learning/02.02 범주형 데이터 처리.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   범주형 데이터의 정의
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   범주형 데이터의 변형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   더미변수화
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#patsy">
+   patsy 패키지를 사용한 더미변수화
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   축소랭크 방식
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   두 개의 범주형 변수가 있는 경우
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   카테고리 임베딩
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>2.2 범주형 데이터 처리<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>범주형 데이터의 정의<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>범주형 데이터는 ‘A’, ‘B’, ‘C’와 같이 종류를 표시하는 데이터를 말한다. 카테고리(category( 데이터라고도 부른다. 다음과 같은 데이터는 모두 범주형 데이터의 예다.</p>
+<ul class="simple">
+<li><p>성별: 남자, 여자</p></li>
+<li><p>혈액형: A, B, O, AB</p></li>
+<li><p>이름: 홍길동, 성춘향, …</p></li>
+<li><p>주소: 서울, 부산, 대전, …</p></li>
+</ul>
+<p>반드시 문자만 범주형 데이터인 것은 아다. 예를 들어 소속을 나타내는 ‘1반’, ‘2반’, ‘3반’과 같은 데이터는 숫자로 표현된 값이지만 ‘1’이라는 글자를 이용한 것 뿐이지 숫자로서의 의미는 없다. 즉, ‘2’라는 값이 ‘1’이라는 값보다 2배 더 크다는 뜻이 아니므로 이 경우는 범주형 값으로 보아야 한다.</p>
+</div>
+<div class="section" id="id3">
+<h2>범주형 데이터의 변형<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>대부분의 데이터 분석 모형은 숫자만 입력으로 받을 수 있기 때문에 범주형 데이터는 숫자로 변환해야 한다. 범주형 데이터를 숫자로 변환하는 방법은 두가지다.</p>
+<ul class="simple">
+<li><p>더미변수화</p></li>
+<li><p>카테고리 임베딩</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>더미변수화<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>**더미변수(dummy variable)**는 0 또는 1만 가지는 값으로 어떤 특징이 존재하는가 존재하지 않는가를 표시한다. 다음과 같은 명칭으로도 불린다.</p>
+<ul class="simple">
+<li><p>이진지시자(Boolean indicator)</p></li>
+<li><p>이진변수(binary variable)</p></li>
+<li><p>지시변수(indicator variable)</p></li>
+<li><p>설계변수(design variable)</p></li>
+<li><p>처치(treatment)</p></li>
+</ul>
+<p>카테고리값을 더미변수화하면 복수의 더미변수 벡터로 표시한다. 예를 들어 성별 <span class="math notranslate nohighlight">\(x\)</span>는 2개의 더미변수 <span class="math notranslate nohighlight">\((d_1, d_2)\)</span>로 표현할 수 있다. 더미변수 <span class="math notranslate nohighlight">\(d_1\)</span>는 남자면 1, 여자면 0이 되는 값이다. 더미변수 <span class="math notranslate nohighlight">\(d_2\)</span>는 남자면 0, 여자면 1이 되는 값이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+x = \text{남자} &amp; \;\;\rightarrow\;\; d_1=1, d_2=0 \\
+x = \text{여자} &amp; \;\;\rightarrow\;\; d_1=0, d_2=1
+\end{aligned}
+\end{align}
+\end{split}\]</div>
+<p>혈액형은 4개의 더미변수 <span class="math notranslate nohighlight">\((d_1, d_2, d_3, d_4)\)</span>로 표현할 수 있다. <span class="math notranslate nohighlight">\(d_1\)</span>은 혈액형이 A형인지 아닌지를 나타내는 더미변수이고 <span class="math notranslate nohighlight">\(d_2\)</span>은 혈액형이 B형인지 아닌지를 나타내는 더미변수, <span class="math notranslate nohighlight">\(d_3, d_4\)</span>는 각각 혈액형이 O형인지 아닌지를 나타내는 더미변수, AB형인지 아닌지를 나타내는 더미변수다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\begin{aligned}
+x = \text{A형}  &amp; \;\;\rightarrow\;\; d_1=1, d_2=0, d_3=0, d_4=0 \\
+x = \text{B형}  &amp; \;\;\rightarrow\;\; d_1=0, d_2=1, d_3=0, d_4=0 \\
+x = \text{O형}  &amp; \;\;\rightarrow\;\; d_1=0, d_2=0, d_3=1, d_4=0 \\
+x = \text{AB형} &amp; \;\;\rightarrow\;\; d_1=0, d_2=0, d_3=0, d_4=1 \\
+\end{aligned}
+\end{align}
+\end{split}\]</div>
+<p>위 예제들에서 볼 수 있듯이 <span class="math notranslate nohighlight">\(1\)</span>부터 <span class="math notranslate nohighlight">\(K\)</span>까지의 값을 가질 수 있는 범주형값은 <span class="math notranslate nohighlight">\(K\)</span>개의 더미변수 벡터로 표시할 수 있다. 각 더미변수는 특정한 하나의 카테고리값인가 아닌가를 나타내는 지시자(indicator)가 된다.</p>
+</div>
+<div class="section" id="patsy">
+<h2>patsy 패키지를 사용한 더미변수화<a class="headerlink" href="#patsy" title="Permalink to this headline">¶</a></h2>
+<p>patsy 패키지의 <code class="docutils literal notranslate"><span class="pre">dmatrix()</span></code> 함수는 데이터프레임의 문자열 범주값을 더미변수로 바꿔준다. 예를 들어 다음과 같이 성별을 나타내는 “Male”, “Female”값 데이터가 있는 경우,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s2">&quot;Male&quot;</span><span class="p">,</span> <span class="s2">&quot;Female&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">])</span>
+<span class="n">df1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Female</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">dmatrix()</span></code> 함수에 넣으면 <code class="docutils literal notranslate"><span class="pre">x[Female]</span></code>,  <code class="docutils literal notranslate"><span class="pre">x[Male]</span></code>이라는 두 개의 더미변수를 만들어준다. <code class="docutils literal notranslate"><span class="pre">x[Female]</span></code>는 값이 여자인지 아닌지를 나타내는 더미변수고 <code class="docutils literal notranslate"><span class="pre">x[Male]</span></code>는 값이 남자인지 아닌지를 나타내는 더미변수다. 주의할 점은 <strong>formula 문자열에 항상 <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">0</span></code>을 추가하여 상수항이 생기지 않도록 해야 한다.</strong> 만약 이렇게 하지 않으면 뒤에서 설명할 축소랭크(reduce-rank)방식이라는 다른 방식으로 더미변수를 만들게 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">patsy</span> <span class="kn">import</span> <span class="n">dmatrix</span>
+
+<span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;x + 0&quot;</span><span class="p">,</span> <span class="n">df1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (2, 2)
+  x[Female]  x[Male]
+          0        1
+          1        0
+  Terms:
+    &#39;x&#39; (columns 0:2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음은 혈액형 데이터를 더미변수로 바꾸는 예제 코드다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;AB&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">])</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AB</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>O</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>각각의 범주값에 대응하는 더미변수는 알파벳 순서로 정해진다. 혈액형의 경우에는 <span class="math notranslate nohighlight">\(d_1\)</span>이 A형, <span class="math notranslate nohighlight">\(d_2\)</span>이 AB형, <span class="math notranslate nohighlight">\(d_3\)</span>이 B형, <span class="math notranslate nohighlight">\(d_4\)</span>이 O형이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;x + 0&quot;</span><span class="p">,</span> <span class="n">df2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  x[A]  x[AB]  x[B]  x[O]
+     1      0     0     0
+     0      0     1     0
+     0      1     0     0
+     0      0     0     1
+  Terms:
+    &#39;x&#39; (columns 0:4)
+</pre></div>
+</div>
+</div>
+</div>
+<p>데이터가 범주형 값이지만 정수로 표시된 경우에는 <code class="docutils literal notranslate"><span class="pre">C()</span></code> 연산자를 이용하여 범주형 값임을 명시적으로 지정할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">])</span>
+<span class="n">df3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;C(x) + 0&quot;</span><span class="p">,</span> <span class="n">df3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  C(x)[1]  C(x)[2]  C(x)[3]  C(x)[4]
+        1        0        0        0
+        0        1        0        0
+        0        0        1        0
+        0        0        0        1
+  Terms:
+    &#39;C(x)&#39; (columns 0:4)
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">C()</span></code> 연산자를 사용하면 각 범주값이 대응하는 더미변수의 순서도 바꿀 수 있다. 예를 들어 혈액형의 경우, <span class="math notranslate nohighlight">\(d_1\)</span>이 A형, <span class="math notranslate nohighlight">\(d_2\)</span>이 B형, <span class="math notranslate nohighlight">\(d_3\)</span>이 AB형, <span class="math notranslate nohighlight">\(d_4\)</span>이 O형으로 만들고 싶으면 다음과 같이 <code class="docutils literal notranslate"><span class="pre">level</span></code> 인수를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;C(x, levels=[&#39;A&#39;, &#39;B&#39;, &#39;AB&#39;, &#39;O&#39;]) + 0&quot;</span><span class="p">,</span> <span class="n">df2</span><span class="p">)</span>
+<span class="n">dm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  Columns:
+    [&quot;C(x, levels=[&#39;A&#39;, &#39;B&#39;, &#39;AB&#39;, &#39;O&#39;])[A]&quot;,
+     &quot;C(x, levels=[&#39;A&#39;, &#39;B&#39;, &#39;AB&#39;, &#39;O&#39;])[B]&quot;,
+     &quot;C(x, levels=[&#39;A&#39;, &#39;B&#39;, &#39;AB&#39;, &#39;O&#39;])[AB]&quot;,
+     &quot;C(x, levels=[&#39;A&#39;, &#39;B&#39;, &#39;AB&#39;, &#39;O&#39;])[O]&quot;]
+  Terms:
+    &quot;C(x, levels=[&#39;A&#39;, &#39;B&#39;, &#39;AB&#39;, &#39;O&#39;])&quot; (columns 0:4)
+  (to view full data, use np.asarray(this_obj))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 0., 0., 0.],
+       [0., 1., 0., 0.],
+       [0., 0., 1., 0.],
+       [0., 0., 0., 1.]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>축소랭크 방식<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>지금까지 설명한 더미변수 방식을 <strong>풀랭크(full-rank)</strong> 방식이라고 한다. 이와 달리 <strong>축소랭크(reducec-rank) 방식에서는 특정한 하나의 범주값을 기준값(reference, baseline)으로 하고 기준값에 대응하는 더미변수의 가중치는 항상 1으로 놓는다.</strong> 다른 범주형 값을 가지는 경우는 기준값 더미변수도 1이고 추가적인 특성을 나타내는 더미변수도 1인 것으로 간주한다. 예를 들어 다음 축소랭크 방식은 <span class="math notranslate nohighlight">\(x=A\)</span>를 기준값으로 하는 경우이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+x=A  &amp; \;\;\rightarrow\;\;  d_1=1, d_2=0, d_3=0, d_4=0 \\
+x=B  &amp; \;\;\rightarrow\;\;  d_1=1, d_2=1, d_3=0, d_4=0 \\
+x=AB &amp; \;\;\rightarrow\;\;  d_1=1, d_2=0, d_3=1, d_4=0 \\
+x=O  &amp; \;\;\rightarrow\;\;  d_1=1, d_2=0, d_3=0, d_4=1 \\
+\end{aligned}
+\end{split}\]</div>
+<p>반대로 <span class="math notranslate nohighlight">\(x=B\)</span>를 기준값으로 하면 다음과 같아진다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+x=A  &amp; \;\;\rightarrow\;\;  d_1=1, d_2=1, d_3=0, d_4=0 \\
+x=B  &amp; \;\;\rightarrow\;\;  d_1=0, d_2=1, d_3=0, d_4=0 \\
+x=AB &amp; \;\;\rightarrow\;\;  d_1=0, d_2=1, d_3=1, d_4=0 \\
+x=O  &amp; \;\;\rightarrow\;\;  d_1=0, d_2=1, d_3=0, d_4=1 \\
+\end{aligned}
+\end{split}\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">dmatrix()</span></code> 함수를 사용할 때 formula 문자열에 <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">0</span></code>을 생략하면 축소랭크 방식으로 더미변수를 만든다. 기준이 되는 더미변수의 이름이 <code class="docutils literal notranslate"><span class="pre">Intercept</span></code>가 된다. 기준이 되는 더미변수는 알파벳 순서로 가장 앞의 값이 된다. 다음 예제코드에서는 <code class="docutils literal notranslate"><span class="pre">Female</span></code>이 기준 범주값이 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">df1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (2, 2)
+  Intercept  x[T.Male]
+          1          1
+          1          0
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &#39;x&#39; (column 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>만약 기준 범주값을 다른 값으로 바꾸려면 <code class="docutils literal notranslate"><span class="pre">Treatment()</span></code> 함수를 formula 문자열에서 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;C(x, Treatment(&#39;Male&#39;))&quot;</span><span class="p">,</span> <span class="n">df1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (2, 2)
+  Intercept  C(x, Treatment(&#39;Male&#39;))[T.Female]
+          1                                  0
+          1                                  1
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &quot;C(x, Treatment(&#39;Male&#39;))&quot; (column 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>혈액형 데이터를 축소랭크방식으로 더미변수화하면 다음과 같다. 기준 범주값은 <code class="docutils literal notranslate"><span class="pre">A</span></code>다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">df2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  Intercept  x[T.AB]  x[T.B]  x[T.O]
+          1        0       0       0
+          1        0       1       0
+          1        1       0       0
+          1        0       0       1
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &#39;x&#39; (columns 1:4)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>두 개의 범주형 변수가 있는 경우<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>두 개의 범주형 변수가 있는 경우에는 다음과 같은 두 가지 방법을 사용할 수 있다.</p>
+<ul class="simple">
+<li><p>통합 축소형 방식</p></li>
+<li><p>상호작용 방식</p></li>
+</ul>
+<p>통합 축소형 방식은 각각의 변수를 축소형으로 기준값을 더미변수화한다. 다만 기준값을 나타내는 더미변수는 변수의 갯수와 상관없이 하나로 통합한다.</p>
+<p>예를 들어 A, B 값을 가지는 범주형 변수 x1과 X, Y 값을 가지는 범주형 변수 x2가 있는 경우를 예로 들어보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">])</span>
+<span class="n">df4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x1</th>
+      <th>x2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>B</td>
+      <td>Y</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>통합 축소형 방식에서는 다음과 같이 3개의 더미변수 <span class="math notranslate nohighlight">\((d_1, d_2, d_3)\)</span>를 만든다. <span class="math notranslate nohighlight">\(d_1\)</span>은 x1이 A, x_2가 X라는 기준값을 나타낸다. <span class="math notranslate nohighlight">\(d_2\)</span>은 x1이 A가 아닌 B라는 것을 표시한다. <span class="math notranslate nohighlight">\(d_3\)</span>은 x2이 X가 아닌 Y라는 것을 표시한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+x_1=A, x_2=X &amp; \;\;\rightarrow\;\;  d_1=1, d_2=0, d_3=0 \\
+x_1=B, x_2=X &amp; \;\;\rightarrow\;\;  d_1=1, d_2=1, d_3=0 \\
+x_1=A, x_2=Y &amp; \;\;\rightarrow\;\;  d_1=1, d_2=0, d_3=1 \\
+x_1=B, x_2=Y &amp; \;\;\rightarrow\;\;  d_1=1, d_2=1, d_3=1 \\
+\end{aligned}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;x1 + x2&quot;</span><span class="p">,</span> <span class="n">df4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 3)
+  Intercept  x1[T.B]  x2[T.Y]
+          1        0        0
+          1        1        0
+          1        0        1
+          1        1        1
+  Terms:
+    &#39;Intercept&#39; (column 0)
+    &#39;x1&#39; (column 1)
+    &#39;x2&#39; (column 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>상호작용 방식은 두 범주형 변수를 곱해서 각각의 변수의 조합을 나타내는 새로운 범주형 변수를 만드는 방식이다. 즉 앞의 예제에서는 범주형 독립변수가 하나가 되고 대신 범주형 값이 두 독립변수의 범주형 값들의 조합인 AX, BX, AY, BY의 네가지가 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dmatrix</span><span class="p">(</span><span class="s2">&quot;x1:x2 + 0&quot;</span><span class="p">,</span> <span class="n">df4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DesignMatrix with shape (4, 4)
+  x1[A]:x2[X]  x1[B]:x2[X]  x1[A]:x2[Y]  x1[B]:x2[Y]
+            1            0            0            0
+            0            1            0            0
+            0            0            1            0
+            0            0            0            1
+  Terms:
+    &#39;x1:x2&#39; (columns 0:4)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>카테고리 임베딩<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>카테고리 임베딩(embedding)은 범주값 대신 범주값의 특성을 나타내는 연속값 혹은 연속값 벡터를 사용하는 방법이다.</p>
+<p>예를 들면 운동선수의 이름을 나타내는 범주값의 경우 해당 운동선수의 나이, 연봉, 신체능력치 등을 대신 사용한다. 또 다른 예로 지역명을 나타내는 범주값의 경우에는 해당 지역의 면적, 인구수 등을 사용할 수 있다.</p>
+<p>하지만 임베딩을 사용하는 경우에는 데이터 분석 목적에 맞게 특징을 선택해야 하고 현재 가지고 있는 데이터가 아닌 외부의 추가적인 데이터를 조사해야 한다는 부담이 있다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03 machine learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="02.01 데이터 전처리 기초.html" title="previous page">2.1 데이터 전처리 기초</a>
+    <a class='right-next' id="next-link" href="03.01.01 NLTK 자연어 처리 패키지.html" title="next page">NLTK 자연어 처리 패키지</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

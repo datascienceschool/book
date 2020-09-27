@@ -1,0 +1,1609 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5.1 확률론적 선형 회귀모형 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.2 회귀분석의 기하학" href="05.02 회귀분석의 기하학.html" />
+    <link rel="prev" title="4.5 부분회귀" href="04.05 부분회귀.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.01 커맨드 라인 인터페이스.html">
+   1.1 커맨드 라인 인터페이스
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.02 파이썬 설치하기.html">
+   1.2 파이썬 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.03 파이썬 처음 사용하기.html">
+   1.3 파이썬 처음 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.04 파이썬 패키지 설치하기.html">
+   1.4 파이썬 패키지 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.05 데이터 분석용 파이썬 패키지 소개.html">
+   1.5 데이터 분석용 파이썬 패키지 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.06 아이파이썬 및 주피터 설정.html">
+   1.6 아이파이썬 및 주피터 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.07 구글 코랩 사용법.html">
+   1.7 구글 코랩 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.01 파이썬을 계산기로 사용하기.html">
+   파이썬을 계산기로 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.02 부동소수점 실수 자료형.html">
+   부동소수점 실수 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.03 파이썬으로 글자를 출력하기.html">
+   파이썬으로 글자를 출력하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.04 파이썬의 문자열 형식화.html">
+   파이썬의 문자열 형식화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.05 파이썬 조건문 기초.html">
+   파이썬 조건문 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.06 파이썬 함수.html">
+   파이썬 함수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.07 파이썬 for 반복문.html">
+   파이썬 for 반복문
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.08 여러 개의 자료를 한 변수에 담기.html">
+   여러 개의 자료를 한 변수에 담기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.09 파이썬에서 리스트 자료형 다루기.html">
+   파이썬에서 리스트 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.10 리스트와 반복문을 사용하여 계산하기.html">
+   리스트와 반복문을 사용하여 계산하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.11 파이썬에서 딕셔너리 자료형 다루기.html">
+   파이썬에서 딕셔너리 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.12 파이썬 객체지향 프로그래밍.html">
+   파이썬 객체지향 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.13 파이썬 패키지 사용하기.html">
+   파이썬 패키지 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.14 파이썬의 자료형.html">
+   파이썬의 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.15 파이썬의 문자열 인코딩.html">
+   파이썬의 문자열 인코딩
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.16 파이썬에서 날짜와 시간 다루기.html">
+   파이썬에서 날짜와 시간 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.01 NumPy 배열.html">
+   NumPy 배열
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.02 배열의 생성과 변형.html">
+   배열의 생성과 변형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.03 배열의 연산.html">
+   배열의 연산
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.04 기술 통계.html">
+   기술 통계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.05 난수 발생과 카운팅.html">
+   난수 발생과 카운팅
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.01 Pandas 패키지의 소개.html">
+   Pandas 패키지의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.02 데이터 입출력.html">
+   데이터 입출력
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.03 데이터프레임 고급 인덱싱.html">
+   데이터프레임 고급 인덱싱
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.04 데이터프레임의 데이터 조작.html">
+   데이터프레임의 데이터 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.05 데이터프레임 인덱스 조작.html">
+   데이터프레임 인덱스 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.06 데이터프레임 합성.html">
+   데이터프레임 병합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.07 피봇테이블과 그룹분석.html">
+   피봇테이블과 그룹분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.08 시계열 자료 다루기.html">
+   시계열 자료 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.09 Dask 사용법 기초.html">
+   Dask 사용법 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.01 시각화 패키지 Matplotlib 소개.html">
+   시각화 패키지 Matplotlib 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.02 Matplotlib의 여러가지 플롯.html">
+   Matplotlib의 여러가지 플롯
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.03 Matplotlib의 삼각 그리드 사용법.html">
+   Matplotlib의 triangular grid 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.04 Seaborn을 사용한 데이터 분포 시각화.html">
+   Seaborn을 사용한 데이터 분포 시각화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.05 Pandas의 시각화 기능.html">
+   Pandas의 시각화 기능
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.02 범주형 데이터 처리.html">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.02 KoNLPy 한국어 처리 패키지.html">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.03 스케일링.html">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07.01 추천 시스템.html">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.01 선형판별분석법과 이차판별분석법.html">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.02 K-평균 군집화.html">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03 machine learning/05.01 확률론적 선형 회귀모형.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/03 machine learning/05.01 확률론적 선형 회귀모형.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/03 machine learning/05.01 확률론적 선형 회귀모형.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   부트스트래핑
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   확률론적 선형 회귀모형
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     (1) 선형 정규 분포 가정
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exogeneity">
+     (2) 외생성(Exogeneity) 가정
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     (3) 조건부 독립 가정
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     (4) 등분산성 가정
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   최대 가능도 방법을 사용한 선형 회귀분석
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   잔차의 분포
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   회귀 계수의 표준 오차
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#t-single-coefficient-t-test">
+   단일 계수 t-검정 (Single Coefficient t-test)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#f">
+   회귀분석 F-검정
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>5.1 확률론적 선형 회귀모형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>OLS(Ordinary Least Square) 방법을 사용하면 데이터에 대한 확률론적인 가정이 없어도 최적의 가중치를 계산할 수 있었다. 그러나 계산한 가중치가 어느 정도의 신뢰도를 가지는지 확인할 수 있는 방법이 없다.</p>
+<p>예를 들어 보스턴 집값의 선형 회귀모형에서 OLS로 계산한 범죄율에 대한 가중치는 약 <span class="math notranslate nohighlight">\(-0.1080\)</span>이었다. 만약 이 값이 정확한 값이라면 집값은 범죄율에 반비례한다는 결론을 내릴 수 있다. 하지만 <span class="math notranslate nohighlight">\(-0.1080\)</span>은 표본에서 계산된 추정치일 뿐이며 추정 오차가 있을 수 있다. 만약 추정 오차의 크기가 <span class="math notranslate nohighlight">\(0.0001\)</span> 수준이라면 실제 가중치는 <span class="math notranslate nohighlight">\(-0.1080 \pm 0.0001\)</span> 즉, <span class="math notranslate nohighlight">\(-0.1081 \sim -0.1079\)</span> 정도이고 집값이 범죄율에 반비례한다는 결론은 바뀌지 않을 것이다. 하지만 만약 추정 오차의 크기가 <span class="math notranslate nohighlight">\(0.2\)</span> 수준이라면 실제 가중치는 <span class="math notranslate nohighlight">\(-0.3081 \sim 0.0920\)</span> 정도의 범위가 된다. 다시 말해 진짜 가중치는 0이 될 수도 있고 양수가 될 수 있다. 만약 가중치가 0이라면 범죄율과 집값은 아무런 상관 관계가 없다는 결론이 나온다. 만약 가중치가 양수이면 집값은 범죄율에 정비례한다는 결론이 나올 수도 있다. 즉 가중치의 오차 범위 혹은 신뢰 구간을 계산할 수 없다면 OLS 결과로부터 실질적인 결론을 이끌어내기 어렵다.</p>
+<div class="section" id="id2">
+<h2>부트스트래핑<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>부트스트래핑(bootstrapping)은 회귀분석에 사용한 표본 데이터가 달라질 때 회귀분석의 결과는 어느 정도 영향을 받는지를 알기 위한 방법이다.</p>
+<p>OLS로 구한 가중치의 추정값은 표본 데이터에 따라 달라진다. 만약 여러가지 다른 표본 데이터 집합이 있다면 이 데이터들을 넣어보면서 가중치가 어느 정도 달라지는지에 대한 감을 얻을 수 있을 것이다. 그러나 현실적으로는 추가적인 데이터를 얻기 어렵기 때문에 부트스트래핑 방법에서는 기존의 데이터를 재표본화(re-sampling)하여 여러가지 다양한 표본 데이터 집합을 만드는 방법을 사용한다. 재표본화는 기존의 <span class="math notranslate nohighlight">\(N\)</span>개의 데이터에서 다시 <span class="math notranslate nohighlight">\(N\)</span>개의 데이터를 선택하되 중복 선택도 가능하게 한다(unordered resampling with replacement).</p>
+<p>직접 부트스트래핑을 실시해 보자. 다음과 같은 선형 회귀 모형을 따르는 100개의 가상 데이터를 생성한다. 모형에 사용된 모수는 상수항이 <span class="math notranslate nohighlight">\(w_0=0\)</span>,  기울기가 <span class="math notranslate nohighlight">\(w_1=42.3855\)</span>이다.</p>
+<div class="math notranslate nohighlight">
+\[ y = w_0 + w_1 x + \epsilon \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+
+<span class="n">X0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">coef</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                              <span class="n">coef</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">coef</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(42.38550486)
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 표본 데이터를 기반으로 회귀분석을 실시한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfX0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;X1&quot;</span><span class="p">])</span>
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">dfX0</span><span class="p">)</span>
+<span class="n">dfy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">])</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">dfy</span><span class="p">,</span> <span class="n">dfX</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>추정된 가중치값은 <code class="docutils literal notranslate"><span class="pre">params</span></code> 속성에 저장되어 있다. 상수항의 추정치가 <span class="math notranslate nohighlight">\(\hat{w}_0=-1.628364\)</span>, 기울기의 추정치가 <span class="math notranslate nohighlight">\(\hat{w}_1=42.853356\)</span>로 실제 모수와 다르다는 것을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>const    -1.628364
+X1       42.853356
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음으로 이 데이터를 재표본화하여 다른 데이터 집합을 만들고 이 데이터를 기반으로 다시 회귀분석을 한다. 여기에서는 이러한 회귀분석을 1,000번 반복한다. 그 결과로써 1,000개의 다른 가중치 추정값이 나오게 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">params_w0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">params_w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dfy</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">dfy</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dfX2</span> <span class="o">=</span> <span class="n">dfX</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">dfy2</span> <span class="o">=</span> <span class="n">dfy</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">dfy2</span><span class="p">,</span> <span class="n">dfX2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">params_w0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">const</span>
+    <span class="n">params_w1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">X1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1.39 s, sys: 170 ms, total: 1.56 s
+Wall time: 1.38 s
+</pre></div>
+</div>
+</div>
+</div>
+<p>전체 가중치 추정값 집합을 히스토그램으로 나타내면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">params_w1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">params_w1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$\hat</span><span class="si">{w}</span><span class="s2">_1$ 추정치 분포&quot;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">params_w0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">params_w0</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$\hat</span><span class="si">{w}</span><span class="s2">_0$ 추정치 분포&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.01 확률론적 선형 회귀모형_13_0.png" src="../_images/05.01 확률론적 선형 회귀모형_13_0.png" />
+</div>
+</div>
+<p>추정치 분포의 평균과 분산은 다음과 같다. 기울기의 추정치 분포는 평균이 <span class="math notranslate nohighlight">\(42.92\)</span>, 표준편차가 <span class="math notranslate nohighlight">\(1.92\)</span>이다. 대부분의 데이터가 <span class="math notranslate nohighlight">\(42.92 \pm 3.84\)</span> (<span class="math notranslate nohighlight">\(\bar{x} \pm 2s\)</span>) 사이에 있다. 따라서 오차가 큰 경우에도 0 혹은 음수가 될 가능성은 적다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params_w1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params_w1</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(42.8795965564626, 1.8917553947290568)
+</pre></div>
+</div>
+</div>
+</div>
+<p>그런데 상수항의 추정치 분포는 평균이 <span class="math notranslate nohighlight">\(-1.67\)</span>, 표준편차가 <span class="math notranslate nohighlight">\(2.16\)</span>이다. 대부분의 데이터가 <span class="math notranslate nohighlight">\(-1.67 \pm 4.32 \; (-5.99 \sim 2.65)\)</span> 사이에 있기 때문에 0일 수도 있고 혹은 음수일 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params_w0</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params_w0</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-1.5193782287648, 2.235070026749657)
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 결과를 statsmodels의 <code class="docutils literal notranslate"><span class="pre">summary</span></code> 메서드로 출력한 보고서와 비교해보면 추정치의 표준편차와 비슷한 값이 <code class="docutils literal notranslate"><span class="pre">std</span> <span class="pre">err</span></code>이라는 이름으로 표시되어 있고 <span class="math notranslate nohighlight">\(\bar{x} \pm 2s\)</span>로 추정한 구간과 비슷한 값이 <code class="docutils literal notranslate"><span class="pre">[0.025</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">0.975]</span></code> 열 아래에 표시되어 있다. 예를 들어 상수항 추정치는 <code class="docutils literal notranslate"><span class="pre">std</span> <span class="pre">err</span></code>가 2.163 이고 <code class="docutils literal notranslate"><span class="pre">[0.025</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">0.975]</span></code>열 값이 <span class="math notranslate nohighlight">\(-5.920 \sim 2.663\)</span>이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.803
+Model:                            OLS   Adj. R-squared:                  0.801
+Method:                 Least Squares   F-statistic:                     400.3
+Date:                Mon, 17 Jun 2019   Prob (F-statistic):           2.21e-36
+Time:                        20:16:17   Log-Likelihood:                -448.09
+No. Observations:                 100   AIC:                             900.2
+Df Residuals:                      98   BIC:                             905.4
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -1.6284      2.163     -0.753      0.453      -5.920       2.663
+X1            42.8534      2.142     20.008      0.000      38.603      47.104
+==============================================================================
+Omnibus:                        3.523   Durbin-Watson:                   1.984
+Prob(Omnibus):                  0.172   Jarque-Bera (JB):                2.059
+Skew:                          -0.073   Prob(JB):                        0.357
+Kurtosis:                       2.312   Cond. No.                         1.06
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<p>하지만 이 보고서의 값은 부트스트래핑을 사용하여 구한 값이 아니라 확률론적 선형 회귀모형을 사용한 것이다. 확률론적 선형 회귀모형을 쓰면 부트스트래핑처럼 많은 계산을 하지 않아도 빠르고 안정적으로 가중치 추정값의 오차를 구할 수 있다.</p>
+</div>
+<div class="section" id="id3">
+<h2>확률론적 선형 회귀모형<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>확률론적 선형 회귀모형에서는 데이터가 확률 변수로부터 생성된 표본이라고 가정한다. 구체적인 가정은 다음과 같다.</p>
+<div class="section" id="id4">
+<h3>(1) 선형 정규 분포 가정<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>선형 회귀분석의 기본 가정은 종속 변수 <span class="math notranslate nohighlight">\(y\)</span>가 독립 변수 <span class="math notranslate nohighlight">\(x\)</span>의 선형 조합으로 결정되는 기댓값과 고정된 분산 <span class="math notranslate nohighlight">\(\sigma^2\)</span>을 가지는 가우시안 정규 분포라는 것이다.</p>
+<div class="math notranslate nohighlight">
+\[ y \sim \mathcal{N}(w^Tx, \sigma^2) \]</div>
+<p>y의 확률 밀도 함수는 다음처럼 쓸 수 있다. 이 식에서 모수 벡터 <span class="math notranslate nohighlight">\(\theta=(w, \sigma^2)\)</span>이다.</p>
+<div class="math notranslate nohighlight">
+\[ p(y \mid x, \theta) = \mathcal{N}(y \mid w^Tx, \sigma^2 ) \]</div>
+<p>이 관계식을 잡음(disturbance) <span class="math notranslate nohighlight">\( \epsilon\)</span> 개념으로 변환하면 더 간단하게 표현할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ \epsilon = y - w^Tx \]</div>
+<p>$<span class="math notranslate nohighlight">\( p(\epsilon \mid \theta) = \mathcal{N}(0, \sigma^2 ) \)</span>$ <br></p>
+<p>여기에서 주의할 점은</p>
+<blockquote>
+<div><p><strong>x, y 중 그 어느 것도 그 자체로 정규 분포일 필요는 없다</strong></p>
+</div></blockquote>
+<p>는 것이다.</p>
+<p><span class="math notranslate nohighlight">\(y\)</span>도 <span class="math notranslate nohighlight">\(x\)</span>에 대해 <strong>조건부로 정규 분포</strong>를 이루는 것이지 <span class="math notranslate nohighlight">\(y\)</span> 자체가 무조건부로 정규분포는 아니다.</p>
+</div>
+<div class="section" id="exogeneity">
+<h3>(2) 외생성(Exogeneity) 가정<a class="headerlink" href="#exogeneity" title="Permalink to this headline">¶</a></h3>
+<p>잡음 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 기댓값은 독립 변수 <span class="math notranslate nohighlight">\(x\)</span>의 크기에 상관없이 항상 0이라고 가정한다. 이를 외생성(Exogeneity) 가정이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{E}[\epsilon \mid x] = 0\]</div>
+<p>외생성 가정으로부터와 잡음 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 무조건부 기댓값이 0임을 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{E}[\epsilon] = \text{E}[\text{E}[\epsilon \mid x]] = 0\]</div>
+<p>역은 성립하지 않는다. 즉 조건부 기댓값이 0이면 기댓값은 0이지만 기댓값이 0이라고 조건부 기댓값이 0이 되지는 않는다.</p>
+<p>그리고 같은 가정으로부터 잡음 <span class="math notranslate nohighlight">\(\epsilon\)</span>와 독립 변수 <span class="math notranslate nohighlight">\(x\)</span>가 상관 관계가 없다는 것도 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{E}[\epsilon x] = \text{E}[\text{E}[\epsilon x \mid x]] = \text{E}[x \text{E}[\epsilon\mid x]] = 0\]</div>
+</div>
+<div class="section" id="id5">
+<h3>(3) 조건부 독립 가정<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(i\)</span>번째 표본의 잡음 <span class="math notranslate nohighlight">\(\epsilon_i\)</span>와 <span class="math notranslate nohighlight">\(j\)</span>번째 표본의 잡음 <span class="math notranslate nohighlight">\(\epsilon_j\)</span>의 공분산 값이 <span class="math notranslate nohighlight">\(x\)</span>와 상관없이 항상 0이라고 가정한다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{Cov}[\epsilon_i, \epsilon_j \mid x] = 0 \;\; (i,j=1,2,\ldots,N) \]</div>
+<p>이는 <span class="math notranslate nohighlight">\(i\)</span>번째 표본의 잡음 <span class="math notranslate nohighlight">\(\epsilon_i\)</span>와 <span class="math notranslate nohighlight">\(j\)</span>번째 표본의 잡음 <span class="math notranslate nohighlight">\(\epsilon_j\)</span>는 서로 독립이라는 가정과 같다.</p>
+<p>이 가정과 위의 다른 가정들로부터 다음을 증명할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{E}[\epsilon_i \epsilon_j] = 0 \;\; (i,j=1,2,\ldots,N) \]</div>
+<p>잡음 벡터 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 공분산 행렬이 대각행렬이 되어야 한다는 조건과 같다. (비대각 성분이 모두 0이어야 한다.)</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov}[\epsilon] = \text{E}[\epsilon^{} \epsilon^T] = \text{diagonal matrix} \]</div>
+</div>
+<div class="section" id="id6">
+<h3>(4) 등분산성 가정<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(i\)</span>번째 표본의 잡음 <span class="math notranslate nohighlight">\(\epsilon_i\)</span>와 <span class="math notranslate nohighlight">\(j\)</span>번째 표본의 잡음 <span class="math notranslate nohighlight">\(\epsilon_j\)</span>의 분산 값이 표본과 상관없이 항상 같다고 가정한다.</p>
+<p>잡음 벡터 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 공분산 행렬이 항등행렬 형태가 되어야 한다는 조건과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov}[\epsilon] = \text{E}[\epsilon^{} \epsilon^T] = \sigma^2I \]</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>최대 가능도 방법을 사용한 선형 회귀분석<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>확률론적 선형 회귀모형의 가정과 최대 가능도 방법(Maximum Likelihood Estimation)을 사용하여 가중치 벡터 <span class="math notranslate nohighlight">\(w\)</span>의 값을 구해보자.</p>
+<p>가능도는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+p(y_{1:N} \,\big|\, x_{1:N}, \theta)
+&amp;=&amp; \prod_{i=1}^N \mathcal{N}(y_i \,\big|\, w^T x_i , \sigma^2) \\
+&amp;=&amp; \prod_{i=1}^N \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left\{-\frac{(y_i-w^T x_i)^2}{2\sigma^2} \right\}  \\
+\end{eqnarray}
+\end{split}\]</div>
+<p>계산을 쉽게하기 위해 Log를 적용하여 로그 가능도(log-likelihood)를 구한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+\text{LL}  
+&amp;=&amp; \log p(y_{1:N} \,\big|\, x_{1:N}, \theta) \\
+&amp;=&amp; \log \prod_{i=1}^N \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left\{-\frac{(y_i-w^T x_i)^2}{2\sigma^2} \right\}  \\
+&amp;=&amp; -\dfrac{1}{2\sigma^2} \sum_{i=1}^N (y_i-w^T x_i)^2 - \dfrac{N}{2} \log{2\pi}{\sigma^2}  \\
+\end{eqnarray}
+\end{split}\]</div>
+<p>이를 행렬로 표시하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{LL}  =  -C_1 (y - Xw)^T(y-Xw) - C_0 = -C_1(w^TX^TXw -2 y^TXw + y^Ty) - C_0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_1 =  -\dfrac{1}{2\sigma^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_0 =  \dfrac{N}{2} \log{2\pi}{\sigma^2} 
+\]</div>
+<p>최적화하면 OLS와 동일한 결과를 얻을 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[
+\dfrac{d}{dw} \text{LL} = -C_1 \left( 2X^TX \hat{w} - 2X^Ty \right) = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{w} = (X^TX)^{-1}X^T y
+\]</div>
+<p>최대 가능도 방법에서도 OLS의 직교 방정식과 같은 직교 방정식을 얻을 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ X^TX \hat{w} - X^Ty = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ X^T(X \hat{w} - y) = X^T(\hat{y} - y) = X^Te = 0 \]</div>
+</div>
+<div class="section" id="id8">
+<h2>잔차의 분포<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>확률론적 선형 회귀모형에 따르면 회귀분석에서 생기는 <strong>잔차 <span class="math notranslate nohighlight">\(e = y - \hat{w}^Tx\)</span> 도 정규 분포를 따른다</strong>. 다음과 같이 증명할 수 있다.</p>
+<p>확률론적 선형 회귀모형의 잡음 <span class="math notranslate nohighlight">\(\epsilon\)</span>와 잔차 <span class="math notranslate nohighlight">\(e\)</span>는 다음과 같은 관계를 가진다.</p>
+<div class="math notranslate nohighlight">
+\[  \hat{y} = X\hat{w} = X (X^TX)^{-1}X^T y = Hy \]</div>
+<p>이 행렬 <span class="math notranslate nohighlight">\(H\)</span>은 <strong>Hat 행렬</strong> 혹은 <strong>프로젝션(projection) 행렬</strong> 또는 <strong>영향도(influence) 행렬</strong>이라고 부르는 대칭 행렬이다.</p>
+<p>Hat 행렬을 이용하면 잔차는 다음처럼 표현된다.</p>
+<div class="math notranslate nohighlight">
+\[ e = y - \hat{y}= y - Hy = (I - H) y = My \]</div>
+<p>이 행렬 <span class="math notranslate nohighlight">\(M\)</span>은 <strong>잔차(residual) 행렬</strong>이라고 부른다.</p>
+<p>확률적 선형 회귀 모형의 가정을 적용하면,</p>
+<div class="math notranslate nohighlight">
+\[ e = My = M (Xw + \epsilon) = MXw + M\epsilon \]</div>
+<p>그런데</p>
+<div class="math notranslate nohighlight">
+\[
+MX = 0
+\]</div>
+<p>에서</p>
+<div class="math notranslate nohighlight">
+\[ e =  M\epsilon \]</div>
+<p>즉, **잔차 <span class="math notranslate nohighlight">\(e\)</span>는 잡음 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 선형 변환(linear transform)**이다. 정규 분포의 선형 변환은 마찬가지로 정규 분포이므로 잔차도 정규 분포를 다른다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.01 확률론적 선형 회귀모형_42_0.png" src="../_images/05.01 확률론적 선형 회귀모형_42_0.png" />
+</div>
+</div>
+<p>잔차의 정규성은 다음과 같이 정규성 검정을 통해 살펴볼 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">omni_normtest</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;Chi^2&#39;</span><span class="p">,</span> <span class="s1">&#39;P-value&#39;</span><span class="p">],</span> <span class="n">test</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%-12s</span><span class="s2">: </span><span class="si">%6.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">xi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chi^2       :  3.523
+P-value     :  0.172
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">jarque_bera</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;Jarque-Bera&#39;</span><span class="p">,</span> <span class="s1">&#39;P-value&#39;</span><span class="p">,</span> <span class="s1">&#39;Skew&#39;</span><span class="p">,</span> <span class="s1">&#39;Kurtosis&#39;</span><span class="p">],</span> <span class="n">test</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%-12s</span><span class="s2">: </span><span class="si">%6.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">xi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jarque-Bera :  2.059
+P-value     :  0.357
+Skew        : -0.073
+Kurtosis    :  2.312
+</pre></div>
+</div>
+</div>
+</div>
+<p>또한 오차의 기댓값이 <span class="math notranslate nohighlight">\(x\)</span>와 상관없이 0이므로 <strong>잔차의 기댓값도 <span class="math notranslate nohighlight">\(x\)</span>와 상관없이 0</strong>이어야 한다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{E}[e | x ] = 0 \]</div>
+<p>다음은 <span class="math notranslate nohighlight">\(x\)</span>값이 달라짐에 따라 잔차의 분포가 어떻게 바뀌는 지를 살펴보기 위한 것이다. <span class="math notranslate nohighlight">\(x\)</span>값이 달라져도 분포의 형태가 크게 바뀌지 않음을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Residual&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.01 확률론적 선형 회귀모형_47_0.png" src="../_images/05.01 확률론적 선형 회귀모형_47_0.png" />
+</div>
+</div>
+<p>다음은 <span class="math notranslate nohighlight">\(x\)</span>가 <span class="math notranslate nohighlight">\(e\)</span>에 미치는 영향을 살피기 위해 <span class="math notranslate nohighlight">\(0 &lt; x &lt; 1\)</span>인 구간과 <span class="math notranslate nohighlight">\(1 &lt; x &lt; 2\)</span>인 구간으로 나누어 <span class="math notranslate nohighlight">\(e\)</span> 분포의 모양을 살펴본 것이다. 둘 다 기댓값이 0에 가깝고 분산의 크기가 비슷함을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">resid</span><span class="p">[((</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">X0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X0</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;1 &lt; x &lt; 2&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">resid</span><span class="p">[((</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">X0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X0</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0 &lt; x &lt; 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.01 확률론적 선형 회귀모형_49_0.png" src="../_images/05.01 확률론적 선형 회귀모형_49_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>회귀 계수의 표준 오차<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>가중치의 예측치 <span class="math notranslate nohighlight">\(\hat{w}\)</span> 도 정규 분포 확률 변수인 <span class="math notranslate nohighlight">\(\epsilon\)</span>의 선형 변환이므로 정규 분포를 따른다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{eqnarray}
+\hat{w} 
+&amp;=&amp; (X^TX)^{-1} X^T y \\
+&amp;=&amp; (X^TX)^{-1} X^T (X w + \epsilon) \\
+&amp;=&amp; w + (X^TX)^{-1} X^T \epsilon \\
+\end{eqnarray}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\hat{w}\)</span>의 기댓값은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+\begin{eqnarray}
+\text{E}[\hat{w}] 
+&amp;=&amp;  \text{E}[ w + (X^TX)^{-1} X^T \epsilon ] \\
+&amp;=&amp;  w + (X^TX)^{-1} X^T \text{E}[ \epsilon ] \\
+&amp;=&amp; w
+\end{eqnarray}
+\end{split}\]</div>
+<p>따라서 <span class="math notranslate nohighlight">\(\hat{w}\)</span>는 <span class="math notranslate nohighlight">\(w\)</span>의 비편향 추정값(unbiased estimate)이다.</p>
+<p><span class="math notranslate nohighlight">\(\hat{w}\)</span>의 공분산은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+\text{Cov}[\hat{w}] 
+&amp;=&amp; E[(\hat{w} - w)(\hat{w} - w)^T] \\
+&amp;=&amp; E[((X^TX)^{-1} X^T \epsilon)((X^TX)^{-1} X^T \epsilon)^T] \\
+&amp;=&amp; E[(X^TX)^{-1} X^T \epsilon \epsilon^T X(X^TX)^{−1} ] \\
+&amp;=&amp; (X^TX)^{-1} X^T E[\epsilon \epsilon^T] X(X^TX)^{−1} \\
+&amp;=&amp; (X^TX)^{-1} X^T (\sigma^2 I) X(X^TX)^{−1} \\
+&amp;=&amp; \sigma^2  (X^TX)^{-1}
+\end{eqnarray}
+\end{split}\]</div>
+<p>그런데 잡음의 분산 <span class="math notranslate nohighlight">\(\text{E}[\epsilon^2] = \sigma^2\)</span>의 값은 알지 못하므로 다음과 같이 잔차의 분산 <span class="math notranslate nohighlight">\(\text{E}[e^2]\)</span>으로부터 추정한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+\text{E}[e^2] 
+&amp;=&amp; \text{E}[(M\epsilon)^2] \\
+&amp;=&amp; \text{E}[(\epsilon^T M^T)(M\epsilon)] \\
+&amp;=&amp; \text{E}[ \epsilon^T M \epsilon] \\
+&amp;=&amp; \text{E}[ \text{tr}(\epsilon^T M \epsilon) ] \\
+&amp;=&amp; \text{tr}( \text{E}[ M \epsilon \epsilon^T ]) \\
+&amp;=&amp; \text{tr}( M \text{E}[\epsilon \epsilon^T ]) \\
+&amp;=&amp; \text{tr}( M \sigma^2 I ) \\
+&amp;=&amp; \sigma^2 \text{tr}(M) \\
+&amp;=&amp; \sigma^2 \text{tr}(I - X(X^TX)^{-1}X^T) \\
+&amp;=&amp; \sigma^2 \left( \text{tr}(I) - \text{tr}((X^TX)^{-1}(X^TX))  \right) \\
+&amp;=&amp; \sigma^2 (N-K) \\
+\end{eqnarray}
+\end{split}\]</div>
+<p>여기에서 <span class="math notranslate nohighlight">\(N\)</span>은 표본 데이터의 수, <span class="math notranslate nohighlight">\(K\)</span>는 <span class="math notranslate nohighlight">\(X\)</span> 행렬의 열의 수 즉, 모수의 갯수이다. 상수항을 포함한 선형 모형이라면 모수의 갯수는 입력 데이터의 차원의 수 <span class="math notranslate nohighlight">\(D\)</span>에 1을 더한 값이 된다.</p>
+<div class="math notranslate nohighlight">
+\[ K = D + 1 \]</div>
+<p>따라서 잡음에 대한 비편향 표본분산은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ s^2 = \dfrac{e^Te}{N-K} = \dfrac{RSS}{N-K} \]</div>
+<p><span class="math notranslate nohighlight">\(\hat{w}\)</span>의 (공)분산의 추정값은 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{Cov}[\hat{w}] \approx s^2(X^TX)^{-1}\]</div>
+<p>이 공분산 행렬에서 우리가 관심을 가지는 값은 <span class="math notranslate nohighlight">\(w_i\)</span>의 분산을 뜻하는 대각 성분이다.</p>
+<div class="math notranslate nohighlight">
+\[\text{Var}[\hat{w}_i]  = \left( \text{Cov}[\hat{w}] \right)_{ii} \;\; (i=0, \ldots, K-1)\]</div>
+<p>이 값에서 구한 표준 편차를 **회귀 계수의 표준 오차(Standard Error of Regression Coefficient)**라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ \sqrt{\text{Var}[\hat{w}_i]} \approx {se_i} = \sqrt{s^2 \big((X^TX)^{-1}\big)_{ii}} \;\; (i=0, \ldots, K-1)\]</div>
+<p>실제 가중치 계수 <span class="math notranslate nohighlight">\(w_i\)</span>와 우리가 추정한 가중치 계수 <span class="math notranslate nohighlight">\(\hat{w}_i\)</span>의 차이를 표준 오차를 나눈 값, 즉 <strong>정규화된 모수 오차는 자유도가 <span class="math notranslate nohighlight">\(N-K\)</span>인 표준 스튜던트 t 분포를 따른다.</strong></p>
+<div class="math notranslate nohighlight">
+\[  \dfrac{\hat{w}_i - w_i}{se_i} \sim t_{N-K} \;\; (i=0, \ldots, K-1)\]</div>
+</div>
+<div class="section" id="t-single-coefficient-t-test">
+<h2>단일 계수 t-검정 (Single Coefficient t-test)<a class="headerlink" href="#t-single-coefficient-t-test" title="Permalink to this headline">¶</a></h2>
+<p>정규화된 모수 오차 <span class="math notranslate nohighlight">\(\dfrac{\hat{w}_i}{se_i}\)</span>를 검정 통계량으로 사용하면 <span class="math notranslate nohighlight">\(w_i\)</span>가 0 인지 아닌지에 대한 검정을 실시할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ H_0 : \;\; w_i = 0 \;\; (i=0, \ldots, K-1)\]</div>
+<p>만약 이 검정에 대한 유의 확률이 0에 가깝게 나온다면 위의 귀무가 설은 기각이므로 <span class="math notranslate nohighlight">\(w_i\)</span> 값이 0일 가능성은 적다. 하지만 유의 확률이 유의 수준을 넘는 큰 값이 나온다면 반대로 <span class="math notranslate nohighlight">\(w_i\)</span> 값이 0일 가능성이 크다. 즉, 해당 독립 변수는 종속 변수와 아무런 상관성이 없을 가능성이 있다는 뜻이다.</p>
+<p>StatsModels <code class="docutils literal notranslate"><span class="pre">summary</span></code> 메서드가 출력하는 회귀분석 보고서에서 <code class="docutils literal notranslate"><span class="pre">std</span> <span class="pre">err</span></code>로 표시된 열이 모형계수의 표준오차, <code class="docutils literal notranslate"><span class="pre">t</span></code>로 표시된 열이 단일 계수 t-검정의 검정 통계량, 그리고 <code class="docutils literal notranslate"><span class="pre">P&gt;|t|</span></code>로 표시된 열이 유의확률을 뜻한다.</p>
+<p>아래의 보고서에서는 첫번째 모형계수는 실제 값이 0일 가능성 즉, 상수항을 가지지 않을 가능성이 높다고 할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.803
+Model:                            OLS   Adj. R-squared:                  0.801
+Method:                 Least Squares   F-statistic:                     400.3
+Date:                Mon, 17 Jun 2019   Prob (F-statistic):           2.21e-36
+Time:                        20:16:19   Log-Likelihood:                -448.09
+No. Observations:                 100   AIC:                             900.2
+Df Residuals:                      98   BIC:                             905.4
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -1.6284      2.163     -0.753      0.453      -5.920       2.663
+X1            42.8534      2.142     20.008      0.000      38.603      47.104
+==============================================================================
+Omnibus:                        3.523   Durbin-Watson:                   1.984
+Prob(Omnibus):                  0.172   Jarque-Bera (JB):                2.059
+Skew:                          -0.073   Prob(JB):                        0.357
+Kurtosis:                       2.312   Cond. No.                         1.06
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">RegressionResults</span></code> 클래스 객체는 t test 를 위한 <code class="docutils literal notranslate"><span class="pre">t_test</span></code> 메서드를 제공한다. 이 메서드를 사용하면 계수 값이 0이 아닌 경우도 테스트할 수 있다. 예를 들어 위 예제에서 귀무 가설을 다음처럼 놓고</p>
+<div class="math notranslate nohighlight">
+\[ H_0: w_1 = 40 \]</div>
+<p>x1에 대한 계수값 <span class="math notranslate nohighlight">\(w_1\)</span>을 40으로 해도 되는지 테스트할 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="s2">&quot;X1 = 40&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                             Test for Constraints                             
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+c0            42.8534      2.142      1.332      0.186      38.603      47.104
+==============================================================================
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 검정 결과에 따르면 x1에 대한 계수를 40으로 한다고 해도 문제가 없음을 알 수 있다.</p>
+<p>이 방법은 두 독립변수의 계수값을 비교할 때도 쓸 수 있다. 범주형 독립변수의 범주값이 가지는 유의성을 판단하는데 유용하다. 예를 들어 월평균 기온을 나타내는 nottem 데이터에서 1월과 2월의 기온이 실질적으로 같은지를 알아볼 때도 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">isleap</span>
+
+<span class="n">df_nottem</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_rdataset</span><span class="p">(</span><span class="s2">&quot;nottem&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> 
+
+<span class="k">def</span> <span class="nf">convert_partial_year</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="p">(</span><span class="n">number</span> <span class="o">-</span> <span class="n">year</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">365</span> <span class="o">+</span> <span class="n">isleap</span><span class="p">(</span><span class="n">year</span><span class="p">)))</span>
+    <span class="n">day_one</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">day_one</span>
+    <span class="k">return</span> <span class="n">date</span>
+
+<span class="n">df_nottem</span><span class="p">[</span><span class="s2">&quot;date0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_nottem</span><span class="p">[[</span><span class="s2">&quot;time&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="n">convert_partial_year</span><span class="p">)</span>
+<span class="n">df_nottem</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">df_nottem</span><span class="p">[</span><span class="s2">&quot;date0&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="s1">&#39;60min&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">3600</span><span class="o">*</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">df_nottem</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_nottem</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">df_nottem</span><span class="p">[</span><span class="s2">&quot;date0&quot;</span><span class="p">],</span> <span class="n">df_nottem</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span>
+
+<span class="n">model_nottem</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="s2">&quot;value ~ C(month) + 0&quot;</span><span class="p">,</span> <span class="n">df_nottem</span><span class="p">)</span>
+<span class="n">result_nottem</span> <span class="o">=</span> <span class="n">model_nottem</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result_nottem</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  value   R-squared:                       0.930
+Model:                            OLS   Adj. R-squared:                  0.927
+Method:                 Least Squares   F-statistic:                     277.3
+Date:                Mon, 17 Jun 2019   Prob (F-statistic):          2.96e-125
+Time:                        20:16:26   Log-Likelihood:                -535.82
+No. Observations:                 240   AIC:                             1096.
+Df Residuals:                     228   BIC:                             1137.
+Df Model:                          11                                         
+Covariance Type:            nonrobust                                         
+================================================================================
+                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------
+C(month)[01]    39.6950      0.518     76.691      0.000      38.675      40.715
+C(month)[02]    39.1900      0.518     75.716      0.000      38.170      40.210
+C(month)[03]    42.1950      0.518     81.521      0.000      41.175      43.215
+C(month)[04]    46.2900      0.518     89.433      0.000      45.270      47.310
+C(month)[05]    52.5600      0.518    101.547      0.000      51.540      53.580
+C(month)[06]    58.0400      0.518    112.134      0.000      57.020      59.060
+C(month)[07]    61.9000      0.518    119.592      0.000      60.880      62.920
+C(month)[08]    60.5200      0.518    116.926      0.000      59.500      61.540
+C(month)[09]    56.4800      0.518    109.120      0.000      55.460      57.500
+C(month)[10]    49.4950      0.518     95.625      0.000      48.475      50.515
+C(month)[11]    42.5800      0.518     82.265      0.000      41.560      43.600
+C(month)[12]    39.5300      0.518     76.373      0.000      38.510      40.550
+==============================================================================
+Omnibus:                        5.430   Durbin-Watson:                   1.529
+Prob(Omnibus):                  0.066   Jarque-Bera (JB):                5.299
+Skew:                          -0.281   Prob(JB):                       0.0707
+Kurtosis:                       3.463   Cond. No.                         1.00
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음 코드에서 보듯이 1월과 2월의 기온은 실질적으로 차이가 없다. 즉, 1월과 2월이라는 범주 값을 구분하는 실익이 존재하지 않는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result_nottem</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="s2">&quot;C(month)[01] = C(month)[02]&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                             Test for Constraints                             
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+c0             0.5050      0.732      0.690      0.491      -0.937       1.947
+==============================================================================
+</pre></div>
+</div>
+</div>
+</div>
+<p>2월과 3월의 경우에는 구분이 필요하다는 것을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result_nottem</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="s2">&quot;C(month)[03] = C(month)[02]&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                             Test for Constraints                             
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+c0             3.0050      0.732      4.105      0.000       1.563       4.447
+==============================================================================
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="f">
+<h2>회귀분석 F-검정<a class="headerlink" href="#f" title="Permalink to this headline">¶</a></h2>
+<p>개별 개수가 아닌 전체 회귀 계수가 모두 의미가 있는지 확인하는 경우에는 다음과 같은 귀무 가설을 생각할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ H_0 : w_0  = w_1 = \cdots = w_{K-1} = 0 \]</div>
+<p>이는 전체 독립 변수 중 어느 것도 의미를 가진 것이 없다는 뜻이다. 대부분의 경우, 이 귀무가설은 기각된다. 다만 유의 확률이 얼마나 작은가에 따라서 기각되는 정도가 달라진다. 유의 확률이 작으면 작을수록 더 강력하게 기각된 것이므로 더 의미가 있는 모형이라고 할 수 있다. 따라서 여러 모형의 유의 확률을 비교하여 어느 모형이 더 성능이 좋은가를 비교할 때 이 유의 확률을 사용한다. 이러한 검정을 Loss-of-Fit 검정 또는 **회귀분석 F-검정(regression F-test)**이라고 한다.</p>
+<p>위 보고서에서 <code class="docutils literal notranslate"><span class="pre">F-statistic</span></code>라고 표시된 <code class="docutils literal notranslate"><span class="pre">400.3</span></code>이라는 값이 회귀분석 F-검정의 검정통계량이고 <code class="docutils literal notranslate"><span class="pre">Prob</span> <span class="pre">(F-statistic)</span></code>로 표시된 <code class="docutils literal notranslate"><span class="pre">2.21e-36</span></code>라는 값이 유의확률이다.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03 machine learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="04.05 부분회귀.html" title="previous page">4.5 부분회귀</a>
+    <a class='right-next' id="next-link" href="05.02 회귀분석의 기하학.html" title="next page">5.2 회귀분석의 기하학</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

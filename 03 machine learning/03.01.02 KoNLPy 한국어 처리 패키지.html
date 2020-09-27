@@ -1,0 +1,2402 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoNLPy 한국어 처리 패키지 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Scikit-Learn의 문서 전처리 기능" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html" />
+    <link rel="prev" title="NLTK 자연어 처리 패키지" href="03.01.01 NLTK 자연어 처리 패키지.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.01 커맨드 라인 인터페이스.html">
+   1.1 커맨드 라인 인터페이스
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.02 파이썬 설치하기.html">
+   1.2 파이썬 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.03 파이썬 처음 사용하기.html">
+   1.3 파이썬 처음 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.04 파이썬 패키지 설치하기.html">
+   1.4 파이썬 패키지 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.05 데이터 분석용 파이썬 패키지 소개.html">
+   1.5 데이터 분석용 파이썬 패키지 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.06 아이파이썬 및 주피터 설정.html">
+   1.6 아이파이썬 및 주피터 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.07 구글 코랩 사용법.html">
+   1.7 구글 코랩 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.01 파이썬을 계산기로 사용하기.html">
+   파이썬을 계산기로 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.02 부동소수점 실수 자료형.html">
+   부동소수점 실수 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.03 파이썬으로 글자를 출력하기.html">
+   파이썬으로 글자를 출력하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.04 파이썬의 문자열 형식화.html">
+   파이썬의 문자열 형식화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.05 파이썬 조건문 기초.html">
+   파이썬 조건문 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.06 파이썬 함수.html">
+   파이썬 함수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.07 파이썬 for 반복문.html">
+   파이썬 for 반복문
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.08 여러 개의 자료를 한 변수에 담기.html">
+   여러 개의 자료를 한 변수에 담기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.09 파이썬에서 리스트 자료형 다루기.html">
+   파이썬에서 리스트 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.10 리스트와 반복문을 사용하여 계산하기.html">
+   리스트와 반복문을 사용하여 계산하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.11 파이썬에서 딕셔너리 자료형 다루기.html">
+   파이썬에서 딕셔너리 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.12 파이썬 객체지향 프로그래밍.html">
+   파이썬 객체지향 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.13 파이썬 패키지 사용하기.html">
+   파이썬 패키지 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.14 파이썬의 자료형.html">
+   파이썬의 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.15 파이썬의 문자열 인코딩.html">
+   파이썬의 문자열 인코딩
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.16 파이썬에서 날짜와 시간 다루기.html">
+   파이썬에서 날짜와 시간 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.01 NumPy 배열.html">
+   NumPy 배열
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.02 배열의 생성과 변형.html">
+   배열의 생성과 변형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.03 배열의 연산.html">
+   배열의 연산
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.04 기술 통계.html">
+   기술 통계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.05 난수 발생과 카운팅.html">
+   난수 발생과 카운팅
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.01 Pandas 패키지의 소개.html">
+   Pandas 패키지의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.02 데이터 입출력.html">
+   데이터 입출력
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.03 데이터프레임 고급 인덱싱.html">
+   데이터프레임 고급 인덱싱
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.04 데이터프레임의 데이터 조작.html">
+   데이터프레임의 데이터 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.05 데이터프레임 인덱스 조작.html">
+   데이터프레임 인덱스 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.06 데이터프레임 합성.html">
+   데이터프레임 병합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.07 피봇테이블과 그룹분석.html">
+   피봇테이블과 그룹분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.08 시계열 자료 다루기.html">
+   시계열 자료 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.09 Dask 사용법 기초.html">
+   Dask 사용법 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.01 시각화 패키지 Matplotlib 소개.html">
+   시각화 패키지 Matplotlib 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.02 Matplotlib의 여러가지 플롯.html">
+   Matplotlib의 여러가지 플롯
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.03 Matplotlib의 삼각 그리드 사용법.html">
+   Matplotlib의 triangular grid 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.04 Seaborn을 사용한 데이터 분포 시각화.html">
+   Seaborn을 사용한 데이터 분포 시각화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.05 Pandas의 시각화 기능.html">
+   Pandas의 시각화 기능
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.02 범주형 데이터 처리.html">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.03 스케일링.html">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01 확률론적 선형 회귀모형.html">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07.01 추천 시스템.html">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.01 선형판별분석법과 이차판별분석법.html">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.02 K-평균 군집화.html">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03 machine learning/03.01.02 KoNLPy 한국어 처리 패키지.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/03 machine learning/03.01.02 KoNLPy 한국어 처리 패키지.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/03 machine learning/03.01.02 KoNLPy 한국어 처리 패키지.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   한국어 말뭉치
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   형태소 분석
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     명사 추출
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     형태소 추출
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     품사 부착
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="konlpy">
+<h1>KoNLPy 한국어 처리 패키지<a class="headerlink" href="#konlpy" title="Permalink to this headline">¶</a></h1>
+<p>KoNLPy(코엔엘파이라고 읽는다)는 한국어 정보처리를 위한 파이썬 패키지이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">konlpy</span>
+<span class="n">konlpy</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.5.1&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>한국어 말뭉치<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>KoNLPy에서는 대한민국 헌법 말뭉치인 <code class="docutils literal notranslate"><span class="pre">kolaw</span></code>와 국회법안 말뭉치인 <code class="docutils literal notranslate"><span class="pre">kobill</span></code>을 제공한다. 각 말뭉치가 포함하는 파일의 이름은 <code class="docutils literal notranslate"><span class="pre">fields</span></code> 메서드로 알 수 있고 <code class="docutils literal notranslate"><span class="pre">open</span></code> 메서드로 해당 파일의 텍스트를 읽어들인다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">konlpy.corpus</span> <span class="kn">import</span> <span class="n">kolaw</span>
+<span class="n">kolaw</span><span class="o">.</span><span class="n">fileids</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;constitution.txt&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">kolaw</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;constitution.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>대한민국헌법
+
+유구한 역사와 전통에 빛나는 우리 대한국민은 3·1운동으로
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">konlpy.corpus</span> <span class="kn">import</span> <span class="n">kobill</span>
+<span class="n">kobill</span><span class="o">.</span><span class="n">fileids</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;1809895.txt&#39;,
+ &#39;1809890.txt&#39;,
+ &#39;1809899.txt&#39;,
+ &#39;1809898.txt&#39;,
+ &#39;1809891.txt&#39;,
+ &#39;1809892.txt&#39;,
+ &#39;1809894.txt&#39;,
+ &#39;1809893.txt&#39;,
+ &#39;1809896.txt&#39;,
+ &#39;1809897.txt&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">kobill</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;1809890.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>지방공무원법 일부개정법률안
+
+(정의화의원 대표발의 )
+
+ 의 안
+ 번 호
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>형태소 분석<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>KoNLPy는 다음과 같은 다양한 형태소 분석, 태깅 라이브러리를 파이썬에서 쉽게 사용할 수 있도록 모아놓았다.</p>
+<ul class="simple">
+<li><p>Hannanum: 한나눔. KAIST Semantic Web Research Center 개발.</p>
+<ul>
+<li><p>http://semanticweb.kaist.ac.kr/hannanum/</p></li>
+</ul>
+</li>
+<li><p>Kkma: 꼬꼬마. 서울대학교 IDS(Intelligent Data Systems) 연구실 개발.</p>
+<ul>
+<li><p>http://kkma.snu.ac.kr/</p></li>
+</ul>
+</li>
+<li><p>Komoran: 코모란. Shineware에서 개발.</p>
+<ul>
+<li><p>https://github.com/shin285/KOMORAN</p></li>
+</ul>
+</li>
+<li><p>Mecab: 메카브. 일본어용 형태소 분석기를 한국어를 사용할 수 있도록 수정.</p>
+<ul>
+<li><p>https://bitbucket.org/eunjeon/mecab-ko</p></li>
+</ul>
+</li>
+<li><p>Open Korean Text: 오픈 소스 한국어 분석기. 과거 트위터 형태소 분석기.</p>
+<ul>
+<li><p>https://github.com/open-korean-text/open-korean-text</p></li>
+</ul>
+</li>
+</ul>
+<p>여기에서는 한나눔, 꼬꼬마, 오픈코리안텍스트 형태소만 예제로 포함하였다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">konlpy.tag</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">hannanum</span> <span class="o">=</span> <span class="n">Hannanum</span><span class="p">()</span>
+<span class="n">kkma</span> <span class="o">=</span> <span class="n">Kkma</span><span class="p">()</span>
+<span class="n">komoran</span> <span class="o">=</span> <span class="n">Komoran</span><span class="p">()</span>
+<span class="n">mecab</span> <span class="o">=</span> <span class="n">Mecab</span><span class="p">()</span>
+<span class="n">okt</span> <span class="o">=</span> <span class="n">Okt</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 클래스들은 다음과 같은 메서드를 공통적으로 제공한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nouns</span></code> : 명사 추출</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">morphs</span></code> : 형태소 추출</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code> : 품사 부착</p></li>
+</ul>
+<div class="section" id="id3">
+<h3>명사 추출<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>문자열에서 명사만 추출하려면 <code class="docutils literal notranslate"><span class="pre">noun</span></code> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hannanum</span><span class="o">.</span><span class="n">nouns</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국헌법&#39;, &#39;유구&#39;, &#39;역사&#39;, &#39;전통&#39;, &#39;빛&#39;, &#39;우리&#39;, &#39;대한국민&#39;, &#39;3·1운동&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kkma</span><span class="o">.</span><span class="n">nouns</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한&#39;,
+ &#39;대한민국&#39;,
+ &#39;대한민국헌법&#39;,
+ &#39;민국&#39;,
+ &#39;헌법&#39;,
+ &#39;유구&#39;,
+ &#39;역사&#39;,
+ &#39;전통&#39;,
+ &#39;우리&#39;,
+ &#39;국민&#39;,
+ &#39;3&#39;,
+ &#39;1&#39;,
+ &#39;1운동&#39;,
+ &#39;운동&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># komoran은 빈줄이 있으면 에러가 남</span>
+<span class="n">komoran</span><span class="o">.</span><span class="n">nouns</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국&#39;, &#39;헌법&#39;, &#39;역사&#39;, &#39;전통&#39;, &#39;국민&#39;, &#39;운동&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mecab</span><span class="o">.</span><span class="n">nouns</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국&#39;, &#39;헌법&#39;, &#39;역사&#39;, &#39;전통&#39;, &#39;우리&#39;, &#39;국민&#39;, &#39;운동&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">okt</span><span class="o">.</span><span class="n">nouns</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국&#39;, &#39;헌법&#39;, &#39;유구&#39;, &#39;역사&#39;, &#39;전통&#39;, &#39;우리&#39;, &#39;국민&#39;, &#39;운동&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>형태소 추출<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>명사 뿐 아니라 모든 품사의 형태소를 알아내려면 <code class="docutils literal notranslate"><span class="pre">morphs</span></code>라는 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hannanum</span><span class="o">.</span><span class="n">morphs</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국헌법&#39;,
+ &#39;유구&#39;,
+ &#39;하&#39;,
+ &#39;ㄴ&#39;,
+ &#39;역사&#39;,
+ &#39;와&#39;,
+ &#39;전통&#39;,
+ &#39;에&#39;,
+ &#39;빛&#39;,
+ &#39;나는&#39;,
+ &#39;우리&#39;,
+ &#39;대한국민&#39;,
+ &#39;은&#39;,
+ &#39;3·1운동&#39;,
+ &#39;으로&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kkma</span><span class="o">.</span><span class="n">morphs</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국&#39;,
+ &#39;헌법&#39;,
+ &#39;유구&#39;,
+ &#39;하&#39;,
+ &#39;ㄴ&#39;,
+ &#39;역사&#39;,
+ &#39;와&#39;,
+ &#39;전통&#39;,
+ &#39;에&#39;,
+ &#39;빛나&#39;,
+ &#39;는&#39;,
+ &#39;우리&#39;,
+ &#39;대하&#39;,
+ &#39;ㄴ&#39;,
+ &#39;국민&#39;,
+ &#39;은&#39;,
+ &#39;3&#39;,
+ &#39;·&#39;,
+ &#39;1&#39;,
+ &#39;운동&#39;,
+ &#39;으로&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># komoran은 빈줄이 있으면 에러가 남</span>
+<span class="n">komoran</span><span class="o">.</span><span class="n">morphs</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국&#39;,
+ &#39;헌법&#39;,
+ &#39;유구&#39;,
+ &#39;하&#39;,
+ &#39;ㄴ&#39;,
+ &#39;역사&#39;,
+ &#39;와&#39;,
+ &#39;전통&#39;,
+ &#39;에&#39;,
+ &#39;빛나&#39;,
+ &#39;는&#39;,
+ &#39;우리&#39;,
+ &#39;대하&#39;,
+ &#39;ㄴ&#39;,
+ &#39;국민&#39;,
+ &#39;은&#39;,
+ &#39;3&#39;,
+ &#39;·&#39;,
+ &#39;1&#39;,
+ &#39;운동&#39;,
+ &#39;으로&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mecab</span><span class="o">.</span><span class="n">morphs</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국&#39;,
+ &#39;헌법&#39;,
+ &#39;유구&#39;,
+ &#39;한&#39;,
+ &#39;역사&#39;,
+ &#39;와&#39;,
+ &#39;전통&#39;,
+ &#39;에&#39;,
+ &#39;빛나&#39;,
+ &#39;는&#39;,
+ &#39;우리&#39;,
+ &#39;대한&#39;,
+ &#39;국민&#39;,
+ &#39;은&#39;,
+ &#39;3&#39;,
+ &#39;·&#39;,
+ &#39;1&#39;,
+ &#39;운동&#39;,
+ &#39;으로&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">okt</span><span class="o">.</span><span class="n">morphs</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;대한민국&#39;,
+ &#39;헌법&#39;,
+ &#39;\n\n&#39;,
+ &#39;유구&#39;,
+ &#39;한&#39;,
+ &#39;역사&#39;,
+ &#39;와&#39;,
+ &#39;전통&#39;,
+ &#39;에&#39;,
+ &#39;빛나는&#39;,
+ &#39;우리&#39;,
+ &#39;대&#39;,
+ &#39;한&#39;,
+ &#39;국민&#39;,
+ &#39;은&#39;,
+ &#39;3&#39;,
+ &#39;·&#39;,
+ &#39;1&#39;,
+ &#39;운동&#39;,
+ &#39;으로&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>품사 부착<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pos</span></code> 명령을 사용하면 품사 부착을 한다.</p>
+<p>한국어 품사 태그세트로는 “21세기 세종계획 품사 태그세트”를 비롯하여 다양한 품사 태그세트가 있다. 형태소 분석기마다 사용하는 품사 태그가 다르므로 각 형태소 분석기에 대한 문서를 참조한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hannanum</span><span class="o">.</span><span class="n">pos</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;대한민국헌법&#39;, &#39;N&#39;),
+ (&#39;유구&#39;, &#39;N&#39;),
+ (&#39;하&#39;, &#39;X&#39;),
+ (&#39;ㄴ&#39;, &#39;E&#39;),
+ (&#39;역사&#39;, &#39;N&#39;),
+ (&#39;와&#39;, &#39;J&#39;),
+ (&#39;전통&#39;, &#39;N&#39;),
+ (&#39;에&#39;, &#39;J&#39;),
+ (&#39;빛&#39;, &#39;N&#39;),
+ (&#39;나는&#39;, &#39;J&#39;),
+ (&#39;우리&#39;, &#39;N&#39;),
+ (&#39;대한국민&#39;, &#39;N&#39;),
+ (&#39;은&#39;, &#39;J&#39;),
+ (&#39;3·1운동&#39;, &#39;N&#39;),
+ (&#39;으로&#39;, &#39;J&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kkma</span><span class="o">.</span><span class="n">pos</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;대한민국&#39;, &#39;NNG&#39;),
+ (&#39;헌법&#39;, &#39;NNG&#39;),
+ (&#39;유구&#39;, &#39;NNG&#39;),
+ (&#39;하&#39;, &#39;XSV&#39;),
+ (&#39;ㄴ&#39;, &#39;ETD&#39;),
+ (&#39;역사&#39;, &#39;NNG&#39;),
+ (&#39;와&#39;, &#39;JC&#39;),
+ (&#39;전통&#39;, &#39;NNG&#39;),
+ (&#39;에&#39;, &#39;JKM&#39;),
+ (&#39;빛나&#39;, &#39;VV&#39;),
+ (&#39;는&#39;, &#39;ETD&#39;),
+ (&#39;우리&#39;, &#39;NNM&#39;),
+ (&#39;대하&#39;, &#39;VV&#39;),
+ (&#39;ㄴ&#39;, &#39;ETD&#39;),
+ (&#39;국민&#39;, &#39;NNG&#39;),
+ (&#39;은&#39;, &#39;JX&#39;),
+ (&#39;3&#39;, &#39;NR&#39;),
+ (&#39;·&#39;, &#39;SP&#39;),
+ (&#39;1&#39;, &#39;NR&#39;),
+ (&#39;운동&#39;, &#39;NNG&#39;),
+ (&#39;으로&#39;, &#39;JKM&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># komoran은 빈줄이 있으면 에러가 남</span>
+<span class="n">komoran</span><span class="o">.</span><span class="n">pos</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;대한민국&#39;, &#39;NNP&#39;),
+ (&#39;헌법&#39;, &#39;NNP&#39;),
+ (&#39;유구&#39;, &#39;XR&#39;),
+ (&#39;하&#39;, &#39;XSA&#39;),
+ (&#39;ㄴ&#39;, &#39;ETM&#39;),
+ (&#39;역사&#39;, &#39;NNG&#39;),
+ (&#39;와&#39;, &#39;JC&#39;),
+ (&#39;전통&#39;, &#39;NNG&#39;),
+ (&#39;에&#39;, &#39;JKB&#39;),
+ (&#39;빛나&#39;, &#39;VV&#39;),
+ (&#39;는&#39;, &#39;ETM&#39;),
+ (&#39;우리&#39;, &#39;NP&#39;),
+ (&#39;대하&#39;, &#39;VV&#39;),
+ (&#39;ㄴ&#39;, &#39;ETM&#39;),
+ (&#39;국민&#39;, &#39;NNP&#39;),
+ (&#39;은&#39;, &#39;JX&#39;),
+ (&#39;3&#39;, &#39;SN&#39;),
+ (&#39;·&#39;, &#39;SP&#39;),
+ (&#39;1&#39;, &#39;SN&#39;),
+ (&#39;운동&#39;, &#39;NNP&#39;),
+ (&#39;으로&#39;, &#39;JKB&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mecab</span><span class="o">.</span><span class="n">pos</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;대한민국&#39;, &#39;NNP&#39;),
+ (&#39;헌법&#39;, &#39;NNG&#39;),
+ (&#39;유구&#39;, &#39;XR&#39;),
+ (&#39;한&#39;, &#39;XSA+ETM&#39;),
+ (&#39;역사&#39;, &#39;NNG&#39;),
+ (&#39;와&#39;, &#39;JC&#39;),
+ (&#39;전통&#39;, &#39;NNG&#39;),
+ (&#39;에&#39;, &#39;JKB&#39;),
+ (&#39;빛나&#39;, &#39;VV&#39;),
+ (&#39;는&#39;, &#39;ETM&#39;),
+ (&#39;우리&#39;, &#39;NP&#39;),
+ (&#39;대한&#39;, &#39;VV+ETM&#39;),
+ (&#39;국민&#39;, &#39;NNG&#39;),
+ (&#39;은&#39;, &#39;JX&#39;),
+ (&#39;3&#39;, &#39;SN&#39;),
+ (&#39;·&#39;, &#39;SC&#39;),
+ (&#39;1&#39;, &#39;SN&#39;),
+ (&#39;운동&#39;, &#39;NNG&#39;),
+ (&#39;으로&#39;, &#39;JKB&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">okt</span><span class="o">.</span><span class="n">pos</span><span class="p">(</span><span class="n">c</span><span class="p">[:</span><span class="mi">40</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;대한민국&#39;, &#39;Noun&#39;),
+ (&#39;헌법&#39;, &#39;Noun&#39;),
+ (&#39;\n\n&#39;, &#39;Foreign&#39;),
+ (&#39;유구&#39;, &#39;Noun&#39;),
+ (&#39;한&#39;, &#39;Josa&#39;),
+ (&#39;역사&#39;, &#39;Noun&#39;),
+ (&#39;와&#39;, &#39;Josa&#39;),
+ (&#39;전통&#39;, &#39;Noun&#39;),
+ (&#39;에&#39;, &#39;Josa&#39;),
+ (&#39;빛나는&#39;, &#39;Verb&#39;),
+ (&#39;우리&#39;, &#39;Noun&#39;),
+ (&#39;대&#39;, &#39;Modifier&#39;),
+ (&#39;한&#39;, &#39;Modifier&#39;),
+ (&#39;국민&#39;, &#39;Noun&#39;),
+ (&#39;은&#39;, &#39;Josa&#39;),
+ (&#39;3&#39;, &#39;Number&#39;),
+ (&#39;·&#39;, &#39;Punctuation&#39;),
+ (&#39;1&#39;, &#39;Number&#39;),
+ (&#39;운동&#39;, &#39;Noun&#39;),
+ (&#39;으로&#39;, &#39;Josa&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>부착되는 품사 태그의 기호와 의미는 <code class="docutils literal notranslate"><span class="pre">tagset</span></code> 속성으로 확인할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">okt</span><span class="o">.</span><span class="n">tagset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Adjective&#39;: &#39;형용사&#39;,
+ &#39;Adverb&#39;: &#39;부사&#39;,
+ &#39;Alpha&#39;: &#39;알파벳&#39;,
+ &#39;Conjunction&#39;: &#39;접속사&#39;,
+ &#39;Determiner&#39;: &#39;관형사&#39;,
+ &#39;Eomi&#39;: &#39;어미&#39;,
+ &#39;Exclamation&#39;: &#39;감탄사&#39;,
+ &#39;Foreign&#39;: &#39;외국어, 한자 및 기타기호&#39;,
+ &#39;Hashtag&#39;: &#39;트위터 해쉬태그&#39;,
+ &#39;Josa&#39;: &#39;조사&#39;,
+ &#39;KoreanParticle&#39;: &#39;(ex: ㅋㅋ)&#39;,
+ &#39;Noun&#39;: &#39;명사&#39;,
+ &#39;Number&#39;: &#39;숫자&#39;,
+ &#39;PreEomi&#39;: &#39;선어말어미&#39;,
+ &#39;Punctuation&#39;: &#39;구두점&#39;,
+ &#39;ScreenName&#39;: &#39;트위터 아이디&#39;,
+ &#39;Suffix&#39;: &#39;접미사&#39;,
+ &#39;Unknown&#39;: &#39;미등록어&#39;,
+ &#39;Verb&#39;: &#39;동사&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tagsets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">67</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Hannanum-기호&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">hannanum</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">hannanum</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Hannanum-품사&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">hannanum</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">hannanum</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Kkma-기호&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">kkma</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">kkma</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Kkma-품사&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">kkma</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">kkma</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Komoran-기호&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">komoran</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">komoran</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Komoran-품사&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">komoran</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">komoran</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Mecab-기호&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mecab</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">mecab</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;Mecab-품사&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mecab</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">mecab</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;OKT-기호&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">okt</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">okt</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span><span class="p">[</span><span class="s2">&quot;OKT-품사&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">okt</span><span class="o">.</span><span class="n">tagset</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">okt</span><span class="o">.</span><span class="n">tagset</span><span class="p">)))</span>
+<span class="n">tagsets</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Hannanum-기호</th>
+      <th>Hannanum-품사</th>
+      <th>Kkma-기호</th>
+      <th>Kkma-품사</th>
+      <th>Komoran-기호</th>
+      <th>Komoran-품사</th>
+      <th>Mecab-기호</th>
+      <th>Mecab-품사</th>
+      <th>OKT-기호</th>
+      <th>OKT-품사</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>E</td>
+      <td>어미</td>
+      <td>EC</td>
+      <td>연결 어미</td>
+      <td>EC</td>
+      <td>연결 어미</td>
+      <td>EC</td>
+      <td>연결 어미</td>
+      <td>Adjective</td>
+      <td>형용사</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>EC</td>
+      <td>연결 어미</td>
+      <td>ECD</td>
+      <td>의존적 연결 어미</td>
+      <td>EF</td>
+      <td>종결 어미</td>
+      <td>EF</td>
+      <td>종결 어미</td>
+      <td>Adverb</td>
+      <td>부사</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>EF</td>
+      <td>종결 어미</td>
+      <td>ECE</td>
+      <td>대등 연결 어미</td>
+      <td>EP</td>
+      <td>선어말어미</td>
+      <td>EP</td>
+      <td>선어말어미</td>
+      <td>Alpha</td>
+      <td>알파벳</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>EP</td>
+      <td>선어말어미</td>
+      <td>ECS</td>
+      <td>보조적 연결 어미</td>
+      <td>ETM</td>
+      <td>관형형 전성 어미</td>
+      <td>ETM</td>
+      <td>관형형 전성 어미</td>
+      <td>Conjunction</td>
+      <td>접속사</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ET</td>
+      <td>전성 어미</td>
+      <td>EF</td>
+      <td>종결 어미</td>
+      <td>ETN</td>
+      <td>명사형 전성 어미</td>
+      <td>ETN</td>
+      <td>명사형 전성 어미</td>
+      <td>Determiner</td>
+      <td>관형사</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>F</td>
+      <td>외국어</td>
+      <td>EFA</td>
+      <td>청유형 종결 어미</td>
+      <td>IC</td>
+      <td>감탄사</td>
+      <td>IC</td>
+      <td>감탄사</td>
+      <td>Eomi</td>
+      <td>어미</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>I</td>
+      <td>독립언</td>
+      <td>EFI</td>
+      <td>감탄형 종결 어미</td>
+      <td>JC</td>
+      <td>접속 조사</td>
+      <td>JC</td>
+      <td>접속 조사</td>
+      <td>Exclamation</td>
+      <td>감탄사</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>II</td>
+      <td>감탄사</td>
+      <td>EFN</td>
+      <td>평서형 종결 어미</td>
+      <td>JKB</td>
+      <td>부사격 조사</td>
+      <td>JKB</td>
+      <td>부사격 조사</td>
+      <td>Foreign</td>
+      <td>외국어, 한자 및 기타기호</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>J</td>
+      <td>관계언</td>
+      <td>EFO</td>
+      <td>명령형 종결 어미</td>
+      <td>JKC</td>
+      <td>보격 조사</td>
+      <td>JKC</td>
+      <td>보격 조사</td>
+      <td>Hashtag</td>
+      <td>트위터 해쉬태그</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>JC</td>
+      <td>격조사</td>
+      <td>EFQ</td>
+      <td>의문형 종결 어미</td>
+      <td>JKG</td>
+      <td>관형격 조사</td>
+      <td>JKG</td>
+      <td>관형격 조사</td>
+      <td>Josa</td>
+      <td>조사</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>JP</td>
+      <td>서술격 조사</td>
+      <td>EFR</td>
+      <td>존칭형 종결 어미</td>
+      <td>JKO</td>
+      <td>목적격 조사</td>
+      <td>JKO</td>
+      <td>목적격 조사</td>
+      <td>KoreanParticle</td>
+      <td>(ex: ㅋㅋ)</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>JX</td>
+      <td>보조사</td>
+      <td>EP</td>
+      <td>선어말 어미</td>
+      <td>JKQ</td>
+      <td>인용격 조사</td>
+      <td>JKQ</td>
+      <td>인용격 조사</td>
+      <td>Noun</td>
+      <td>명사</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>M</td>
+      <td>수식언</td>
+      <td>EPH</td>
+      <td>존칭 선어말 어미</td>
+      <td>JKS</td>
+      <td>주격 조사</td>
+      <td>JKS</td>
+      <td>주격 조사</td>
+      <td>Number</td>
+      <td>숫자</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>MA</td>
+      <td>부사</td>
+      <td>EPP</td>
+      <td>공손 선어말 어미</td>
+      <td>JKV</td>
+      <td>호격 조사</td>
+      <td>JKV</td>
+      <td>호격 조사</td>
+      <td>PreEomi</td>
+      <td>선어말어미</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>MM</td>
+      <td>관형사</td>
+      <td>EPT</td>
+      <td>시제 선어말 어미</td>
+      <td>JX</td>
+      <td>보조사</td>
+      <td>JX</td>
+      <td>보조사</td>
+      <td>Punctuation</td>
+      <td>구두점</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>N</td>
+      <td>체언</td>
+      <td>ET</td>
+      <td>전성 어미</td>
+      <td>MAG</td>
+      <td>일반 부사</td>
+      <td>MAG</td>
+      <td>일반 부사</td>
+      <td>ScreenName</td>
+      <td>트위터 아이디</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>NB</td>
+      <td>의존명사</td>
+      <td>ETD</td>
+      <td>관형형 전성 어미</td>
+      <td>MAJ</td>
+      <td>접속 부사</td>
+      <td>MAJ</td>
+      <td>접속 부사</td>
+      <td>Suffix</td>
+      <td>접미사</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>NC</td>
+      <td>보통명사</td>
+      <td>ETN</td>
+      <td>명사형 전성 어미</td>
+      <td>MM</td>
+      <td>관형사</td>
+      <td>MM</td>
+      <td>관형사</td>
+      <td>Unknown</td>
+      <td>미등록어</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>NN</td>
+      <td>수사</td>
+      <td>IC</td>
+      <td>감탄사</td>
+      <td>NA</td>
+      <td>분석불능범주</td>
+      <td>NNB</td>
+      <td>의존 명사</td>
+      <td>Verb</td>
+      <td>동사</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>NP</td>
+      <td>대명사</td>
+      <td>JC</td>
+      <td>접속 조사</td>
+      <td>NF</td>
+      <td>명사추정범주</td>
+      <td>NNBC</td>
+      <td>단위를 나타내는 명사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>NQ</td>
+      <td>고유명사</td>
+      <td>JK</td>
+      <td>조사</td>
+      <td>NNB</td>
+      <td>의존 명사</td>
+      <td>NNG</td>
+      <td>일반 명사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>P</td>
+      <td>용언</td>
+      <td>JKC</td>
+      <td>보격 조사</td>
+      <td>NNG</td>
+      <td>일반 명사</td>
+      <td>NNP</td>
+      <td>고유 명사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>PA</td>
+      <td>형용사</td>
+      <td>JKG</td>
+      <td>관형격 조사</td>
+      <td>NNP</td>
+      <td>고유 명사</td>
+      <td>NP</td>
+      <td>대명사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>PV</td>
+      <td>동사</td>
+      <td>JKI</td>
+      <td>호격 조사</td>
+      <td>NP</td>
+      <td>대명사</td>
+      <td>NR</td>
+      <td>수사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>PX</td>
+      <td>보조 용언</td>
+      <td>JKM</td>
+      <td>부사격 조사</td>
+      <td>NR</td>
+      <td>수사</td>
+      <td>SC</td>
+      <td>구분자 , · / :</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>S</td>
+      <td>기호</td>
+      <td>JKO</td>
+      <td>목적격 조사</td>
+      <td>NV</td>
+      <td>용언추정범주</td>
+      <td>SE</td>
+      <td>줄임표 …</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>X</td>
+      <td>접사</td>
+      <td>JKQ</td>
+      <td>인용격 조사</td>
+      <td>SE</td>
+      <td>줄임표</td>
+      <td>SF</td>
+      <td>마침표, 물음표, 느낌표</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>XP</td>
+      <td>접두사</td>
+      <td>JKS</td>
+      <td>주격 조사</td>
+      <td>SF</td>
+      <td>마침표, 물음표, 느낌표</td>
+      <td>SH</td>
+      <td>한자</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>XS</td>
+      <td>접미사</td>
+      <td>JX</td>
+      <td>보조사</td>
+      <td>SH</td>
+      <td>한자</td>
+      <td>SL</td>
+      <td>외국어</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>*</td>
+      <td>*</td>
+      <td>MA</td>
+      <td>부사</td>
+      <td>SL</td>
+      <td>외국어</td>
+      <td>SN</td>
+      <td>숫자</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>*</td>
+      <td>*</td>
+      <td>NNG</td>
+      <td>보통명사</td>
+      <td>VCP</td>
+      <td>긍정 지정사</td>
+      <td>VX</td>
+      <td>보조 용언</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>*</td>
+      <td>*</td>
+      <td>NNM</td>
+      <td>단위 의존 명사</td>
+      <td>VV</td>
+      <td>동사</td>
+      <td>XPN</td>
+      <td>체언 접두사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>*</td>
+      <td>*</td>
+      <td>NNP</td>
+      <td>고유명사</td>
+      <td>VX</td>
+      <td>보조 용언</td>
+      <td>XR</td>
+      <td>어근</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>*</td>
+      <td>*</td>
+      <td>NP</td>
+      <td>대명사</td>
+      <td>XPN</td>
+      <td>체언 접두사</td>
+      <td>XSA</td>
+      <td>형용사 파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>*</td>
+      <td>*</td>
+      <td>NR</td>
+      <td>수사</td>
+      <td>XR</td>
+      <td>어근</td>
+      <td>XSN</td>
+      <td>명사파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>*</td>
+      <td>*</td>
+      <td>OH</td>
+      <td>한자</td>
+      <td>XSA</td>
+      <td>형용사 파생 접미사</td>
+      <td>XSV</td>
+      <td>동사 파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>*</td>
+      <td>*</td>
+      <td>OL</td>
+      <td>외국어</td>
+      <td>XSN</td>
+      <td>명사파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>*</td>
+      <td>*</td>
+      <td>ON</td>
+      <td>숫자</td>
+      <td>XSV</td>
+      <td>동사 파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>*</td>
+      <td>*</td>
+      <td>SE</td>
+      <td>줄임표</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>*</td>
+      <td>*</td>
+      <td>SF</td>
+      <td>마침표, 물음표, 느낌표</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>*</td>
+      <td>*</td>
+      <td>SO</td>
+      <td>붙임표(물결,숨김,빠짐)</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>*</td>
+      <td>*</td>
+      <td>SP</td>
+      <td>쉼표,가운뎃점,콜론,빗금</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>*</td>
+      <td>*</td>
+      <td>SS</td>
+      <td>따옴표,괄호표,줄표</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>*</td>
+      <td>*</td>
+      <td>SW</td>
+      <td>기타기호 (논리수학기호,화폐기호)</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>*</td>
+      <td>*</td>
+      <td>UN</td>
+      <td>명사추정범주</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VA</td>
+      <td>형용사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VC</td>
+      <td>지정사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VCN</td>
+      <td>부정 지정사, 형용사 '아니다'</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VCP</td>
+      <td>긍정 지정사, 서술격 조사 '이다'</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VV</td>
+      <td>동사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VX</td>
+      <td>보조 용언</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VXA</td>
+      <td>보조 형용사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>*</td>
+      <td>*</td>
+      <td>VXV</td>
+      <td>보조 동사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>*</td>
+      <td>*</td>
+      <td>XP</td>
+      <td>접두사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>*</td>
+      <td>*</td>
+      <td>XPN</td>
+      <td>체언 접두사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>*</td>
+      <td>*</td>
+      <td>XPV</td>
+      <td>용언 접두사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>*</td>
+      <td>*</td>
+      <td>XR</td>
+      <td>어근</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>*</td>
+      <td>*</td>
+      <td>XSA</td>
+      <td>형용사 파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>*</td>
+      <td>*</td>
+      <td>XSN</td>
+      <td>명사파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>*</td>
+      <td>*</td>
+      <td>XSV</td>
+      <td>동사 파생 접미사</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+  </tbody>
+</table>
+<p>67 rows × 10 columns</p>
+</div></div></div>
+</div>
+<p>koNLPy의 형태소 분석기와 NLTK의 Text 클래스를 결합하여 NLTK 기능을 사용할 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">Text</span>
+
+<span class="n">kolaw</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">okt</span><span class="o">.</span><span class="n">nouns</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;kolaw&quot;</span><span class="p">)</span>
+<span class="n">kolaw</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.01.02 KoNLPy 한국어 처리 패키지_38_0.png" src="../_images/03.01.02 KoNLPy 한국어 처리 패키지_38_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
+
+<span class="c1"># 자신의 컴퓨터 환경에 맞는 한글 폰트 경로를 설정</span>
+<span class="n">font_path</span> <span class="o">=</span> <span class="s1">&#39;/usr/share/fonts/truetype/nanum/NanumGothic.ttf&#39;</span>
+
+<span class="n">wc</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">font_path</span><span class="o">=</span><span class="n">font_path</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wc</span><span class="o">.</span><span class="n">generate_from_frequencies</span><span class="p">(</span><span class="n">kolaw</span><span class="o">.</span><span class="n">vocab</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.01.02 KoNLPy 한국어 처리 패키지_39_0.png" src="../_images/03.01.02 KoNLPy 한국어 처리 패키지_39_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03 machine learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="03.01.01 NLTK 자연어 처리 패키지.html" title="previous page">NLTK 자연어 처리 패키지</a>
+    <a class='right-next' id="next-link" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html" title="next page">Scikit-Learn의 문서 전처리 기능</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

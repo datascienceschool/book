@@ -1,0 +1,1986 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13.1 추천 시스템 &#8212; 데이터 사이언스 스쿨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.1 분류용 예제 데이터" href="09.01 분류용 예제 데이터.html" />
+    <link rel="prev" title="6.5 정규화 선형회귀" href="06.05 정규화 선형회귀.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.01 커맨드 라인 인터페이스.html">
+   1.1 커맨드 라인 인터페이스
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.02 파이썬 설치하기.html">
+   1.2 파이썬 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.03 파이썬 처음 사용하기.html">
+   1.3 파이썬 처음 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.04 파이썬 패키지 설치하기.html">
+   1.4 파이썬 패키지 설치하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.05 데이터 분석용 파이썬 패키지 소개.html">
+   1.5 데이터 분석용 파이썬 패키지 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.06 아이파이썬 및 주피터 설정.html">
+   1.6 아이파이썬 및 주피터 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/01.07 구글 코랩 사용법.html">
+   1.7 구글 코랩 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.01 파이썬을 계산기로 사용하기.html">
+   파이썬을 계산기로 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.02 부동소수점 실수 자료형.html">
+   부동소수점 실수 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.03 파이썬으로 글자를 출력하기.html">
+   파이썬으로 글자를 출력하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.04 파이썬의 문자열 형식화.html">
+   파이썬의 문자열 형식화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.05 파이썬 조건문 기초.html">
+   파이썬 조건문 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.06 파이썬 함수.html">
+   파이썬 함수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.07 파이썬 for 반복문.html">
+   파이썬 for 반복문
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.08 여러 개의 자료를 한 변수에 담기.html">
+   여러 개의 자료를 한 변수에 담기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.09 파이썬에서 리스트 자료형 다루기.html">
+   파이썬에서 리스트 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.10 리스트와 반복문을 사용하여 계산하기.html">
+   리스트와 반복문을 사용하여 계산하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.11 파이썬에서 딕셔너리 자료형 다루기.html">
+   파이썬에서 딕셔너리 자료형 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.12 파이썬 객체지향 프로그래밍.html">
+   파이썬 객체지향 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.13 파이썬 패키지 사용하기.html">
+   파이썬 패키지 사용하기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.14 파이썬의 자료형.html">
+   파이썬의 자료형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.15 파이썬의 문자열 인코딩.html">
+   파이썬의 문자열 인코딩
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/02.16 파이썬에서 날짜와 시간 다루기.html">
+   파이썬에서 날짜와 시간 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.01 NumPy 배열.html">
+   NumPy 배열
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.02 배열의 생성과 변형.html">
+   배열의 생성과 변형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.03 배열의 연산.html">
+   배열의 연산
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.04 기술 통계.html">
+   기술 통계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/03.05 난수 발생과 카운팅.html">
+   난수 발생과 카운팅
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.01 Pandas 패키지의 소개.html">
+   Pandas 패키지의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.02 데이터 입출력.html">
+   데이터 입출력
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.03 데이터프레임 고급 인덱싱.html">
+   데이터프레임 고급 인덱싱
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.04 데이터프레임의 데이터 조작.html">
+   데이터프레임의 데이터 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.05 데이터프레임 인덱스 조작.html">
+   데이터프레임 인덱스 조작
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.06 데이터프레임 합성.html">
+   데이터프레임 병합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.07 피봇테이블과 그룹분석.html">
+   피봇테이블과 그룹분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.08 시계열 자료 다루기.html">
+   시계열 자료 다루기
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/04.09 Dask 사용법 기초.html">
+   Dask 사용법 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.01 시각화 패키지 Matplotlib 소개.html">
+   시각화 패키지 Matplotlib 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.02 Matplotlib의 여러가지 플롯.html">
+   Matplotlib의 여러가지 플롯
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.03 Matplotlib의 삼각 그리드 사용법.html">
+   Matplotlib의 triangular grid 사용법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.04 Seaborn을 사용한 데이터 분포 시각화.html">
+   Seaborn을 사용한 데이터 분포 시각화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01 python/05.05 Pandas의 시각화 기능.html">
+   Pandas의 시각화 기능
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.02 범주형 데이터 처리.html">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.02 KoNLPy 한국어 처리 패키지.html">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.03 스케일링.html">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01 확률론적 선형 회귀모형.html">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.01 선형판별분석법과 이차판별분석법.html">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.02 K-평균 군집화.html">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03 machine learning/07.01 추천 시스템.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/03 machine learning/07.01 추천 시스템.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/03 machine learning/07.01 추천 시스템.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#surprise">
+   Surprise 패키지
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   평점 데이터
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   추천 시스템 알고리즘
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   베이스라인 모형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   모형 사용법
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   추천성능 평가기준
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#collaborative-filter">
+   Collaborative Filter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#neighborhood">
+   Neighborhood 모형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   유사도 계산
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   평균제곱차이 유사도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   코사인 유사도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   피어슨 유사도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   피어슨-베이스라인 유사도
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#knn">
+   KNN 가중치 예측 방법
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#latent-factor">
+   Latent Factor 모형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matrix-factorization">
+   Matrix Factorization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#svd-singular-value-decomposition">
+   SVD (Singular Value Decomposition)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nmf-non-negative-matrix-factorization">
+   NMF(Non-negative matrix factorization)
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>13.1 추천 시스템<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>추천 시스템(recommender system)이란 사용자(user)가 선호하는 상품(item)을 예측하는 시스템이다.</p>
+<p>Amazon과 같은 인터넷 쇼핑 사이트나 Netflix 등의 온라인 비디오 콘텐츠 제공 사이트는 사용자가 각각의 상품에 대해 평가한 평점(rate)을 가지고 있다. 이 기록을 기반으로 해서 사용자에게 어떤 상품을 추천할지 예측하게 된다.</p>
+<div class="section" id="surprise">
+<h2>Surprise 패키지<a class="headerlink" href="#surprise" title="Permalink to this headline">¶</a></h2>
+<p>파이썬의 Surprise패키지는 다양한 추천 시스템 알고리즘을 제공한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">surprise</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>평점 데이터<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>surprise 패키지에서는 MovieLense라는 영화 추천 웹사이트의 데이터를 샘플 평점 데이터로 제공한다. MovieLense 데이터 중 10만개의 샘플 데이터세트는 다음과 같이 로드한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">load_builtin</span><span class="p">(</span><span class="s1">&#39;ml-100k&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 데이터는 다음과 같이 데이터프레임으로 변환할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">raw_ratings</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;item&quot;</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">])</span>
+<span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user</th>
+      <th>item</th>
+      <th>rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>196</td>
+      <td>242</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>186</td>
+      <td>302</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>22</td>
+      <td>377</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>244</td>
+      <td>51</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>166</td>
+      <td>346</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>298</td>
+      <td>474</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>115</td>
+      <td>265</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>253</td>
+      <td>465</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>305</td>
+      <td>451</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>6</td>
+      <td>86</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>여기에서 user 열은 사용자 아이디, item 열은 상품 아이디, rate 열은 평점이다. 즉, 196번 사용자는 242번 영화에 대해 평점 3점을 주었음을 알 수 있다.</p>
+<p>이 데이터프레임에서 볼 수 있듯이</p>
+<blockquote>
+<div><p><strong>추천 시스템은 사용자 아이디와 상품 아이디라는 두 개의 카테고리 입력과 평점 출력을 가지는 예측 시스템</strong></p>
+</div></blockquote>
+<p>이다.</p>
+<p>이 데이터를 다음과 같이 피봇테이블(pivot table) 형태로 만들면 x축이 상품, y축이 사용자 아이디인 평점 행렬(rate matrix) <span class="math notranslate nohighlight">\(R\)</span> 이 된다.</p>
+<p>평점 행렬 <span class="math notranslate nohighlight">\(R\)</span>의 행은 특정 사용자의 평점이고 평점 행렬 <span class="math notranslate nohighlight">\(R\)</span>의 열은 특정 상품의 평점이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;item&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+<span class="n">df_table</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(943, 1682)
+</pre></div>
+</div>
+</div>
+</div>
+<p>이 평점 행렬의 일부만 살펴보면 다음과 같이 평점 데이터가 일부 위치에만 존재하는 sparse 행렬임을 알 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">212</span><span class="p">:</span><span class="mi">222</span><span class="p">,</span> <span class="mi">808</span><span class="p">:</span><span class="mi">817</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="9" halign="left">rate</th>
+    </tr>
+    <tr>
+      <th>item</th>
+      <th>211</th>
+      <th>212</th>
+      <th>213</th>
+      <th>214</th>
+      <th>215</th>
+      <th>216</th>
+      <th>217</th>
+      <th>218</th>
+      <th>219</th>
+    </tr>
+    <tr>
+      <th>user</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>290</th>
+      <td>3</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>4</td>
+      <td></td>
+      <td>2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>291</th>
+      <td></td>
+      <td>4</td>
+      <td></td>
+      <td>4</td>
+      <td>4</td>
+      <td></td>
+      <td></td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>292</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>3</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>293</th>
+      <td>4</td>
+      <td></td>
+      <td>3</td>
+      <td></td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>294</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>295</th>
+      <td></td>
+      <td></td>
+      <td>5</td>
+      <td></td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+      <td>5</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>296</th>
+      <td>4</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>297</th>
+      <td>4</td>
+      <td></td>
+      <td>3</td>
+      <td></td>
+      <td>2</td>
+      <td>4</td>
+      <td></td>
+      <td>3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>298</th>
+      <td>5</td>
+      <td></td>
+      <td>3</td>
+      <td></td>
+      <td>5</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>299</th>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+      <td></td>
+      <td></td>
+      <td>5</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>평점 행렬의 빈칸을 흰색, 점수를 검은색으로 시각화 하면 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">df_table</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;item&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Rate Matrix&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/07.01 추천 시스템_17_0.png" src="../_images/07.01 추천 시스템_17_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>추천 시스템 알고리즘<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>추천 시스템은 두 개의 카테고리 값 입력에서 하나의 실수 값 출력을 예측하는 회귀 모형이지만 여러가지 방법으로 예측 성능을 향상시키고 있다. 추천 시스템에서 사용되는 알고리즘은 다음과 같다.</p>
+<ol class="simple">
+<li><p>베이스라인 모형</p></li>
+<li><p>Collaborative Filtering</p></li>
+</ol>
+<ul class="simple">
+<li><p>2-1. Neighborhood Models</p>
+<ul>
+<li><p>User-based CF</p></li>
+<li><p>Item-based CF</p></li>
+</ul>
+</li>
+<li><p>2-2. Latent Factor Models</p>
+<ul>
+<li><p>Matrix Factorization</p></li>
+<li><p>SVD</p></li>
+</ul>
+</li>
+</ul>
+<ol class="simple">
+<li><p>Content-Based Recommendation</p></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>베이스라인 모형<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>베이스라인 모형(baseline model)은 사용자 아이디 <span class="math notranslate nohighlight">\(u\)</span>, 상품 아이디 <span class="math notranslate nohighlight">\(i\)</span>, 두 개의 카테고리 값 입력에서 평점 <span class="math notranslate nohighlight">\(r(u,i)\)</span>의 예측치 <span class="math notranslate nohighlight">\(\hat{r}(u,i)\)</span>  을 예측하는 가장 단순한 회귀분석모형으로 다음과 같이 사용자와 상품 특성에 의한 평균 평점의 합으로 나타난다.</p>
+<div class="math notranslate nohighlight">
+\[ \hat{r}(u,i) = \mu + b(u) + b(i) \]</div>
+<p>이 식에서 <span class="math notranslate nohighlight">\(\mu\)</span>는 전체 평점의 평균이고, <span class="math notranslate nohighlight">\(b(u)\)</span>는 동일한 사용자에 의한 평점 조정값,  <span class="math notranslate nohighlight">\(b(i)\)</span>는 동일한 상품에 대한 평점 조정값이다.</p>
+<p>베이스라인 모형은 다음 오차 함수를 최소화하도록 구해진다.</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{u,i \in R_{train}} \left(r(u,i) - \hat{r}(u,i))\right)^2 \]</div>
+<p>여기에서 <span class="math notranslate nohighlight">\(R_{train}\)</span>는 실제 평점이 존재하는 학습용 데이터 집합이다.</p>
+<p>과최적화를 피하기 위해 다음과 같이 정규화 항을 추가할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{u,i \in R_{train}} \left(r(u,i) - \hat{r}(u,i))\right)^2 + \lambda \left(b(u)^2 + b(i)^2 \right) \]</div>
+<p>surprise 패키지는 오차 함수를 최소화하기 위해 다음과 같은 두 가지 최적화 알고리즘을 제공한다. 알고리즘의 선택은 <code class="docutils literal notranslate"><span class="pre">method</span></code> 인수를 사용한다. 최적화 알고리즘에 따라 나머지 최적화 인수가 달라진다.</p>
+<ul class="simple">
+<li><p>SGD (Stochastic Gradient Descent)의 인수</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">reg</span></code>: 정규화 가중치. 디폴트는 0.02.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>: 최적화 스텝 사이즈. 디폴트는 0.005.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_epochs</span></code>: 최적화 반복 횟수. 디폴트는  20.</p></li>
+</ul>
+</li>
+<li><p>ALS (Alternating Least Squares)의 인수</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">reg_i</span></code>: 상품에 대한 정규화 가중치. 디폴트는 10.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reg_u</span></code>: 사용자에 대한 정규화 가중치. 디폴트는 15.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_epochs</span></code>: 최적화 반복 횟수. 디폴트는 10.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>모형 사용법<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>베이스라인 모형을 비롯한 surprise 패키지 모형을 사용하기 위해서는 다음과 같은 순서를 거친다.</p>
+<ol class="simple">
+<li><p>데이터세트의 <code class="docutils literal notranslate"><span class="pre">split</span></code>,  <code class="docutils literal notranslate"><span class="pre">folds</span></code> 메소드를 사용하여 K-Fold 트레이닝 데이터셋과 테스트 데이터셋을 만든다.</p></li>
+<li><p>모형 알고리즘 객체를 생성한다.</p></li>
+<li><p>모형 알고리즘 객체의 <code class="docutils literal notranslate"><span class="pre">train</span></code> 메서드와 트레이닝 데이터셋으로 모수를 추정한 후, <code class="docutils literal notranslate"><span class="pre">test</span></code> 메서드로 테스트 데이터셋에 대한 예측을 실시한다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">accuracy</span></code> 서브패키지의 성능평가 함수를 사용하여 예측 성능을 계산한다.</p></li>
+</ol>
+<p>이 과정은 <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> 명령으로 단축할 수도 있다.</p>
+<p>surprise 패키지는 베이스라인 모형을 위한 <code class="docutils literal notranslate"><span class="pre">BaselineOnly</span></code> 클래스를 제공한다.</p>
+<p>우선 베이스라인 모형으로 다음과 같이 MovieLens 데이터를 처리해 보자. FCP(Fraction of Concordant Pairs)로 계산한 평가 점수는 약 0.70점이다.</p>
+</div>
+<div class="section" id="id6">
+<h2>추천성능 평가기준<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">accuracy</span></code> 서브패키지에서는 다음과 같은 추천성능 평가기준을 제공한다. 이 식에서 <span class="math notranslate nohighlight">\(\hat{R}\)</span>은 테스트 데이터셋을 뜻한다.</p>
+<ul class="simple">
+<li><p>RMSE (Root Mean Squared Error)
+$<span class="math notranslate nohighlight">\( \text{RMSE} = \sqrt{\frac{1}{|\hat{R}|} \sum_{\hat{r}(u,i) \in \hat{R}}(r(u,i) - \hat{r}(u,i))^2} \)</span>$</p></li>
+<li><p>MAE (Mean Absolute Error)
+$<span class="math notranslate nohighlight">\( \text{MAE} = \dfrac{1}{|\hat{R}|} \sum_{\hat{r}(u,i) \in \hat{R}}|r(u,i) - \hat{r}(u,i)| \)</span>$</p></li>
+<li><p>FCP (Fraction of Concordant Pairs)
+$<span class="math notranslate nohighlight">\( \text{FCP} = \dfrac{\text{number of concordant pairs}}{\text{number of discordant pairs}} \)</span>$</p></li>
+</ul>
+<p>회귀 분석에서 <span class="math notranslate nohighlight">\(i\)</span>번째 데이터와 <span class="math notranslate nohighlight">\(j\)</span>번째 데이터에 대해 실제 데이터 <span class="math notranslate nohighlight">\(y_i, y_j\)</span>와 예측 데이터 <span class="math notranslate nohighlight">\(\hat{y}_i, \hat{y}_j\)</span> 사이의 증가 방향이 같으면 condordant pair라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ \text{sign}(y_i - y_j) = \text{sign}(\hat{y}_i - \hat{y}_j) \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+
+<span class="n">bsl_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;als&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;n_epochs&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;reg_u&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;reg_i&#39;</span><span class="p">:</span> <span class="mi">5</span>
+<span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">BaselineOnly</span><span class="p">(</span><span class="n">bsl_options</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">trainset</span><span class="p">,</span> <span class="n">testset</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+    <span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+    <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimating biases using als...
+RMSE: 0.9453
+Estimating biases using als...
+RMSE: 0.9377
+Estimating biases using als...
+RMSE: 0.9500
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9443304984013942
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">cross_validate</span></code> 명령을 사용하면 위 코드를 다음과 같이 단축할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span>
+
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimating biases using als...
+Estimating biases using als...
+Estimating biases using als...
+Estimating biases using als...
+Estimating biases using als...
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;test_rmse&#39;: array([0.9384446 , 0.94651657, 0.93612815, 0.94221861, 0.94428787]),
+ &#39;test_mae&#39;: array([0.74477853, 0.75124267, 0.73975393, 0.745764  , 0.74659098]),
+ &#39;fit_time&#39;: (0.10585212707519531,
+  0.13820195198059082,
+  0.1485898494720459,
+  0.13920855522155762,
+  0.11656451225280762),
+ &#39;test_time&#39;: (0.21303677558898926,
+  0.12261795997619629,
+  0.20620155334472656,
+  0.12421703338623047,
+  0.1168220043182373)}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="collaborative-filter">
+<h2>Collaborative Filter<a class="headerlink" href="#collaborative-filter" title="Permalink to this headline">¶</a></h2>
+<p>CF(Collaborative Filter) 방법은 모든 사용자의 데이터를 균일하게 사용하는 것이 아니라 평점 행렬이 가진 특정한 패턴을 찾아서 이를 평점 예측에 사용하는 방법이다. CF 방법도 사용자나 상품 기준으로 평점의 유사성을 살피는 Neighborhood 모형과 행렬의 수치적 특징을 이용하는 Latent Factor 모형이 있다.</p>
+</div>
+<div class="section" id="neighborhood">
+<h2>Neighborhood 모형<a class="headerlink" href="#neighborhood" title="Permalink to this headline">¶</a></h2>
+<p>Neighborhood 모형은 Memory-based CF라고도 한다. 이 방법은 특정 사용자의 평점을 예측하기 위해 사용하는 것이아니라 해당 사용자와 유사한(similar) 사용자에 대해 가중치를 준다.</p>
+<p>특히 해당 사용자와 유사한 사용자를 찾는 방법 즉, 평점 행렬에서 유사한 사용자 행 벡터를 찾아서 이를 기반으로 빈 데이터를 계산하는 방법을 <strong>사용자 기반 (User-based) CF</strong>라고 한다.</p>
+<p>이와 달리 특정한 상품에 대해 사용자가 준 점수 즉, 평점 행렬의 상품 열 벡터의 유사성을 찾고 특정 상품과 유사한 평점 정보를 가지는 상품들로 해당 상품의 빈 데이터를 예측하는 방법을 <strong>상품 기반 (Item-based) CF</strong>라고 한다.</p>
+</div>
+<div class="section" id="id7">
+<h2>유사도 계산<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>사용자 특성 벡터(평점 행렬의 행 벡터)이나 상품 특성 벡터(평점 행렬의 열 벡터)의 유사도(similarity)을 비교하기 위한 기준도 여러가지가 있을 수 있다.</p>
+<p>surprise 패키지에서는 다음과 같은 유사도 기준을 제공한다.</p>
+<ul class="simple">
+<li><p>평균제곱차이 유사도 (Mean Squared Difference Similarity)</p></li>
+<li><p>코사인 유사도 (Cosine Similarity)</p></li>
+<li><p>피어슨 유사도 (Pearson Similarity)</p></li>
+<li><p>피어슨-베이스라인 유사도 (Pearson-Baseline Similarity)</p></li>
+</ul>
+<p>surprise 패키지의 유사도 설정 옵션은 다음과 같다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: 사용할 유사도의 종류를 나타내는 문자열. 디폴트는 <code class="docutils literal notranslate"><span class="pre">'MSD'</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_based</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code>면 사용자 기반, <code class="docutils literal notranslate"><span class="pre">False</span></code>면 상품 기반.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_support</span></code>: 두 사용자나, 상품에서 공통적으로 있는 평점 원소의 수의 최솟값. 공통 평점 원소의 수가 이 값보다 적으면 해당 벡터는 사용하지 않는다. 디폴트는</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shrinkage</span></code>: Shrinkage 가중치. 디폴트는 100.</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>평균제곱차이 유사도<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>평균제곱차이(Mean Squared Difference, MSD)유사도는 유클리드 공간에서의 거리 제곱에 비례하는 값이다. 일단 다음과 같이 msd값을 구하고 그 역수로 유사도를 정의한다. msd값이 0이 되는 경우를 대비하여 1을 더해준다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{split}\text{msd_sim}(u, v) &amp;= \frac{1}{\text{msd}(u, v) + 1}\\
+\text{msd_sim}(i, j) &amp;= \frac{1}{\text{msd}(i, j) + 1}\end{split} \end{split}\]</div>
+<ul class="simple">
+<li><p>사용자 <span class="math notranslate nohighlight">\(u\)</span>와 사용자 <span class="math notranslate nohighlight">\(v\)</span>간의 msd</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{msd}(u, v) = \frac{1}{|I_{uv}|} \cdot \sum\limits_{i \in I_{uv}} (r(u,i) - r_(v,i))^2 \]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\(I_{uv}\)</span>는 사용자 <span class="math notranslate nohighlight">\(u\)</span>와 사용자 <span class="math notranslate nohighlight">\(v\)</span> 모두에 의해 평가된 상품의 집합이고 <span class="math notranslate nohighlight">\(|I_{uv}|\)</span>는 사용자 <span class="math notranslate nohighlight">\(u\)</span>와 사용자 <span class="math notranslate nohighlight">\(v\)</span> 모두에 의해 평가된 상품의 수</p>
+<ul class="simple">
+<li><p>상품 <span class="math notranslate nohighlight">\(i\)</span>와 상품 <span class="math notranslate nohighlight">\(j\)</span>간의 msd</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{msd}(i, j) = \frac{1}{|U_{ij}|} \cdot \sum\limits_{u \in U_{ij}} (r(u,i) - r(u,j))^2 \]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\(U_{ij}\)</span>는 상품 <span class="math notranslate nohighlight">\(i\)</span>와 상품 <span class="math notranslate nohighlight">\(j\)</span> 모두를 평가한 사용자의 집합이고 <span class="math notranslate nohighlight">\(|U_{ij}|\)</span>는 상품 <span class="math notranslate nohighlight">\(i\)</span>와 상품 <span class="math notranslate nohighlight">\(j\)</span> 모두를 평가한 사용자의 수</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;msd&#39;</span><span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing the msd similarity matrix...
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+Computing the msd similarity matrix...
+Done computing similarity matrix.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7726801901092284
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>코사인 유사도<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>코사인 유사도(Cosine Similarity)는 두 특성 벡터의 각도에 대한 코사인 값을 말한다. 벡터 <span class="math notranslate nohighlight">\(x\)</span>와 벡터 <span class="math notranslate nohighlight">\(y\)</span> 사이의 각도 <span class="math notranslate nohighlight">\(\theta\)</span> 는 두 벡터의 내적 <span class="math notranslate nohighlight">\(x \cdot y\)</span>와 다음과 같은 관계가 있다. 각도 <span class="math notranslate nohighlight">\(\theta\)</span>가 0도이면 코사인 유사도는 1이다. 반대로 각도 <span class="math notranslate nohighlight">\(\theta\)</span>가 90도이면 코사인 유사도는 0이다.</p>
+<div class="math notranslate nohighlight">
+\[ x \cdot y = |x| |y| \cos\theta \]</div>
+<div class="math notranslate nohighlight">
+\[ \cos\theta = \dfrac{x \cdot y}{|x| |y|}\]</div>
+<ul class="simple">
+<li><p>사용자 <span class="math notranslate nohighlight">\(u\)</span>와 사용자 <span class="math notranslate nohighlight">\(v\)</span>간의 코사인 유사도</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\text{cosine_sim}(u, v) = \frac{
+\sum\limits_{i \in I_{uv}} r(u,i) \cdot r(v,i)}
+{\sqrt{\sum\limits_{i \in I_{uv}} r(u,i)^2} \cdot
+\sqrt{\sum\limits_{i \in I_{uv}} r(v,i)^2}
+}
+\]</div>
+<ul class="simple">
+<li><p>상품 <span class="math notranslate nohighlight">\(i\)</span>와 상품 <span class="math notranslate nohighlight">\(j\)</span>간의 코사인 유사도</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\text{cosine_sim}(i, j) = \frac{
+\sum\limits_{u \in U_{ij}} r(u,i) \cdot r(u,j)}
+{\sqrt{\sum\limits_{u \in U_{ij}} r(u,i)^2} \cdot
+\sqrt{\sum\limits_{u \in U_{ij}} r(u,j)^2}
+} 
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cosine&#39;</span><span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing the cosine similarity matrix...
+Done computing similarity matrix.
+Computing the cosine similarity matrix...
+Done computing similarity matrix.
+Computing the cosine similarity matrix...
+Done computing similarity matrix.
+Computing the cosine similarity matrix...
+Done computing similarity matrix.
+Computing the cosine similarity matrix...
+Done computing similarity matrix.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8046567723959086
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>피어슨 유사도<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>피어슨 유사도(Pearson Similarity)는 두 벡터의 상관계수(Pearson correlation coefficient)를 말하며 다음과 같이 정의한다.</p>
+<ul class="simple">
+<li><p>사용자 <span class="math notranslate nohighlight">\(u\)</span>와 사용자 <span class="math notranslate nohighlight">\(v\)</span>간의 피어슨 유사도</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \text{pearson_sim}(u, v) = \frac{
+\sum\limits_{i \in I_{uv}} (r(u,i) -  \mu(u)) \cdot (r(v,i) - \mu(v))}
+{\sqrt{\sum\limits_{i \in I_{uv}} (r(u,i) -  \mu(u))^2} \cdot
+\sqrt{\sum\limits_{i \in I_{uv}} (r(v,i) -  \mu(v))^2}
+} \]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\(\mu(u)\)</span>는 사용자 <span class="math notranslate nohighlight">\(u\)</span>의 평균 평점이다.</p>
+<ul class="simple">
+<li><p>상품 <span class="math notranslate nohighlight">\(i\)</span>와 상품 <span class="math notranslate nohighlight">\(j\)</span>간의 피어슨 유사도</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{pearson_sim}(i, j) = \frac{
+\sum\limits_{u \in U_{ij}} (r(u,i) -  \mu(i)) \cdot (r(u,j) - \mu(j))}
+{\sqrt{\sum\limits_{u \in U_{ij}} (r(u,i) -  \mu(i))^2} \cdot
+\sqrt{\sum\limits_{u \in U_{ij}} (r(u,j) -  \mu(j))^2}
+}
+\]</div>
+<p>위 식에서 <span class="math notranslate nohighlight">\(\mu(i)\)</span>는 상품 <span class="math notranslate nohighlight">\(i\)</span>의 평균 평점이다.</p>
+<p>상관계수는 가장 높은 경우의 값이 1이고 무상관인 경우에는 0이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;pearson&#39;</span><span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing the pearson similarity matrix...
+Done computing similarity matrix.
+Computing the pearson similarity matrix...
+Done computing similarity matrix.
+Computing the pearson similarity matrix...
+Done computing similarity matrix.
+Computing the pearson similarity matrix...
+Done computing similarity matrix.
+Computing the pearson similarity matrix...
+Done computing similarity matrix.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8032778978216127
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>피어슨-베이스라인 유사도<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>피어슨-베이스라인(Pearson-Baseline Similarity) 유사도는 피어슨-베이스라인 유사도와 같이 상관계수를 구하지만 각 벡터의 기댓값을 단순 평균이 아니라 베이스라인 모형에서 예측한 값을 사용한다.</p>
+<ul class="simple">
+<li><p>사용자 <span class="math notranslate nohighlight">\(u\)</span>와 사용자 <span class="math notranslate nohighlight">\(v\)</span>간의 msd</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ 
+\text{pearson_baseline_sim}(u, v) = \hat{\rho}_{uv} = \frac{
+\sum\limits_{i \in I_{uv}} (r(u,i) -  b(u,i)) \cdot (r(v,i) - b(v,i))}
+{\sqrt{\sum\limits_{i \in I_{uv}} (r(u,i) -  b(u,i))^2} \cdot
+\sqrt{\sum\limits_{i \in I_{uv}} (r(v,i) -  b(v,i))^2}} 
+\]</div>
+<ul class="simple">
+<li><p>상품 <span class="math notranslate nohighlight">\(i\)</span>와 상품 <span class="math notranslate nohighlight">\(j\)</span>간의 msd</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{pearson_baseline_sim}(i, j) = \hat{\rho}_{ij} = \frac{
+\sum\limits_{u \in U_{ij}} (r(u,i) -  b(u,i)) \cdot (r(u,j) - b(u,j))}
+{\sqrt{\sum\limits_{u \in U_{ij}} (r(u,i) -  b(u,i))^2} \cdot
+\sqrt{\sum\limits_{u \in U_{ij}} (r(u,j) -  b(u,j))^2}}
+\]</div>
+<p>피어슨-베이스라인 유사도는 벡터의 차원 즉, 두 사용자나 상품에 공통적으로 있는 평점 원소의 갯수를 이용하여 정규화를 하는 shrinkage를 추가하여 사용한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\begin{split}\text{pearson_baseline_shrunk_sim}(u, v) &amp;= \frac{|I_{uv}| - 1}
+{|I_{uv}| - 1 + \text{shrinkage}} \cdot \hat{\rho}_{uv}\end{split} 
+\]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{split}\text{pearson_baseline_shrunk_sim}(i, j) &amp;= \frac{|U_{ij}| - 1}
+{|U_{ij}| - 1 + \text{shrinkage}} \cdot \hat{\rho}_{ij}\end{split} 
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;pearson_baseline&#39;</span><span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">KNNBasic</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.791677323191221
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="knn">
+<h2>KNN 가중치 예측 방법<a class="headerlink" href="#knn" title="Permalink to this headline">¶</a></h2>
+<p>일단 유사도가 구해지면 평점을 예측하고자 하는 사용자(또는 상품)와 유사도가 큰 <span class="math notranslate nohighlight">\(k\)</span>개의 사용자(또는 상품) 벡터를 사용하여 가중 평균을 구해서 가중치를 예측한다. 이러한 방법을 KNN(K Nearest Neighbors) 기반 예측 방법이라고 한다.</p>
+<p>surprise 패키지에서는 다음과 같은 3가지의 KNN 기반 가중치 예측 알고리즘 클래스를 제공한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KNNBasic</span></code></p>
+<ul>
+<li><p>평점들을 단순히 가중 평균한다. 다음 식에서 <span class="math notranslate nohighlight">\(N^k\)</span>는 <span class="math notranslate nohighlight">\(k\)</span>개의 가장 유사도가 큰 벡터의 집합이다.</p></li>
+</ul>
+</li>
+</ul>
+<div class="math notranslate nohighlight">
+\[  
+\hat{r}(u,i) = \frac{
+        \sum\limits_{v \in N^k_i(u)} \text{sim}(u, v) \cdot r(v,i)}
+        {\sum\limits_{v \in N^k_i(u)} \text{sim}(u, v)}
+\]</div>
+<p>또는
+$<span class="math notranslate nohighlight">\(
+\hat{r}(u,i) = \frac{
+        \sum\limits_{j \in N^k_u(i)} \text{sim}(i, j) \cdot r(u,j)}
+        {\sum\limits_{j \in N^k_u(j)} \text{sim}(i, j)}
+\)</span>$</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KNNWithMeans</span></code></p>
+<ul>
+<li><p>평점들을 평균값 기준으로 가중 평균한다.</p></li>
+</ul>
+</li>
+</ul>
+<div class="math notranslate nohighlight">
+\[  
+\hat{r}(u,i) = \mu(u) + 
+\frac{\sum\limits_{v \in N^k_i(u)} \text{sim}(u, v) \cdot (r(v,i) - \mu(v))}{\sum\limits_{v \in N^k_i(u)} \text{sim}(u, v)}
+\]</div>
+<p>또는</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{r}(u,i) = \mu(i) + 
+\frac{\sum\limits_{j \in N^k_u(i)}\text{sim}(i, j) \cdot (r(u,j) - \mu(j))} {\sum\limits_{j \in N^k_u(i)} \text{sim}(i, j)}
+\]</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KNNBaseline</span></code></p>
+<ul>
+<li><p>평점들을 베이스라인 모형의 값 기준으로 가중 평균한다.</p></li>
+</ul>
+</li>
+</ul>
+<div class="math notranslate nohighlight">
+\[  
+\hat{r}(u,i) = b(u,i) + \frac{ \sum\limits_{v \in N^k_i(u)}
+\text{sim}(u, v) \cdot (r(v,i) - b(v,i))} {\sum\limits_{v \in
+N^k_i(u)} \text{sim}(u, v)}
+\]</div>
+<p>또는
+$<span class="math notranslate nohighlight">\(
+\hat{r}(u,i) = b(u,i) + \frac{ \sum\limits_{j \in N^k_u(i)}
+\text{sim}(i, j) \cdot (r(u,j) - b(u,j))} {\sum\limits_{j \in
+N^k_u(j)} \text{sim}(i, j)}
+\)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;pearson_baseline&#39;</span><span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">KNNWithMeans</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7299485648439766
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;pearson_baseline&#39;</span><span class="p">}</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">KNNBaseline</span><span class="p">(</span><span class="n">sim_options</span><span class="o">=</span><span class="n">sim_options</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+Estimating biases using als...
+Computing the pearson_baseline similarity matrix...
+Done computing similarity matrix.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7211170375266851
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="latent-factor">
+<h2>Latent Factor 모형<a class="headerlink" href="#latent-factor" title="Permalink to this headline">¶</a></h2>
+<p>사용자의 특성 벡터나 상품의 특성 벡터의 길이는 수천에서 수십억에 달하는 긴 크기가 될 수도 있다.</p>
+<p>Latent Factor 모형은 이렇게 긴 사용자 특성이나 상품 특성을 몇 개의 요인 벡터로 간략화(approximate)할 수 있다는 가정에서 출발한 모형이다.<br />
+PCA(Principle Component Analysis)를 사용하면 긴 특성 벡터를 소수의 차원으로 차원 축소할 수 있듯이 사용자의 특성도 차원 축소 할 수 있다.</p>
+<p>영화에 대한 평점을 주는 경우, 코미디, 액션, 드라마 등 몇개의 장르 요인이 있어서 사용자는 특정한 장르 요소에 대해 더 점수를 많이 주거나 적게 줄 수 있다. 그리고 영화 자체도 이러한 장르 요인을 가지고 있다면 해당 사용자의 그 영화에 대한 평점은 사용자의 장르 요인 벡터와 영화의 장르 요인 벡터의 내적으로 표시할 수 있다.</p>
+<p>예를 들어 액션을 싫어하고(-1) 코미디(2)나 드라마(3)를 좋아하는 사용자의 요인 벡터는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ p(u)^T = (-1, 2, 3) \]</div>
+<p>어떤 영화가 액션 요소가 2이고 코미디 요소가 1이고, 드라마 요소가 1이라면</p>
+<div class="math notranslate nohighlight">
+\[ q(i)^T = (2, 1, 1) \]</div>
+<p>평점은 다음과 같을 것이다.</p>
+<div class="math notranslate nohighlight">
+\[ r(u,i) = q(i)^Tp(u) = -1 \cdot 2 + 2 \cdot 1 + 3 \cdot 1 = 3\]</div>
+</div>
+<div class="section" id="matrix-factorization">
+<h2>Matrix Factorization<a class="headerlink" href="#matrix-factorization" title="Permalink to this headline">¶</a></h2>
+<p>Matrix Factorization 방법은 모든 사용자와 상품에 대해 다음 오차 함수를 최소화하는 요인 벡터를 찾아낸다. 즉 다음과 같은 행렬 <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>를 찾는다.</p>
+<div class="math notranslate nohighlight">
+\[ R \approx PQ^T  \]</div>
+<p>여기에서</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(R \in \mathbf{R}^{m \times n}\)</span> : <span class="math notranslate nohighlight">\(m\)</span> 사용자와 <span class="math notranslate nohighlight">\(n\)</span> 상품의 평점 행렬</p></li>
+<li><p><span class="math notranslate nohighlight">\(P \in \mathbf{R}^{m \times k}\)</span> : <span class="math notranslate nohighlight">\(m\)</span> 사용자와 <span class="math notranslate nohighlight">\(k\)</span> 요인의 관계 행렬</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q \in \mathbf{R}^{n \times k}\)</span> : <span class="math notranslate nohighlight">\(n\)</span> 상품의와 <span class="math notranslate nohighlight">\(k\)</span> 요인의 관계 행렬</p></li>
+</ul>
+</div>
+<div class="section" id="svd-singular-value-decomposition">
+<h2>SVD (Singular Value Decomposition)<a class="headerlink" href="#svd-singular-value-decomposition" title="Permalink to this headline">¶</a></h2>
+<p>SVD (Singular Value Decomposition) 는 Matrix Factorization 문제를 푸는 방법 중 하나이다.</p>
+<p><span class="math notranslate nohighlight">\(m \times n\)</span> 크기의 행렬 <span class="math notranslate nohighlight">\(R\)</span>은 다음과 같이 세 행렬의 곱으로 나타낼 수 있다. 이를 특이치 분해(Singular Value Decomposition) 라고 한닫.</p>
+<div class="math notranslate nohighlight">
+\[ R =  U \Sigma V^T \]</div>
+<p>이 식에서</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(U\)</span> 는 <span class="math notranslate nohighlight">\(m \times m\)</span> 크기의 행렬로 역행렬이 대칭 행렬</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> 는 <span class="math notranslate nohighlight">\(m \times n\)</span> 크기의 행렬로 비대각 성분이 0</p></li>
+<li><p><span class="math notranslate nohighlight">\(V\)</span> 는 <span class="math notranslate nohighlight">\(n \times n\)</span> 크기의 행렬로 역행렬이 대칭 행렬</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\Sigma\)</span>의 대각 성분은 특이치라고 하며 전체 특이치 중에서 가장 값이 큰 <span class="math notranslate nohighlight">\(k\)</span>개의 특이치만을 사용하여 (Truncated SVD), 다음과 같은 행렬을 만들수 있다.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\hat{U}\)</span> 는 <span class="math notranslate nohighlight">\(U\)</span>에서 가장 값이 큰 <span class="math notranslate nohighlight">\(k\)</span>개의 특이치에 대응하는 <span class="math notranslate nohighlight">\(k\)</span>개의 성분만을 남긴 <span class="math notranslate nohighlight">\(m \times k\)</span> 크기의 행렬</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> 는 가장 값이 큰 <span class="math notranslate nohighlight">\(k\)</span>개의 특이치에 대응하는 <span class="math notranslate nohighlight">\(k\)</span>개의 성분만을 남긴 <span class="math notranslate nohighlight">\(k \times k\)</span> 크기의 대각 행렬</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{V}\)</span> 는 <span class="math notranslate nohighlight">\(V\)</span>에서 가장 값이 큰 <span class="math notranslate nohighlight">\(k\)</span>개의 특이치에 대응하는 <span class="math notranslate nohighlight">\(k\)</span>개의 성분만을 남긴 <span class="math notranslate nohighlight">\(k \times n\)</span> 크기의 행렬</p></li>
+</ul>
+<p>이 행렬을 다시 조합하면 원래의 행렬과 같은 크기를 가지고 유사한 원소를 가지는 행렬을 만들 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ \hat{U} \hat{\Sigma} \hat{V}^T =  \hat{R} \approx R \]</div>
+<p>하지만 실제로 평점 행렬은 빈 원소가 많은 sparse 행렬로서 SVD를 바로 적용하기 힘들기 때문에  행렬 <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>는  다음과 같은 모형에 대해  오차 함수를 최소화하여 구한다.</p>
+<div class="math notranslate nohighlight">
+\[ 
+\hat{r}(u,i) = \mu + b(u) + b(i) + q(i)^Tp(u) 
+\]</div>
+<div class="math notranslate nohighlight">
+\[ 
+\sum_{u,i \in R_{train}} \left(r(u,i) - \hat{r}(u,i) \right)^2 +
+\lambda\left(b(i)^2 + b(u)^2 + ||q(i)||^2 + ||p(u)||^2\right) 
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">SVD</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 30.4 s, sys: 50 ms, total: 30.4 s
+Wall time: 30.5 s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.739210803693828
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="nmf-non-negative-matrix-factorization">
+<h2>NMF(Non-negative matrix factorization)<a class="headerlink" href="#nmf-non-negative-matrix-factorization" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">surprise</span><span class="o">.</span><span class="n">NMF</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">data</span><span class="p">)[</span><span class="s2">&quot;test_mae&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1min 24s, sys: 330 ms, total: 1min 24s
+Wall time: 1min 25s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8371368390504086
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03 machine learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="06.05 정규화 선형회귀.html" title="previous page">6.5 정규화 선형회귀</a>
+    <a class='right-next' id="next-link" href="09.01 분류용 예제 데이터.html" title="next page">5.1 분류용 예제 데이터</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By 김도형<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

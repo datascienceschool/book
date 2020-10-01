@@ -7,13 +7,11 @@
 데이터 사이언스 스쿨 홈페이지를 깃헙 페이지와 주피터 북 기반으로 리모델링하였습니다.
 ```
 
-````{admonition} 2020-09-30
 ```{figure} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
 ---
-width: 100px
 align: left
 figclass: margin 
 ---
 ```
-https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
-````
+```{admonition} 2020-09-30
+https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg````

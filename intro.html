@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,6 +80,7 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
+    <script src="_static/translations.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -91,8 +92,8 @@ commentsRunWhenDOMLoaded(addUtterances);
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
     <link rel="next" title="소개의 글" href="01 python/00.00 소개의 글.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -122,7 +123,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 <form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="이 책 검색 ..." aria-label="이 책 검색 ..." autocomplete="off" >
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -636,15 +637,15 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
             data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            aria-expanded="true" aria-label="탐색 전환" aria-controls="site-navigation"
+            title="탐색 전환" data-toggle="tooltip" data-placement="left">
             <i class="fas fa-bars"></i>
             <i class="fas fa-arrow-left"></i>
             <i class="fas fa-arrow-up"></i>
         </button>
         
         <div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="이 페이지 다운로드"><i
             class="fas fa-download"></i></button>
 
     
@@ -653,10 +654,10 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         <!-- Download raw file -->
         <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                class="btn btn-secondary topbarbtn" title="소스 파일 다운로드" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDF로 인쇄"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
     
@@ -669,22 +670,22 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
             href="https://github.com/datascienceschool/book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
+                data-toggle="tooltip" data-placement="left" title="소스 저장소"><i
+                    class="fab fa-github"></i>저장소</button></a>
         <a class="issues-button"
             href="https://github.com/datascienceschool/book/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                title="이슈 열기"><i class="fas fa-lightbulb"></i>열린 문제</button></a>
         <a class="edit-button" href="https://github.com/datascienceschool/book/edit/master/ds/intro.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+                title="이 페이지 편집"><i class="fas fa-pencil-alt"></i>열린 문제</button></a>
     </div>
 </div>
 
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" title="전체 화면으로보기"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -702,11 +703,20 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>데이터 사이언스 스쿨<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>데이터 사이언스 스쿨<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
 <p>데이터 사이언스 스쿨은 데이터 사이언스에 대한 모든 지식을 공유하는 장입니다.</p>
 <div class="admonition- admonition">
 <p class="admonition-title">알림</p>
 <p>데이터 사이언스 스쿨 홈페이지를 깃헙 페이지와 주피터 북 기반으로 리모델링하였습니다.</p>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">2020-09-30</p>
+<div class="figure align-left" id="id2">
+<a class="reference internal image-reference" href="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg"><img alt="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" src="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" /></a>
+<p class="caption"><span class="caption-number">그림 1 </span><span class="caption-text">Here is my figure caption!</span><a class="headerlink" href="#id2" title="이 이미지에 대한 퍼머링크">¶</a></p>
+</div>
+<p>comment comment comment comment comment comment comment comment comment
+comment comment comment comment</p>
 </div>
 <div class="toctree-wrapper compound">
 </div>

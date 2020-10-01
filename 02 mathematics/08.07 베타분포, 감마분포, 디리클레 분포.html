@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,6 +80,7 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
+    <script src="../_static/translations.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -91,8 +92,8 @@ commentsRunWhenDOMLoaded(addUtterances);
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
     <link rel="next" title="9장 추정과 검정" href="09.00 9장 추정과 검정.html" />
     <link rel="prev" title="8.6 다변수정규분포" href="08.06 다변수정규분포.html" />
 
@@ -123,7 +124,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="이 책 검색 ..." aria-label="이 책 검색 ..." autocomplete="off" >
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -674,15 +675,15 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
             data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            aria-expanded="true" aria-label="탐색 전환" aria-controls="site-navigation"
+            title="탐색 전환" data-toggle="tooltip" data-placement="left">
             <i class="fas fa-bars"></i>
             <i class="fas fa-arrow-left"></i>
             <i class="fas fa-arrow-up"></i>
         </button>
         
         <div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="이 페이지 다운로드"><i
             class="fas fa-download"></i></button>
 
     
@@ -691,10 +692,10 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         <!-- Download raw file -->
         <a class="dropdown-buttons" href="../_sources/02 mathematics/08.07 베타분포, 감마분포, 디리클레 분포.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                class="btn btn-secondary topbarbtn" title="소스 파일 다운로드" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDF로 인쇄"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
     
@@ -707,22 +708,22 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
             href="https://github.com/datascienceschool/book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
+                data-toggle="tooltip" data-placement="left" title="소스 저장소"><i
+                    class="fab fa-github"></i>저장소</button></a>
         <a class="issues-button"
             href="https://github.com/datascienceschool/book/issues/new?title=Issue%20on%20page%20%2F02 mathematics/08.07 베타분포, 감마분포, 디리클레 분포.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                title="이슈 열기"><i class="fas fa-lightbulb"></i>열린 문제</button></a>
         <a class="edit-button" href="https://github.com/datascienceschool/book/edit/master/ds/02 mathematics/08.07 베타분포, 감마분포, 디리클레 분포.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+                title="이 페이지 편집"><i class="fas fa-pencil-alt"></i>열린 문제</button></a>
     </div>
 </div>
 
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" title="전체 화면으로보기"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -733,7 +734,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class="dropdown-buttons">
         
         <a class="binder-button" href="https://mybinder.org/v2/gh/datascienceschool/book/master?urlpath=tree/ds/02 mathematics/08.07 베타분포, 감마분포, 디리클레 분포.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                class="btn btn-secondary topbarbtn" title="시작하다 Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
@@ -741,7 +742,7 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         
         <a class="colab-button" href="https://colab.research.google.com/github/datascienceschool/book/blob/master/ds/02 mathematics/08.07 베타분포, 감마분포, 디리클레 분포.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                title="시작하다 Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
@@ -755,7 +756,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i> 내용
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
@@ -818,10 +819,10 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>8.7 베타분포, 감마분포, 디리클레분포<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>8.7 베타분포, 감마분포, 디리클레분포<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
 <p>이 절에서 공부할 베타분포, 감마분포, 디리클레분포는 모숫값을 조정하여 분포의 모양을 우리가 원하는대로 쉽게 바꿀 수 있다. 모숫값은 분포 모양을 조절하는 조절값이라고 생각하면 된다. 이러한 특성때문에 이 분포들은 데이터가 이루는 분포를 표현하기보다는 베이지안 확률론의 관점에서 어떤 값에 대해 우리가 가지고 있는 확신 혹은 신뢰의 정도를 표현하는데 주로 사용된다.</p>
 <div class="section" id="id2">
-<h2>베타분포<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>베타분포<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <p>**베타분포(Beta distribution)**는 <span class="math notranslate nohighlight">\(a\)</span>와 <span class="math notranslate nohighlight">\(b\)</span>라는 두 모수를 가지며 표본 공간은 0과 1사이의 실수다. 즉 0과 1 사이의 표본값만 가질 수 있다.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -891,8 +892,8 @@ E[x] = \dfrac{a}{a+b}
 <li><p>최빈값 : 확률분포가 가장 커지는 위치
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-89899b91-5d22-4f62-9578-6e2181c7bf39">
-<span class="eqno">(64)<a class="headerlink" href="#equation-89899b91-5d22-4f62-9578-6e2181c7bf39" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c922a738-e9c1-4288-a65a-b3f6bd7e4b51">
+<span class="eqno">(64)<a class="headerlink" href="#equation-c922a738-e9c1-4288-a65a-b3f6bd7e4b51" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{mode} = \dfrac{a - 1}{a+b - 2}
 \tag{8.7.5}
 \end{align}\]</div>
@@ -900,8 +901,8 @@ $$</p></li>
 \[
 * 분산 : 확률분포의 폭
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-41487069-4222-4553-b715-308419d04048">
-<span class="eqno">(65)<a class="headerlink" href="#equation-41487069-4222-4553-b715-308419d04048" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-12226f55-b9a1-4856-a4d0-4e9b65e89e61">
+<span class="eqno">(65)<a class="headerlink" href="#equation-12226f55-b9a1-4856-a4d0-4e9b65e89e61" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{Var}[x] = \dfrac{ab}{(a+b)^2(a+b+1)}
 \tag{8.7.6}
 \end{align}\]</div>
@@ -909,7 +910,7 @@ $$</p></li>
 <p>최빈값 수식을 보면 <span class="math notranslate nohighlight">\(a=b\)</span>일 때 <span class="math notranslate nohighlight">\(x=0.5\)</span>에서 가장 확률밀도가 커지는 것을 알 수 있다. 또한 분산 수식에서 분모가 3차식, 분자가 2차식이기 때문에 <span class="math notranslate nohighlight">\(a,b\)</span>의 값이 커질수록 분산 즉, 확률분포의 폭이 작아진다.</p>
 </div>
 <div class="section" id="id3">
-<h2>베타분포와 베이지안 추정<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>베타분포와 베이지안 추정<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
 <p>베타분포는 0부터 1까지의 값을 가질 수 있는 베르누이분포의 모수 <span class="math notranslate nohighlight">\(\mu\)</span>의 값을 베이지안 추정한 결과를 표현한 것이다. 베이지안 추정은 모수가 가질 수 있는 모든 값에 대해 가능성을 확률분포로 나타낸 것을 말한다.  실제로 베르누이분포의 모수를 베이지안 추정하는 것은 나중에 다루게 된다. 여기에서는 결과만 보였다.</p>
 <p>위 그림이 베이지안 추정 결과라면 각각은 베르누이분포의 모수 <span class="math notranslate nohighlight">\(\mu\)</span>에 대해 다음과 같이 추정한 것과 같다.</p>
 <ul class="simple">
@@ -919,12 +920,12 @@ $$</p></li>
 <li><p>(D): 베르누이분포의 모수 <span class="math notranslate nohighlight">\(\mu\)</span>이 0.725일 가능성이 가장 크다. (정확도 높음)</p></li>
 </ul>
 <div class="section" id="id4">
-<h3>연습 문제 8.7.1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>연습 문제 8.7.1<a class="headerlink" href="#id4" title="제목 주소">¶</a></h3>
 <p>베르누이 모수를 추정한 결과가 <span class="math notranslate nohighlight">\(\mu=\frac{1}{3}\)</span>이고 추정오차(표준편차)가 <span class="math notranslate nohighlight">\(0.2\)</span>라고 하자. 이 추정결과를 나타내는 베타분포의 모수를 구하라.</p>
 </div>
 </div>
 <div class="section" id="id5">
-<h2>감마분포<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>감마분포<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
 <p>**감마분포(Gamma distribution)**도 베타분포처럼 모수의 베이지안 추정에 사용된다. 다만 베타분포가 0부터 1 사잇값을 가지는 모수를 베이지안 방법으로 추정하는 데 사용되는 것과 달리 감마분포는 0부터 무한대의 값을 가지는 양수 값을 추정하는 데 사용된다.</p>
 <p>감마분포의 확률 밀도 함수는 a와 b라는 두 모수를 가지며 수학적으로 다음과 같이 정의된다.</p>
 <div class="math notranslate nohighlight">
@@ -976,16 +977,16 @@ $$</p></li>
 <li><p>기댓값
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-be6ae132-8aff-4bdc-91bc-917100fc66dc">
-<span class="eqno">(66)<a class="headerlink" href="#equation-be6ae132-8aff-4bdc-91bc-917100fc66dc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d0aa40cf-53e1-422a-bd56-ba58a0c756aa">
+<span class="eqno">(66)<a class="headerlink" href="#equation-d0aa40cf-53e1-422a-bd56-ba58a0c756aa" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{E}[X] = \dfrac{a}{b}
 \tag{8.7.8}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 최빈값
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-f05d03ac-b55e-416a-9405-4db1370f53ff">
-<span class="eqno">(67)<a class="headerlink" href="#equation-f05d03ac-b55e-416a-9405-4db1370f53ff" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-666084c0-d923-484a-86a5-31a815c206b0">
+<span class="eqno">(67)<a class="headerlink" href="#equation-666084c0-d923-484a-86a5-31a815c206b0" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{mode} = \dfrac{a-1}{b}
 \tag{8.7.9}
 \end{align}\]</div>
@@ -993,15 +994,15 @@ $$</p></li>
 \[
 * 분산
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-fbd1085c-ef04-4350-baa8-65bff12a6f5c">
-<span class="eqno">(68)<a class="headerlink" href="#equation-fbd1085c-ef04-4350-baa8-65bff12a6f5c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ae3e69a3-7d59-49e5-b8ce-559ed59f12c3">
+<span class="eqno">(68)<a class="headerlink" href="#equation-ae3e69a3-7d59-49e5-b8ce-559ed59f12c3" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{Var}[X] = \dfrac{a}{b^2}
 \tag{8.7.10}
 \end{align}\]</div>
 <p>$$</p>
 </div>
 <div class="section" id="id6">
-<h2>디리클레분포<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>디리클레분포<a class="headerlink" href="#id6" title="제목 주소">¶</a></h2>
 <p>**디리클레분포(Dirichlet distribution)**는 베타분포의 확장판이라고 할 수 있다. 베타분포는 0과 1사이의 값을 가지는 단일(univariate) 확률변수의 베이지안 모형에 사용되고 디리클레분포는 0과 1사이의 사이의 값을 가지는 다변수(multivariate) 확률변수의 베이지안 모형에 사용된다.</p>
 <p>예를 들어 <span class="math notranslate nohighlight">\(K=3\)</span>인 디리클레분포를 따르는 확률변수는 다음과 같은 값들을 표본으로 가질 수 있다.</p>
 <div class="math notranslate nohighlight">
@@ -1055,7 +1056,7 @@ $$</p></li>
 \]</div>
 </div>
 <div class="section" id="id7">
-<h2>베타분포와 디리클레분포의 관계<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>베타분포와 디리클레분포의 관계<a class="headerlink" href="#id7" title="제목 주소">¶</a></h2>
 <p>베타분포는 <span class="math notranslate nohighlight">\(K=2\)</span>인 디리클레분포라고 볼 수 있다.</p>
 <p>즉 <span class="math notranslate nohighlight">\(x_1 = x\)</span>, <span class="math notranslate nohighlight">\(x_2 = 1 - x\)</span>, <span class="math notranslate nohighlight">\(\alpha_1 = a\)</span>, <span class="math notranslate nohighlight">\(\alpha_2 = b\)</span> 로 하면</p>
 <div class="math notranslate nohighlight">
@@ -1072,30 +1073,30 @@ $$</p></li>
 \end{split}\]</div>
 </div>
 <div class="section" id="id8">
-<h2>디리클레분포의 모멘트<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>디리클레분포의 모멘트<a class="headerlink" href="#id8" title="제목 주소">¶</a></h2>
 <p>디리클레분포의 기댓값, 최빈값, 분산은 다음과 같다.</p>
 <ul class="simple">
 <li><p>기댓값
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-0b2cfe31-a49c-46c3-a320-d3c1700f172e">
-<span class="eqno">(69)<a class="headerlink" href="#equation-0b2cfe31-a49c-46c3-a320-d3c1700f172e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8f24c1c1-0eae-425c-8ffb-175ad9d78d24">
+<span class="eqno">(69)<a class="headerlink" href="#equation-8f24c1c1-0eae-425c-8ffb-175ad9d78d24" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{E}[x_k] = \dfrac{\alpha_k}{\sum\alpha}
 \tag{8.7.18}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 최빈값
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-7e465e48-7539-4d81-a230-b18add50c863">
-<span class="eqno">(70)<a class="headerlink" href="#equation-7e465e48-7539-4d81-a230-b18add50c863" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dd826870-336e-4cc1-872b-d8a3a5e0b74f">
+<span class="eqno">(70)<a class="headerlink" href="#equation-dd826870-336e-4cc1-872b-d8a3a5e0b74f" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{mode} = \dfrac{\alpha_k - 1}{\sum\alpha - K}
 \tag{8.7.19}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 분산
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-9f70bd1f-6c02-4c2d-ae94-1ba62f400e23">
-<span class="eqno">(71)<a class="headerlink" href="#equation-9f70bd1f-6c02-4c2d-ae94-1ba62f400e23" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ad32ea35-d619-4a41-ba4e-b8e34adcf3dc">
+<span class="eqno">(71)<a class="headerlink" href="#equation-ad32ea35-d619-4a41-ba4e-b8e34adcf3dc" title="이 수식에 대한 퍼머링크">¶</a></span>\[\begin{align}
 \text{Var}[x_k] =\dfrac{\alpha_k(\sum\alpha - \alpha_k)}{(\sum\alpha)^2(\sum\alpha + 1)}
 \tag{8.7.20}
 \end{align}\]</div>
@@ -1104,7 +1105,7 @@ $$</p></li>
 <p>또한 분산 공식을 보면 <span class="math notranslate nohighlight">\((\alpha_1, \alpha_2, \ldots, \alpha_K)\)</span>의 절대값이 클수록 분산이 작아진다. 즉, 디리클리 분포의 표본값 <span class="math notranslate nohighlight">\(x\)</span>가 어떤 특정한 값 주변이 나올 가능성이 높아진다.</p>
 </div>
 <div class="section" id="id9">
-<h2>디리클레분포의 응용<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>디리클레분포의 응용<a class="headerlink" href="#id9" title="제목 주소">¶</a></h2>
 <p>다음과 같은 문제를 풀어보자.</p>
 <blockquote>
 <div><p>x, y, z가 양의 난수일 때 항상 x + y + z = 1이 되게 하려면 어떻게 해야될까요? 모든 경우가 균등하게 나와야 합니다.</p>
@@ -1227,7 +1228,7 @@ $$</p></li>
 </div>
 </div>
 <div class="section" id="id10">
-<h2>베이지안 추정<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2>베이지안 추정<a class="headerlink" href="#id10" title="제목 주소">¶</a></h2>
 <p>모수 <span class="math notranslate nohighlight">\(\alpha\)</span>가 <span class="math notranslate nohighlight">\((1,1,1)\)</span>이 아닌 경우에는 다음과 같이 특정 위치에 분포가 집중되도록 할 수 있다. 이 특성을 이용하면 카테고리분포의 모수 벡터 <span class="math notranslate nohighlight">\(\mu\)</span>를 추정한 결과를 나타낼 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

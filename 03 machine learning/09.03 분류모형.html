@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,6 +80,7 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
+    <script src="../_static/translations.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -91,8 +92,8 @@ commentsRunWhenDOMLoaded(addUtterances);
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
     <link rel="next" title="5.4 분류 성능평가" href="09.04 분류 성능평가.html" />
     <link rel="prev" title="5.2 분류용 가상 데이터 생성" href="09.02 분류용 가상 데이터 생성.html" />
 
@@ -123,7 +124,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="이 책 검색 ..." aria-label="이 책 검색 ..." autocomplete="off" >
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -637,15 +638,15 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
             data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            aria-expanded="true" aria-label="탐색 전환" aria-controls="site-navigation"
+            title="탐색 전환" data-toggle="tooltip" data-placement="left">
             <i class="fas fa-bars"></i>
             <i class="fas fa-arrow-left"></i>
             <i class="fas fa-arrow-up"></i>
         </button>
         
         <div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="이 페이지 다운로드"><i
             class="fas fa-download"></i></button>
 
     
@@ -654,10 +655,10 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         <!-- Download raw file -->
         <a class="dropdown-buttons" href="../_sources/03 machine learning/09.03 분류모형.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                class="btn btn-secondary topbarbtn" title="소스 파일 다운로드" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDF로 인쇄"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
     
@@ -670,22 +671,22 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
             href="https://github.com/datascienceschool/book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
+                data-toggle="tooltip" data-placement="left" title="소스 저장소"><i
+                    class="fab fa-github"></i>저장소</button></a>
         <a class="issues-button"
             href="https://github.com/datascienceschool/book/issues/new?title=Issue%20on%20page%20%2F03 machine learning/09.03 분류모형.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                title="이슈 열기"><i class="fas fa-lightbulb"></i>열린 문제</button></a>
         <a class="edit-button" href="https://github.com/datascienceschool/book/edit/master/ds/03 machine learning/09.03 분류모형.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+                title="이 페이지 편집"><i class="fas fa-pencil-alt"></i>열린 문제</button></a>
     </div>
 </div>
 
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" title="전체 화면으로보기"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -696,7 +697,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class="dropdown-buttons">
         
         <a class="binder-button" href="https://mybinder.org/v2/gh/datascienceschool/book/master?urlpath=tree/ds/03 machine learning/09.03 분류모형.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                class="btn btn-secondary topbarbtn" title="시작하다 Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
@@ -704,7 +705,7 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         
         <a class="colab-button" href="https://colab.research.google.com/github/datascienceschool/book/blob/master/ds/03 machine learning/09.03 분류모형.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                title="시작하다 Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
@@ -718,7 +719,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i> 내용
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
@@ -799,10 +800,10 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>5.3 분류모형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>5.3 분류모형<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
 <p>분류(classification)문제는 독립변수값이 주어졌을 때 그 값과 가장 연관성이 큰 종속변수값(클래스)을 예측하는 문제이다. 현실적인 문제로 바꾸어 말하면 어떤 표본에 대한 데이터가 주어졌을 때 그 표본이 어떤 카테고리 혹은 클래스에 속하는지를 알아내는 문제이기도 하다. 선택해야 할 카테고리 혹은 클래스가 미리 주어졌다는 점에서 보기가 주어진 객관식 시험 문제를 푸는 것과 비슷하다고 말할 수 있다.</p>
 <div class="section" id="id2">
-<h2>분류모형의 종류<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>분류모형의 종류<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <p>분류문제를 푸는 방법을 분류모형이라고 한다. 분류모형은 크게 두 가지 종류로 나눌 수 있다.</p>
 <p>하나는 주어진 데이터에 대해(conditionally) 각 카테고리 혹은 클래스가 정답일 조건부확률(conditional probability)를 계산하는 <strong>확률적 모형</strong>이다. 확률적 모형은 조건부확률을 계산하는 방법에 따라 직접 조건부확률 함수의 모양을 추정하는 <strong>확률적 판별(discriminative)모형</strong>과 베이즈 정리를 사용하여 간접적으로 조건부확률을 구하는 <strong>확률적 생성(generative)모형</strong>으로 나누어진다.</p>
 <p>다른 하나는 주어진 데이터를 카테고리에 따라 서로 다른 영역으로 나누는 경계면(decision boundary)을 찾아낸 다음 이 경계면으로부터 주어진 데이터가 어느 위치에 있는지를 계산하는 판별함수(discriminant function)를 이용하는 <strong>판별함수 모형</strong>이다.</p>
@@ -839,7 +840,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div>
 <div class="section" id="id3">
-<h2>확률적 모형<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>확률적 모형<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
 <p>출력변수 <span class="math notranslate nohighlight">\(y\)</span>가 <span class="math notranslate nohighlight">\(K\)</span>개의 클래스 <span class="math notranslate nohighlight">\(1, \cdots, K\)</span> 중의 하나의 값을 가진다고 가정하자. 확률적 모형은 다음과 같은 순서로 <span class="math notranslate nohighlight">\(x\)</span>에 대한 클래스를 예측한다.</p>
 <p>(1) 입력 <span class="math notranslate nohighlight">\(x\)</span>가 주어졌을 때 <span class="math notranslate nohighlight">\(y\)</span>가 클래스 <span class="math notranslate nohighlight">\(k\)</span>가 될 확률 <span class="math notranslate nohighlight">\(P(y=k \mid x )\)</span>을 모두 계산하고,</p>
 <div class="math notranslate nohighlight">
@@ -861,7 +862,7 @@ P_K &amp;=&amp; P(y=K \mid x )\\
 </ol>
 </div>
 <div class="section" id="id4">
-<h2>확률적 생성모형<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>확률적 생성모형<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
 <p>생성모형은 먼저 각 클래스 별 특징 데이터의 확률분포 <span class="math notranslate nohighlight">\(P(x \mid y=k)\)</span>을 추정한 다음 베이즈 정리를 사용하여 <span class="math notranslate nohighlight">\(P(y=k|x)\)</span>를 계산하는 방법이다.</p>
 <div class="math notranslate nohighlight">
 \[ P(y=k \mid x) = \dfrac{P(x \mid y=k)P(y=k)}{P(x)} \]</div>
@@ -872,7 +873,7 @@ P_K &amp;=&amp; P(y=K \mid x )\\
 <p>하지만 클래스가 많을 경우 모든 클래스에 대해 <span class="math notranslate nohighlight">\(P(x|y=k)\)</span>를 추정하는 것은 많은 데이터를 필요로 할 뿐더러 최종적으로는 사용하지도 않을 확률분포를 계산하는데 계산량을 너무 많이 필요로 한다는 단점이 있다.</p>
 </div>
 <div class="section" id="qda">
-<h2>QDA<a class="headerlink" href="#qda" title="Permalink to this headline">¶</a></h2>
+<h2>QDA<a class="headerlink" href="#qda" title="제목 주소">¶</a></h2>
 <p>QDA(Quadratic Discriminant Analysis)는 조건부확률 기반 생성(generative) 모형의 하나이다. 예를 들어 다음과 같이 두 가지 클래스의 데이터가 있다고 하자. 스캐터 플롯의 데이터 색은 각 데이터의 클래스를 나타낸다. 검은색은 <span class="math notranslate nohighlight">\(y=0\)</span>인 클래스이고 흰색은 <span class="math notranslate nohighlight">\(y=1\)</span>인 클래스이다. 3개씩으로 이루어진 두 클래스 데이터가 서로 대칭을 이루고 있다는 점에 주의하자.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -989,7 +990,7 @@ P_K &amp;=&amp; P(y=K \mid x )\\
 </div>
 </div>
 <div class="section" id="id5">
-<h2>나이브 베이지안 모형<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>나이브 베이지안 모형<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
 <p>조건부확률 기반 생성 모형의 장점 중 하나는 클래스가 3개 이상인 경우에도 바로 적용할 수 있다는 점이다. 나이브 베이지안(Naive Bayesian) 모형도 조건부확률 모형의 일종이다. 아래는 20 뉴스그룹 분류문제를 나이브 베이지안 모형을 사용하여 푼 결과이다.</p>
 <p>다음 코드에서는 사이킷런의 <code class="docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code> 전처리기와 <code class="docutils literal notranslate"><span class="pre">MultinomialNB</span></code> 모형을 사용하여 20 뉴스그룹 분류문제를 풀었다. <code class="docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code> 전처리기는 텍스트 데이터를 정해진 크기의 실수 벡터로 변환한다. <code class="docutils literal notranslate"><span class="pre">MultinomialNB</span></code> 모형은 나이브 베이즈 방법으로 분류문제를 예측한다. 이 두 클래스 객체는 <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>을 사용하여 하나의 모형으로 합쳐놓았다. <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>으로 합쳐진 모형은 일반적인 모형처럼 <code class="docutils literal notranslate"><span class="pre">fit</span></code>, <code class="docutils literal notranslate"><span class="pre">predict</span></code> 등의 메서드를 제공하며 내부의 전처리기의 메소드를 상황에 따라 적절히 호출한다.</p>
 <div class="cell docutils container">
@@ -1086,7 +1087,7 @@ Please post or email.  Thank you!
 </div>
 </div>
 <div class="section" id="id6">
-<h2>확률적 판별 모형<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>확률적 판별 모형<a class="headerlink" href="#id6" title="제목 주소">¶</a></h2>
 <p>위에서 보인 QDA나 나이브 베이지안 방법은 베이즈 정리를 사용하는 조건부확률 기반 생성 모형이었다. 조건부확률 기반 생성 모형은 조건부확률 <span class="math notranslate nohighlight">\(p(y \mid x)\)</span>를 구하기 위해 우선 likelihood <span class="math notranslate nohighlight">\(p(x \mid y)\)</span>를 구하고 베이즈 정리를 사용하여 조건부확률을 계산한다.</p>
 <p>하지만 확률론적 판별 모형(probabilistic discriminative model)은 조건부확률 <span class="math notranslate nohighlight">\(p(y=1 \mid x)\)</span>이 <span class="math notranslate nohighlight">\(x\)</span>에 대한 함수 <span class="math notranslate nohighlight">\(f(x)\)</span>로 표시될 수 있다고 가정하고 그 함수를 직접 찾아내는 방법이다.</p>
 <div class="math notranslate nohighlight">
@@ -1094,7 +1095,7 @@ Please post or email.  Thank you!
 <p>단, 이 함수 <span class="math notranslate nohighlight">\(f(x)\)</span>는 0보다 같거나 크고 1보다 같거나 작다는 조건을 만족해야 한다.</p>
 </div>
 <div class="section" id="id7">
-<h2>로지스틱 회귀 모형<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>로지스틱 회귀 모형<a class="headerlink" href="#id7" title="제목 주소">¶</a></h2>
 <p>로지스틱 회귀 모형은 확률론적 판별 모형에 속한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1140,7 +1141,7 @@ Please post or email.  Thank you!
 </div>
 </div>
 <div class="section" id="id8">
-<h2>판별함수 모형<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>판별함수 모형<a class="headerlink" href="#id8" title="제목 주소">¶</a></h2>
 <p>또 다른 분류 방법은 동일한 클래스가 모여 있는 영역과 그 영역을 나누는 경계면(boundary plane)을 정의하는 것이다.
 이 경계면은 경계면으로부터의 거리를 계산하는 <span class="math notranslate nohighlight">\(f(x)\)</span> 형태의 함수인 **판별함수(discriminant function)**로 정의된다. 판별함수의 값의 부호에 따라 클래스가 나뉘어진다.</p>
 <div class="math notranslate nohighlight">
@@ -1152,7 +1153,7 @@ Please post or email.  Thank you!
 <p>사이킷런에서 판별함수 모형은 판별함수값을 출력하는 <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> 메서드를 제공한다.</p>
 </div>
 <div class="section" id="id9">
-<h2>퍼셉트론<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>퍼셉트론<a class="headerlink" href="#id9" title="제목 주소">¶</a></h2>
 <p>퍼셉트론(Perceptron)은 가장 단순한 판별함수 모형이다. 다음 그림과 같이 직선이 경계선(boundary line)으로 데이터 영역을 나눈다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1236,7 +1237,7 @@ Please post or email.  Thank you!
 </div>
 </div>
 <div class="section" id="svm">
-<h2>커널 SVM<a class="headerlink" href="#svm" title="Permalink to this headline">¶</a></h2>
+<h2>커널 SVM<a class="headerlink" href="#svm" title="제목 주소">¶</a></h2>
 <p>커널 SVM(Kernel Support Vector Machine)을 사용하면 다음과 같이 복잡한 형태의 경계선을 생성할 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1292,16 +1293,16 @@ Please post or email.  Thank you!
 </div>
 </div>
 <div class="section" id="id10">
-<h2>다중 클래스 분류<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2>다중 클래스 분류<a class="headerlink" href="#id10" title="제목 주소">¶</a></h2>
 <p>확률적 모형은 클래스가 3개 이상인 경우를 다중 클래스(Multi-Class) 분류문제도 풀 수 있지만 판별함수 모형은 종속변수의 클래스가 2개인 경우를 이진(Binary Class) 분류문제밖에는 풀지 못한다.</p>
 <p>이때는 OvO (One-Vs-One) 방법이나  OvR (One-vs-the-Rest) 방법 등을 이용하여 여러개의 이진 클래스 분류문제로 변환하여 푼다.</p>
 </div>
 <div class="section" id="ovo">
-<h2>OvO 방법<a class="headerlink" href="#ovo" title="Permalink to this headline">¶</a></h2>
+<h2>OvO 방법<a class="headerlink" href="#ovo" title="제목 주소">¶</a></h2>
 <p>OvO (One-Vs-One) 방법은 <span class="math notranslate nohighlight">\(K\)</span>개의 클래스가 존재하는 경우, 이 중 2개의 클래스 조합을 선택하여 <span class="math notranslate nohighlight">\(K(K - 1)/2\)</span>개의 이진 클래스 분류문제를 풀고  이진 분류문제를 풀어 가장 많은 결과가 나온 클래스를 선택하는 방법이다. 선택받은 횟수로 선택하면 횟수가 같은 경우도 나올 수 있기 때문에 각 클래스가 얻은 조건부 확률값을 모두 더한 값을 비교하여 가장 큰 조건부 확률 총합을 가진 클래스를 선택한다.</p>
 </div>
 <div class="section" id="ovr">
-<h2>OvR 방법<a class="headerlink" href="#ovr" title="Permalink to this headline">¶</a></h2>
+<h2>OvR 방법<a class="headerlink" href="#ovr" title="제목 주소">¶</a></h2>
 <p>OvO 방법은 클래스의 수가 많아지면 실행해야 할 이진 분류문제의 수가 너무 많아진다.</p>
 <p>OvR(One-vs-the-Rest) 방법은 <span class="math notranslate nohighlight">\(K\)</span>개의 클래스가 존재하는 경우, 각각의 클래스에 대해 표본이 속하는지(y=1) 속하지 않는지(y=0)의 이진 분류문제를 푼다. OvO와 달리 클래스 수만큼의 이진 분류문제를 풀면 된다.</p>
 <p>OvR에서도 판별 결과의 수가 같은 동점 문제가 발생할 수가 있기 때문에 각 클래스가 얻은 조건부 확률값을 더해서 이 값이 가장 큰 클래스를 선택한다.</p>

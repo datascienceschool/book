@@ -12,8 +12,8 @@
 ---
 width: 100px
 align: left
+figclass: margin 
 ---
-
 ```
 https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
 ````

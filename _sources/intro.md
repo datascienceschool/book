@@ -9,7 +9,7 @@
 
 ````{admonition} 2020-09-30
 <img src="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" align="left" 
- style="width: 200px; padding-top: 5px; padding-left: -5px; padding-right: 20px">
+ style="width: 200px; padding: 10px 20px 10px 0px;">
 [https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg](https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg)
 ````
 

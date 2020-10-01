@@ -9,8 +9,6 @@
 
 ````{admonition} 2020-09-30
 ```{image} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
-:alt: fishy
-:class: bg-primary
 :width: 200px
 :align: left
 ```

@@ -13,17 +13,17 @@
 데이터 사이언스 스쿨 홈페이지를 깃헙 페이지와 주피터 북 기반으로 리모델링하였습니다.
 ```
 
-````{admonition} 2020-09-30
-<img src="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" align="left" 
- style="width: 200px; padding: 10px 20px 10px 0px; margin-left: -10px;">
-[https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg](https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg)
-````
+%````{admonition} 2020-09-30
+%<img src="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" align="left" 
+% style="width: 200px; padding: 10px 20px 10px 0px; margin-left: -10px;">
+%[https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg](https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg)
+%````
 
-````{admonition} 2020-09-30
-<img src="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" align="right" 
- style="width: 200px; padding: 10px 0px 10px 20px; margin-right: -10px;">
-[https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg](https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg)
-````
+%````{admonition} 2020-09-30
+%<img src="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" align="right" 
+% style="width: 200px; padding: 10px 0px 10px 20px; margin-right: -10px;">
+%[https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg](https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg)
+%````
 
 
 

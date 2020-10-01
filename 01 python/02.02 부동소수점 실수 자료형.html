@@ -814,43 +814,31 @@ commentsRunWhenDOMLoaded(addUtterances);
   <a class="reference internal nav-link" href="#id3">
    부동소수점 실수
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     연습 문제 1
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     연습 문제 2
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id4">
    십진법과 이진법
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id5">
      연습 문제 3
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id6">
      연습 문제 4
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
+  <a class="reference internal nav-link" href="#id7">
    부동소수점 오차
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
+  <a class="reference internal nav-link" href="#id8">
    자료형 변환
   </a>
  </li>
@@ -874,7 +862,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 <h1>부동소수점 실수 자료형<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
 <div class="section" id="id2">
 <h2>정수와 실수 자료형<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
-<p>파이썬에서는 정수(integer)뿐 아니라 소숫점을 포함하는 실수(real number)도 연산할 수 있다.
+<p>파이썬에서는 정수(integer)뿐 아니라 소숫점을 포함하는 실수(real number)도 다룰 수 있다.
 정수 데이터에는 소숫점이 없고 실수 데이터에는 소수점이 붙어 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -900,7 +888,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>정수부가 0인 소수는 0을 생략할 수 있다.</p>
+<p>정수부가 0인 실수는 0을 생략할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="mi">1</span>  <span class="c1"># .1 = 0.1</span>
@@ -913,7 +901,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>입력한 숫자나 계산 결과에 소숫점이 있으면 실수로 처리한다. 계산에 쓰인 숫자 중 하나라도 소숫점이 있는 실수가 있으면 계산결과는 실수가 된다. 나눗셈 연산의 결과는 입력에 상관없이 항상 실수로 처리한다. 예를 들어 <span class="math notranslate nohighlight">\(10 \times 5\)</span>는 정수로 취급하지만 <span class="math notranslate nohighlight">\(10.0 \times 5\)</span>나 <span class="math notranslate nohighlight">\(10 \div 5\)</span>는 실수로 취급한다.</p>
+<p>숫자 계산을 하는 경우 계산에 쓰인 숫자 중 하나라도 소숫점이 있는 실수가 있으면 계산결과는 실수가 된다. 나눗셈 연산의 결과는 입력에 상관없이 항상 실수로 처리한다. 예를 들어 <span class="math notranslate nohighlight">\(10 \times 5\)</span>는 정수로 취급하지만 <span class="math notranslate nohighlight">\(10.0 \times 5\)</span>나 <span class="math notranslate nohighlight">\(10 \div 5\)</span>는 실수로 취급한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">*</span> <span class="mi">5</span>  <span class="c1"># 정수</span>
@@ -950,7 +938,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>정수와 실수는 컴퓨터 메모리에 저장되는 방식이 다르다. 이처럼 데이터에 따라 저장 방식 혹은 처리 방식이 달라지면 데이터의 **자료형(type)**이 다르다고 한다. 파이썬에서 정수는 **<code class="docutils literal notranslate"><span class="pre">int</span></code>**라는 정수 자료형으로 처리한다. 실수는 **<code class="docutils literal notranslate"><span class="pre">float</span></code>**라는 부동소수점 (floating point number) 자료형으로 처리된다. 파이썬에서 데이터의 자료형을 알려면 <strong><code class="docutils literal notranslate"><span class="pre">type</span></code></strong> 명령을 사용한다.</p>
+<p>정수와 실수는 컴퓨터 메모리에 저장되는 방식이 다르다. 이를 데이터의 자료형(type)이 다르다고 한다. 파이썬에서 정수는 <code class="docutils literal notranslate"><span class="pre">int</span></code>라는 정수 자료형으로 처리한다. 실수는 <code class="docutils literal notranslate"><span class="pre">float</span></code>라는 부동소수점(floating point number) 자료형으로 처리된다. 파이썬에서 데이터의 자료형을 알려면 <code class="docutils literal notranslate"><span class="pre">type</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -978,7 +966,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id3">
 <h2>부동소수점 실수<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
-<p>컴퓨터에서는 IEEE 754라는 표준에 따라 실수를 부동소수점(floating-point) 방식으로 표현한다. 부동소수점 방식에서는 숫자를 정수로 된 유효숫자와 정수로 된 지수의 곱으로 표현한다. 예를 들어
+<p>프로그래밍 언어는 IEEE 754라는 국제표준에 따라 실수를 부동소수점 방식으로 표현한다. 부동소수점 방식에서는 숫자를 정수로 된 유효숫자와 정수로 된 지수의 곱으로 표현한다. 예를 들어
 십진수 부동소수점 방식에서 <span class="math notranslate nohighlight">\(123.456\)</span>이란 숫자는 <span class="math notranslate nohighlight">\(123456 \times 10^{-3}\)</span> 이므로 <span class="math notranslate nohighlight">\(123456\)</span>이라는 정수 유효숫자와 <span class="math notranslate nohighlight">\(-3\)</span>이라는 정수 지수로 나타낼 수 있다.</p>
 <p>파이썬에서는 <code class="docutils literal notranslate"><span class="pre">유효숫자e지수</span></code> 라는 방법으로 부동소수점 형태를 직접 표현한다.</p>
 <div class="math notranslate nohighlight">
@@ -1019,8 +1007,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id4">
-<h3>연습 문제 1<a class="headerlink" href="#id4" title="제목 주소">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 1</p>
 <p><code class="docutils literal notranslate"><span class="pre">유효숫자e지수</span></code> 표현법으로 되어 있는 다음 숫자를 보통의 소숫점 표현으로 나타내라.</p>
 <ol class="simple">
 <li><p>5e8</p></li>
@@ -1029,8 +1017,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li><p>-3.4e-1</p></li>
 </ol>
 </div>
-<div class="section" id="id5">
-<h3>연습 문제 2<a class="headerlink" href="#id5" title="제목 주소">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2</p>
 <p>다음 숫자를 <code class="docutils literal notranslate"><span class="pre">유효숫자e지수</span></code> 표현법으로 나타내라. 유효숫자는 정수가 되어야 한다.</p>
 <ol class="simple">
 <li><p>3.141592</p></li>
@@ -1040,8 +1028,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ol>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>십진법과 이진법<a class="headerlink" href="#id6" title="제목 주소">¶</a></h2>
+<div class="section" id="id4">
+<h2>십진법과 이진법<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
 <p>컴퓨터는 십진법이 아닌 이진법을 사용한다. 십진법에서는 0, 1, 2, 3, 4, 5, 6, 7, 8, 9의 10개 숫자만 사용하고 10 이상의 수는 <span class="math notranslate nohighlight">\(10, 100, 1000, 10000, \ldots\)</span> 자리를 나타내는 숫자를 나열하여 표현한다. 따라서 모든 십진법 숫자는 10의 제곱의 합으로 풀어서 나타낼 수 있다.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} 
@@ -1058,8 +1046,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 0.123 &amp;=&amp; 0.1 + 0.02 + 0.003 &amp;=&amp; 1 \times 10^{-1} + 2 \times 10^{-2} + 3 \times 10^{-3} \\
 \end{eqnarray}
 \end{split}\]</div>
-<div class="section" id="id7">
-<h3>연습 문제 3<a class="headerlink" href="#id7" title="제목 주소">¶</a></h3>
+<div class="section" id="id5">
+<h3>연습 문제 3<a class="headerlink" href="#id5" title="제목 주소">¶</a></h3>
 <p>다음 십진법 숫자를 10의 제곱의 합으로 풀어서 나타내라.</p>
 <ol class="simple">
 <li><p>1234</p></li>
@@ -1117,8 +1105,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 \end{eqnarray}
 \end{split}\]</div>
 </div>
-<div class="section" id="id8">
-<h3>연습 문제 4<a class="headerlink" href="#id8" title="제목 주소">¶</a></h3>
+<div class="section" id="id6">
+<h3>연습 문제 4<a class="headerlink" href="#id6" title="제목 주소">¶</a></h3>
 <p>다음 이진법 숫자를 2의 제곱의 합으로 풀어서 나타내라.</p>
 <ol class="simple">
 <li><p>13</p></li>
@@ -1128,8 +1116,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ol>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>부동소수점 오차<a class="headerlink" href="#id9" title="제목 주소">¶</a></h2>
+<div class="section" id="id7">
+<h2>부동소수점 오차<a class="headerlink" href="#id7" title="제목 주소">¶</a></h2>
 <p>1보다 작은 수의 경우에는 십진법으로 간단히 표현되는 수도 이진법에서는 무한개의 유효숫자를 가지는 수가 될 수 있다. 예를 들어 <span class="math notranslate nohighlight">\(0.1\)</span>이라는 숫자는 십진수로는 간단히 표현되지만 이진수로 나타내면 다음과 같이 <span class="math notranslate nohighlight">\(0011_{(2)}\)</span>이 무한히 반복되는 소수가 된다.</p>
 <div class="math notranslate nohighlight">
 \[ 0.1 = 0.00011001100110011001100110011001100110011001100110011001100110011\cdots_{(2)} \]</div>
@@ -1290,8 +1278,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>자료형 변환<a class="headerlink" href="#id10" title="제목 주소">¶</a></h2>
+<div class="section" id="id8">
+<h2>자료형 변환<a class="headerlink" href="#id8" title="제목 주소">¶</a></h2>
 <p>실수를 정수로 변환하거나 정수를 실수로 변환하려면 <code class="docutils literal notranslate"><span class="pre">int</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">float</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

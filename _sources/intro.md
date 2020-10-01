@@ -8,26 +8,17 @@
 ```
 
 ````{admonition} 2020-09-30
-https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
-```{figure} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
----
-width: 100px
-align: left
----
-https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
+|
+```{image} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
+:alt: fishy
+:class: bg-primary
+:width: 200px
+:align: left
 ```
+|
+https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
+|
 ````
 
-
-````{admonition} 2020-09-30
-```{figure} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
----
-width: 100px
-align: right
----
-https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
-```
-https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
-````
 
 

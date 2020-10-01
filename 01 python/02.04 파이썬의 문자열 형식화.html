@@ -824,22 +824,10 @@ commentsRunWhenDOMLoaded(addUtterances);
    </code>
    메서드를 사용한 문자열 형식화
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     연습 문제 2
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#f">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     f
-    </span>
-   </code>
-   문자열
+   f 문자열
   </a>
  </li>
 </ul>
@@ -886,11 +874,6 @@ commentsRunWhenDOMLoaded(addUtterances);
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;내 이름은 </span><span class="si">%s</span><span class="s2">입니다.&quot;</span> <span class="o">%</span> <span class="s2">&quot;홍길동&quot;</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;내 이름은 홍길동입니다.&#39;
 </pre></div>
 </div>
 </div>
@@ -1056,10 +1039,31 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2</p>
+<p>(1) <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> 두 개의 변수에 3과 12라는 값을 넣고 이 변수를 사용하여 다음과 같이 세로셈으로 곱셈 결과를 출력하는 코드를 만들어라.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```
+       3
+x     12
+--------
+      36
+```
+</pre></div>
+</div>
+<p>(2) <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> 두 개의 변수에 《123456》과 《7890》라는 값을 넣고 이 변수를 사용하여 다음과 같이 세로셈으로 덧셈 결과를 출력하는 코드를 만들어라. 천의 자리 쉼표를 표시해야 한다.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```
+   123,456
++    7,890 
+----------
+   131,346
+```
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="format">
 <h2><code class="docutils literal notranslate"><span class="pre">format</span></code> 메서드를 사용한 문자열 형식화<a class="headerlink" href="#format" title="제목 주소">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">format</span></code> 메서드를 사용하여 문자열을 형식화할 수도 있다. 이 때는 % 기호로 시작하는 형식지정 문자열 대신 {} 기호를 사용한다. 또한 자료형을 표시할 필요가 없다. 문자열 내에서 <code class="docutils literal notranslate"><span class="pre">{</span></code> 문자를 출력하고 싶을 때는 <code class="docutils literal notranslate"><span class="pre">{{</span></code>라는 글자를 사용한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">format</span></code> 메서드를 사용하여 문자열을 형식화하는 방법도 있다. 이 때는 <kbd>%</kbd> 기호로 시작하는 형식지정 문자열 대신 <code class="docutils literal notranslate"><span class="pre">{}</span></code> 기호를 사용한다. 또한 자료형을 표시할 필요가 없다. 문자열 내에서 <code class="docutils literal notranslate"><span class="pre">{</span></code> 문자를 출력하고 싶을 때는 <code class="docutils literal notranslate"><span class="pre">{{</span></code>라는 글자를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;내 이름은 </span><span class="si">{}</span><span class="s2">입니다.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>
@@ -1084,7 +1088,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>{}안에 값의 순서를 지정하는 숫자를 넣을 수도 있다. 가장 앞에 있는 값은 <code class="docutils literal notranslate"><span class="pre">{0}</span></code>, 그 뒤의 값은 <code class="docutils literal notranslate"><span class="pre">{1}</span></code>, 이런 식으로 지정한다. 이 방법을 사용하면 값의 순서를 바꾸거나 같은 값을 여러번 인쇄할 수도 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">{}</span></code> 안에 값의 순서를 지정하는 숫자를 넣을 수도 있다. 가장 앞에 있는 값은 <code class="docutils literal notranslate"><span class="pre">{0}</span></code>, 그 뒤의 값은 <code class="docutils literal notranslate"><span class="pre">{1}</span></code>, 이런 식으로 지정한다. 이 방법을 사용하면 값의 순서를 바꾸거나 같은 값을 여러번 인쇄할 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="si">{2}</span><span class="s2">의 </span><span class="si">{0}</span><span class="s2"> 점수는 </span><span class="si">{1}</span><span class="s2">점입니다. </span><span class="si">{1}</span><span class="s2">점! </span><span class="si">{1}</span><span class="s2">점!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;수학&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;철수&quot;</span><span class="p">)</span>
@@ -1131,22 +1135,19 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{:10}</span></code></p></td>
-<td><p>전체 10칸을 차지</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{:&gt;10}</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{:&gt;10}</span></code></p></td>
 <td><p>전체 10칸을 차지하며 공백을 앞에 붙임 (문자열을 오른쪽에 붙여서 출력)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{:&lt;10}</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{:&lt;10}</span></code></p></td>
 <td><p>전체 10칸을 차지하며 공백을 뒤에 붙임 (문자열을 왼쪽에 붙여서 출력)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{:^10}</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{:^10}</span></code></p></td>
 <td><p>전체 10칸을 차지하며 공백을 앞뒤에 붙임 (문자열을 중앙에 붙여서 출력)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{:.5f}</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{:.5f}</span></code></p></td>
 <td><p>부동소수점의 소수점 아래 5자리까지 표시</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{:,}</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{:,}</span></code></p></td>
 <td><p>천단위 쉼표 표시</p></td>
 </tr>
 </tbody>
@@ -1293,31 +1294,143 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id4">
-<h3>연습 문제 2<a class="headerlink" href="#id4" title="제목 주소">¶</a></h3>
-<ol>
-<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> 두 개의 변수에 3과 12라는 값을 넣고 이 변수를 사용하여 다음과 같이 세로셈으로 곱셈 결과를 출력하는 코드를 만들어라.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       <span class="mi">3</span>
-<span class="n">x</span>     <span class="mi">12</span>
-<span class="o">--------</span>
-      <span class="mi">36</span>
-</pre></div>
-</div>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> 두 개의 변수에 《123456》과 《7890》라는 값을 넣고 이 변수를 사용하여 다음과 같이 세로셈으로 덧셈 결과를 출력하는 코드를 만들어라. 천의 자리 쉼표를 표시해야 한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="mi">123</span><span class="p">,</span><span class="mi">456</span>
-<span class="o">+</span>    <span class="mi">7</span><span class="p">,</span><span class="mi">890</span> 
-<span class="o">----------</span>
-   <span class="mi">131</span><span class="p">,</span><span class="mi">346</span>
-</pre></div>
-</div>
-</li>
-</ol>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 3</p>
+<p>연습 문제 1, 2를 format 방법으로 다시 풀어라.</p>
 </div>
 </div>
 <div class="section" id="f">
-<h2><code class="docutils literal notranslate"><span class="pre">f</span></code> 문자열<a class="headerlink" href="#f" title="제목 주소">¶</a></h2>
-<p>파이썬 3.6부터는 <code class="docutils literal notranslate"><span class="pre">f</span></code> 문자열(f-string)이라는 것을 사용할 수 있다.</p>
+<h2>f 문자열<a class="headerlink" href="#f" title="제목 주소">¶</a></h2>
+<p>파이썬 3.6부터는 f 문자열(f-string)이라는 것을 사용할 수 있다. f 문자열은 문자열의 앞에 f 글자를 붙인 문자열이다. f 문자열에서는 <code class="docutils literal notranslate"><span class="pre">{}</span></code> 안에 변수의 이름을 바로 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;홍길동&quot;</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">의 나이는 </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2">살이다.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>홍길동의 나이는 32살이다.
+</pre></div>
+</div>
+</div>
+</div>
+<p>f 문자열에서 공백의 크기 등을 지정할 때는 format 방법과 같은 고급 형식지정 문자열을 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number</span> <span class="o">=</span> <span class="mi">1234567</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[1234567             ]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[             1234567]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">^20</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[      1234567       ]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">-&lt;20</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[1234567-------------]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">-&gt;20</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[-------------1234567]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">-^20</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[------1234567-------]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">-^20,</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[-----1,234,567------]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_number</span> <span class="o">=</span> <span class="mf">3.141592</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">f_number</span><span class="si">:</span><span class="s2">20.3f</span><span class="si">}</span><span class="s2">]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[               3.142]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4</p>
+<p>연습 문제 1, 2를 f 문자열 방법으로 다시 풀어라.</p>
+</div>
 </div>
 </div>
 

@@ -10,11 +10,9 @@
 ````{admonition} 2020-09-30
 ```{figure} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
 ---
-scale: 10%
+scale: 100px
 align: left
 ---
-Here is my figure caption!
 ```
-comment comment comment comment comment comment comment comment comment 
-comment comment comment comment 
+https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
 ````

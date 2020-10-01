@@ -8,10 +8,7 @@
 ```
 
 ````{admonition} 2020-09-30
-```{image} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
-:width: 200px
-:align: left
-```
+<img src="https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg" align="left" width="200px" style="padding-top: 10px;">
 https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
 ````
 

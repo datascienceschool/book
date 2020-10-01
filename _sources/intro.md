@@ -10,7 +10,7 @@
 ````{admonition} 2020-09-30
 ```{figure} https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
 ---
-scale: 100px
+width: 100px
 align: left
 ---
 ```

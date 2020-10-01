@@ -779,18 +779,18 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p>앞절에서 설명한대로 주피터 노트북 서버를 실행한 후에 웹브라우저에 http://localhost:8888 주소를 입력하면 주피터 노트북 홈 화면이 나온다. 사용자의 홈 디렉터리에 있는 내용이 보여준다. 사용자마다 내용은 다를 것이다. 디렉터리를 클릭하면 해당 디렉터리로 이동한다.</p>
 <p><img alt="jupyter_notebook_1.png" src="../_images/jupyter_notebook_1.png" /></p>
 <p>홈 화면에서 오른쪽 위에 있는 <kbd>New</kbd> 버튼을 누르면 다음과 같이 실행할 수 있는 명령어 목록이 나온다.</p>
-<p>그림: 주피터 노트북 명령어 목록</p>
+<p><img alt="jupyter_notebook_2.png" src="../_images/jupyter_notebook_2.png" /></p>
 <p>여기에서 <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3</span></code>라고 되어 있는 명령을 선택하면 웹 브라우저의 새 탭에서 <code class="docutils literal notranslate"><span class="pre">Untitled</span></code>란 이름으로 주피터 노트북이 실행된다.</p>
-<p>그림: 새 주피터 노트북 실행 직후</p>
+<p><img alt="jupyter_notebook_3.png" src="../_images/jupyter_notebook_3.png" /></p>
 <p>이렇게 노트북이 새로 만들어지면 원래의 홈 화면에는 다음과 같이 새로 만들어진 노트북이 표시된다. 이때 현재 가동 중인 노트북은 녹색 아이콘으로 표시되며 오른쪽에 녹색으로 Running이라는 글자가 표시된다.</p>
-<p>그림: 새 주피터 노트북 화면</p>
+<p><img alt="jupyter_notebook_4.png" src="../_images/jupyter_notebook_4.png" /></p>
 <p>새로 만든 Untitled 노트북을 마저 살펴보자. 노트북은 셀(cell)이라는 네모 칸들로 구성된다. 새로 만든 노트북에는 셀이 하나만 표시되어 있는데 이 셀에 파이썬 코드를 입력한다. 우선 다음과 같은 코드를 입력해보자.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>코드를 입력한 후에 <kbd>shift</kbd> + <kbd>Enter</kbd> 키를 누르면 현재 셀이 실행되며 결과가 출력된다. 또한, 다음 셀이 만들어지고 포커스는 다음 셀로 넘어간다. 실행된 셀의 프롬프트에는 실행 순서를 나타내는 번호가 붙는다.
 만일 <kbd>Enter</kbd> 키만 누르면 다음 줄로 넘어가기만 하고 코드가 실행되지는 않는다.</p>
-<img src="https://datascienceschool.net/upfiles/84aa9fd3ca264b18b15702768e157390.png" width="100%"><p>그림: 첫 명령어 실행</p>
+<p><img alt="jupyter_notebook_5.png" src="../_images/jupyter_notebook_5.png" /></p>
 <p>이제 다음과 같은 명령을 한 줄씩 입력해보자. 한 줄을 입력할 때마다 <kbd>shift</kbd>+<kbd>Enter</kbd> 키를 누르고 해당 명령이 실행되는 것을 살펴보자. 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>에 1이라는 값을 넣고, 변수 <code class="docutils literal notranslate"><span class="pre">y</span></code>에 2를 넣은 후 변수 <code class="docutils literal notranslate"><span class="pre">z</span></code>에 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>와  <code class="docutils literal notranslate"><span class="pre">y</span></code> 변숫값을 더해서 넣자.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 </pre></div>
@@ -816,7 +816,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 <p><kbd>shift</kbd>+<kbd>Enter</kbd></p>
-<img src="https://datascienceschool.net/upfiles/b448fab092de464c8fb8d69015292e67.png" width="100%"><p>그림: 파이썬 실행 예제</p>
+<p><img alt="jupyter_notebook_6.png" src="../_images/jupyter_notebook_6.png" /></p>
 </div>
 <div class="section" id="id3">
 <h3>값과 변수의 표현<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -824,27 +824,35 @@ commentsRunWhenDOMLoaded(addUtterances);
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span>
 </pre></div>
 </div>
-<p>는 변수 x 값을 표시하라는 뜻이다. 이때 표시되는 것을 그 값의 **표현(representation)**이라고 한다. 변수 이름을 입력했을 때 표현이 나오는 것은 REPL에서만 가능하고 이후에 설명할 스크립트를 실행할 때는 표시되지 않는다.</p>
+<p>는 변수 x 값을 표시하라는 뜻이다. 이때 표시되는 것을 그 값의 표현(representation)이라고 한다. 변수 이름을 입력했을 때 표현이 나오는 것은 REPL에서만 가능하고 이후에 설명할 스크립트 실행시에는 표시되지 않는다.</p>
 <p>이 방식이 REPL이라고 불리우는 것은 이렇게 명령을 하나 하나 입력하고(Read) 실행하면서(Evaluate) 변수의 값을 출력하여(Print) 살펴보는 것을 반복(Loop)하면서 코드를 만들기 때문이다.</p>
 <p>물론 위 명령을 셀 하나에 넣고 한꺼번에 실행할 수도 있다. 다만 변수 이름을 지정해서 변숫값을 살펴보는 것은 셀의 마지막 행(line)에서만 가능하다. 즉 아래 그림의 8번 셀에서 중간에 있는 <code class="docutils literal notranslate"><span class="pre">x</span></code> 등은 아무런 의미가 없으므로 8번 셀의 코드는 실제로 9번 셀과 같다.</p>
-<img src="https://datascienceschool.net/upfiles/7d8e6ca95c214f6a842e9b503fdc77e3.png" style="width: 100%;"><p>그림:  셀 하나에서 코드 여러 행을 실행하는 예</p>
+<p><img alt="jupyter_notebook_7.png" src="../_images/jupyter_notebook_7.png" /></p>
 <p>노트북 사용이 끝나면 <code class="docutils literal notranslate"><span class="pre">File</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Rename</span></code> 명령을 실행하여 노트북의 이름을 <code class="docutils literal notranslate"><span class="pre">Untitled</span></code>가 아닌 다른 이름으로 바꾼 뒤, <code class="docutils literal notranslate"><span class="pre">File</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">and</span> <span class="pre">Halt</span></code> 명령으로 파이썬 탭을 닫는다. 이 명령을 사용하지 않고 그냥 웹 브라우저를 닫으면 파이썬 콘솔이 배경에서 계속 실행된다. 반드시 <code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">and</span> <span class="pre">Halt</span></code> 명령을 사용해 닫자.</p>
+<p><img alt="jupyter_notebook_8.png" src="../_images/jupyter_notebook_8.png" /></p>
 </div>
 </div>
 <div class="section" id="id4">
 <h2>스크립트 실행 방식<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>코드를 모두 완성한 후 전체 코드를 한 번에 실행하고 싶을 때는 코드를 <code class="docutils literal notranslate"><span class="pre">.py</span></code> 확장자 파일로 만든다. 이렇게 만든 코드 파일을 스크립트(script)라고 한다. 스크립트는 주피터 노트북이나 IPython 콘솔을 실행하지 않고 터미널에서 직접 실행할 수 있다.</p>
 <p>다만 스크립트에서는 변수 이름만 입력해서 변수의 값, 즉 표현(representation)이 표시되게 하는 것은 불가능하므로 화면에 무언가를 표시하려면 반드시 명시적으로 <code class="docutils literal notranslate"><span class="pre">print</span></code> 명령을 사용해야 한다.</p>
-<p>간단한 스크립트를 하나 만들어보자. 홈 화면의 오른쪽 위에 있는 <New> 버튼에서 [Text File]을 실행하여 파일 입력 탭을 생성한다. 텍스트 파일에 다음과 같이 코드를 입력하고 [File → Rename] 명령을 선택하여 노트북의 이름을 test.py로 변경한 후, 다음 그림과 같이 코드를 타이핑하고, [File → Save] 명령을 선택하여 저장한다.</p>
-<img src="https://datascienceschool.net/upfiles/218bedfc8b724c79a80704b10268f68e.png" style="width: 100%;"><p>그림:  주피터 노트북에서 파이썬 스크립트 파일 만들기</p>
+<p>간단한 스크립트를 하나 만들어보자. 홈 화면의 오른쪽 위에 있는 <New> 버튼에서 [Text File]을 실행하여 파일 입력 탭을 생성한다.</p>
+<p><img alt="jupyter_notebook_9.png" src="../_images/jupyter_notebook_9.png" /></p>
+<p>[File → Rename] 명령을 선택하여 노트북의 이름을 test.py로 변경한다.</p>
+<p><img alt="jupyter_notebook_10.png" src="../_images/jupyter_notebook_10.png" /></p>
+<p>다음 그림과 같이 코드를 타이핑한다.</p>
+<p><img alt="jupyter_notebook_12.png" src="../_images/jupyter_notebook_12.png" /></p>
+<p>[File → Save] 명령을 선택하여 저장한다.</p>
+<p><img alt="jupyter_notebook_13.png" src="../_images/jupyter_notebook_13.png" /></p>
 <p>스크립트 방식은 애플리케이션(application)이나 반복하여 실행해야 하는 코드를 만들 때 주로 사용된다.</p>
-<p>이제 터미널을 열고 다음 명령을 입력하고 엔터를 치자. 윈도우라면 아나콘다 프롬프트를 실행하여 터미널을 연다. 파이썬 스크립트가 실행되고 결과가 출력되는 것을 볼 수 있다.</p>
+<p>이제 터미널을 열고 test.py가 저장된 폴더로 이동한 후 다음 명령을 입력한 후 엔터를 치자. 윈도우라면 아나콘다 프롬프트를 실행하여 터미널을 연다. 파이썬 스크립트가 실행되고 결과가 출력되는 것을 볼 수 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test.py
 </pre></div>
 </div>
 <p>실행 결과는 다음과 같다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test.py
-z value:
+1
+2
 3
 </pre></div>
 </div>

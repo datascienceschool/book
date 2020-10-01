@@ -15,7 +15,7 @@ figclass: margin
 ```
 ```{admonition} 2020-09-30
 https://images.pexels.com/photos/3966569/pexels-photo-3966569.jpeg
-````
+```
 
 ```{figure} https://images.pexels.com/photos/1294229/pexels-photo-1294229.jpeg
 ---
@@ -25,7 +25,7 @@ figclass: margin
 ```
 ```{admonition} 2020-09-30
 https://images.pexels.com/photos/3966569/pexels-photo-1294229.jpeg
-````
+```
 
 ```{figure} https://images.pexels.com/photos/3684947/pexels-photo-3684947.jpeg
 ---
@@ -34,4 +34,5 @@ figclass: margin
 ---
 ```
 ```{admonition} 2020-09-30
-https://images.pexels.com/photos/3966569/pexels-photo-3684947.jpeg````
+https://images.pexels.com/photos/3966569/pexels-photo-3684947.jpeg
+```

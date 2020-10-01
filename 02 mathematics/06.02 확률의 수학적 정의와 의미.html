@@ -897,7 +897,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 <h2>표본공간과 확률표본<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>우선 확률표본(sample)과 표본공간(sample space)을 정의한다. <strong>확률표본(probabilistic sample, random sample)</strong> 또는 **표본(sample)**은 풀고자 하는 확률적 문제에서 <strong>발생(realize)할 수 있는 하나의 현상</strong>, 혹은 <strong>선택(sampled)될 수 있는  하나의 경우</strong>를 말한다. <strong>표본공간(sample space)은 가능한 모든 표본의 집합</strong>을 말한다. 보통 <span class="math notranslate nohighlight">\(\Omega\)</span>(대문자 오메가)라는 그리스 문자로 표기한다.
 표본공간을 정의한다는 것은 우리가 고려하는 범위에서 <strong>어떤 표본(경우, 현상)이 가능하고 어떤 표본이 가능하지 않은가를 정의하는 작업</strong>이다.</p>
-<img src="https://datascienceschool.net/upfiles/7ed338c2dc6b4cb0a972cb1a32857b91.png" style="width: 100%"><p>그림 6.2.1 : 표본과 표본공간</p>
+<img alt="https://datascienceschool.net/upfiles/7ed338c2dc6b4cb0a972cb1a32857b91.png" src="https://datascienceschool.net/upfiles/7ed338c2dc6b4cb0a972cb1a32857b91.png" />
+<p>그림 6.2.1 : 표본과 표본공간</p>
 <div class="section" id="id3">
 <h3>예제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>예를 들어 동전 던지기 문제에서는 “앞면(Head)이 나오는 현상” 또는 “뒷면(Tail)이 나오는 결과”가 각각 표본이 될 수 있다. 이 표본들을 각각 기호 “H”와 “T”로 표시하기로 하자. 동전이 세로로 서 있는 경우나 동전이 대각선으로 서 있는 경우 등을 고려할지 고려하지 않을지는 동전 던지기라는 물리현상에 대한 지식과 문제의 필요성에 의해 달라진다. 우리는 일상에서 경험한 지식(데이터)으로 동전이 세로로 서 있는 경우나 동전이 대각선으로 서 있는 경우가 극히 드물다는 것을 알고 있기 때문에 이러한 경우는 고려할 필요가 없다고 가정할 수 있다. 이때는 표본공간이라는 집합이 “H”와 “T” 두 가지 원소(표본)로만 구성된다. 따라서 1번 예제의 표본공간은 다음처럼 표기할 수 있다.</p>
@@ -973,7 +974,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 <div class="section" id="id11">
 <h2>사건<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>**사건(event)**는 <strong>표본공간 <span class="math notranslate nohighlight">\(\Omega\)</span>의 부분집합</strong>, 즉, 전체 표본공간 중에서 우리가 관심을 가지고 있는 일부 표본의 집합을 뜻한다. 보통 <span class="math notranslate nohighlight">\(A, B, C, \cdots\)</span> 식으로 대문자 알파벳으로 표기한다.</p>
-<img src="https://datascienceschool.net/upfiles/00bf275e403f409caeaef316d6117341.png" style="width: 100%"><p>그림 6.2.2 : 사건</p>
+<img alt="https://datascienceschool.net/upfiles/00bf275e403f409caeaef316d6117341.png" src="https://datascienceschool.net/upfiles/00bf275e403f409caeaef316d6117341.png" />
+<p>그림 6.2.2 : 사건</p>
 <p>위에서 예로 든 동전 표본공간에서는 가능한 사건(부분집합)은 다음과 같다.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1067,7 +1069,8 @@ A \cap B = \emptyset \;\;\; \rightarrow \;\;\; P(A \cup B) = P(A) + P(B)
 \end{align}
 \]</div>
 <p>이 세 가지를 **콜모고로프의 공리(Kolmogorov’s axioms)**라고 한다.</p>
-<img src="https://datascienceschool.net/upfiles/47295cc6dcb94f0a88b0f4e706f2bded.png" style="width: 100%"><p>그림 6.2.3 : 확률</p>
+<img alt="https://datascienceschool.net/upfiles/47295cc6dcb94f0a88b0f4e706f2bded.png" src="https://datascienceschool.net/upfiles/47295cc6dcb94f0a88b0f4e706f2bded.png" />
+<p>그림 6.2.3 : 확률</p>
 <p>예를 들어 표본공간이 <span class="math notranslate nohighlight">\(\Omega=\{ H, T \}\)</span>일 때 사건(부분집합)  <span class="math notranslate nohighlight">\(\{ H \}\)</span>에 대한 확률값 <span class="math notranslate nohighlight">\(P(\{ H \})\)</span>는 “H라는 표본이 선택될 확률”이고 사건(부분집합) <span class="math notranslate nohighlight">\(\{ H, T \}\)</span>에 대한 확률값 <span class="math notranslate nohighlight">\(P(\{ H, T \})\)</span>는 “H 또는 T라는 표본이 선택될 확률”이다. 따라서 확률이라는 함수를 정의한다는 것은 “무엇이 선택될 확률이 얼마인가”라는 질문에 대한 답을 모든 경우(사건, 부분집합)에 대해 미리 준비해놓은 것 또는 할당해놓은 것이라 할 수 있다.</p>
 </div>
 <div class="section" id="id14">

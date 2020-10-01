@@ -984,7 +984,8 @@ Y_k = \sum_{n=0}^{N-1} y_n \cdot \cos \left( 2\pi\frac{k}{N} \left(\frac{2n+1}{4
 <div class="section" id="stft">
 <h2>STFT<a class="headerlink" href="#stft" title="Permalink to this headline">¶</a></h2>
 <p>STFT(Short-Time Fourier Transform)는 주파수 특성이 시간이 따라 달라지는 사운드를 분석하기 위한 방법이다. 시계열을 일정한 시간 구간으로 나누고 각 구간에 대해 스펙트럼을 구한 데이터이다. 시간-주파수의 2차원 데이터로 나타난다.</p>
-<img src="https://datascienceschool.net/upfiles/cf872b64af8c4af5b20cea29d98e4cfe.png"></div>
+<img alt="https://datascienceschool.net/upfiles/cf872b64af8c4af5b20cea29d98e4cfe.png" src="https://datascienceschool.net/upfiles/cf872b64af8c4af5b20cea29d98e4cfe.png" />
+</div>
 <div class="section" id="librosa">
 <h2>librosa 패키지<a class="headerlink" href="#librosa" title="Permalink to this headline">¶</a></h2>
 <p>파이썬으로 STFT 스펙트럼 분석을 하려면 librosa 패키지를 사용한다.</p>
@@ -1028,7 +1029,8 @@ Y_k = \sum_{n=0}^{N-1} y_n \cdot \cos \left( 2\pi\frac{k}{N} \left(\frac{2n+1}{4
 <p>멜 스펙트럼은 주파수의 단위를 다음 공식을 따라 멜 단위(mel unit)로 바꾼 스펙트럼을 말한다.</p>
 <div class="math notranslate nohighlight">
 \[ m = 2595 \log_{10}\left(1 + \frac{f}{700}\right) \]</div>
-<img src="https://datascienceschool.net/upfiles/fdd4d9c6c24f454c88eec4b9fff0b0a0.png"><div class="cell docutils container">
+<img alt="https://datascienceschool.net/upfiles/fdd4d9c6c24f454c88eec4b9fff0b0a0.png" src="https://datascienceschool.net/upfiles/fdd4d9c6c24f454c88eec4b9fff0b0a0.png" />
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S_octave</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">melspectrogram</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y_octave</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr_octave</span><span class="p">,</span> <span class="n">n_mels</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">specshow</span><span class="p">(</span><span class="n">librosa</span><span class="o">.</span><span class="n">power_to_db</span><span class="p">(</span><span class="n">S_octave</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">),</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr_octave</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="s1">&#39;mel&#39;</span><span class="p">,</span> <span class="n">x_axis</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
@@ -1045,7 +1047,14 @@ Y_k = \sum_{n=0}^{N-1} y_n \cdot \cos \left( 2\pi\frac{k}{N} \left(\frac{2n+1}{4
 <div class="section" id="mfcc">
 <h2>MFCC<a class="headerlink" href="#mfcc" title="Permalink to this headline">¶</a></h2>
 <p>MFCC(Mel-frequency cepstral coefficients)는 Mel Scale Spectrum을 40개의 주파수 구역(band)으로 묶은뒤에 이를 다시 푸리에 변환하여 얻은 계수이다. 스펙트럼이 어떤 모양으로 되어 있는지를 나타내는 특성값이라고 생각할 수 있다.</p>
-<img src="https://datascienceschool.net/upfiles/c946c48e617f4382ae5fe71fc036cdae.png"><img src="https://datascienceschool.net/upfiles/07847df55e764114a692537f97ef6500.png"><img src="https://datascienceschool.net/upfiles/24c8b7ee6dc143f49f9265b2816c2b0c.png"><img src="https://datascienceschool.net/upfiles/b965fdf1228d4d84a5a42538b8ec2eed.jpeg"><img src="https://datascienceschool.net/upfiles/f2c2bd451cad40ec888119af8382d26e.png"><img src="https://datascienceschool.net/upfiles/9f8609ecfc0a4a7bb7068215ab3b2590.png"><img src="https://datascienceschool.net/upfiles/a2bb21532fa140578a9ddbf87f476f15.jpeg" ><div class="cell docutils container">
+<img alt="https://datascienceschool.net/upfiles/c946c48e617f4382ae5fe71fc036cdae.png" src="https://datascienceschool.net/upfiles/c946c48e617f4382ae5fe71fc036cdae.png" />
+<img alt="https://datascienceschool.net/upfiles/07847df55e764114a692537f97ef6500.png" src="https://datascienceschool.net/upfiles/07847df55e764114a692537f97ef6500.png" />
+<img alt="https://datascienceschool.net/upfiles/24c8b7ee6dc143f49f9265b2816c2b0c.png" src="https://datascienceschool.net/upfiles/24c8b7ee6dc143f49f9265b2816c2b0c.png" />
+<img alt="https://datascienceschool.net/upfiles/b965fdf1228d4d84a5a42538b8ec2eed.jpeg" src="https://datascienceschool.net/upfiles/b965fdf1228d4d84a5a42538b8ec2eed.jpeg" />
+<img alt="https://datascienceschool.net/upfiles/f2c2bd451cad40ec888119af8382d26e.png" src="https://datascienceschool.net/upfiles/f2c2bd451cad40ec888119af8382d26e.png" />
+<img alt="https://datascienceschool.net/upfiles/9f8609ecfc0a4a7bb7068215ab3b2590.png" src="https://datascienceschool.net/upfiles/9f8609ecfc0a4a7bb7068215ab3b2590.png" />
+<img alt="https://datascienceschool.net/upfiles/a2bb21532fa140578a9ddbf87f476f15.jpeg" src="https://datascienceschool.net/upfiles/a2bb21532fa140578a9ddbf87f476f15.jpeg" />
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">librosa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">example_audio_file</span><span class="p">(),</span> <span class="n">offset</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 

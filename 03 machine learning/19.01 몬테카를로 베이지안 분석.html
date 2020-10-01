@@ -816,7 +816,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 이 함수를 적용한 값을 <span class="math notranslate nohighlight">\(y\)</span>라고 하고 <span class="math notranslate nohighlight">\(y\)</span>를 표본으로 가지는 확률변수를 <span class="math notranslate nohighlight">\(Y\)</span>라고 하면 <span class="math notranslate nohighlight">\(Y\)</span>의 누적분포함수는 <span class="math notranslate nohighlight">\(f\)</span>의 역함수인 <span class="math notranslate nohighlight">\(f^{-1}\)</span>이 된다.</p>
 <div class="math notranslate nohighlight">
 \[ F_Y(y) = f^{-1}(x) \]</div>
-<img src="https://datascienceschool.net/upfiles/9adf8abecbdf4bbd8968377075026950.png"><p>그림 51.1 : 역변환</p>
+<img alt="https://datascienceschool.net/upfiles/9adf8abecbdf4bbd8968377075026950.png" src="https://datascienceschool.net/upfiles/9adf8abecbdf4bbd8968377075026950.png" />
+<p>그림 51.1 : 역변환</p>
 <p>반대로 생각하면 우리가 원하는 확률분포함수 <span class="math notranslate nohighlight">\(p(Y)\)</span>가 있다면 이 함수를 적분한 함수의 역함수를 균일분포 표본에 적용하면 우리가 원하는 확률분포를 가지게 된다.</p>
 <div class="math notranslate nohighlight">
 \[ x = h(y) = \int_{-\infty}^{y} p(u)du \]</div>
@@ -833,7 +834,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ul>
 <p>방법은 간단하다. 일단 유사 확률분포 <span class="math notranslate nohighlight">\(q(x)\)</span>의 표본을 생성한 다음에 <span class="math notranslate nohighlight">\(p(z)/kq(z)\)</span>의 확률로 이 표본을 채택할지 아니면 버릴지를 결정한다.
 이 때 <span class="math notranslate nohighlight">\(k\)</span>는 <span class="math notranslate nohighlight">\(kq(x) \geq p(x)\)</span>가 되도록 하는 스케일링 상수이다.</p>
-<img src="https://datascienceschool.net/upfiles/82be070d572241ebadda0eb9f7036484.png"><p>그림 51.2 : Rejection sampling</p>
+<img alt="https://datascienceschool.net/upfiles/82be070d572241ebadda0eb9f7036484.png" src="https://datascienceschool.net/upfiles/82be070d572241ebadda0eb9f7036484.png" />
+<p>그림 51.2 : Rejection sampling</p>
 <p>예를 들어 <span class="math notranslate nohighlight">\(a=2, b=6\)</span>인 베타 분포의 표본을 만들고 싶은데 지금 생성할 수 있는 확률분포는 정규분포밖에 없다고 하자. 그러면 일단 정규분포의 표본을 생성한다. 그리고 모수가 <span class="math notranslate nohighlight">\(p(z)/kq(z)\)</span>인 베르누이 확률분포의 표본값을 사용하여 표본을 버릴지 채택할 지 결정한다.</p>
 <p>다음 그림에서 왼쪽은 처음에 유사분포로 생성한 표본이고 오른쪽은 채택된 표본을 보이고 있다.</p>
 <div class="cell docutils container">
@@ -1001,7 +1003,8 @@ $<span class="math notranslate nohighlight">\( p = \min \left( 1, \dfrac{p(x^{\a
 \[ p = \min \left( 1, \dfrac{p(x^{\ast})}{p(x_t)} \right)\]</div>
 <p>가 된다. 이를 메트로폴리스 기준이라고 한다.</p>
 <p>메트로폴리스 기준을 따르면  <span class="math notranslate nohighlight">\(p(x^{\ast})\)</span>가 <span class="math notranslate nohighlight">\(p(x_t)\)</span>보다 크게 만들려고 노력한다. 즉 다음 그림처럼 되도록 확률이 높은 위치로 이동하려고 노력하지만 항상 그렇게 되지는 않는다.</p>
-<img src="https://datascienceschool.net/upfiles/02bc071a711d429c94582e30b5d2597f.png"><p>그림 51.3 : 메트로폴리스 해이스팅스 방법</p>
+<img alt="https://datascienceschool.net/upfiles/02bc071a711d429c94582e30b5d2597f.png" src="https://datascienceschool.net/upfiles/02bc071a711d429c94582e30b5d2597f.png" />
+<p>그림 51.3 : 메트로폴리스 해이스팅스 방법</p>
 <p>MCMC 방법에는 이외에도</p>
 <ul class="simple">
 <li><p>Hamiltonian Monte Carlo</p></li>

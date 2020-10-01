@@ -1132,8 +1132,10 @@ weighted avg       0.71      0.71      0.71         7
 <p>재현율을 높이기 위해서는 양성으로 판단하는 기준(threshold)을 낮추어 약간의 증거만 있어도 양성으로 판단하도록 하면 된다.
 그러나 이렇게 되면 음성임에도 양성으로 판단되는 표본 데이터가 같이 증가하게 되어 위양성율이 동시에 증가한다.
 반대로 위양성율을 낮추기 위해 양성을 판단하는 기준을 엄격하게 두게 되면 증거 부족으로 음성 판단을 받는 표본 데이터의 수가 같이 증가하므로 재현율이 떨어진다.</p>
-<img src="https://datascienceschool.net/upfiles/831d9dfbdcee499c9e32f39831d757f2.png" width="100%"><p>ROC(Receiver Operator Characteristic) 커브는 클래스 판별 기준값의 변화에 따른 위양성률(fall-out)과 재현율(recall)의 변화를 시각화한 것이다.</p>
-<img src="https://datascienceschool.net/upfiles/219c35d779eb4eb38be3fa0cc6b9ed38.png" width="100%"><p>모든 이진 분류 모형은 판별 평면으로부터의 거리에 해당하는 판별함수(discriminant function)를 가지며 판별함수값이 음수이면 0인 클래스, 양수이면 1인 클래스에 해당한다고 판별한다. 즉 0 이 클래스 판별 기준값이 된다. ROC 커브는 이 클래스 판별 기준값이 달라진다면 판별 결과가 어떻게 달라지는지는 표현한 것이다.</p>
+<a class="reference internal image-reference" href="https://datascienceschool.net/upfiles/831d9dfbdcee499c9e32f39831d757f2.png"><img alt="https://datascienceschool.net/upfiles/831d9dfbdcee499c9e32f39831d757f2.png" src="https://datascienceschool.net/upfiles/831d9dfbdcee499c9e32f39831d757f2.png" style="width: 100%;" /></a>
+<p>ROC(Receiver Operator Characteristic) 커브는 클래스 판별 기준값의 변화에 따른 위양성률(fall-out)과 재현율(recall)의 변화를 시각화한 것이다.</p>
+<a class="reference internal image-reference" href="https://datascienceschool.net/upfiles/219c35d779eb4eb38be3fa0cc6b9ed38.png"><img alt="https://datascienceschool.net/upfiles/219c35d779eb4eb38be3fa0cc6b9ed38.png" src="https://datascienceschool.net/upfiles/219c35d779eb4eb38be3fa0cc6b9ed38.png" style="width: 100%;" /></a>
+<p>모든 이진 분류 모형은 판별 평면으로부터의 거리에 해당하는 판별함수(discriminant function)를 가지며 판별함수값이 음수이면 0인 클래스, 양수이면 1인 클래스에 해당한다고 판별한다. 즉 0 이 클래스 판별 기준값이 된다. ROC 커브는 이 클래스 판별 기준값이 달라진다면 판별 결과가 어떻게 달라지는지는 표현한 것이다.</p>
 <p>사이킷런 패키지의 분류모형 클래스는 판별함수값을 계산하는 <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> 메서드를 제공한다. 다음 표는 분류문제를 풀고  <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> 메서드를 이용하여 모든 표본 데이터에 대해 판별함수값을 계산한 다음 계산된 판별함수값이 가장 큰 데이터부터 가장 작은 데이터 순서로 정렬한 것이다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

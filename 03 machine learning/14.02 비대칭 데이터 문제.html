@@ -1037,7 +1037,8 @@ weighted avg       0.95      0.91      0.92       220
 <div class="section" id="tomeks-link-method">
 <h2>Tomek’s link method<a class="headerlink" href="#tomeks-link-method" title="Permalink to this headline">¶</a></h2>
 <p>토멕링크(Tomek’s link)란 서로 다른 클래스에 속하는 한 쌍의 데이터 <span class="math notranslate nohighlight">\((x_{+}, x_{-})\)</span>로 서로에게 더 가까운 다른 데이터가 존재하지 않는 것이다. 즉 클래스가 다른 두 데이터가 아주 가까이 붙어있으면 토멕링크가 된다. 토멕링크 방법은 이러한 토멕링크를 찾은 다음 그 중에서 다수 클래스에 속하는 데이터를 제외하는  방법으로 경계선을 다수 클래스쪽으로 밀어붙이는 효과가 있다.</p>
-<img src="https://datascienceschool.net/upfiles/40e445c6271b438194813ebf54431d17.png" width="100%"/><div class="cell docutils container">
+<a class="reference internal image-reference" href="https://datascienceschool.net/upfiles/40e445c6271b438194813ebf54431d17.png"><img alt="https://datascienceschool.net/upfiles/40e445c6271b438194813ebf54431d17.png" src="https://datascienceschool.net/upfiles/40e445c6271b438194813ebf54431d17.png" style="width: 100%;" /></a>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_samp</span><span class="p">,</span> <span class="n">y_samp</span> <span class="o">=</span> <span class="n">TomekLinks</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X_imb</span><span class="p">,</span> <span class="n">y_imb</span><span class="p">)</span>
 
@@ -1324,7 +1325,8 @@ weighted avg       0.95      0.90      0.91       220
 <div class="section" id="smote">
 <h2>SMOTE<a class="headerlink" href="#smote" title="Permalink to this headline">¶</a></h2>
 <p>SMOTE(Synthetic Minority Over-sampling Technique) 방법도 ADASYN 방법처럼 데이터를 생성하지만 생성된 데이터를 무조건 소수 클래스라고 하지 않고 분류 모형에 따라 분류한다.</p>
-<img src="https://datascienceschool.net/upfiles/e072f6e270884b2887051f2c10f433e7.png" width="100%"/><div class="cell docutils container">
+<a class="reference internal image-reference" href="https://datascienceschool.net/upfiles/e072f6e270884b2887051f2c10f433e7.png"><img alt="https://datascienceschool.net/upfiles/e072f6e270884b2887051f2c10f433e7.png" src="https://datascienceschool.net/upfiles/e072f6e270884b2887051f2c10f433e7.png" style="width: 100%;" /></a>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_samp</span><span class="p">,</span> <span class="n">y_samp</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">X_imb</span><span class="p">,</span> <span class="n">y_imb</span><span class="p">)</span>
 

@@ -1106,10 +1106,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id5">
 <h2>부동소수점 오차<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
-<p>1보다 작은 수의 경우에는 십진법으로 간단히 표현되는 수도 이진법에서는 무한개의 유효숫자를 가지는 수가 될 수 있다. 예를 들어 <span class="math notranslate nohighlight">\(0.1\)</span>이라는 숫자는 십진수로는 간단히 표현되지만 이진수로 나타내면 다음과 같이 <span class="math notranslate nohighlight">\(0011_{(2)}\)</span>이 무한히 반복되는 소수가 된다.</p>
+<p>1보다 작은 수의 경우에는 십진법으로 간단히 표현되는 수도 이진법에서는 무한개의 유효숫자를 가질 수 있다. 예를 들어 <span class="math notranslate nohighlight">\(0.1\)</span>이라는 숫자는 십진수로는 간단히 표현되지만 이진수로 나타내면 다음과 같이 <span class="math notranslate nohighlight">\(0011_{(2)}\)</span>이 무한히 반복되는 실수가 된다.</p>
 <div class="math notranslate nohighlight">
 \[ 0.1 = 0.00011001100110011001100110011001100110011001100110011001100110011\cdots_{(2)} \]</div>
-<p>그런데 컴퓨터에서는 하나의 숫자를 나타내기 위한 메모리 크기가 제한되어 있어서 특정 소수점이하는 생략하고 가장 비슷한 숫자로 표현할 수 밖에 없다. <span class="math notranslate nohighlight">\(0.1\)</span>은 실제로는 가장 비슷한 다음과 같은 숫자로 저장된다.</p>
+<p>그런데 컴퓨터에서는 하나의 숫자를 나타내기 위한 메모리 크기가 제한되어 있어서 특정 소수점 이하는 생략하고 가장 비슷한 숫자로 표현할 수 밖에 없다. <span class="math notranslate nohighlight">\(0.1\)</span>은 실제로는 가장 비슷한 다음과 같은 숫자로 저장된다.</p>
 <div class="math notranslate nohighlight">
 \[ 0.1 \approx 0.1000000000000000055511151231257827021181583404541015625 \]</div>
 <p>그런데 파이썬 콘솔이나 주피터 노트북에서 0.1을 입력하면 다음과 같이 그냥 0.1로 나타난다.</p>

@@ -94,7 +94,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="파이썬의 문자열 인코딩" href="02.15 파이썬의 문자열 인코딩.html" />
-    <link rel="prev" title="파이썬 패키지 사용하기" href="02.13 파이썬 패키지 사용하기.html" />
+    <link rel="prev" title="2.13 파이썬 패키지 사용하기" href="02.13 파이썬 패키지 사용하기.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -192,32 +192,32 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.08 여러 개의 자료를 한 변수에 담기.html">
-     여러 개의 자료를 한 변수에 담기
+     2.8 여러 개의 자료를 한 변수에 담기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.09 파이썬에서 리스트 자료형 다루기.html">
-     파이썬에서 리스트 자료형 다루기
+     2.9 파이썬에서 리스트 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.10 리스트와 반복문을 사용하여 계산하기.html">
-     리스트와 반복문을 사용하여 계산하기
+     2.10 리스트와 반복문을 사용하여 계산하기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.11 파이썬에서 딕셔너리 자료형 다루기.html">
-     파이썬에서 딕셔너리 자료형 다루기
+     2.11 파이썬에서 딕셔너리 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.12 파이썬 객체지향 프로그래밍.html">
-     파이썬 객체지향 프로그래밍
+     2.12 파이썬 객체지향 프로그래밍
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.13 파이썬 패키지 사용하기.html">
-     파이썬 패키지 사용하기
+     2.13 파이썬 패키지 사용하기
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -801,6 +801,11 @@ commentsRunWhenDOMLoaded(addUtterances);
    자료형과 클래스의 차이점
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   불변형 자료형와 변형 자료형
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -816,8 +821,17 @@ commentsRunWhenDOMLoaded(addUtterances);
 <h1>파이썬의 자료형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>자료형<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>자료형(data type), 타입(type)</p>
+</div>
 <p>지금까지 우리는 변수에 숫자, 문자열, 리스트 등의 값을 마음대로 넣어서 사용해 왔다. 그러나 프로그램이 실행되려면 컴퓨터는 각 변수에 어떤 종류의 값이 들어가 있는지 알아야 한다. 값이 숫자인가 문자열인가 등에 따라 값을 저장하는 방식이나 계산하는 방법이 다르기 때문이다.
-이러한 값의 종류를 <strong>자료형(data type)</strong> 혹은 **타입(type)**이라고 한다. 예를 들어 정수인 1과 문자열인 “1”이 컴퓨터에 저장될 때 어느 정도의 메모리를 차지하는지 알아보면 두 값의 저장 방식이 다르다는 것을 알 수 있다. 파이썬에서 변수의 메모리 크기를 알기 위해서는 <code class="docutils literal notranslate"><span class="pre">sys</span></code> 패키지의 <code class="docutils literal notranslate"><span class="pre">getsizeof</span></code> 명령을 사용한다.</p>
+이러한 값의 종류를 자료형(data type) 혹은 타입(type)이라고 한다. 예를 들어 정수인 1과 문자열인 “1”이 컴퓨터에 저장될 때 어느 정도의 메모리를 차지하는지 알아보면 두 값의 저장 방식이 다르다는 것을 알 수 있다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">getsizeof</span></code></p>
+</div>
+<p>파이썬에서 변수의 메모리 크기를 알기 위해서는 <code class="docutils literal notranslate"><span class="pre">sys</span></code> 패키지의 <code class="docutils literal notranslate"><span class="pre">getsizeof</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">getsizeof</span>
@@ -856,17 +870,16 @@ commentsRunWhenDOMLoaded(addUtterances);
 <h2>파이썬의 자료형<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>파이썬에서 사용할 수 있는 자료형 중 많이 사용하는 것은 다음과 같다.</p>
 <ul class="simple">
-<li><p>None</p></li>
-<li><p>Boolean</p></li>
-<li><p>Int</p></li>
-<li><p>Float</p></li>
-<li><p>Complex</p></li>
-<li><p>String</p></li>
-<li><p>Unicode</p></li>
-<li><p>Tuple</p></li>
-<li><p>List</p></li>
-<li><p>Dict</p></li>
-<li><p>Function</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NoneType</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">complex</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">function</span></code></p></li>
 </ul>
 <p>변수나 값의 자료형을 알아보려면 <code class="docutils literal notranslate"><span class="pre">type</span></code> 명령을 사용하면 된다. <code class="docutils literal notranslate"><span class="pre">None</span></code> 타입은 변수가 비어있음을 표시할 때 사용한다.</p>
 <div class="cell docutils container">
@@ -944,18 +957,6 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;abc&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1010,7 +1011,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id4">
 <h2>자료형과 클래스의 차이점<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>파이썬에서 자료형과 클래스는 같은 의미이다. 클래스를 알고 싶으면 <code class="docutils literal notranslate"><span class="pre">__class__</span></code> 속성을 살펴본다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">__class__</span></code></p>
+</div>
+<p>파이썬에서 자료형과 클래스는 같은 의미라고 봐도 무방하다. 클래스를 알고 싶으면 <code class="docutils literal notranslate"><span class="pre">__class__</span></code> 속성을 살펴본다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1111,6 +1116,28 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <p>클래스 이름앞의 <code class="docutils literal notranslate"><span class="pre">__main__</span></code>은 클래스가 정의된 모듈(module) 즉 파일의 이름이다. REPL 환경에서 입력하는 코드는 <code class="docutils literal notranslate"><span class="pre">__main__</span></code> 으로 가정한다.</p>
 </div>
+<div class="section" id="id5">
+<h2>불변형 자료형와 변형 자료형<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>불변형(immutable) 자료형</p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>변형(mutable) 자료형</p>
+</div>
+<p>파이썬의 자료형에는 불변형(immutable) 자료형과 변형(mutable) 자료형이 있다.</p>
+<ul class="simple">
+<li><p>정수, 실수, 문자열, 튜플은 불변형 자료형이다.</p></li>
+<li><p>리스트, 딕셔너리는 변형 자료형이다.</p></li>
+</ul>
+<p>불변형 자료형은 데이터 값을 바꿀 때 메모리에 저장된 데이터 전체를 모두 없애고 새로 만들지만 변형 자료형은 할당된 메모리를 그냥 놔두고 내용(값)만 바꾼다.</p>
+<div class="cell tag_remove_input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/02.14 파이썬의 자료형_42_0.png" src="../_images/02.14 파이썬의 자료형_42_0.png" />
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1141,7 +1168,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="02.13 파이썬 패키지 사용하기.html" title="previous page">파이썬 패키지 사용하기</a>
+    <a class='left-prev' id="prev-link" href="02.13 파이썬 패키지 사용하기.html" title="previous page">2.13 파이썬 패키지 사용하기</a>
     <a class='right-next' id="next-link" href="02.15 파이썬의 문자열 인코딩.html" title="next page">파이썬의 문자열 인코딩</a>
 
     </div>

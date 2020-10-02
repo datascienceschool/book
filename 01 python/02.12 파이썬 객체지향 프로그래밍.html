@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>파이썬 객체지향 프로그래밍 &#8212; 데이터 사이언스 스쿨</title>
+    <title>2.12 파이썬 객체지향 프로그래밍 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -192,12 +192,12 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.08 여러 개의 자료를 한 변수에 담기.html">
-     여러 개의 자료를 한 변수에 담기
+     2.8 여러 개의 자료를 한 변수에 담기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.09 파이썬에서 리스트 자료형 다루기.html">
-     파이썬에서 리스트 자료형 다루기
+     2.9 파이썬에서 리스트 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
@@ -212,7 +212,7 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     파이썬 객체지향 프로그래밍
+     2.12 파이썬 객체지향 프로그래밍
     </a>
    </li>
    <li class="toctree-l2">
@@ -874,11 +874,23 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>파이썬 객체지향 프로그래밍<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>2.12 파이썬 객체지향 프로그래밍<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>객체<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>프로그램이 어떤 작업을 수행하기 위해서는 (1)데이터와 (2)데이터를 조작하는 행위, 두 가지 요소가 필요하다. 일반적으로 데이터는 변수(variable)에 넣어서 사용하고 데이터를 조작하는 일은 함수(function)로 구성해서 쉽게 실행할 수 있도록 만들어 놓는다.</p>
-<p><strong>객체</strong>(object)는 서로 연관된 데이터와 그 데이터를 조작하기 위한 함수를 하나의 집합에 모아놓은 것을 말한다. 이 때 집합의 원소가 되는 변수나 함수는 <strong>멤버</strong>(member) 또는 <strong>속성</strong>(attribute)이라고 한다. 특히 객체의 속성인 함수는 <strong>메서드</strong>(method)라고 부른다.</p>
+<p>프로그램이 어떤 작업을 수행하기 위해서는 (1)데이터와 (2)데이터를 조작하는 행위, 두 가지 요소가 필요하다. 일반적으로 데이터는 변수에 넣어서 사용하고 데이터를 조작하는 일은 함수로 구성해서 쉽게 실행할 수 있도록 만들어 놓는다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>객체(object, instance)</p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>멤버(member), 속성(attribute)</p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>메서드(method)</p>
+</div>
+<p>객체(object, instance)는 서로 연관된 데이터와 그 데이터를 조작하기 위한 함수를 하나의 집합에 모아놓은 것을 말한다. 이 때 집합의 원소가 되는 변수나 함수는 멤버(member) 또는 속성(attribute)이라고 한다. 특히 객체의 속성인 함수는 메서드(method)라고 부른다.</p>
 <p>예를 들어 사각형의 면적을 구하는 프로그램을 만든다고 하자. 필요한 변수와 함수는 다음과 같다.</p>
 <ol class="simple">
 <li><p>가로 길이와 세로 길이라는 두 개의 데이터를 넣을 변수</p></li>
@@ -906,7 +918,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>위 프로그램에서 사각형의 가로 길이를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">h</span></code>, 사각형의 세로 길이를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">v</span></code>, 그리고 이 사각형의 면적을 계산하는 함수 <code class="docutils literal notranslate"><span class="pre">area()</span></code>는 제각기 떨어져 있다. 하지만 객체지향 프로그래밍에서는 이 세가지를 하나의 객체(object)로 묶을 수 있다.</p>
+<p>위 프로그램에서 사각형의 가로 길이를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">h</span></code>, 사각형의 세로 길이를 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">v</span></code>, 그리고 이 사각형의 면적을 계산하는 함수 <code class="docutils literal notranslate"><span class="pre">area</span></code>는 제각기 떨어져 있다. 하지만 객체지향 프로그래밍에서는 이 세가지를 하나의 객체(object)로 묶을 수 있다.</p>
 <p>다음은 이 프로그램을 객체지향 방식으로 다시 구현한 것이다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -978,10 +990,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id3">
 <h2>클래스<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>클래스(class)</p>
+</div>
 <p>객체지향 프로그래밍에서 객체를 만들려면 객체를 바로 만들지 못하고 항상 클래스(class)라는 것을 만든 후에 그 클래스를 이용하여 객체를 만들어야 한다.</p>
 <p>위 예제에서 <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code>은 클래스이고 <code class="docutils literal notranslate"><span class="pre">r</span></code>은 <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> 클래스로 만들어진 객체이다. 객체와 클래스의 관계는 “붕어빵”과 “붕어빵을 굽는 틀”에 비유할 수 있다. 즉, 정해진 속성, 여기에서는 가로 길이 <code class="docutils literal notranslate"><span class="pre">h</span></code>와 세로 길이 <code class="docutils literal notranslate"><span class="pre">v</span></code>라는 속성을 가지도록 사각형 클래스를 한 번 만들어 놓으면 이 속성을 가지는 실제 사각형은 얼마든지 많이 만들 수 있다.</p>
-<img alt="https://datascienceschool.net/upfiles/4aac5f2a9d454d398e8e73cc2f4bc9b9.png" src="https://datascienceschool.net/upfiles/4aac5f2a9d454d398e8e73cc2f4bc9b9.png" />
-<p>그림 3.2.2 : 붕어빵을 굽는 틀(클래스)과 붕어빵(객체)</p>
 <p>예를 들어 위에서 만들어 놓은 <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> 클래스로 다음과 같이 5개의 사각형을 만들 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

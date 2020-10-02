@@ -787,12 +787,17 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p>여기에서는 사용자의 컴퓨터에 직접 파이썬을 설치하여 사용하는 방법을 살펴본다.</p>
 <div class="section" id="id2">
 <h2>파이썬의 종류<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>파이썬을 설치한다는 것은 파이썬 언어를 해석할 수 있는 인터프리터(interpreter)라는 프로그램을 설치한다는 뜻이다. 인터프리터란 소스 코드(source code)를 읽고 해석하여 수행하는 프로그램이다. 최초의 파이썬 언어 인터프리터는 C 언어로 만들어졌다. C로 만든 파이썬은 CPython(씨 파이썬이라고 읽는다)이라고 한다. CPython은 C 혹은 C++ 언어로 된 바이너리 라이브러리를 직접 호출할 수 있기 때문에 수많은 C/C++ 라이브러리를 파이썬에서 쉽게 사용할 수 있는 장점이 있다. 수치 계산이나 데이터 분석용으로 파이썬을 사용할 때는 항상 CPython을 사용한다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>씨파이썬(CPython)</p>
+</div>
+<p>파이썬을 설치한다는 것은 파이썬 언어를 해석할 수 있는 인터프리터(interpreter)라는 프로그램을 설치한다는 뜻이다. 인터프리터란 소스 코드(source code)를 읽고 해석하여 수행하는 프로그램이다.</p>
+<p>최초의 파이썬 언어 인터프리터는 C 언어로 만들어졌다. C로 만든 파이썬은 CPython(씨 파이썬이라고 읽는다)이라고 한다. CPython은 C 혹은 C++ 언어로 된 바이너리 라이브러리를 직접 호출할 수 있기 때문에 수많은 C/C++ 라이브러리를 파이썬에서 쉽게 사용할 수 있는 장점이 있다. 수치 계산이나 데이터 분석용으로 파이썬을 사용할 때는 항상 씨파이썬(CPython)을 사용한다.</p>
 <p>그 외에 자바(Java)로 구현된 자이썬(Jython), 닷넷(.NET)으로 구현된 아이언파이썬(IronPython), 자바스크립트로 구현된 스컬프트(Skulpt) 등의 파이썬도 있다. 이처럼 각 언어로 구현된 파이썬은 자바 라이브러리나 닷넷 컴포넌트를 파이썬에서 직접 호출하여 사용할 때나 웹 브라우저에서 직접 파이썬을 실행할 때 쓰인다. 파이파이(PyPy)는 JIT(Just-In-Time) 컴파일러를 내장하여 반복되는 코드를 빠르게 실행할 수 있도록 한 파이썬이다.</p>
 </div>
 <div class="section" id="id3">
 <h2>파이썬의 버전<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>파이썬은 다른 언어와 달리 역사적으로 2.x 버전과 3.x 버전이 동시에 활발하게 사용되어 왔다. 하지만 2019년을 기점으로 대부분의 패키지와 커뮤니티에서 2.x 버전 지원을 중단했다. 따라서 이 책에서는 3.x 버전을 기준으로 설명한다.</p>
+<p>파이썬은 다른 언어와 달리 역사적으로 2 버전과 3 버전이 동시에 활발하게 사용되어 왔다. 하지만 2019년을 기점으로 대부분의 패키지와 커뮤니티에서 2 버전 지원을 중단했다. 따라서 이 책에서는 3 버전을 기준으로 설명한다.</p>
 </div>
 <div class="section" id="id4">
 <h2>파이썬 설치<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
@@ -801,6 +806,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id5">
 <h2>파이썬 배포판<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>아나콘다 배포판</p>
+</div>
 <p>파이썬은 기본 파이썬 인터프리터 이외에도 다양한 패키지와 개발 도구를 함께 제공하는 배포판(distribution)으로 설치하는 것이 좋다. 여러 가지 배포판이 있으므로 사용하고자 하는 운영체제, 32/64비트 지원 여부, 무료/상용 여부를 잘 고려하여 선택해야 한다.</p>
 <p>현재 가장 널리 사용되는 파이썬 배포판은 ‘아나콘다(Anaconda)’다. 아나콘다는 여러 파이썬 배포판 중 가장 늦게 발표되었지만 무료이고 완성도가 뛰어나서 사실상의 표준(de facto standard) 파이썬 배포판이 되었다. 아나콘다 배포판은 모든 패키지가 컴파일이 필요 없는 바이너리(binary) 형태로 제공된다. 따라서 설치 속도가 빠르고 패키지 의존성을 관리해주므로 관리가 편리하다.</p>
 <p>아나콘다 배포판은 다음 웹사이트에서 자신이 사용하는 운영체제에 맞는 것을 선택하여 내려받는다.</p>
@@ -841,6 +850,10 @@ $
 </div>
 <div class="section" id="id8">
 <h2>아이파이썬 동작 확인<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>아이파이썬(IPython)</p>
+</div>
 <p>이번에는 같은 터미널 창에 다음과 같이 입력하여 기본 파이썬보다 기능이 강화된 아이파이썬(IPython)을 실행한다. 프롬프트가 아까와 달리 <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">[1]</span></code>과 같이 나오며 몇 번째 명령인지를 숫자로 알려준다. 아까와 마찬가지로 아이파이썬을 종료하자. 아이파이썬을 종료하려면 괄호없이 <code class="docutils literal notranslate"><span class="pre">exit</span></code>라고만 입력하면 된다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ipython
 Python 3.7.3 (default, Mar 27 2019, 22:11:17)
@@ -854,6 +867,10 @@ $
 </div>
 <div class="section" id="id9">
 <h2>주피터 노트북  동작 확인<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>주피터 노트북(Jupyter notebook)</p>
+</div>
 <p>주피터 노트북(Jupyter Notebook)은 웹 브라우저를 사용하여 문서와 코드를 동시에 지원하는 개발 도구다. 웹서버 형태로 구현되어 있다. 주피터 노트북을 실행하려면 윈도우에서 다음과 같은 메뉴를 선택한다.</p>
 <ul class="simple">
 <li><p>모든 프로그램 → Anaconda3 (64-bit) → Jupyter Notebook</p></li>

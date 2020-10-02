@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>배열의 생성과 변형 &#8212; 데이터 사이언스 스쿨</title>
+    <title>3.2 배열의 생성과 변형 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -167,7 +167,7 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     배열의 생성과 변형
+     3.2 배열의 생성과 변형
     </a>
    </li>
    <li class="toctree-l2">
@@ -732,42 +732,52 @@ commentsRunWhenDOMLoaded(addUtterances);
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#numpy">
-   NumPy의 자료형
+  <a class="reference internal nav-link" href="#id2">
+   넘파이의 자료형
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#inf-nan">
-   Inf와 NaN
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   배열 생성
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Inf
+    </span>
+   </code>
+   와
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     NaN
+    </span>
+   </code>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   전치 연산
+   배열 생성
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   배열의 크기 변형
+   전치 연산
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
+   배열의 크기 변형
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
    배열 연결
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id7">
      연습 문제 1
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id8">
      2차원 그리드 포인트 생성
     </a>
    </li>
@@ -785,10 +795,14 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>배열의 생성과 변형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="numpy">
-<h2>NumPy의 자료형<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h2>
-<p>NumPy의 배열 즉, <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>클래스는 데이터가 같은 자료형이어야 한다. <code class="docutils literal notranslate"><span class="pre">array</span></code> 명령으로 배열을 만들 때 자료형을 명시적으로 적용하려면 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 인수를 사용한다. 만약 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 인수가 없으면 주어진 데이터를 저장할 수 있는 자료형을 스스로 유추한다. 만들어진 배열의 자료형을 알아내려면 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 속성을 본다.</p>
+<h1>3.2 배열의 생성과 변형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>넘파이의 자료형<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">dtype</span></code></p>
+</div>
+<p>넘파이의 배열 즉, <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>클래스는 원소가 모두 같은 자료형이어야 한다. <code class="docutils literal notranslate"><span class="pre">array</span></code> 명령으로 배열을 만들 때 자료형을 명시적으로 적용하려면 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 인수를 사용한다. 만약 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 인수가 없으면 주어진 데이터를 저장할 수 있는 자료형을 스스로 유추한다. 만들어진 배열의 자료형을 알아내려면 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 속성을 보면 된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -871,7 +885,6 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tr>
 </tbody>
 </table>
-<p>표 7.1 : dtype 인수로 지정할 자료형</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
@@ -924,8 +937,16 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="section" id="inf-nan">
-<h2>Inf와 NaN<a class="headerlink" href="#inf-nan" title="Permalink to this headline">¶</a></h2>
-<p>NumPy에서는 무한대를 표현하기 위한 <code class="docutils literal notranslate"><span class="pre">np.inf</span></code>(infinity)와 정의할 수 없는 숫자를 나타내는 <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>(not a number)을 사용할 수 있다. 다음 예와 같이 1을 0으로 나누려고 하거나 0에 대한 로그 값을 계산하면 무한대인 <code class="docutils literal notranslate"><span class="pre">np.inf</span></code>이 나온다. 0을 0으로 나누려고 시도하면 <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>이 나온다.</p>
+<h2><code class="docutils literal notranslate"><span class="pre">Inf</span></code>와 <code class="docutils literal notranslate"><span class="pre">NaN</span></code><a class="headerlink" href="#inf-nan" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">Inf</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">NaN</span></code></p>
+</div>
+<p>넘파이에서는 무한대를 표현하기 위한 <code class="docutils literal notranslate"><span class="pre">np.inf</span></code>(infinity)와 정의할 수 없는 숫자를 나타내는 <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>(not a number)을 사용할 수 있다. 다음 예와 같이 1을 0으로 나누려고 하거나 0에 대한 로그 값을 계산하면 무한대인 <code class="docutils literal notranslate"><span class="pre">np.inf</span></code>이 나온다. 0을 0으로 나누려고 시도하면 <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>이 나온다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
@@ -963,17 +984,20 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>배열 생성<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>NumPy는 몇가지 간단한 배열을 생성하는 명령을 제공한다.</p>
+<div class="section" id="id3">
+<h2>배열 생성<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>NumPy는 몇가지 단순한 배열을 생성하는 명령을 제공한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">zeros</span></code>, <code class="docutils literal notranslate"><span class="pre">ones</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">zeros_like</span></code>, <code class="docutils literal notranslate"><span class="pre">ones_like</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">empty</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">arange</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">linspace</span></code>, <code class="docutils literal notranslate"><span class="pre">logspace</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rand</span></code>, <code class="docutils literal notranslate"><span class="pre">randn</span></code></p></li>
 </ul>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">zeros</span></code></p>
+</div>
 <p>크기가 정해져 있고 모든 값이 0인 배열을 생성하려면 <code class="docutils literal notranslate"><span class="pre">zeros</span></code> 명령을 사용한다. 인수로는 배열을 크기를 뜻하는 정수를 넣는다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1050,6 +1074,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">ones</span></code></p>
+</div>
 <p>0이 아닌 1로 초기화된 배열을 생성하려면 <code class="docutils literal notranslate"><span class="pre">ones</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1070,6 +1098,14 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">zeros_like</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">ones_like</span></code></p>
+</div>
 <p>만약 크기를 튜플로 명시하지 않고 다른 배열과 같은 크기의 배열을 생성하고 싶다면 <code class="docutils literal notranslate"><span class="pre">ones_like</span></code>, <code class="docutils literal notranslate"><span class="pre">zeros_like</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1084,6 +1120,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">empty</span></code></p>
 </div>
 <p>배열의 크기가 커지면 배열을 초기화하는데도 시간이 걸린다. 이 시간을 단축하려면 배열을 생성만 하고 특정한 값으로 초기화를 하지 않는 <code class="docutils literal notranslate"><span class="pre">empty</span></code> 명령을 사용할 수 있다. <code class="docutils literal notranslate"><span class="pre">empty</span></code> 명령으로 생성된 배열에는 기존에 메모리에 저장되어 있던 값이 있으므로 배열의 원소의 값을 미리 알 수 없다.</p>
 <div class="cell docutils container">
@@ -1101,6 +1141,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">arange</span></code></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">arange</span></code> 명령은 NumPy 버전의 <code class="docutils literal notranslate"><span class="pre">range</span></code> 명령이라고 볼 수 있다. 특정한 규칙에 따라 증가하는 수열을 만든다.</p>
 <div class="cell docutils container">
@@ -1126,6 +1170,14 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">linspace</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">logspace</span></code></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">linspace</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">logspace</span></code> 명령은 선형 구간 혹은 로그 구간을 지정한 구간의 수만큼 분할한다.</p>
 <div class="cell docutils container">
@@ -1154,8 +1206,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>전치 연산<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>전치 연산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">T</span></code></p>
+</div>
 <p>2차원 배열의 전치(transpose) 연산은 행과 열을 바꾸는 작업이다. 이는 배열의 <code class="docutils literal notranslate"><span class="pre">T</span></code> 속성으로 구할 수 있다. 메서드가 아닌 속성이라는 점에 유의 한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1186,8 +1242,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>배열의 크기 변형<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>배열의 크기 변형<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">reshape</span></code></p>
+</div>
 <p>일단 만들어진 배열의 내부 데이터는 보존한 채로 형태만 바꾸려면 <code class="docutils literal notranslate"><span class="pre">reshape</span></code> 명령이나 메서드를 사용한다. 예를 들어 12개의 원소를 가진 1차원 행렬은 3x4 형태의 2차원 행렬로 만들 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1266,7 +1326,15 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>다차원 배열을 무조건 1차원으로 펼치기 위해서는 <code class="docutils literal notranslate"><span class="pre">flatten</span></code> 나 <code class="docutils literal notranslate"><span class="pre">ravel</span></code> 메서드를 사용한다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">flatten</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">ravel</span></code></p>
+</div>
+<p>다차원 배열을 무조건 1차원으로 만들기 위해서는 <code class="docutils literal notranslate"><span class="pre">flatten</span></code> 나 <code class="docutils literal notranslate"><span class="pre">ravel</span></code> 메서드를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
@@ -1333,6 +1401,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">newaxis</span></code></p>
+</div>
 <p>이렇게 같은 배열에 대해 차원만 1차원 증가시키는 경우에는 <code class="docutils literal notranslate"><span class="pre">newaxis</span></code> 명령을 사용하기도 한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1351,8 +1423,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>배열 연결<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>배열 연결<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>행의 수나 열의 수가 같은 두 개 이상의 배열을 연결하여(concatenate) 더 큰 배열을 만들 때는 다음과 같은 명령을 사용한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">hstack</span></code></p></li>
@@ -1645,8 +1717,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id6">
-<h3>연습 문제 1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>연습 문제 1<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>지금까지 공부한 명령어를 사용하여 다음과 같은 배열을 만들어라.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[</span>   <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span>    <span class="mf">1.</span><span class="p">,</span>    <span class="mf">1.</span><span class="p">],</span>
        <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span>    <span class="mf">0.</span><span class="p">,</span>    <span class="mf">1.</span><span class="p">,</span>    <span class="mf">1.</span><span class="p">],</span>
@@ -1663,8 +1735,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>2차원 그리드 포인트 생성<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>2차원 그리드 포인트 생성<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>변수가 2개인 2차원 함수의 그래프를 그리거나 표를 작성하려면 2차원 영역에 대한 (x,y) 좌표값 쌍 즉, 그리드 포인트(grid point)를 생성하여 각 좌표에 대한 함수 값을 계산해야 한다. 예를 들어 x, y 라는 두 변수를 가진 함수에서 x가 0부터 2까지, y가 0부터 4까지의 사각형 영역에서 변화하는 과정을 보고 싶다면 이 사각형 영역 안의 다음과 같은 그리드 포인트들에 대해 함수를 계산해야 한다.</p>
 <div class="math notranslate nohighlight">
 \[ (x,y) = (0,0), (0,1), (0,2), (0,3), (0,4), (1,0), \cdots (2,4) \]</div>
@@ -1759,7 +1831,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03.02 배열의 생성과 변형_99_0.png" src="../_images/03.02 배열의 생성과 변형_99_0.png" />
+<img alt="../_images/03.02 배열의 생성과 변형_114_0.png" src="../_images/03.02 배열의 생성과 변형_114_0.png" />
 </div>
 </div>
 </div>

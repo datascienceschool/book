@@ -94,7 +94,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="파이썬 패키지 사용하기" href="02.13 파이썬 패키지 사용하기.html" />
-    <link rel="prev" title="파이썬에서 딕셔너리 자료형 다루기" href="02.11 파이썬에서 딕셔너리 자료형 다루기.html" />
+    <link rel="prev" title="2.11 파이썬에서 딕셔너리 자료형 다루기" href="02.11 파이썬에서 딕셔너리 자료형 다루기.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -202,12 +202,12 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.10 리스트와 반복문을 사용하여 계산하기.html">
-     리스트와 반복문을 사용하여 계산하기
+     2.10 리스트와 반복문을 사용하여 계산하기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.11 파이썬에서 딕셔너리 자료형 다루기.html">
-     파이썬에서 딕셔너리 자료형 다루기
+     2.11 파이썬에서 딕셔너리 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -800,31 +800,19 @@ commentsRunWhenDOMLoaded(addUtterances);
   <a class="reference internal nav-link" href="#id4">
    생성자
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     연습 문제 2.12.1
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     연습 문제 2.12.2
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
+  <a class="reference internal nav-link" href="#id5">
    게임 캐릭터와 객체
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
+  <a class="reference internal nav-link" href="#id6">
    클래스 상속
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
+  <a class="reference internal nav-link" href="#id7">
    메서드 오버라이딩
   </a>
  </li>
@@ -832,35 +820,11 @@ commentsRunWhenDOMLoaded(addUtterances);
   <a class="reference internal nav-link" href="#overloading">
    참조: 오버로딩 Overloading
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
-     연습 문제 2.12.3
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
-     연습 문제 2.12.4
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
-     연습 문제 2.12.5
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id13">
+  <a class="reference internal nav-link" href="#id8">
    특수 메서드
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     연습 문제 2.12.6
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -1042,18 +1006,26 @@ commentsRunWhenDOMLoaded(addUtterances);
 
 </pre></div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>생성자(constructor)</p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">__init__</span></code></p>
+</div>
 <p>이때 속성값 인수는 필요하지 않다면 없어도 된다. 여기에서 <code class="docutils literal notranslate"><span class="pre">class</span></code> 블럭 안에 정의된 <code class="docutils literal notranslate"><span class="pre">__init__</span></code>란 함수는 생성자(constructor)라고 하며 클래스 정의에서 가장 중요한 함수이다.</p>
 <p>객체를 생성할 때는 <code class="docutils literal notranslate"><span class="pre">클래스이름</span></code>을 함수처럼 호출해야 하는데, 이때 실제로는 __init__로 정의된 생성자 함수가 호출된다. 생성자 함수 내부에서는 생성자를 호출할 때 넣은 입력 변수, 즉 인자의 값을 속성값으로 저장한다.</p>
-<div class="section" id="id5">
-<h3>연습 문제 2.12.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.12.1</p>
 <p>삼각형의 넓이를 계산하기 위한 클래스를 만든다. 이 클래스는 다음과 같은 속성을 가진다.</p>
 <ul class="simple">
 <li><p>밑변의 길이 <code class="docutils literal notranslate"><span class="pre">b</span></code> 와 높이 <code class="docutils literal notranslate"><span class="pre">h</span></code></p></li>
 <li><p>삼각형의 넓이를 계산하는 메서드 <code class="docutils literal notranslate"><span class="pre">area</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>연습 문제 2.12.2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.12.2</p>
 <p>사각 기둥의 부피를 계산하기 위한 클래스를 만든다. 이 클래스는 다음과 같은 속성을 가진다.</p>
 <ul class="simple">
 <li><p>밑면의 가로 길이 <code class="docutils literal notranslate"><span class="pre">a</span></code>, 밑면의 세로 길이 <code class="docutils literal notranslate"><span class="pre">b</span></code>, 높이 <code class="docutils literal notranslate"><span class="pre">h</span></code></p></li>
@@ -1062,8 +1034,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ul>
 </div>
 </div>
-<div class="section" id="id7">
-<h2>게임 캐릭터와 객체<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>게임 캐릭터와 객체<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>이번에는 컴퓨터 게임의 캐릭터를 만드는 예제를 통해 클래스 상속(Inheritance)의 개념을 공부한다. 컴퓨터 게임에 사용되는 플레이어의 캐릭터는 객체지향 프로그램을 통해 만든다고 생각해 보자. 캐릭터의 능력치, 경험치 등의 숫자는 캐릭터마다 다르게 관리되어야 하므로 객체의 속성이 될 수 있다. 또한 모든 캐릭터 조작에 공통적으로 필요한 이동, 공격 등의 조작은 메서드로 구현할 수 있을 것이다.</p>
 <ul class="simple">
 <li><p>플레이어의 캐릭터</p></li>
@@ -1166,10 +1138,14 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>클래스 상속<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>클래스 상속<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>상속</p>
+</div>
 <p>이제 클래스 상속(class inheritance)이라는 개념을 생각한다. 앞에서 만들어 본 클래스는 모든 캐릭터에 공통적인 life 속성만을 가지고 있었다. 하지만 만약 전사(Warrior), 마법사(Wizard) 등 다양한 직업을 가진 캐릭터가 있고, 각 캐릭터는 서로 다른 초기 속성값을 가지고 태어난다면 어떻게 프로그램해야 할까?</p>
-<p>각각의 직업 캐릭터를 별도의 클래스로 만들어도 되겠지만, 클래스 상속을 사용하면 이미 만들어진 클래스 코드를 재사용하여 다른 클래스를 생성할 수 있다. 즉, 상속 과정에서 공통으로 사용하는 속성이나 메서드는 두 번 반복해서 코딩할 필요가 없다. 이때 상속을 받는 클래스를 <strong>자식 클래스(child class)</strong>, 상속의 대상이 되는 클래스를 **부모 클래스(parent class)**라고 한다.</p>
+<p>각각의 직업 캐릭터를 별도의 클래스로 만들어도 되겠지만, 클래스 상속을 사용하면 이미 만들어진 클래스 코드를 재사용하여 다른 클래스를 생성할 수 있다. 즉, 상속 과정에서 공통으로 사용하는 속성이나 메서드는 두 번 반복해서 코딩할 필요가 없다. 이때 상속을 받는 클래스를 자식 클래스(child class), 상속의 대상이 되는 클래스를 부모 클래스(parent class)라고 한다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Character</span></code> 부모 클래스에서 상속을 통해 <code class="docutils literal notranslate"><span class="pre">Warrior</span></code> 라는 자식 클래스와  <code class="docutils literal notranslate"><span class="pre">Wizard</span></code> 라는 자식 클래스를 만든다 상속을 위한 파이썬 문법은 다음과 같다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">자식클래스이름</span><span class="p">(</span><span class="n">부모클래스이름</span><span class="p">):</span>
 
@@ -1179,6 +1155,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 <p>사실 우리가 지금까지 쓰던 클래스 정의를 살펴보면 <code class="docutils literal notranslate"><span class="pre">object</span></code>라는 부모 클래스에서 상속받는 것이었다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">super</span></code></p>
+</div>
 <p>이 코드에서 <code class="docutils literal notranslate"><span class="pre">super(자식클래스이름,</span> <span class="pre">self).__init()__</span></code> 부분은 부모 클래스의 초기화 생성자를 호출하는 부분이다. 예를 들어 <code class="docutils literal notranslate"><span class="pre">Warrior</span></code> 라는 클래스에서 부모 클래스인 <code class="docutils literal notranslate"><span class="pre">Character</span></code> 클래스의 생성자를 호출하면 life라는 속성값을 초기화하므로 자식 클래스에서는 이 속성값을 초기화해줄 필요가 없다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1274,8 +1254,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>메서드 오버라이딩<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>메서드 오버라이딩<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>오버라이딩(overriding)</p>
+</div>
 <p>메서드 오버라이딩(Method Overriding)이란, 여러 클래스에 걸쳐서 같은 이름의 메서드를 만드는 것이다. 예를 들어 부모 클래스, 전사 캐릭터 클래스, 마법사 캐릭터 클래스에 공통으로 attack이라는 메서드가 있지만, 각각 하는 일이 다를 때는 다음처럼 같은 이름의 메서드를 클래스별로 구현하면 된다. 이렇게 되면 부모 클래스에서 만든 메서드 정의를 자식 클래스에서는 변경해서 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1398,18 +1382,22 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="overloading">
 <h2>참조: 오버로딩 Overloading<a class="headerlink" href="#overloading" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>오버로딩(overloading)</p>
+</div>
 <p>이와 비슷한 이름으로 오버로딩(Overloading)이라는 것이 있는데 이는 전혀 다른 개념이다. 오버로딩은 같은 메서드가 인수의 자료형이나 개수를 다르게 받을 수 있는 것을 말한다. C++, Java 등에서는 지원하지만, 파이썬에서는 오버로딩을 지원하지 않으므로 프로그래머가 내부적으로 알아서 처리해야 한다</p>
 <p>다음은 C++에서 오버로딩을 지원하는 함수 선언의 예이다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">length</span><span class="p">(</span><span class="nb">list</span> <span class="n">p1</span><span class="p">,</span> <span class="nb">list</span> <span class="n">p2</span><span class="p">);</span>                  <span class="o">//</span> <span class="n">점</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="n">까지의</span> <span class="n">길이</span>
 <span class="nb">float</span> <span class="n">length</span><span class="p">(</span><span class="nb">int</span> <span class="n">x1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">x2</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y2</span><span class="p">);</span>    <span class="o">//</span> <span class="n">점</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="n">까지의</span> <span class="n">길이</span>
 </pre></div>
 </div>
-<div class="section" id="id10">
-<h3>연습 문제 2.12.3<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.12.3</p>
 <p>게임 캐릭터 코드에서 <code class="docutils literal notranslate"><span class="pre">attacked</span></code> 메서드도 오버라이딩을 하여 전사와 마법사가 공격을 받을 때 life 속성값이 다르게 감소하도록 한다.</p>
 </div>
-<div class="section" id="id11">
-<h3>연습 문제 2.12.4<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.12.4</p>
 <p>다음과 같이 자동차를 나타내는 <code class="docutils literal notranslate"><span class="pre">Car</span></code> 클래스를 구현한다.</p>
 <ul class="simple">
 <li><p>이 클래스는 최고 속도를 의미하는 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code>라는 속성과 현재 속도를 나타내는 <code class="docutils literal notranslate"><span class="pre">speed</span></code>라는 속성을 가진다.</p></li>
@@ -1420,8 +1408,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li><p>위 기능이 모두 정상적으로 구현되었음을 보이는 코드를 추가한다.</p></li>
 </ul>
 </div>
-<div class="section" id="id12">
-<h3>연습 문제 2.12.5<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.12.5</p>
 <p><code class="docutils literal notranslate"><span class="pre">Car</span></code> 클래스를 기반으로 <code class="docutils literal notranslate"><span class="pre">SportCar</span></code>와 <code class="docutils literal notranslate"><span class="pre">Truck</span></code>이라는 두 개의 자식 클래스를 구현한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">SportCar</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">max_speed</span></code> 속성이 200 이고 <code class="docutils literal notranslate"><span class="pre">speed_up</span></code>, <code class="docutils literal notranslate"><span class="pre">speed_down</span></code> 호출시 속도가 45씩 증가 혹은 감소한다.</p></li>
@@ -1432,10 +1420,22 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ul>
 </div>
 </div>
-<div class="section" id="id13">
-<h2>특수 메서드<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>특수 메서드<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>특수 메서드(special method)</p>
+</div>
 <p>파이썬에는 특수 메서드(Special Methods)라는 것이 존재한다. 메서드 이름의 앞과 뒤에 두 개의 밑줄(underscore)이 붙어있는 메서드이다.
 이 메서드들은 특수한 용도에 사용하는 것이다</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">__repr__</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">__str__</span></code></p>
+</div>
 <p>예를 들어 파이선 셸에서 변수 이름을 입력하고 <Enter> 키(주피터 노트북에서는 <Shift> + <Enter>)를 누르면 변수의 값이 호출되는데, 사실 이것은 해당 변수가 가지는 <code class="docutils literal notranslate"><span class="pre">__repr__</span></code>이라는 메서드가 호출되는 것이다. <code class="docutils literal notranslate"><span class="pre">repr</span></code>은 representation의 약자이다. 또 변수를 <code class="docutils literal notranslate"><span class="pre">str</span></code>이라는 함수에 넣으면 변수를 문자열로 변환해 주는데, 이것도 사실은 <code class="docutils literal notranslate"><span class="pre">__str__</span></code>이라는 메서드가 호출되는 것이다.</p>
 <p>예를 들어 다음과 같이 복소수에 대한 클래스인 <code class="docutils literal notranslate"><span class="pre">Complex</span></code> 클래스를 만든다. <code class="docutils literal notranslate"><span class="pre">r</span></code>이라는 속성에 실수부를, <code class="docutils literal notranslate"><span class="pre">i</span></code>이라는 속성에 실수부를 넣는다.</p>
 <div class="cell docutils container">
@@ -1514,7 +1514,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> 메서드를 정의하면 마치 리스트나 사전처럼 <code class="docutils literal notranslate"><span class="pre">[]</span></code> 기호를 사용한 인덱싱을 할 수 있다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">__getitem__</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> 스페셜 메서드를 정의하면 마치 리스트나 사전처럼 <code class="docutils literal notranslate"><span class="pre">[]</span></code> 기호를 사용한 인덱싱을 할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Complex3</span><span class="p">(</span><span class="n">Complex2</span><span class="p">):</span>
@@ -1553,8 +1557,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id14">
-<h3>연습 문제 2.12.6<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.12.6</p>
 <p>학생의 학번, 이름, 수학 성적, 영어 성적을 저장할 수 있는 클래스를 만들고 평균 성적을 출력하는 메서드를 추가한다.
 주피터 노트북 셸에서 이 클래스 객체의 이름을 입력하면 바로 이름과 학번이 나와야 하고 <code class="docutils literal notranslate"><span class="pre">str</span></code> 명령을 수행하면 이름을 반환한다. 또한, 다음과 같이 수학과 영어 성적을 읽을 수 있어야 한다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span><span class="p">[</span><span class="s2">&quot;math&quot;</span><span class="p">],</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;english&quot;</span><span class="p">]</span>
@@ -1592,7 +1596,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="02.11 파이썬에서 딕셔너리 자료형 다루기.html" title="previous page">파이썬에서 딕셔너리 자료형 다루기</a>
+    <a class='left-prev' id="prev-link" href="02.11 파이썬에서 딕셔너리 자료형 다루기.html" title="previous page">2.11 파이썬에서 딕셔너리 자료형 다루기</a>
     <a class='right-next' id="next-link" href="02.13 파이썬 패키지 사용하기.html" title="next page">파이썬 패키지 사용하기</a>
 
     </div>

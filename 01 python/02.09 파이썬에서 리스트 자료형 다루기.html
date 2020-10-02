@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>파이썬에서 리스트 자료형 다루기 &#8212; 데이터 사이언스 스쿨</title>
+    <title>2.9 파이썬에서 리스트 자료형 다루기 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -197,7 +197,7 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     파이썬에서 리스트 자료형 다루기
+     2.9 파이썬에서 리스트 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
@@ -818,15 +818,8 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id8">
-   역 인덱싱
+   역 인덱싱(음수 인덱싱)
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     연습 문제 1
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -840,9 +833,13 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>파이썬에서 리스트 자료형 다루기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>2.9 파이썬에서 리스트 자료형 다루기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>자료의 개수<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">len</span></code></p>
+</div>
 <p>리스트 변수에 자료가 몇 개 들어가 있는지 알기 위해서는 <code class="docutils literal notranslate"><span class="pre">len</span></code>이라는 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -870,7 +867,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">range</span></code></p>
 </div>
-<p>0부터 n-1까지 1씩 증가하는 n개의 숫자를 가지는 수열 리스트는 <code class="docutils literal notranslate"><span class="pre">range</span></code> 명령으로 생성한다. 파이썬2에서는 <code class="docutils literal notranslate"><span class="pre">range</span></code> 명령만 쓰면 되지만 파이썬3에서는 <code class="docutils literal notranslate"><span class="pre">range</span></code> 명령으로 만들어진 값을 <code class="docutils literal notranslate"><span class="pre">list</span></code> 명령을 사용하여 명시적으로 리스트로 바꾸어야 한다.</p>
+<p>0부터 n-1까지 1씩 증가하는 n개의 숫자를 가지는 수열 리스트는 <code class="docutils literal notranslate"><span class="pre">range</span></code> 명령으로 생성한다. 파이썬 버전 2에서는 <code class="docutils literal notranslate"><span class="pre">range</span></code> 명령만 쓰면 되지만 파이썬 버전 3에서는 <code class="docutils literal notranslate"><span class="pre">range</span></code> 명령으로 만들어진 값을 <code class="docutils literal notranslate"><span class="pre">list</span></code> 명령을 사용하여 명시적으로 리스트로 바꾸어야 한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
@@ -915,7 +912,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id4">
 <h2>값을 바꾸기<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>특정한 원소의 값을 다른 값으로 바꾸는 것을 **갱신(update)**이라고 한다. 리스트에서 특정 원소의 값을 갱신하려면 다음과 같이 인덱싱한 값에 새로운 값을 대입하면 된다.</p>
+<p>특정한 원소의 값을 다른 값으로 바꾸는 것을 갱신(update)이라고 한다. 리스트에서 특정 원소의 값을 갱신하려면 다음과 같이 인덱싱한 값에 새로운 값을 대입하면 된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
@@ -932,7 +929,15 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id5">
 <h2>자료 추가하기<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>리스트 변수의 마지막에 자료를 더 추가하려면 다음과 같이 <code class="docutils literal notranslate"><span class="pre">append</span></code> 메서드를 사용한다. 이 때 <strong>메서드</strong>란 변수 다음에 점(.)을 찍고 쓰는 명령을 말한다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">append</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>메서드(method)</p>
+</div>
+<p>리스트 변수의 마지막에 자료를 더 추가하려면 다음과 같이 <code class="docutils literal notranslate"><span class="pre">append</span></code> 메서드를 사용한다. 이 때 메서드(method)란 변수 다음에 점(.)을 찍고 쓰는 명령을 말한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
@@ -975,6 +980,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id6">
 <h2>자료 삭제하기<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">del</span></code></p>
+</div>
 <p>리스트에서 자료를 하나 삭제하려면 다음과 같이 <code class="docutils literal notranslate"><span class="pre">del</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1042,7 +1051,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id7">
 <h2>슬라이싱<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<p>리스트에서 자료를 하나만 가져오는 것이 아니라 특정 범위의 자료를 모두 가져오고 싶다면 **슬라이싱(slicing)**이라는 방법을 사용한다. 슬라이싱은 콜론(:) 기호를 사용하여 리스트의 자료 범위를 나타내는 연산이다. 예를 들어 20개의 숫자가 있는 리스트에서 앞의 5개만 가져오고 싶으면 다음과 같이 입력한다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>슬라이싱(slicing)</p>
+</div>
+<p>리스트에서 자료를 하나만 가져오는 것이 아니라 특정 범위의 자료를 모두 가져오고 싶다면 슬라이싱(slicing)이라는 방법을 사용한다. 슬라이싱은 콜론(:) 기호를 사용하여 리스트의 자료 범위를 나타내는 연산이다. 예를 들어 20개의 숫자가 있는 리스트에서 앞의 5개만 가져오고 싶으면 다음과 같이 입력한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
@@ -1096,7 +1109,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="section" id="id8">
-<h2>역 인덱싱<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>역 인덱싱(음수 인덱싱)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>음수 인덱스를 사용하면 뒤에서부터 원소를 가리키게 된다. 이때 가장 뒤의 원소는 0이 아니라 -1 이라는 인덱스를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1147,8 +1160,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h3>연습 문제 1<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 1</p>
 <ol class="simple">
 <li><p>리스트에는 숫자 뿐 아니라 문자 등 어떤 값도 넣을 수 있다. 10명으로 이루어진 반의 학생 이름을 생각하여 리스트 변수로 만들어 본다.</p></li>
 <li><p>전학생이 왔다고 가정하여 리스트에 이름을 추가한다.</p></li>

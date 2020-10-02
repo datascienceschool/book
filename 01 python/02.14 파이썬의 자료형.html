@@ -803,7 +803,7 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   불변형 자료형와 변형 자료형
+   불변형 자료형과 변형 자료형
   </a>
  </li>
 </ul>
@@ -1117,7 +1117,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p>클래스 이름앞의 <code class="docutils literal notranslate"><span class="pre">__main__</span></code>은 클래스가 정의된 모듈(module) 즉 파일의 이름이다. REPL 환경에서 입력하는 코드는 <code class="docutils literal notranslate"><span class="pre">__main__</span></code> 으로 가정한다.</p>
 </div>
 <div class="section" id="id5">
-<h2>불변형 자료형와 변형 자료형<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>불변형 자료형과 변형 자료형<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>불변형(immutable) 자료형</p>
@@ -1203,6 +1203,63 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/02.14 파이썬의 자료형_50_0.png" src="../_images/02.14 파이썬의 자료형_50_0.png" />
+</div>
+</div>
+<p>이번에는 리스트 즉, 변형 자료형의 경우를 살펴보자. 다음과 같이 실행하면 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>는 리스트 변형 자료형을 가리키고 리슽 변형 자료형의 첫번째 원소는 불변형 자료형인 정수 1을 가리킨다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1670523444480
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140709685770016
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">tikz</span> -p kotex,pgfplots -l arrows.meta,calc -s 2000,1200 -f png
+
+\coordinate (leftbottom) at (-2,-2.5);
+\coordinate (righttop) at (10,1.5);
+\fill[white,use as bounding box] (leftbottom) rectangle (righttop);
+\draw[help lines, white] (leftbottom) grid (righttop);
+
+\node at (0, 1) {이름공간};
+\node at (3, 1) {메모리};
+\node[draw] at (0,0) (x) {x};
+\node[draw] at (3, 0) (list) {};
+\node[draw] at (8, 0) (1) {1};
+\draw[-&gt;] (x) -- (list);
+\draw[-&gt;] (list) -- (1);
+\node at(3, 0.5) {주소: 1670523444480};
+\node at(8, 0.5) {주소: 140709685770016};
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.14 파이썬의 자료형_55_0.png" src="../_images/02.14 파이썬의 자료형_55_0.png" />
 </div>
 </div>
 </div>

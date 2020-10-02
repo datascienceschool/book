@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>파이썬 패키지 사용하기 &#8212; 데이터 사이언스 스쿨</title>
+    <title>2.13 파이썬 패키지 사용하기 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -94,7 +94,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="파이썬의 자료형" href="02.14 파이썬의 자료형.html" />
-    <link rel="prev" title="파이썬 객체지향 프로그래밍" href="02.12 파이썬 객체지향 프로그래밍.html" />
+    <link rel="prev" title="2.12 파이썬 객체지향 프로그래밍" href="02.12 파이썬 객체지향 프로그래밍.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -192,32 +192,32 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.08 여러 개의 자료를 한 변수에 담기.html">
-     여러 개의 자료를 한 변수에 담기
+     2.8 여러 개의 자료를 한 변수에 담기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.09 파이썬에서 리스트 자료형 다루기.html">
-     파이썬에서 리스트 자료형 다루기
+     2.9 파이썬에서 리스트 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.10 리스트와 반복문을 사용하여 계산하기.html">
-     리스트와 반복문을 사용하여 계산하기
+     2.10 리스트와 반복문을 사용하여 계산하기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.11 파이썬에서 딕셔너리 자료형 다루기.html">
-     파이썬에서 딕셔너리 자료형 다루기
+     2.11 파이썬에서 딕셔너리 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.12 파이썬 객체지향 프로그래밍.html">
-     파이썬 객체지향 프로그래밍
+     2.12 파이썬 객체지향 프로그래밍
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     파이썬 패키지 사용하기
+     2.13 파이썬 패키지 사용하기
     </a>
    </li>
    <li class="toctree-l2">
@@ -818,19 +818,23 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>파이썬 패키지 사용하기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>2.13 파이썬 패키지 사용하기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>패키지 임포트<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>임포트(import)</p>
+</div>
 <p>패키지가 설치되어 있다고 바로 파이썬에서 사용할 수 있는 것은 아니다. 패키지를 사용하려면 해당 패키지를 파이썬에서 사용할 수 있도록 설정하는 명령을 실행해야 한다. 파이썬에서 패키지를 사용하도록 설정하는 것을 패키지 임포트(import)라고 한다.
 패키지를 임포트하려면 다음 명령을 실행한다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">패키지이름</span>
 </pre></div>
 </div>
-<p>또는</p>
+<p>이 때 주의할 점은 임포트할 때 사용하는 패키지 이름은 일반적으로 부르는 패키지 이름과 다를 수 있다. 예를 들어 Scikit-Learn 패키지는 <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>이라는 이름으로 임포트해야 한다.</p>
+<p>패키지 이름은 추후 패키지 안의 함수들을 사용할 때 계속 쓰인다. 그래서 패키지 이름이 너무 길면 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">~</span> <span class="pre">as</span> <span class="pre">~</span></code> 명령을 사용하여 짧은 패키지 별명을 사용할 수도 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">패키지이름</span> <span class="k">as</span> <span class="nn">패키지별명</span>
 </pre></div>
 </div>
-<p>이 때 주의할 점은 임포트할 때 사용하는 패키지 이름은 일반적으로 부르는 패키지 이름과 다를 수 있다. 예를 들어 Scikit-Learn 패키지는 <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>이라는 이름으로 임포트해야 한다. 패키지 이름은 추후 패키지 안의 함수들을 사용할 때 계속 쓰인다. 그래서 패키지 이름이 너무 길면 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">~</span> <span class="pre">as</span> <span class="pre">~</span></code> 명령을 사용하여 짧은 패키지 별명을 사용할 수도 있다.</p>
 <p>예를 들어 Scikit-Learn 은 보통 <code class="docutils literal notranslate"><span class="pre">sk</span></code>라는 별명으로 임포트한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -842,6 +846,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id3">
 <h2>패키지 내용 살펴보기<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">dir</span></code></p>
+</div>
 <p>임포트된 패키지 안의 내용을 살펴보려면 다음 명령을 사용한다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">패키지이름</span> <span class="n">또는</span> <span class="n">패키지별명</span><span class="p">)</span>
 </pre></div>
@@ -965,6 +973,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id5">
 <h2>선택적 임포트<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>선택적 임포트</p>
+</div>
 <p>패키지를 임포트할 때 다음과 같이 특정한 명령어들만 선택적으로 임포트할 수도 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">패키지이름</span> <span class="kn">import</span> <span class="n">명령어</span>
 </pre></div>
@@ -986,6 +998,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>와일드 임포트</p>
 </div>
 <p>패키지 안의 모든 명령을 선택적 임포트할 때는 명령어 이름 대신 * 기호를 사용하는데 이를 와일드 임포트(wild import)라고 한다. 와일드 임포트할 때는 뜻하지 않게 기존의 변수나 함수를 덮어 쓸 때가 있을 수 있으므로 특별한 상황이 아니면 사용하지 말아야 한다.</p>
 <p>예를 들어 <code class="docutils literal notranslate"><span class="pre">f</span></code>라는 이름의 함수를 정의한 후에 SciPy 패키지를 와일드 임포트하면 F 분포를 나타내는 <code class="docutils literal notranslate"><span class="pre">f</span></code> 명령이 새롭게 임포트되면서 기존의 함수를 없애버릴 수 있다.</p>
@@ -1085,7 +1101,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="02.12 파이썬 객체지향 프로그래밍.html" title="previous page">파이썬 객체지향 프로그래밍</a>
+    <a class='left-prev' id="prev-link" href="02.12 파이썬 객체지향 프로그래밍.html" title="previous page">2.12 파이썬 객체지향 프로그래밍</a>
     <a class='right-next' id="next-link" href="02.14 파이썬의 자료형.html" title="next page">파이썬의 자료형</a>
 
     </div>

@@ -787,11 +787,6 @@ commentsRunWhenDOMLoaded(addUtterances);
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#zip">
-   zip 함수
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#enumerate">
    <code class="docutils literal notranslate">
     <span class="pre">
@@ -804,6 +799,11 @@ commentsRunWhenDOMLoaded(addUtterances);
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
    리스트의 리스트
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#zip">
+   zip 함수
   </a>
  </li>
 </ul>
@@ -949,57 +949,6 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="zip">
-<h2>zip 함수<a class="headerlink" href="#zip" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
-<p class="sidebar-title"></p>
-<p><code class="docutils literal notranslate"><span class="pre">zip</span></code></p>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">zip</span></code> 함수는 두 개의 리스트를 합쳐서 각 리스트 원소의 쌍을 원소로 가지는 하나의 리스트를 만든다. 파이썬 3에서는 명시적으로 <code class="docutils literal notranslate"><span class="pre">list</span></code> 명령을 사용해야 리스트가 된다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(90, 95),
- (85, 90),
- (95, 90),
- (80, 90),
- (90, 95),
- (100, 100),
- (85, 90),
- (75, 80),
- (85, 95),
- (80, 90)]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>튜플(tuple)</p>
-</div>
-<p>이 때 소괄호로 표시된 묶음은 튜플(tuple)이라고 하며 리스트와 사용법이 거의 동일하다. 따라서 두 학생의 성적 합을 구하는 코드는 다음과 같이 고칠 수 있다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
-<span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">95</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">a1i</span><span class="p">,</span> <span class="n">a2i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">):</span>
-    <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a1i</span> <span class="o">+</span> <span class="n">a2i</span><span class="p">)</span>
-<span class="n">s</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[185, 175, 185, 170, 185, 200, 175, 155, 180, 170]
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="section" id="enumerate">
 <h2><code class="docutils literal notranslate"><span class="pre">enumerate</span></code> 함수<a class="headerlink" href="#enumerate" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
@@ -1102,6 +1051,115 @@ i = 2, e = c
 <div class="math notranslate nohighlight">
 \[ \dfrac{(6 - 5)^2 + (5 - 5)^2 + (4 - 5)^2 + (7 - 5)^2 + (3 - 5)^2 + (5 - 5)^2}{6} \]</div>
 <p>이 자료의 분산을 구하는 코드를 작성한다.</p>
+</div>
+</div>
+<div class="section" id="zip">
+<h2>zip 함수<a class="headerlink" href="#zip" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">zip</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">zip</span></code> 함수는 두 개의 리스트를 합쳐서 각 리스트 원소의 쌍을 원소로 가지는 하나의 리스트를 만든다. 파이썬 3에서는 명시적으로 <code class="docutils literal notranslate"><span class="pre">list</span></code> 명령을 사용해야 리스트가 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a12</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">))</span>
+<span class="n">a12</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(90, 95),
+ (85, 90),
+ (95, 90),
+ (80, 90),
+ (90, 95),
+ (100, 100),
+ (85, 90),
+ (75, 80),
+ (85, 95),
+ (80, 90)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>튜플(tuple)</p>
+</div>
+<p>이 때 소괄호로 표시된 묶음은 튜플(tuple)이라고 하며 리스트와 사용법이 거의 동일하다. 따라서 모든 학생의 두 과목 성적 합산을 구하는 코드는 다음과 같이 고칠 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">95</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">a1i</span><span class="p">,</span> <span class="n">a2i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">):</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a1i</span> <span class="o">+</span> <span class="n">a2i</span><span class="p">)</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[185, 175, 185, 170, 185, 200, 175, 155, 180, 170]
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">zip</span></code> 함수를 사용할 때 리스트의 리스트 인수를 하나만 넣고 인수의 앞에 <code class="docutils literal notranslate"><span class="pre">*</span></code> 기호를 붙이면 리스트 쌍을 바꾼다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a12</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(90, 95),
+ (85, 90),
+ (95, 90),
+ (80, 90),
+ (90, 95),
+ (100, 100),
+ (85, 90),
+ (75, 80),
+ (85, 95),
+ (80, 90)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a21</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">a12</span><span class="p">))</span>
+<span class="n">a21</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(90, 85, 95, 80, 90, 100, 85, 75, 85, 80),
+ (95, 90, 90, 90, 95, 100, 90, 80, 95, 90)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">a21</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(90, 95),
+ (85, 90),
+ (95, 90),
+ (80, 90),
+ (90, 95),
+ (100, 100),
+ (85, 90),
+ (75, 80),
+ (85, 95),
+ (80, 90)]
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -192,12 +192,12 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.08 여러 개의 자료를 한 변수에 담기.html">
-     여러 개의 자료를 한 변수에 담기
+     2.8 여러 개의 자료를 한 변수에 담기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.09 파이썬에서 리스트 자료형 다루기.html">
-     파이썬에서 리스트 자료형 다루기
+     2.9 파이썬에서 리스트 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
@@ -936,6 +936,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id4">
 <h2>키 확인<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">in</span></code></p>
+</div>
 <p>딕셔너리 자료에 특정한 키가 있는지 없는지 알기 위해서는 <code class="docutils literal notranslate"><span class="pre">in</span></code> 명령을 사용한다. 만약 해당 키가 존재하면 <code class="docutils literal notranslate"><span class="pre">True</span></code>를, 존재하지 않으면 <code class="docutils literal notranslate"><span class="pre">False</span></code>를 반환한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -988,7 +992,11 @@ c
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">keys()</span></code> 메서드는 딕셔너리 자료의 키 목록을 리스트로 반환하므로 반복문에 이를 사용할 수도 있다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">keys</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">keys</span></code> 메서드는 딕셔너리 자료의 키 목록을 리스트로 반환하므로 반복문에 이를 사용할 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
@@ -1018,7 +1026,11 @@ c
 </div>
 <div class="section" id="id7">
 <h3>딕셔너리 자료형의 값 반복<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>딕셔너리 자료의 키를 반복하려면 딕셔너리 자료의 값 목록을 리스트로 반환하는 <code class="docutils literal notranslate"><span class="pre">values()</span></code> 메서드를 사용한다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">values</span></code></p>
+</div>
+<p>딕셔너리 자료의 키를 반복하려면 딕셔너리 자료의 값 목록을 리스트로 반환하는 <code class="docutils literal notranslate"><span class="pre">values</span></code> 메서드를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
@@ -1048,7 +1060,11 @@ c
 </div>
 <div class="section" id="id8">
 <h3>딕셔너리 자료형의 키와 값의 쌍 반복<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<p>딕셔너리 자료의 키와 값을 쌍으로 하여 반복하려면 <code class="docutils literal notranslate"><span class="pre">items()</span></code> 메서드를 사용한다. 이 때 <code class="docutils literal notranslate"><span class="pre">for</span></code> 다음의 임시 변수를 다음과 같이 두 개 지정해야 한다. 첫번째 임시 변수에는 키가, 두번째 임시 변수에는 값이 들어가게 된다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">items</span></code></p>
+</div>
+<p>딕셔너리 자료의 키와 값을 쌍으로 하여 반복하려면 <code class="docutils literal notranslate"><span class="pre">items</span></code> 메서드를 사용한다. 이 때 <code class="docutils literal notranslate"><span class="pre">for</span></code> 다음의 카운터 변수를 다음과 같이 두 개 지정해야 한다. 첫번째 카운터 변수에는 키가, 두번째 카운터 변수에는 값이 들어가게 된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1061,6 +1077,27 @@ c
 key [c] =&gt; value [40]
 </pre></div>
 </div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.11.1</p>
+<p>딕셔너리에 저장된 자료가 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;김철수&quot;</span><span class="p">:</span> <span class="mi">98</span><span class="p">,</span>
+    <span class="s2">&quot;이영희&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">&quot;박순이&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;최돌이&quot;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>for문을 사용하여 다음과 같이 출력하는 코드를 만들어라.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">김철수</span>        <span class="mi">98</span>
+<span class="n">이영희</span>        <span class="mi">80</span>
+<span class="n">박순이</span>       <span class="mi">100</span>
+<span class="n">최돌이</span>        <span class="mi">70</span>
+<span class="o">================</span>
+<span class="n">평균점</span>        <span class="mi">87</span>
+</pre></div>
 </div>
 </div>
 </div>

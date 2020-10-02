@@ -1023,7 +1023,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">randn</span></code></p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">randn</span></code> 함수는 기댓값이 0이고 표준편차가 1인 가우시안 표준 정규 분포를 따르는 난수를 생성한다. 인수 사용법은 <code class="docutils literal notranslate"><span class="pre">rand</span></code> 명령과 같다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">randn</span></code> 함수는 기댓값이 0이고 표준편차가 1인 표준 정규 분포(standard normal distribution)를 따르는 난수를 생성한다. 인수 사용법은 <code class="docutils literal notranslate"><span class="pre">rand</span></code> 명령과 같다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -1050,6 +1050,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">randint</span></code></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">randint</span></code> 함수는 다음과 같은 인수를 가진다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">numpy.random.randint(low,</span> <span class="pre">high=None,</span> <span class="pre">size=None)</span></code></p>
@@ -1092,12 +1096,28 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 3.5.1</p>
+<ol class="simple">
+<li><p>동전을 10번 던져 앞면(숫자 1)과 뒷면(숫자 0)이 나오는 가상 실험을 파이썬으로 작성한다.</p></li>
+<li><p>주사위를 100번 던져서 나오는 숫자의 평균을 구하라.</p></li>
+</ol>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 3.5.2</p>
+<p>가격이 10,000원인 주식이 있다. 이 주식의 일간 수익률(%)은 기댓값이 0%이고 표준편차가 1%인 표준 정규 분포를 따른다고 하자.
+250일 동안의 주가를 무작위로 생성하라</p>
+</div>
 </div>
 <div class="section" id="id6">
 <h2>정수 데이터 카운팅<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>이렇게 발생시킨 난수가 실수값이면 히스토그램 등을 사용하여 분석하면 된다. 히스토그램을 시각화 부분에서 나중에 자세히 설명한다.</p>
-<p>만약 난수가 정수값이면 <code class="docutils literal notranslate"><span class="pre">unique</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">bincount</span></code> 명령으로 데이터 값을 분석할 수 있다. 이 명령들은 random 서브패키지가 아니라 NumPy 바로 아래에 포함된 명령이다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">unique</span></code> 함수는 데이터에서 중복된 값을 제거하고 중복되지 않는 값의 리스트를 출력한다. <code class="docutils literal notranslate"><span class="pre">return_counts</span></code> 인수를 True 로 설정하면 각 값을 가진 데이터 갯수도 출력한다.</p>
+<p>만약 난수가 정수값이면 <code class="docutils literal notranslate"><span class="pre">unique</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">bincount</span></code> 명령으로 데이터 값을 분석할 수 있다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">unique</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">unique</span></code> 함수는 데이터에서 중복된 값을 제거하고 중복되지 않는 값의 리스트를 출력한다. <code class="docutils literal notranslate"><span class="pre">return_counts</span></code> 인수를 <code class="docutils literal notranslate"><span class="pre">True</span></code> 로 설정하면 각 값을 가진 데이터 갯수도 출력한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">34</span><span class="p">])</span>
@@ -1143,7 +1163,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <p>그러나 <code class="docutils literal notranslate"><span class="pre">unique</span></code> 함수는 데이터에 존재하는 값에 대해서만 갯수를 세므로 데이터 값이 나올 수 있음에도 불구하고 데이터가 하나도 없는 경우에는 정보를 주지 않는다. 예를 들어 주사위를 10번 던졌는데 6이 한 번도 나오지 않으면 이 값을 0으로 세어주지 않는다.</p>
-<p>따라서 데이터가 주사위를 던졌을 때 나오는 수처럼 특정 범위안의 수인 경우에는 <code class="docutils literal notranslate"><span class="pre">bincount</span></code>에 <code class="docutils literal notranslate"><span class="pre">minlength</span></code> 인수를 설정하여 쓰는 것이 더 편리하다. 이 때는 0 부터 <code class="docutils literal notranslate"><span class="pre">minlength</span></code> - 1 까지의 숫자에 대해 각각 카운트를 한다. 데이터가 없을 경우에는 카운트 값이 0이 된다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">bincount</span></code></p>
+</div>
+<p>따라서 데이터가 주사위를 던졌을 때 나오는 수처럼 특정 범위안의 수인 경우에는 <code class="docutils literal notranslate"><span class="pre">bincount</span></code> 함수에 <code class="docutils literal notranslate"><span class="pre">minlength</span></code> 인수를 설정하여 쓰는 것이 더 편리하다.  <code class="docutils literal notranslate"><span class="pre">bincount</span></code> 함수는 0 부터 <code class="docutils literal notranslate"><span class="pre">minlength</span></code> - 1 까지의 숫자에 대해 각각 카운트를 한다. 데이터가 없을 경우에는 카운트 값이 0이 된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>

@@ -786,6 +786,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id3">
 <h2>프로필 작성<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>프로필(profile)</p>
+</div>
 <p>아이파이썬 또는 주피터 관련 설정을 하려면 프로필(profile)이 필요하다. 프로필은 <code class="docutils literal notranslate"><span class="pre">.ipython</span></code> 설정 디렉터리 아래에 디렉터리 형태로 저장되는데 기본으로 만들어지는 프로필 디렉터리는 <code class="docutils literal notranslate"><span class="pre">profile_default</span></code>다.</p>
 <p>프로필 디렉터리는 다음 위치다.</p>
 <ul class="simple">
@@ -806,6 +810,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id5">
 <h2>스타트업 파일<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>스타트업 파일(startup file)</p>
+</div>
 <p>스타트업(startup) 파일은 아이파이썬과 주피터 노트북을 이용한 콘솔이 시작되기 전에 실행되는 파일이다. 스타트업 파일은 따로 정해진 이름이 있는 것이 아니라 프로필 디렉터리 아래의 startup 폴더 아래의 .py 확장자를 가진 모든 파이썬 스크립트가 스타트업 파일이며 파일 이름의 알파벳 순서로 실행된다.</p>
 <p>이 책에서는 매번 주피터 노트북을 실행할 때마다 반복해서 패키지 임포트 명령을 치지 않아도 되도록 자주 사용되는 패키지를 미리 임포트한다.</p>
 <p>스타트업 파일이 있는 디렉터리는 다음과 같다.</p>
@@ -841,6 +849,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="ipython-config-py">
 <h2><code class="docutils literal notranslate"><span class="pre">ipython_config.py</span></code> 설정 파일<a class="headerlink" href="#ipython-config-py" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>ipython_config.py 설정파일</p>
+</div>
 <p>일부 파이썬 명령은 하나의 스크립트 안에서만 실행되므로 스타트업 파일에 적어 놓아도 실제 아이파이썬 콘솔에는 적용되지 않는다. 예를 들어 <code class="docutils literal notranslate"><span class="pre">mpl.rc</span></code> 계열의 임포트 명령은 하나의 스크립트 안에서만 영향을 미친다. 이때는 <code class="docutils literal notranslate"><span class="pre">ipython_config.py</span></code> 설정 파일 안에서 <code class="docutils literal notranslate"><span class="pre">c.InteractiveShellApp.exec_lines</span></code> 설정 항목을 다음처럼 지정하면 된다. 이 항목은 파이썬이 시작한 직후 스스로 실행할 명령어로 이루어진  문자열 목록이다.</p>
 <p>다음은 저자가 사용하는 <code class="docutils literal notranslate"><span class="pre">ipython_config.py</span></code> 설정 파일의 예다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
@@ -909,7 +921,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>위에서 적용한 설정은 모두 아이파이썬, 주피터 노트북과 같은 상호작용 콘솔에서만 적용되고, 파이썬 인터프리터를 직접 실행하여 파이썬 스크립트를 가동하는 배치(batch) 실행에는 적용되지 않는다.</p>
+<p>위에서 적용한 설정은 모두 아이파이썬, 주피터 노트북과 같은 상호작용 콘솔에서만 적용되고, 파이썬 인터프리터를 직접 실행하여 파이썬 스크립트를 가동하는방식의 실행시에는 적용되지 않는다.</p>
 <p>이제부터 나오는 모든 파이썬 예제 코드는 스타트업 파일과 ipython_config.py 설정 파일이 앞에서 작성한 대로 설정되어 있다는 가정하에 작성한다. 따라서 각자 사용하는 파이썬 환경을 미리 설정 파일에 적용해두기 바란다.</p>
 <p>위 파일들은 다음 링크에서 다운로드받을 수도 있다.</p>
 <ul class="simple">

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>배열의 연산 &#8212; 데이터 사이언스 스쿨</title>
+    <title>3.3 배열의 연산 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/myfile-checkpoint.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -94,7 +95,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="기술 통계" href="03.04 기술 통계.html" />
-    <link rel="prev" title="배열의 생성과 변형" href="03.02 배열의 생성과 변형.html" />
+    <link rel="prev" title="3.2 배열의 생성과 변형" href="03.02 배열의 생성과 변형.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -167,12 +168,12 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="03.02 배열의 생성과 변형.html">
-     배열의 생성과 변형
+     3.2 배열의 생성과 변형
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     배열의 연산
+     3.3 배열의 연산
     </a>
    </li>
    <li class="toctree-l2">
@@ -782,27 +783,27 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>배열의 연산<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>3.3 배열의 연산<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>벡터화 연산<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>앞서 NumPy가 벡터화 연산(vectorized operation)을 지원한다고 이야기하였다. 벡터화 연산을 쓰면 명시적으로 반복문을 사용하지 않고도 배열의 모든 원소에 대해 반복연산을 할 수 있다. 벡터화 연산의 또다른 장점은 선형 대수 공식과 동일한 아주 간단한 파이썬 코드를 작성할 수 있다는 점이다.</p>
-<p>예를 들어 선형 대수에서 두 벡터의 합은 다음과 같이 구한다(선형 대수에 대한 보다 자세한 내용은 나중에 설명한다.)</p>
+<p>앞서 넘파이가 벡터화 연산(vectorized operation)을 지원한다고 이야기하였다. 벡터화 연산을 쓰면 명시적으로 반복문을 사용하지 않고도 배열의 모든 원소에 대해 반복연산을 할 수 있다. 벡터화 연산의 또다른 장점은 선형 대수 공식과 동일한 아주 간단한 파이썬 코드를 작성할 수 있다는 점이다.</p>
+<p>예를 들어 선형 대수에서 두 벡터의 합은 다음과 같이 구한다.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} 
 x = \begin{bmatrix}1 \\ 2 \\ 3 \\ \vdots \\ 10000 \end{bmatrix}, \;\;\;\;
 y = \begin{bmatrix}10001 \\ 10002 \\ 10003 \\ \vdots \\ 20000 \end{bmatrix},
 \end{split}\]</div>
-<p>일 때, 두 벡터의 합
-$<span class="math notranslate nohighlight">\( z = x + y \)</span><span class="math notranslate nohighlight">\(
-은 다음과 같이 구한다.
-\)</span>$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-681c56d0-78c2-4bed-9777-7ca061bd026f">
-<span class="eqno">(1)<a class="headerlink" href="#equation-681c56d0-78c2-4bed-9777-7ca061bd026f" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}1 \\ 2 \\ 3 \\ \vdots \\ 10000 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-ced6b170-8a4a-466d-87ee-7f38fba87754">
-<span class="eqno">(2)<a class="headerlink" href="#equation-ced6b170-8a4a-466d-87ee-7f38fba87754" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}10001 \\ 10002 \\ 10003 \\ \vdots \\ 20000 \end{bmatrix}\]</div>
-<p>= \begin{bmatrix}1+10001 \ 2+10002 \ 3+10003 \ \vdots \ 10000+20000 \end{bmatrix}
-= \begin{bmatrix}10002 \ 10004 \ 10006 \ \vdots \ 30000 \end{bmatrix}
-$$</p>
+<p>일 때, 두 벡터의 합</p>
+<div class="math notranslate nohighlight">
+\[ z = x + y \]</div>
+<p>은 다음과 같이 구한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}1 \\ 2 \\ 3 \\ \vdots \\ 10000 \end{bmatrix} + 
+\begin{bmatrix}10001 \\ 10002 \\ 10003 \\ \vdots \\ 20000 \end{bmatrix} 
+= \begin{bmatrix}1+10001 \\ 2+10002 \\ 3+10003 \\ \vdots \\ 10000+20000 \end{bmatrix}
+= \begin{bmatrix}10002 \\ 10004 \\ 10006 \\ \vdots \\ 30000 \end{bmatrix}
+\end{split}\]</div>
 <p>만약 벡터화 연산을 사용하지 않는다면 이 연산은 반복문을 사용하여 다음과 같이 만들어야 한다. 이 코드에서 <code class="docutils literal notranslate"><span class="pre">%%time</span></code>은 셀 코드의 실행시간을 측정하는 IPython 매직 명령이다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1636,7 +1637,7 @@ x + 1 = \begin{bmatrix}0 \\ 1 \\ 2 \\ 3 \\ 4 \end{bmatrix} + 1 = ?
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="03.02 배열의 생성과 변형.html" title="previous page">배열의 생성과 변형</a>
+    <a class='left-prev' id="prev-link" href="03.02 배열의 생성과 변형.html" title="previous page">3.2 배열의 생성과 변형</a>
     <a class='right-next' id="next-link" href="03.04 기술 통계.html" title="next page">기술 통계</a>
 
     </div>

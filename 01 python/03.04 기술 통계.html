@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/myfile-checkpoint.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -94,7 +95,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="난수 발생과 카운팅" href="03.05 난수 발생과 카운팅.html" />
-    <link rel="prev" title="배열의 연산" href="03.03 배열의 연산.html" />
+    <link rel="prev" title="3.3 배열의 연산" href="03.03 배열의 연산.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -167,12 +168,12 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="03.02 배열의 생성과 변형.html">
-     배열의 생성과 변형
+     3.2 배열의 생성과 변형
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="03.03 배열의 연산.html">
-     배열의 연산
+     3.3 배열의 연산
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -738,22 +739,22 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   샘플 평균
+   표본 평균
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   샘플 분산
+   표본 분산
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   샘플 표준편차
+   표본 표준편차
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
-   최대값과 최소값
+   최댓값과 최솟값
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -779,7 +780,11 @@ commentsRunWhenDOMLoaded(addUtterances);
                 
   <div class="section" id="id1">
 <h1>기술 통계<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>NumPy는 다음과 같은 데이터 집합에 대해 간단한 통계를 계산하는 함수를 제공한다. 이러한 값들을 통틀어 **기술 통계(descriptive statistics)**라고 한다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>기술 통계</p>
+</div>
+<p>넘파이는 다음과 같은 데이터 집합에 대해 간단한 통계를 계산하는 함수를 제공한다. 이러한 값들을 통틀어 기술 통계(descriptive statistics)라고 한다.</p>
 <ul class="simple">
 <li><p>데이터의 개수(count)</p></li>
 <li><p>평균(mean, average)</p></li>
@@ -799,7 +804,7 @@ x = \{
 \}
 \]</div>
 <p><span class="math notranslate nohighlight">\(x\)</span>를 이루는 숫자 하나하나를 수학 기호로는 <span class="math notranslate nohighlight">\(x_1, x_2, \cdots, x_N\)</span>처럼 표시한다. 위 예에서 <span class="math notranslate nohighlight">\(x_1 = 18\)</span>, <span class="math notranslate nohighlight">\(x_2 = 5\)</span>이다.</p>
-<p>NumPy에서는 이러한 데이터를 1차원 배열로 구현한다.</p>
+<p>넘파이에서는 이러한 데이터를 1차원 배열로 구현한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">18</span><span class="p">,</span>   <span class="mi">5</span><span class="p">,</span>  <span class="mi">10</span><span class="p">,</span>  <span class="mi">23</span><span class="p">,</span>  <span class="mi">19</span><span class="p">,</span>  <span class="o">-</span><span class="mi">8</span><span class="p">,</span>  <span class="mi">10</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">5</span><span class="p">,</span>   <span class="mi">2</span><span class="p">,</span>  <span class="mi">15</span><span class="p">,</span>   <span class="mi">8</span><span class="p">,</span>
@@ -825,8 +830,8 @@ x = \{
 </div>
 </div>
 <div class="section" id="id3">
-<h2>샘플 평균<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>평균을 통계용어로는 샘플 평균(sample average, sample mean)이라고 한다. <span class="math notranslate nohighlight">\(x\)</span> 데이터에 대한 샘플 평균은 <span class="math notranslate nohighlight">\(\bar{x}\)</span>라고 표시하며 다음과 같이 계산한다. 이 식에서 <span class="math notranslate nohighlight">\(N\)</span>은 데이터의 개수이다.</p>
+<h2>표본 평균<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>평균을 통계용어로는 표본 평균(sample average, sample mean)이라고 한다. <span class="math notranslate nohighlight">\(x\)</span> 데이터에 대한 표본 평균은 <span class="math notranslate nohighlight">\(\bar{x}\)</span>라고 표시하며 다음과 같이 계산한다. 이 식에서 <span class="math notranslate nohighlight">\(N\)</span>은 데이터의 개수이다.</p>
 <div class="math notranslate nohighlight">
 \[ \bar{x} = \dfrac{1}{N}\sum_{i=1}^N x_i \]</div>
 <div class="cell docutils container">
@@ -843,8 +848,8 @@ x = \{
 </div>
 </div>
 <div class="section" id="id4">
-<h2>샘플 분산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>샘플 분산(sample variance)은 데이터와 샘플 평균간의 거리의 제곱의 평균이다. 샘플 분산이 작으면 데이터가 모여있는 것이고 크면 흩어져 있는 것이다. 수학 기호로는 <span class="math notranslate nohighlight">\(s^2\)</span>이라고 표시하며 다음과 같이 계산한다.</p>
+<h2>표본 분산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>표본 분산(sample variance)은 데이터와 표본 평균간의 거리의 제곱의 평균이다. 표본 분산이 작으면 데이터가 모여있는 것이고 크면 흩어져 있는 것이다. 수학 기호로는 <span class="math notranslate nohighlight">\(s^2\)</span>이라고 표시하며 다음과 같이 계산한다.</p>
 <div class="math notranslate nohighlight">
 \[ s^2 = \dfrac{1}{N}\sum_{i=1}^N (x_i - \bar{x})^2 \]</div>
 <div class="cell docutils container">
@@ -873,8 +878,8 @@ x = \{
 </div>
 </div>
 <div class="section" id="id5">
-<h2>샘플 표준편차<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>샘플 표준편차(sample standard variance)는 샘플 분산의 양의 제곱근 값이다. <span class="math notranslate nohighlight">\(s\)</span>이라고 표시한다.</p>
+<h2>표본 표준편차<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>표본 표준편차(sample standard variance)는 표본 분산의 양의 제곱근 값이다. <span class="math notranslate nohighlight">\(s\)</span>이라고 표시한다.</p>
 <div class="math notranslate nohighlight">
 \[ s = \sqrt{s^2} \]</div>
 <div class="cell docutils container">
@@ -891,8 +896,8 @@ x = \{
 </div>
 </div>
 <div class="section" id="id6">
-<h2>최대값과 최소값<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>최대값(maximum)은 데이터 중에서 가장 큰 값을, 최소값(minimum)은 가장 작은 값을 의미한다.</p>
+<h2>최댓값과 최솟값<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>최댓값(maximum)은 데이터 중에서 가장 큰 값을, 최솟값(minimum)은 가장 작은 값을 의미한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 최댓값</span>
@@ -998,26 +1003,6 @@ x = \{
 </div>
 </div>
 </div>
-<p>SciPy 패키지에는 여러가지 기술 통계 값을 한 번에 구해주는 <code class="docutils literal notranslate"><span class="pre">describe</span></code> 명령이 있다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">describe</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">describe</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DescribeResult(nobs=26, minmax=(-24, 23), mean=4.8076923076923075, variance=119.84153846153846, skewness=-0.4762339485461929, kurtosis=0.37443381660038977)
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 </div>
 
@@ -1049,7 +1034,7 @@ x = \{
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="03.03 배열의 연산.html" title="previous page">배열의 연산</a>
+    <a class='left-prev' id="prev-link" href="03.03 배열의 연산.html" title="previous page">3.3 배열의 연산</a>
     <a class='right-next' id="next-link" href="03.05 난수 발생과 카운팅.html" title="next page">난수 발생과 카운팅</a>
 
     </div>

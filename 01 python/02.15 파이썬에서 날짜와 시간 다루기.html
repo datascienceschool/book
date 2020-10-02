@@ -792,10 +792,10 @@ commentsRunWhenDOMLoaded(addUtterances);
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#datetime-datetime">
+    <a class="reference internal nav-link" href="#id2">
      <code class="docutils literal notranslate">
       <span class="pre">
-       datetime.datetime
+       datetime
       </span>
      </code>
      클래스
@@ -812,18 +812,11 @@ commentsRunWhenDOMLoaded(addUtterances);
    </code>
    패키지
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#timedelta">
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       timedelta
-      </span>
-     </code>
-     클래스와 날짜/시간 연산
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   날짜/시간 연산
+  </a>
  </li>
 </ul>
 
@@ -846,27 +839,35 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ul>
 <div class="section" id="datetime">
 <h2><code class="docutils literal notranslate"><span class="pre">datetime</span></code> 패키지<a class="headerlink" href="#datetime" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">datatime</span></code> 패키지에서는 날짜와 시간을 함께 저장하는 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스, 날짜만 저장하는 <code class="docutils literal notranslate"><span class="pre">date</span></code> 클래스, 시간만 저장하는 <code class="docutils literal notranslate"><span class="pre">time</span></code> 클래스, 시간 구간 정보를 저장하는 <code class="docutils literal notranslate"><span class="pre">timedelta</span></code> 클래스 등을 제공한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">datetime</span></code> 패키지에서는 날짜와 시간을 함께 저장하는 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스, 날짜만 저장하는 <code class="docutils literal notranslate"><span class="pre">date</span></code> 클래스, 시간만 저장하는 <code class="docutils literal notranslate"><span class="pre">time</span></code> 클래스, 시간 구간 정보를 저장하는 <code class="docutils literal notranslate"><span class="pre">timedelta</span></code> 클래스 등을 제공한다.</p>
 <p>먼저 datetime 패키지를 다음과 같이 임포트한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="datetime-datetime">
-<h3><code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스<a class="headerlink" href="#datetime-datetime" title="Permalink to this headline">¶</a></h3>
-<p>우선 <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스부터 알아보자. 패키지 이름과 클래스 이름이 <code class="docutils literal notranslate"><span class="pre">datetime</span></code>으로 같기 때문에 사용할 때 주의해야 한다. 또한 다른 클래스와 달리 클래스 이름이 대문자로 시작하지 않는다. <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스에는 객체를 생성하지 않고도 바로 클래스에서 사용할 수 있는 <strong>클래스 메서드</strong>라는 것을 제공한다. 가장 대표적인 것이 현재 시각을 출력하는 <code class="docutils literal notranslate"><span class="pre">now()</span></code> 메서드이다.</p>
+<div class="section" id="id2">
+<h3><code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스</p>
+</div>
+<p>우선 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스부터 알아보자. 패키지 이름과 클래스 이름이 <code class="docutils literal notranslate"><span class="pre">datetime</span></code>으로 같기 때문에 사용할 때 주의해야 한다. 또한 다른 클래스와 달리 클래스 이름이 대문자로 시작하지 않는다. <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스에는 객체를 생성하지 않고도 바로 클래스에서 사용할 수 있는 클래스 메서드라는 것을 제공한다. 가장 대표적인 것이 현재 시각을 출력하는 <code class="docutils literal notranslate"><span class="pre">now()</span></code> 메서드이다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">now</span></code></p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">dt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">x</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.datetime(2018, 8, 30, 1, 26, 55, 731039)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.datetime(2020, 10, 2, 15, 7, 6, 864955)
 </pre></div>
 </div>
 </div>
@@ -883,36 +884,36 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">microsecond</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2018, 8, 30, 1, 26, 55, 731039)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2020, 10, 2, 15, 7, 6, 864955)
 </pre></div>
 </div>
 </div>
 </div>
 <p>다음과 같은 메서드도 제공한다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">weekday()</span></code>: 요일 반환 (0:월, 1:화, 2:수, 3:목, 4:금, 5:토, 6:일)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">strftime()</span></code>: 문자열 반환</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">date()</span></code>: 날짜 정보만 가지는 <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code> 클래스 객체 반환</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">time()</span></code>: 시간 정보만 가지는 <code class="docutils literal notranslate"><span class="pre">datetime.time</span></code> 클래스 객체 반환</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">weekday</span></code>: 요일 반환 (0:월, 1:화, 2:수, 3:목, 4:금, 5:토, 6:일)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">strftime</span></code>: 문자열 반환</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date</span></code>: 날짜 정보만 가지는 <code class="docutils literal notranslate"><span class="pre">date</span></code> 클래스 객체 반환</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: 시간 정보만 가지는 <code class="docutils literal notranslate"><span class="pre">time</span></code> 클래스 객체 반환</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span>  <span class="c1"># {0:월, 1:화, 2:수, 3:목, 4:금, 5:토, 6:일}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span>  <span class="c1"># {0:월, 1:화, 2:수, 3:목, 4:금, 5:토, 6:일}</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
 </pre></div>
 </div>
 </div>
 </div>
-<p>이 중 특히 많이 사용되는 것이 날짜와 시간 정보를 문자열로 바꿔주는 <code class="docutils literal notranslate"><span class="pre">strftime()</span></code> 메서드이다. 이 메서드는 어떤 형식으로 문자열을 만들지 결정하는 형식 문자열을 인수로 받는다. 형식 문자열은 날짜 및 시간 지정 문자열을 포함한다. 다음은 많이 사용되는 날짜 및 시간 지정 문자열이다.</p>
+<p>이 중 특히 많이 사용되는 것이 날짜와 시간 정보를 문자열로 바꿔주는 <code class="docutils literal notranslate"><span class="pre">strftime</span></code> 메서드다. 이 메서드는 어떤 형식으로 문자열을 만들지 결정하는 형식 문자열을 인수로 받는다. 형식 문자열은 날짜 및 시간 지정 문자열을 포함한다. 다음은 많이 사용되는 날짜 및 시간 지정 문자열이다.</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>날짜 및 시간 지정 문자열</p></th>
@@ -946,40 +947,39 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tr>
 </tbody>
 </table>
-<p>표 6.1 : 날짜 및 시간 지정 문자열</p>
 <p>이밖의 다른 날짜 및 시간 지정 문자열에 대해서는 다음 링크를 참조한다.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior">https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.8/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3.8/library/datetime.html#strftime-and-strptime-format-codes</a></p></li>
 </ul>
-<p>예를 들어 위에서 저장한 변수 <code class="docutils literal notranslate"><span class="pre">dt</span></code>의 시간 정보는 다음처럼 문자열로 바꿀 수 있다.</p>
+<p>예를 들어 위에서 저장한 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>의 시간 정보는 다음처럼 문자열로 바꿀 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%A </span><span class="si">%d</span><span class="s2">. %B %Y&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%A </span><span class="si">%d</span><span class="s2">. %B %Y&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Thursday 30. August 2018&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Friday 02. October 2020&#39;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H시 %M분 %S초&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H시 %M분 %S초&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>01시 26분 55초
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15시 07분 06초
 </pre></div>
 </div>
 </div>
 </div>
-<p>반대로 문자열로부터 날짜와 시간 정보를 읽어서 datetime.datetime 클래스 객체를 만들 수도 있다. 이 때는 <code class="docutils literal notranslate"><span class="pre">datetime.datetime.strptime()</span></code> 클래스 메서드를 사용한다. 첫 번째 인수로는 날짜와 시간 정보를 가진 문자열을, 두번째 인수로는 그 문자열을 해독할 수 있는 형식 문자열을 넣는다.</p>
+<p>반대로 문자열로부터 날짜와 시간 정보를 읽어서 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스 객체를 만들 수도 있다. 이 때는 <code class="docutils literal notranslate"><span class="pre">strptime</span></code> 클래스 메서드를 사용한다. 첫 번째 인수로는 날짜와 시간 정보를 가진 문자열을, 두번째 인수로는 그 문자열을 해독할 수 있는 형식 문자열을 넣는다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">&quot;2017-01-02 14:44&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">&quot;2017-01-02 14:44&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -993,7 +993,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="dateutil">
 <h2><code class="docutils literal notranslate"><span class="pre">dateutil</span></code> 패키지<a class="headerlink" href="#dateutil" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">datetime.datetime.strptime()</span></code> 클래스 메서드를 사용할 때는 문자열에 맞는 형식 문자열을 사용자가 제공해야 한다. 그러나 <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> 패키지의 <code class="docutils literal notranslate"><span class="pre">parse</span></code> 명령을 쓰면 자동으로 형식 문자열을 찾아 <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스 객체를 만들어 준다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">strptime</span></code> 클래스 메서드를 사용할 때는 문자열에 맞는 형식 문자열을 사용자가 제공해야 한다. 그러나 <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> 패키지의 <code class="docutils literal notranslate"><span class="pre">parse</span></code> 함수를 쓰면 자동으로 형식 문자열을 찾아 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스 객체를 만들어 준다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span>
@@ -1038,9 +1038,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<div class="section" id="timedelta">
-<h3><code class="docutils literal notranslate"><span class="pre">timedelta</span></code> 클래스와 날짜/시간 연산<a class="headerlink" href="#timedelta" title="Permalink to this headline">¶</a></h3>
-<p>날짜나 시간의 간격을 구할 때는 두 개의 <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스 객체의 차이를 구한다. 이 결과는  <code class="docutils literal notranslate"><span class="pre">datetime.timedelta</span></code> 클래스 객체로 반환된다.</p>
+</div>
+<div class="section" id="id3">
+<h2>날짜/시간 연산<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>날짜나 시간의 간격을 구할 때는 두 개의 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스 객체의 차이를 구한다. 이 결과는  <code class="docutils literal notranslate"><span class="pre">timedelta</span></code> 클래스 객체로 반환된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dt1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
@@ -1051,19 +1052,19 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.timedelta(48, 3600)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.timedelta(days=48, seconds=3600)
 </pre></div>
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">datetime.timedelta</span></code> 클래스는 다음과 같은 속성과 메서드를 가진다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">timedelta</span></code> 클래스는 다음과 같은 속성과 메서드를 가진다.</p>
 <ul class="simple">
 <li><p>속성</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">days</span></code>: 일수</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">seconds</span></code>: 초 (0 ~ 86399)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">microseconds</span></code>: 마이크로초 (0 and 999999)</p></li>
 <li><p>메서드</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">total_seconds()</span></code>: 모든 속성을 초단위로 모아서 변환</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total_seconds</span></code>: 모든 속성을 초단위로 모아서 변환</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1089,7 +1090,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>반대로 <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스 객체에 <code class="docutils literal notranslate"><span class="pre">datetime.timedelta</span></code> 클래스 객체를 더해서 새로운 시간을 구할 수도 있다.</p>
+<p>반대로 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스 객체에 <code class="docutils literal notranslate"><span class="pre">timedelta</span></code> 클래스 객체를 더해서 새로운 시간을 구할 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
@@ -1107,7 +1108,6 @@ commentsRunWhenDOMLoaded(addUtterances);
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.datetime(2018, 11, 30, 14, 0)
 </pre></div>
-</div>
 </div>
 </div>
 </div>

@@ -867,12 +867,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.datetime(2020, 10, 2, 15, 7, 6, 864955)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.datetime(2020, 10, 2, 15, 27, 4, 517207)
 </pre></div>
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">now()</span></code> 클래스 메서드는 컴퓨터의 현재 시각을 <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스 객체로 만들어 반환한다. <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> 클래스 객체는 다음과 같은 속성을 가진다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">now</span></code> 클래스 메서드는 컴퓨터의 현재 시각을 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스 객체로 만들어 반환한다. <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스 객체는 다음과 같은 속성을 가진다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">year</span></code>: 연도</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">month</span></code>: 월</p></li>
@@ -889,7 +889,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2020, 10, 2, 15, 7, 6, 864955)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2020, 10, 2, 15, 27, 4, 517207)
 </pre></div>
 </div>
 </div>
@@ -912,6 +912,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">strftime</span></code></p>
 </div>
 <p>이 중 특히 많이 사용되는 것이 날짜와 시간 정보를 문자열로 바꿔주는 <code class="docutils literal notranslate"><span class="pre">strftime</span></code> 메서드다. 이 메서드는 어떤 형식으로 문자열을 만들지 결정하는 형식 문자열을 인수로 받는다. 형식 문자열은 날짜 및 시간 지정 문자열을 포함한다. 다음은 많이 사용되는 날짜 및 시간 지정 문자열이다.</p>
 <table class="colwidths-auto table">
@@ -971,10 +975,14 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15시 07분 06초
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15시 27분 04초
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">strptime</span></code></p>
 </div>
 <p>반대로 문자열로부터 날짜와 시간 정보를 읽어서 <code class="docutils literal notranslate"><span class="pre">datetime</span></code> 클래스 객체를 만들 수도 있다. 이 때는 <code class="docutils literal notranslate"><span class="pre">strptime</span></code> 클래스 메서드를 사용한다. 첫 번째 인수로는 날짜와 시간 정보를 가진 문자열을, 두번째 인수로는 그 문자열을 해독할 수 있는 형식 문자열을 넣는다.</p>
 <div class="cell docutils container">
@@ -1120,6 +1128,29 @@ commentsRunWhenDOMLoaded(addUtterances);
 <ol class="simple">
 <li><p>자신의 내년 생일까지 남은 날 수를 계산하라.</p></li>
 <li><p>자신의 내년 생일까지 남은 시간을 분 단위로 계산하라.</p></li>
+</ol>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">timedelta</span></code>의 단점은 날짜와 초 단위로만 연산을 할 수 있다는 점이다. 이를 보완하기 위해 <code class="docutils literal notranslate"><span class="pre">dateutil</span></code> 패키지는 월 단위의 계산을 지원하는 <code class="docutils literal notranslate"><span class="pre">relativedelta</span></code> 클래스를 제공한다.</p>
+<p>예를 들어 특정일의 2달 후 날짜를 구하려면 다음과 같이 실행한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dateutil.relativedelta</span> <span class="kn">import</span> <span class="n">relativedelta</span>
+
+<span class="n">t0</span> <span class="o">+</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime.datetime(2018, 11, 1, 13, 0)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.15.3</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">relativedelta</span></code>를 사용하여 2000년이 윤년인지 확인하라</p></li>
+<li><p>2000년 2월의 마지막 날로부터 1년 후의 날짜를 계산하라.</p></li>
 </ol>
 </div>
 </div>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>파이썬의 자료형 &#8212; 데이터 사이언스 스쿨</title>
+    <title>2.14 파이썬의 자료형 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -222,7 +222,7 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     파이썬의 자료형
+     2.14 파이썬의 자료형
     </a>
    </li>
    <li class="toctree-l2">
@@ -818,7 +818,7 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>파이썬의 자료형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>2.14 파이썬의 자료형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>자료형<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
@@ -1131,10 +1131,32 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li><p>정수, 실수, 문자열, 튜플은 불변형 자료형이다.</p></li>
 <li><p>리스트, 딕셔너리는 변형 자료형이다.</p></li>
 </ul>
-<p>불변형 자료형은 데이터 값을 바꿀 때 메모리에 저장된 데이터 전체를 모두 없애고 새로 만들지만 변형 자료형은 할당된 메모리를 그냥 놔두고 내용(값)만 바꾼다.</p>
+<p>불변형 자료형은 데이터 값을 바꿀 때 메모리에 저장된 데이터 전체를 모두 없애고 새로 만들지만 변형 자료형은 할당된 메모리를 그냥 놔두고 메모리에 씌여있는 내용(값)만 바꾼다.</p>
+<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">x</span></code>라는 변수에 1이라는 정수를 입력하는 경우를 생각하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>위와 같은 코드를 실행하면 이름공간(name space)에 <code class="docutils literal notranslate"><span class="pre">x</span></code>라는 변수 이름이 생기고 메모리의 특정 위치에 1이라는 값이 씌여진다.
+씌여진 메모리 위치(주소)를 알기 위해서는 <code class="docutils literal notranslate"><span class="pre">id</span></code> 명령을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140709685770016
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell tag_remove_input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/02.14 파이썬의 자료형_42_0.png" src="../_images/02.14 파이썬의 자료형_42_0.png" />
+<img alt="../_images/02.14 파이썬의 자료형_46_0.png" src="../_images/02.14 파이썬의 자료형_46_0.png" />
 </div>
 </div>
 </div>

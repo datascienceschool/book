@@ -192,12 +192,12 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.08 여러 개의 자료를 한 변수에 담기.html">
-     여러 개의 자료를 한 변수에 담기
+     2.8 여러 개의 자료를 한 변수에 담기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.09 파이썬에서 리스트 자료형 다루기.html">
-     파이썬에서 리스트 자료형 다루기
+     2.9 파이썬에서 리스트 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
@@ -819,19 +819,30 @@ commentsRunWhenDOMLoaded(addUtterances);
                 
   <div class="section" id="id1">
 <h1>2.6 파이썬 함수<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>함수(function)</p>
+</div>
 <p>함수(function)는 입력을 받아 그 입력에 해당하는 출력을 반환(return)하는 기계와 같다. 예를 들어 500원을 넣으면 생수가 나오고, 1000원을 넣으면 콜라가 나오는 자판기는 다음과 같은 함수이다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;생수&quot;</span>
 <span class="n">f</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;콜라&quot;</span>
 </pre></div>
 </div>
-<p>파이썬에는 <code class="docutils literal notranslate"><span class="pre">def</span></code> 키워드를 사용하여 다음과 같이 함수를 만들 수 있다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">def</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">return</span></code></p>
+</div>
+<p>파이썬에는 <code class="docutils literal notranslate"><span class="pre">def</span></code> 키워드와 <code class="docutils literal notranslate"><span class="pre">return</span></code> 키워드를 사용하여 다음과 같이 함수를 만들 수 있다. 파이썬에는 <code class="docutils literal notranslate"><span class="pre">def</span></code> 키워드와 <code class="docutils literal notranslate"><span class="pre">return</span></code> 키워드를 사용하여 다음과 같이 함수를 만들 수 있다</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">함수이름</span><span class="p">(</span><span class="n">입력변수이름</span><span class="p">):</span>
    <span class="n">출력변수를</span> <span class="n">만드는</span> <span class="n">명령</span>
    <span class="k">return</span> <span class="n">출력변수이름</span>
    
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">def</span></code> 키워드는 영어로 “정의한다”는 의미를 가지는 define 에서 만들어졌다.</p>
 <p>예를 들어 숫자 x를 입력하면 두 배가 되도록 하는 함수는 다음과 같다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -943,7 +954,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id3">
 <h2>람다 함수<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>함수에 이름을 주지 않거나 코드를 짧게 줄여쓰는 방법으로 람다(lambda)함수라는 것이 있다.  예를 들어</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>람다 함수(lambda function)</p>
+</div>
+<p>함수에 이름을 주지 않거나 코드를 짧게 줄여쓰는 방법으로 람다(lambda)함수라는 것이 있다.  예를 들어 다음 함수 <code class="docutils literal notranslate"><span class="pre">f</span></code>는</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -952,7 +967,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>이 함수 <code class="docutils literal notranslate"><span class="pre">f</span></code> 는 다음 람다 함수와 같다.</p>
+<p>람다 함수로 정의하면 다음과 같다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
@@ -976,6 +991,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id4">
 <h2>지역 변수<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>지역 변수(local variable)</p>
+</div>
 <p>함수에 넣은 입력 변수나 함수 안에서 만들어진 변수는 함수 바깥에서는 사용할 수 없다. 혹시 이름이 같은 변수가 있다고 하더라도 별개의 변수가 된다.</p>
 <p>따라서 함수 안에서 만들어지고 사용되는 함수를 지역 변수, 영어로 local variable 이라고 한다.</p>
 <p>실제로 확인해 보자. 일단 함수 바깥에 혹시라도 y라는 변수가 있으면 <code class="docutils literal notranslate"><span class="pre">del</span></code> 명령으로 지운다.</p>
@@ -1099,7 +1118,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id5">
 <h2>전역 변수<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>하지만 지역 변수와 반대로 함수 바깥에서 만들어진 변수는 함수 안에서 사용할 수 있다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>전역 변수(global variable)</p>
+</div>
+<p>하지만 지역 변수와 반대로 함수 바깥에서 만들어진 변수는 함수 안에서 사용할 수 있다. 이러한 변수를 전역 변수(global variable)이라고 한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="mi">3</span>
@@ -1173,6 +1196,10 @@ z = 99
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">global</span></code></p>
 </div>
 <p>만약 함수안에서 함수 바깥에 있는 변수의 값을 꼭 바꿔야만 한다면 다음과 같이 함수 이름 앞에 <code class="docutils literal notranslate"><span class="pre">global</span></code> 키워드를 선언해 주면 된다.</p>
 <div class="cell docutils container">

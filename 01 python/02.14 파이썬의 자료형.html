@@ -1159,6 +1159,52 @@ commentsRunWhenDOMLoaded(addUtterances);
 <img alt="../_images/02.14 파이썬의 자료형_46_0.png" src="../_images/02.14 파이썬의 자료형_46_0.png" />
 </div>
 </div>
+<p>이 상태에서 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>의 값을 2로 바꾸면 메모리상의 해당 위치의 값이 2로 바뀌는 것이 아니라 메모리의 다른 위치에 2가 씌여지고 <code class="docutils literal notranslate"><span class="pre">x</span></code>는 새로운 위치를 가리키게 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140709685770048
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">tikz</span> -p kotex,pgfplots -l arrows.meta,calc -s 2000,1200 -f png
+
+\coordinate (leftbottom) at (-2,-2.5);
+\coordinate (righttop) at (7,1.5);
+\fill[white,use as bounding box] (leftbottom) rectangle (righttop);
+\draw[help lines, white] (leftbottom) grid (righttop);
+
+\node at (0, 1) {이름공간};
+\node at (3, 1) {메모리};
+\node[draw] at (0,0) (x) {x};
+\node[draw] at (3, 0) (1) {1};
+\draw (2.5, -0.25) -- (3.5, 0.25);
+\draw (2.5, 0.25) -- (3.5, -0.25);
+\node[draw] at (3, -1) (2) {2};
+\draw[-&gt;] (x) -- (2);
+\node at(3, 0.5) {주소: 140709685770016};
+\node at(3, -1.5) {주소: 140709685770048};
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.14 파이썬의 자료형_50_0.png" src="../_images/02.14 파이썬의 자료형_50_0.png" />
+</div>
+</div>
 </div>
 </div>
 

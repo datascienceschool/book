@@ -745,28 +745,26 @@ commentsRunWhenDOMLoaded(addUtterances);
   <a class="reference internal nav-link" href="#id4">
    패키지 관리자
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pip">
-     pip를 사용하여 설치된 패키지를 확인하기
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conda">
-     conda를 사용하여 설치된 패키지를 확인하기
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     pip를 이용하여 패키지를 설치하기
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     conda를 이용하여 패키지를 설치하기
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pip">
+   pip를 사용하여 설치된 패키지를 확인하기
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conda">
+   conda를 사용하여 설치된 패키지를 확인하기
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   pip를 이용하여 패키지를 설치하기
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   conda를 이용하여 패키지를 설치하기
+  </a>
  </li>
 </ul>
 
@@ -802,8 +800,9 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p class="sidebar-title"></p>
 <p>pip 패키지 관리자</p>
 </div>
+</div>
 <div class="section" id="pip">
-<h3>pip를 사용하여 설치된 패키지를 확인하기<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<h2>pip를 사용하여 설치된 패키지를 확인하기<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
 <p>pip 패키지 관리자를 사용할 때는 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code> 명령으로 설치된 패키지 목록을 볼 수 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip list
 Package                            Version
@@ -824,7 +823,7 @@ anaconda-project                   0.8.2
 </div>
 </div>
 <div class="section" id="conda">
-<h3>conda를 사용하여 설치된 패키지를 확인하기<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h3>
+<h2>conda를 사용하여 설치된 패키지를 확인하기<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h2>
 <p>conda 패키지 관리자를 사용할 때는 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span></code> 명령으로 설치된 패키지 목록을 볼 수 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda list
 # packages in environment at /home/dockeruser/anaconda3:
@@ -840,7 +839,7 @@ anaconda                  custom                   py37_0
 </div>
 </div>
 <div class="section" id="id5">
-<h3>pip를 이용하여 패키지를 설치하기<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h2>pip를 이용하여 패키지를 설치하기<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>pip 패키지 관리자를 이용하여 패키지를 설치하려면 콘솔 창에서 다음과 같이 입력한다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">패키지이름</span>
 </pre></div>
@@ -865,7 +864,7 @@ dockeruser@7f62df393a47:~$
 pip로 패키지를 설치하면 그 패키지가 의존하는 다른 패키지도 자동으로 설치한다. 위에서 quandl 패키지를 설치하였더니 more-itertools, ndg-httpsclient를 같이 설치한 것을 볼 수 있다.</p>
 </div>
 <div class="section" id="id6">
-<h3>conda를 이용하여 패키지를 설치하기<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h2>conda를 이용하여 패키지를 설치하기<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>아나콘다 배포판에서 제공하는 conda 패키지 관리자는 의존성 관리 성능이 pip보다 뛰어나다. 설치하거나 제거할 패키지간의 의존성을 파악하고 만약 설치하고자 하는 패키지가 의존하고 있는 다른 패키지가 설치되어 있지 않거나 버전이 맞지 않으면 필요한 패키지를 설치해 주는 것 이외에도 기존의 패키지를 자동으로 업그레이드하거나 다운그레이드해 준다.</p>
 <p>conda를 이용하여 패키지를 설치하는 명령어는 다음과 같다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">패키지이름</span>
@@ -915,7 +914,6 @@ Executing transaction: done
 </div>
 <p>conda 패키지 관리자가 flake8 설치에 필요한 다른 패키지까지도 자동으로 설치하거나 업그레이드 해 주는 것을 볼 수 있다.
 패키지를 설치할 때는 되도록 conda 패키지 관리자를 사용하고 anaconda 서버에 해당 패키지가 없을 때문 pip 패키지 관리자를 사용하기를 권장한다.</p>
-</div>
 </div>
 </div>
 

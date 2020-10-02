@@ -192,12 +192,12 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.08 여러 개의 자료를 한 변수에 담기.html">
-     여러 개의 자료를 한 변수에 담기
+     2.8 여러 개의 자료를 한 변수에 담기
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02.09 파이썬에서 리스트 자료형 다루기.html">
-     파이썬에서 리스트 자료형 다루기
+     2.9 파이썬에서 리스트 자료형 다루기
     </a>
    </li>
    <li class="toctree-l2">
@@ -813,7 +813,17 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#nan-inf">
-   NaN과 Inf
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     NaN
+    </span>
+   </code>
+   과
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Inf
+    </span>
+   </code>
   </a>
  </li>
 </ul>
@@ -831,6 +841,14 @@ commentsRunWhenDOMLoaded(addUtterances);
 <h1>2.2 부동소수점 실수 자료형<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>정수와 실수 자료형<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>정수(integer)</p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>실수(real number)</p>
+</div>
 <p>파이썬에서는 정수(integer)뿐 아니라 소숫점을 포함하는 실수(real number)도 다룰 수 있다.
 정수 데이터에는 소숫점이 없고 실수 데이터에는 소수점이 붙어 있다.</p>
 <div class="cell docutils container">
@@ -906,6 +924,22 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>부동소수점(floating point number)</p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">type</span></code></p>
 </div>
 <p>정수와 실수는 컴퓨터 메모리에 저장되는 방식이 다르다. 이를 데이터의 자료형(type)이 다르다고 한다. 파이썬에서 정수는 <code class="docutils literal notranslate"><span class="pre">int</span></code>라는 정수 자료형으로 처리한다. 실수는 <code class="docutils literal notranslate"><span class="pre">float</span></code>라는 부동소수점(floating point number) 자료형으로 처리된다. 파이썬에서 데이터의 자료형을 알려면 <code class="docutils literal notranslate"><span class="pre">type</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
@@ -1037,6 +1071,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 15 &amp;=&amp; 1 \times 2^3 &amp;+&amp; 1 \times 2^2 &amp;+&amp; 1 \times 2^1 &amp;+&amp; 1 \times 2^0 &amp;=&amp; 1111_{(2)}  \\
 \end{eqnarray}
 \end{split}\]</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">bin</span></code></p>
+</div>
 <p>파이썬의 <code class="docutils literal notranslate"><span class="pre">bin</span></code> 명령을 쓰면 정수인 십진수를 이진수로 변환할 수 있다. 이진수는 숫자 앞에 <code class="docutils literal notranslate"><span class="pre">0b</span></code>라는 접두사가 붙는다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1105,6 +1143,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">%precision</span></code></p>
 </div>
 <p>그 이유는 파이썬 콘솔이나 주피터 노트북과 같은 REPL 인터페이스에서 값이 출력될 때는 편의상 일정 소수점 이하를 생략하고 보여주기 때문이다. 만약 소수점 이하 55자리까지 보고 싶으면 <code class="docutils literal notranslate"><span class="pre">%precision</span></code> 매직(magic) 명령어를 사용한다.</p>
 <div class="cell docutils container">
@@ -1220,6 +1262,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">round</span></code></p>
+</div>
 <p>따라서 실수를 비교할 때는 다음과 같이 <code class="docutils literal notranslate"><span class="pre">round</span></code> 명령을 사용하여 유효숫자를 지정한 반올림을 한 후에 비교해야 한다. <code class="docutils literal notranslate"><span class="pre">round</span></code> 명령은 두 번째 인수로 반올림할 소수점 이하의 유효숫자의 개수를 받는다. 다음 명령은 소수점 5자리까지 비교한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1313,7 +1359,15 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="section" id="nan-inf">
-<h2>NaN과 Inf<a class="headerlink" href="#nan-inf" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">NaN</span></code>과 <code class="docutils literal notranslate"><span class="pre">Inf</span></code><a class="headerlink" href="#nan-inf" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">NaN</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">Inf</span></code></p>
+</div>
 <p>IEEE 754 표준에 따른 부동소수점 자료형은 특별한 두 가지 값을 표현할 수 있다. 하나가 NaN(Not a Number)이고 또 하나는 Inf(Infinity)이다. NaN는 “숫자가 아닌 것”,  Inf는 “무한대”를 뜻한다. 파이썬에서는 다음과 같은 명령으로 표현한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

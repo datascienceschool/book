@@ -1262,6 +1262,202 @@ commentsRunWhenDOMLoaded(addUtterances);
 <img alt="../_images/02.14 파이썬의 자료형_55_0.png" src="../_images/02.14 파이썬의 자료형_55_0.png" />
 </div>
 </div>
+<p>리스트 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>의 내용을 바꾸면 리스트 자체의 메모리가 파괴되지 않고 리스트가 가리키는 불변형 자료형만 바뀐다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1670523444480
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140709685770048
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">tikz</span> -p kotex,pgfplots -l arrows.meta,calc -s 2000,1200 -f png
+
+\coordinate (leftbottom) at (-2,-2.5);
+\coordinate (righttop) at (10,1.5);
+\fill[white,use as bounding box] (leftbottom) rectangle (righttop);
+\draw[help lines, white] (leftbottom) grid (righttop);
+
+\node at (0, 1) {이름공간};
+\node at (3, 1) {메모리};
+\node[draw] at (0,0) (x) {x};
+\node[draw] at (3, 0) (list) {};
+\node[draw] at (8, 0) (1) {1};
+\node[draw] at (8, -1) (2) {2};
+\draw[-&gt;] (x) -- (list);
+\draw[-&gt;] (list) -- (2);
+\node at(3, 0.5) {주소: 1670523444480};
+\node at(8, 0.5) {주소: 140709685770016};
+\node at(8, -1.5) {주소: 140709685770048};
+\draw (7.5, -0.25) -- (8.5, 0.25);
+\draw (7.5, 0.25) -- (8.5, -0.25);
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.14 파이썬의 자료형_60_0.png" src="../_images/02.14 파이썬의 자료형_60_0.png" />
+</div>
+</div>
+<p>리스트와 사용법이 거의 같지만 불변형 자료형인 튜플의 경우에는 이렇게 원소가 가리키는 내용만 바꿀 수 없다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1670520980864
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140709685770048
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">tikz</span> -p kotex,pgfplots -l arrows.meta,calc -s 2000,1200 -f png
+
+\coordinate (leftbottom) at (-2,-2.5);
+\coordinate (righttop) at (10,1.5);
+\fill[white,use as bounding box] (leftbottom) rectangle (righttop);
+\draw[help lines, white] (leftbottom) grid (righttop);
+
+\node at (0, 1) {이름공간};
+\node at (3, 1) {메모리};
+\node[draw] at (0,0) (x) {x};
+\node[draw] at (3, 0) (list) {};
+\node[draw] at (8, 0) (1) {1};
+\draw[-&gt;] (x) -- (list);
+\draw[-&gt;] (list) -- (1);
+\node at(3, 0.5) {주소: 1670520980864};
+\node at(8, 0.5) {주소: 140709685770048};
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.14 파이썬의 자료형_65_0.png" src="../_images/02.14 파이썬의 자료형_65_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">50</span><span class="o">-</span><span class="n">ebac946b3580</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="ne">TypeError</span>: &#39;tuple&#39; object does not support item assignment
+</pre></div>
+</div>
+</div>
+</div>
+<p>튜플의 내용을 바꾸러면 튜플 전체를 파괴하고 다시 만들어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1670523541104
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140709685770048
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">tikz</span> -p kotex,pgfplots -l arrows.meta,calc -s 2000,1200 -f png
+
+\coordinate (leftbottom) at (-2,-2.5);
+\coordinate (righttop) at (10,1.5);
+\fill[white,use as bounding box] (leftbottom) rectangle (righttop);
+\draw[help lines, white] (leftbottom) grid (righttop);
+
+\node at (0, 1) {이름공간};
+\node at (3, 1) {메모리};
+\node[draw] at (0,0) (x) {x};
+\node[draw] at (3, 0) (list) {};
+\node[draw] at (8, 0) (1) {1};
+\node[draw] at (8, -1) (2) {2};
+\draw[-&gt;] (x) -- (list);
+\draw[-&gt;] (list) -- (2);
+\node at(3, 0.5) {주소: 1670523444480};
+\node at(8, 0.5) {주소: 140709685770016};
+\node at(8, -1.5) {주소: 140709685770048};
+\draw (7.5, -0.25) -- (8.5, 0.25);
+\draw (7.5, 0.25) -- (8.5, -0.25);
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.14 파이썬의 자료형_71_0.png" src="../_images/02.14 파이썬의 자료형_71_0.png" />
+</div>
+</div>
 </div>
 </div>
 

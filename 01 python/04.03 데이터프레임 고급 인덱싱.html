@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>데이터프레임 고급 인덱싱 &#8212; 데이터 사이언스 스쿨</title>
+    <title>4.3 데이터프레임 고급 인덱싱 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -93,7 +93,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="데이터프레임의 데이터 조작" href="04.04 데이터프레임의 데이터 조작.html" />
-    <link rel="prev" title="데이터 입출력" href="04.02 데이터 입출력.html" />
+    <link rel="prev" title="4.2 데이터 입출력" href="04.02 데이터 입출력.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -166,17 +166,17 @@ commentsRunWhenDOMLoaded(addUtterances);
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="04.01 판다스 패키지의 소개.html">
-     판다스 패키지의 소개
+     4.1 판다스 패키지의 소개
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.02 데이터 입출력.html">
-     데이터 입출력
+     4.2 데이터 입출력
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     데이터프레임 고급 인덱싱
+     4.3 데이터프레임 고급 인덱싱
     </a>
    </li>
    <li class="toctree-l2">
@@ -782,29 +782,6 @@ commentsRunWhenDOMLoaded(addUtterances);
    </code>
    인덱서
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     연습 문제 1
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at-iat">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     at
-    </span>
-   </code>
-   ,
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     iat
-    </span>
-   </code>
-   인덱서
-  </a>
  </li>
 </ul>
 
@@ -818,14 +795,12 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>데이터프레임 고급 인덱싱<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>4.3 데이터프레임 고급 인덱싱<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>데이터프레임에서 특정한 데이터만 골라내는 것을 인덱싱(indexing)이라고 한다. 앞 절에서는 라벨, 라벨 리스트, 인덱스데이터(정수) 슬라이스의 3가지 인덱싱 값을 사용하여 인덱싱을 하는 방법을 공부하였다.
 그런데 Pandas는 numpy행렬과 같이 쉼표를 사용한 <code class="docutils literal notranslate"><span class="pre">(행</span> <span class="pre">인덱스,</span> <span class="pre">열</span> <span class="pre">인덱스)</span></code> 형식의 2차원 인덱싱을 지원하기 위해 다음과 같은 특별한 인덱서(indexer) 속성도 제공한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">loc</span></code> : 라벨값 기반의 2차원 인덱싱</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">iloc</span></code> : 순서를 나타내는 정수 기반의 2차원 인덱싱</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">at</span></code>: 라벨값 기반의 2차원 인덱싱 (한개의 스칼라 값만 찾는다)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">iat</span></code> : 순서를 나타내는 정수 기반의 2차원 인덱싱 (한개의 스칼라 값만 찾는다)</p></li>
 </ul>
 <div class="section" id="loc">
 <h2><code class="docutils literal notranslate"><span class="pre">loc</span></code> 인덱서<a class="headerlink" href="#loc" title="Permalink to this headline">¶</a></h2>
@@ -1694,64 +1669,12 @@ Name: c, dtype: int64
 </table>
 </div></div></div>
 </div>
-<div class="section" id="id4">
-<h3>연습 문제 1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4.3.1</p>
 <ol class="simple">
 <li><p>모든 행과 열에 라벨을 가지는 5 x 5 이상의 크기를 가지는 데이터프레임을 만든다.</p></li>
 <li><p>10가지 이상의 방법으로 특정한 행과 열을 선택한다.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="at-iat">
-<h2><code class="docutils literal notranslate"><span class="pre">at</span></code>, <code class="docutils literal notranslate"><span class="pre">iat</span></code> 인덱서<a class="headerlink" href="#at-iat" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">at</span></code>, <code class="docutils literal notranslate"><span class="pre">iat</span></code> 인덱서는 <code class="docutils literal notranslate"><span class="pre">loc</span></code>, <code class="docutils literal notranslate"><span class="pre">iloc</span></code> 인덱서와 비슷하지만 하나의 스칼라 값을 뽑을 때만 사용한다. 빠른 인덱싱 속도가 요구되는 경우에 사용한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> df.loc[&quot;a&quot;, &quot;A&quot;]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8.63 µs ± 368 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> df.at[&quot;a&quot;, &quot;A&quot;]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.33 µs ± 197 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> df.iloc[0, 0]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.69 µs ± 408 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> df.iat[0, 0]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.15 µs ± 126 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -1784,7 +1707,7 @@ Name: c, dtype: int64
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="04.02 데이터 입출력.html" title="previous page">데이터 입출력</a>
+    <a class='left-prev' id="prev-link" href="04.02 데이터 입출력.html" title="previous page">4.2 데이터 입출력</a>
     <a class='right-next' id="next-link" href="04.04 데이터프레임의 데이터 조작.html" title="next page">데이터프레임의 데이터 조작</a>
 
     </div>

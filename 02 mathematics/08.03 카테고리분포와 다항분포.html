@@ -1,13 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8.3 카테고리분포와 다항분포 &#8212; 데이터 사이언스 스쿨</title>
     
-  <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
     
   <link rel="stylesheet"
@@ -25,18 +24,17 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/myfile-checkpoint.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.30270b6e4c972e43c488.js">
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -83,7 +81,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
@@ -705,7 +703,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -940,16 +939,16 @@ x_i = \begin{cases} 0 \\ 1 \end{cases}
 <li><p>기댓값
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-628937e3-8713-49d6-a771-ee449305e7ec">
-<span class="eqno">(40)<a class="headerlink" href="#equation-628937e3-8713-49d6-a771-ee449305e7ec" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7dbd434f-63da-41d7-8f7b-c323aacf4942">
+<span class="eqno">(40)<a class="headerlink" href="#equation-7dbd434f-63da-41d7-8f7b-c323aacf4942" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{E}[x_k] = \mu_k
 \tag{8.3.12}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 분산
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-dfd6312d-920f-4d8c-9fe2-e816559f9525">
-<span class="eqno">(41)<a class="headerlink" href="#equation-dfd6312d-920f-4d8c-9fe2-e816559f9525" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dfc8ca2e-9fd6-4643-8311-a9875d6cde9e">
+<span class="eqno">(41)<a class="headerlink" href="#equation-dfc8ca2e-9fd6-4643-8311-a9875d6cde9e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{Var}[x_k] = \mu_k(1-\mu_k)
 \tag{8.3.13}
 \end{align}\]</div>
@@ -1214,16 +1213,16 @@ $$</p></li>
 <li><p>기댓값
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-76745395-0246-4900-9012-30561d245923">
-<span class="eqno">(42)<a class="headerlink" href="#equation-76745395-0246-4900-9012-30561d245923" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a1136134-ec8b-4a0c-9eff-b4358b6bb9ac">
+<span class="eqno">(42)<a class="headerlink" href="#equation-a1136134-ec8b-4a0c-9eff-b4358b6bb9ac" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{E}[x_k] = N\mu_k
 \tag{8.3.16}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 분산
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-086abb58-25e3-4677-be98-4e5a3d836285">
-<span class="eqno">(43)<a class="headerlink" href="#equation-086abb58-25e3-4677-be98-4e5a3d836285" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-939e74c0-be89-45c7-833a-fa5f0201eff8">
+<span class="eqno">(43)<a class="headerlink" href="#equation-939e74c0-be89-45c7-833a-fa5f0201eff8" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{Var}[x_k] = N\mu_k(1-\mu_k)
 \tag{8.3.17}
 \end{align}\]</div>
@@ -1342,7 +1341,7 @@ $$</p></li>
     </div>
 
     
-  <script src="../_static/js/index.30270b6e4c972e43c488.js"></script>
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
 
 
     

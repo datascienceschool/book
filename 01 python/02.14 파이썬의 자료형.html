@@ -1,13 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2.14 파이썬의 자료형 &#8212; 데이터 사이언스 스쿨</title>
     
-  <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
     
   <link rel="stylesheet"
@@ -25,18 +24,17 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/myfile-checkpoint.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.30270b6e4c972e43c488.js">
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -83,7 +81,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
@@ -745,7 +743,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -794,11 +793,16 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   자료형과 클래스의 차이점
+   자료형과 클래스
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
+   자료형 변환
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
    불변형 자료형과 변형 자료형
   </a>
  </li>
@@ -1006,7 +1010,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="section" id="id4">
-<h2>자료형과 클래스의 차이점<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>자료형과 클래스<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">__class__</span></code></p>
@@ -1113,7 +1117,44 @@ commentsRunWhenDOMLoaded(addUtterances);
 <p>클래스 이름앞의 <code class="docutils literal notranslate"><span class="pre">__main__</span></code>은 클래스가 정의된 모듈(module) 즉 파일의 이름이다. REPL 환경에서 입력하는 코드는 <code class="docutils literal notranslate"><span class="pre">__main__</span></code> 으로 가정한다.</p>
 </div>
 <div class="section" id="id5">
-<h2>불변형 자료형과 변형 자료형<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>자료형 변환<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>자료형을 바꾸기 위해서는 자료형 클래스 생성자를 이용한다. 예를 들어 정수를 문자열로 바꿀 때는 <code class="docutils literal notranslate"><span class="pre">str</span></code>, 문자열을 정수로 바꿀 때는 <code class="docutils literal notranslate"><span class="pre">int</span></code>를 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">str</span><span class="p">(</span><span class="mi">20201012</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;20201012&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;20201012&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20201012
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2.14.1</p>
+<p>오늘 날짜를 나타내는 문자열과 생일을 나타내는 문자열이 다음과 같을 때 만 나이를 구하라.
+(힌트: 숫자로 바꾼 뒤 빼기 연산을 한다.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">today</span> <span class="o">=</span> <span class="s2">&quot;2020-10-25&quot;</span>
+<span class="n">birthday</span> <span class="o">=</span> <span class="s2">&quot;2020-11-21&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>불변형 자료형과 변형 자료형<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>불변형(immutable) 자료형</p>
@@ -1152,7 +1193,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell tag_remove_input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/02.14 파이썬의 자료형_46_0.png" src="../_images/02.14 파이썬의 자료형_46_0.png" />
+<img alt="../_images/02.14 파이썬의 자료형_51_0.png" src="../_images/02.14 파이썬의 자료형_51_0.png" />
 </div>
 </div>
 <p>이 상태에서 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>의 값을 2로 바꾸면 메모리상의 해당 위치의 값이 2로 바뀌는 것이 아니라 메모리의 다른 위치에 2가 씌여지고 <code class="docutils literal notranslate"><span class="pre">x</span></code>는 새로운 위치를 가리키게 된다.</p>
@@ -1177,7 +1218,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell tag_remove_input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/02.14 파이썬의 자료형_50_0.png" src="../_images/02.14 파이썬의 자료형_50_0.png" />
+<img alt="../_images/02.14 파이썬의 자료형_55_0.png" src="../_images/02.14 파이썬의 자료형_55_0.png" />
 </div>
 </div>
 <p>이번에는 리스트 즉, 변형 자료형의 경우를 살펴보자. 다음과 같이 실행하면 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>는 리스트 변형 자료형을 가리키고 리슽 변형 자료형의 첫번째 원소는 불변형 자료형인 정수 1을 가리킨다.</p>
@@ -1214,7 +1255,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell tag_remove_input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/02.14 파이썬의 자료형_55_0.png" src="../_images/02.14 파이썬의 자료형_55_0.png" />
+<img alt="../_images/02.14 파이썬의 자료형_60_0.png" src="../_images/02.14 파이썬의 자료형_60_0.png" />
 </div>
 </div>
 <p>리스트 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>의 내용을 바꾸면 리스트 자체의 메모리가 파괴되지 않고 리스트가 가리키는 불변형 자료형만 바뀐다.</p>
@@ -1251,7 +1292,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell tag_remove_input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/02.14 파이썬의 자료형_60_0.png" src="../_images/02.14 파이썬의 자료형_60_0.png" />
+<img alt="../_images/02.14 파이썬의 자료형_65_0.png" src="../_images/02.14 파이썬의 자료형_65_0.png" />
 </div>
 </div>
 <p>리스트와 사용법이 거의 같지만 불변형 자료형인 튜플의 경우에는 이렇게 원소가 가리키는 내용만 바꿀 수 없다.</p>
@@ -1288,7 +1329,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell tag_remove_input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/02.14 파이썬의 자료형_65_0.png" src="../_images/02.14 파이썬의 자료형_65_0.png" />
+<img alt="../_images/02.14 파이썬의 자료형_70_0.png" src="../_images/02.14 파이썬의 자료형_70_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1342,7 +1383,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell tag_remove_input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/02.14 파이썬의 자료형_71_0.png" src="../_images/02.14 파이썬의 자료형_71_0.png" />
+<img alt="../_images/02.14 파이썬의 자료형_76_0.png" src="../_images/02.14 파이썬의 자료형_76_0.png" />
 </div>
 </div>
 </div>
@@ -1394,7 +1435,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     </div>
 
     
-  <script src="../_static/js/index.30270b6e4c972e43c488.js"></script>
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
 
 
     

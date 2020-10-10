@@ -1,13 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4장 판다스 데이터 분석 &#8212; 데이터 사이언스 스쿨</title>
     
-  <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
     
   <link rel="stylesheet"
@@ -25,18 +24,17 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/myfile-checkpoint.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.30270b6e4c972e43c488.js">
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -83,7 +81,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
@@ -94,7 +92,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.1 판다스 패키지 소개" href="04.01 판다스 패키지 소개.html" />
+    <link rel="next" title="Pandas 패키지의 소개" href="04.01 Pandas 패키지의 소개.html" />
     <link rel="prev" title="3.5 난수 발생과 카운팅" href="03.05 난수 발생과 카운팅.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -167,8 +165,8 @@ commentsRunWhenDOMLoaded(addUtterances);
   </a>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="04.01 판다스 패키지 소개.html">
-     4.1 판다스 패키지 소개
+    <a class="reference internal" href="04.01 Pandas 패키지의 소개.html">
+     Pandas 패키지의 소개
     </a>
    </li>
    <li class="toctree-l2">
@@ -204,6 +202,11 @@ commentsRunWhenDOMLoaded(addUtterances);
    <li class="toctree-l2">
     <a class="reference internal" href="04.08 시계열 자료 다루기.html">
      시계열 자료 다루기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04.09 Dask 사용법 기초.html">
+     Dask 사용법 기초
     </a>
    </li>
   </ul>
@@ -710,7 +713,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -742,20 +746,6 @@ commentsRunWhenDOMLoaded(addUtterances);
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   학습 목표
-  </a>
- </li>
-</ul>
-
-        </nav>
-        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -765,19 +755,7 @@ commentsRunWhenDOMLoaded(addUtterances);
                 
   <div class="section" id="id1">
 <h1>4장 판다스 데이터 분석<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>판다스(Pandas)는 가장 널리 사용되는 파이썬 데이터 분석용 패키지다. 오피스 도구에서 마이크로소프트 엑셀에 해당하는 정도의 중요성을 가진다고 생각하면 된다. 엑셀 없이 업무가 불가능한 것처럼 판다스 패키지 없이 데이터 분석은 불가능하다. 기능적으로 판다스는 사용성이 뛰어난 인메모리 데이터베이스(in-memory database) 기능을 제공한다.</p>
-<div class="section" id="id2">
-<h2>학습 목표<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>판다스를 이용하여 데이터를 시리즈와 데이터프레임 형식으로 만드는 방법을 공부한다.</p></li>
-<li><p>엑셀, CSV 파일을 판다스에서 읽고 출력하는 방법을 익힌다.</p></li>
-<li><p>판다스의 인덱싱 기능을 사용하여 데이터를 조회할 수 있다.</p></li>
-<li><p>복수의 데이터프레임을 조합하는 방법을 공부한다.</p></li>
-<li><p>판다스로 그룹 분석을 하고 피봇 테이블을 만드는 방법을 학습한다.</p></li>
-<li><p>판다스로 시계열 자료를 다루는 법을 익힌다.</p></li>
-</ul>
 <div class="toctree-wrapper compound">
-</div>
 </div>
 </div>
 
@@ -810,7 +788,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="03.05 난수 발생과 카운팅.html" title="previous page">3.5 난수 발생과 카운팅</a>
-    <a class='right-next' id="next-link" href="04.01 판다스 패키지 소개.html" title="next page">4.1 판다스 패키지 소개</a>
+    <a class='right-next' id="next-link" href="04.01 Pandas 패키지의 소개.html" title="next page">Pandas 패키지의 소개</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -827,7 +805,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     </div>
 
     
-  <script src="../_static/js/index.30270b6e4c972e43c488.js"></script>
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
 
 
     

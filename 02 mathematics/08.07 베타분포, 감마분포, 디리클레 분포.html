@@ -1,13 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8.7 베타분포, 감마분포, 디리클레분포 &#8212; 데이터 사이언스 스쿨</title>
     
-  <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
     
   <link rel="stylesheet"
@@ -25,18 +24,17 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/myfile-checkpoint.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.30270b6e4c972e43c488.js">
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -83,7 +81,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
@@ -705,7 +703,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
@@ -874,8 +873,8 @@ E[x] = \dfrac{a}{a+b}
 <li><p>최빈값 : 확률분포가 가장 커지는 위치
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-00af9757-e01d-4f9e-b73a-6b995ae98c8b">
-<span class="eqno">(62)<a class="headerlink" href="#equation-00af9757-e01d-4f9e-b73a-6b995ae98c8b" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d76fde94-a3d0-4ceb-8542-f3f35fdfba66">
+<span class="eqno">(62)<a class="headerlink" href="#equation-d76fde94-a3d0-4ceb-8542-f3f35fdfba66" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{mode} = \dfrac{a - 1}{a+b - 2}
 \tag{8.7.5}
 \end{align}\]</div>
@@ -883,8 +882,8 @@ $$</p></li>
 \[
 * 분산 : 확률분포의 폭
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-1618e1d8-9d83-45df-9f18-844967f37934">
-<span class="eqno">(63)<a class="headerlink" href="#equation-1618e1d8-9d83-45df-9f18-844967f37934" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-aa540649-f03a-4857-993a-7d246e144275">
+<span class="eqno">(63)<a class="headerlink" href="#equation-aa540649-f03a-4857-993a-7d246e144275" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{Var}[x] = \dfrac{ab}{(a+b)^2(a+b+1)}
 \tag{8.7.6}
 \end{align}\]</div>
@@ -959,16 +958,16 @@ $$</p></li>
 <li><p>기댓값
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-fcd111cc-e039-48a0-8224-13a4ef38b712">
-<span class="eqno">(64)<a class="headerlink" href="#equation-fcd111cc-e039-48a0-8224-13a4ef38b712" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c55a32f5-765b-4e05-a482-8506a34236db">
+<span class="eqno">(64)<a class="headerlink" href="#equation-c55a32f5-765b-4e05-a482-8506a34236db" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{E}[X] = \dfrac{a}{b}
 \tag{8.7.8}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 최빈값
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-0fb951c6-9227-40af-b468-42963a8c4c23">
-<span class="eqno">(65)<a class="headerlink" href="#equation-0fb951c6-9227-40af-b468-42963a8c4c23" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-cdc5cf94-3439-4302-96a1-74d371cb9eaf">
+<span class="eqno">(65)<a class="headerlink" href="#equation-cdc5cf94-3439-4302-96a1-74d371cb9eaf" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{mode} = \dfrac{a-1}{b}
 \tag{8.7.9}
 \end{align}\]</div>
@@ -976,8 +975,8 @@ $$</p></li>
 \[
 * 분산
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-2548be4d-0c07-4401-832c-ab9f9d34f624">
-<span class="eqno">(66)<a class="headerlink" href="#equation-2548be4d-0c07-4401-832c-ab9f9d34f624" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-731cf551-b85e-4f24-a301-89cf5a459042">
+<span class="eqno">(66)<a class="headerlink" href="#equation-731cf551-b85e-4f24-a301-89cf5a459042" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{Var}[X] = \dfrac{a}{b^2}
 \tag{8.7.10}
 \end{align}\]</div>
@@ -1061,24 +1060,24 @@ $$</p></li>
 <li><p>기댓값
 $$</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-25023d00-8d80-4957-baa9-6d55a8dade2d">
-<span class="eqno">(67)<a class="headerlink" href="#equation-25023d00-8d80-4957-baa9-6d55a8dade2d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0b30c7ce-9a8f-40c9-afa9-c574a5c1e66f">
+<span class="eqno">(67)<a class="headerlink" href="#equation-0b30c7ce-9a8f-40c9-afa9-c574a5c1e66f" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{E}[x_k] = \dfrac{\alpha_k}{\sum\alpha}
 \tag{8.7.18}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 최빈값
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-904fb8b6-39b8-425d-a2be-aedd4ef04cff">
-<span class="eqno">(68)<a class="headerlink" href="#equation-904fb8b6-39b8-425d-a2be-aedd4ef04cff" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d3e8dbf6-56a4-47d1-bea5-6ea1a54a6d89">
+<span class="eqno">(68)<a class="headerlink" href="#equation-d3e8dbf6-56a4-47d1-bea5-6ea1a54a6d89" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{mode} = \dfrac{\alpha_k - 1}{\sum\alpha - K}
 \tag{8.7.19}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[* 분산
 \]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-ba6b7d22-3ab6-4880-9c9f-c2687a6e1f67">
-<span class="eqno">(69)<a class="headerlink" href="#equation-ba6b7d22-3ab6-4880-9c9f-c2687a6e1f67" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5bd6d866-32bf-4f91-95b3-f6102f90eafd">
+<span class="eqno">(69)<a class="headerlink" href="#equation-5bd6d866-32bf-4f91-95b3-f6102f90eafd" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{Var}[x_k] =\dfrac{\alpha_k(\sum\alpha - \alpha_k)}{(\sum\alpha)^2(\sum\alpha + 1)}
 \tag{8.7.20}
 \end{align}\]</div>
@@ -1341,7 +1340,7 @@ $$</p></li>
     </div>
 
     
-  <script src="../_static/js/index.30270b6e4c972e43c488.js"></script>
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
 
 
     

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>데이터프레임의 데이터 조작 &#8212; 데이터 사이언스 스쿨</title>
+    <title>4.4 데이터프레임의 데이터 조작 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -93,7 +93,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="데이터프레임 인덱스 조작" href="04.05 데이터프레임 인덱스 조작.html" />
-    <link rel="prev" title="데이터프레임 고급 인덱싱" href="04.03 데이터프레임 고급 인덱싱.html" />
+    <link rel="prev" title="4.3 데이터프레임 고급 인덱싱" href="04.03 데이터프레임 고급 인덱싱.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -166,22 +166,22 @@ commentsRunWhenDOMLoaded(addUtterances);
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="04.01 판다스 패키지의 소개.html">
-     판다스 패키지의 소개
+     4.1 판다스 패키지의 소개
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.02 데이터 입출력.html">
-     데이터 입출력
+     4.2 데이터 입출력
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.03 데이터프레임 고급 인덱싱.html">
-     데이터프레임 고급 인덱싱
+     4.3 데이터프레임 고급 인덱싱
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     데이터프레임의 데이터 조작
+     4.4 데이터프레임의 데이터 조작
     </a>
    </li>
    <li class="toctree-l2">
@@ -755,33 +755,19 @@ commentsRunWhenDOMLoaded(addUtterances);
   <a class="reference internal nav-link" href="#id2">
    데이터 갯수 세기
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     연습 문제 1
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
+  <a class="reference internal nav-link" href="#id3">
    카테고리 값 세기
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
+  <a class="reference internal nav-link" href="#id4">
    정렬
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     연습 문제 2
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
+  <a class="reference internal nav-link" href="#id5">
    행/열 합계
   </a>
  </li>
@@ -796,16 +782,29 @@ commentsRunWhenDOMLoaded(addUtterances);
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
+  <a class="reference internal nav-link" href="#fillna">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     fillna
+    </span>
+   </code>
+   메서드
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#astype">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     astype
+    </span>
+   </code>
+   메서드
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
    실수 값을 카테고리 값으로 변환
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     연습 문제 3
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -819,10 +818,14 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>데이터프레임의 데이터 조작<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>Pandas는 NumPy의 2차원 배열에서 가능한 대부분의 데이터 처리가 가능하며 추가로 데이터 처리 및 변환을 위한 다양한 함수와 메서드를 제공한다.</p>
+<h1>4.4 데이터프레임의 데이터 조작<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>판다스는 넘파이 2차원 배열에서 가능한 대부분의 데이터 처리가 가능하며 추가로 데이터 처리 및 변환을 위한 다양한 함수와 메서드를 제공한다.</p>
 <div class="section" id="id2">
 <h2>데이터 갯수 세기<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">count</span></code></p>
+</div>
 <p>가장 간단한 데이터 분석은 데이터의 갯수를 세는 것이다. <code class="docutils literal notranslate"><span class="pre">count</span></code> 메서드를 사용한다. NaN 값은 세지 않는다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -944,18 +947,157 @@ dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="id3">
-<h3>연습 문제 1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>다음 명령으로 타이타닉호 승객 데이터를 데이터프레임으로 읽어온다. 이 명령을 실행하려면 seaborn 패키지가 설치되어 있어야 한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<p>다음 명령으로 타이타닉호의 승객 데이터를 데이터프레임으로 읽어올 수 있다. 이 명령을 실행하려면 seaborn 패키지가 설치되어 있어야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">titanic</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">)</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>타이타닉호 승객 데이터의 데이터 값을 각 열마다 구해본다.</p>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>survived</th>
+      <th>pclass</th>
+      <th>sex</th>
+      <th>age</th>
+      <th>sibsp</th>
+      <th>parch</th>
+      <th>fare</th>
+      <th>embarked</th>
+      <th>class</th>
+      <th>who</th>
+      <th>adult_male</th>
+      <th>deck</th>
+      <th>embark_town</th>
+      <th>alive</th>
+      <th>alone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>S</td>
+      <td>Third</td>
+      <td>man</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>Southampton</td>
+      <td>no</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>C</td>
+      <td>First</td>
+      <td>woman</td>
+      <td>False</td>
+      <td>C</td>
+      <td>Cherbourg</td>
+      <td>yes</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>S</td>
+      <td>Third</td>
+      <td>woman</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>Southampton</td>
+      <td>yes</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>S</td>
+      <td>First</td>
+      <td>woman</td>
+      <td>False</td>
+      <td>C</td>
+      <td>Southampton</td>
+      <td>yes</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>S</td>
+      <td>Third</td>
+      <td>man</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>Southampton</td>
+      <td>no</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4.4.1</p>
+<p>타이타닉호 승객 데이터의 데이터 개수를 각 열마다 구해본다.</p>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>카테고리 값 세기<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>카테고리 값 세기<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">value_counts</span></code></p>
+</div>
 <p>시리즈의 값이 정수, 문자열, 카테고리 값인 경우에는 <code class="docutils literal notranslate"><span class="pre">value_counts</span></code> 메서드로 각각의 값이 나온 횟수를 셀 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1011,10 +1153,18 @@ Name: 0, dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>정렬<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>데이터를 정렬하려면 <code class="docutils literal notranslate"><span class="pre">sort_index</span></code>와 <code class="docutils literal notranslate"><span class="pre">sort_values</span></code> 메서드를 사용한다. <code class="docutils literal notranslate"><span class="pre">sort_index</span></code>는 인덱스 값을 기준으로, <code class="docutils literal notranslate"><span class="pre">sort_values</span></code>는 데이터 값을 기준으로 정렬한다.</p>
-<p>앞에서 <code class="docutils literal notranslate"><span class="pre">s2</span></code> 시리즈의 각 데이터 값에 따른 데이터 갯수를 보기좋게 정렬하려면 다음처럼 <code class="docutils literal notranslate"><span class="pre">sort_index</span></code>를 적용한다.</p>
+<div class="section" id="id4">
+<h2>정렬<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">sort_index</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">sort_values</span></code></p>
+</div>
+<p>데이터를 정렬하려면 <code class="docutils literal notranslate"><span class="pre">sort_index</span></code> 메서드 <code class="docutils literal notranslate"><span class="pre">sort_values</span></code> 메서드를 사용한다. <code class="docutils literal notranslate"><span class="pre">sort_index</span></code> 메서드는 인덱스 값을 기준으로, <code class="docutils literal notranslate"><span class="pre">sort_values</span></code> 메서드는 데이터 값을 기준으로 정렬한다.</p>
+<p>앞에서 <code class="docutils literal notranslate"><span class="pre">s2</span></code> 시리즈의 각 데이터 값에 따른 데이터 갯수를 인덱스에 따라 정렬하려면 다음처럼 <code class="docutils literal notranslate"><span class="pre">sort_index</span></code>를 적용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s2</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
@@ -1209,14 +1359,18 @@ dtype: float64
 </table>
 </div></div></div>
 </div>
-<div class="section" id="id6">
-<h3>연습 문제 2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>타이타닉호 승객중 성별(sex) 인원수, 나이별(age) 인원수, 선실별(class) 인원수, 사망/생존(alive) 인원수를 구하라.</p>
+<div class="highlight-연습 notranslate"><div class="highlight"><pre><span></span>
+`sort_values` 메서드를 사용하여 타이타닉호 승객에 대해 성별(sex) 인원수, 나이별(age) 인원수, 선실별(class) 인원수, 사망/생존(alive) 인원수를 구하라.
+</pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h2>행/열 합계<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<p>행과 열의 합계를 구할 때는 <code class="docutils literal notranslate"><span class="pre">sum(axis)</span></code> 메서드를 사용한다.</p>
+<div class="section" id="id5">
+<h2>행/열 합계<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">sum</span></code></p>
+</div>
+<p>행과 열의 합계를 구할 때는 <code class="docutils literal notranslate"><span class="pre">sum(axis)</span></code> 메서드를 사용한다. <code class="docutils literal notranslate"><span class="pre">axis</span></code> 인수에는 합계로 인해 없어지는 방향축(0=행, 1=열)을 지정한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -1303,7 +1457,7 @@ dtype: float64
 </table>
 </div></div></div>
 </div>
-<p>행 합계를 구할 때는 <code class="docutils literal notranslate"><span class="pre">sum(axis=1)</span></code> 메서드를 사용한다.</p>
+<p>행방향 합계를 구할 때는 <code class="docutils literal notranslate"><span class="pre">sum(axis=1)</span></code> 메서드를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1534,6 +1688,17 @@ dtype: int64
 </table>
 </div></div></div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">mean</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mean</span></code> 메서드는 평균을 구하며 <code class="docutils literal notranslate"><span class="pre">sum</span></code> 메서드와 사용법이 같다.</p>
+<div class="highlight-연습 notranslate"><div class="highlight"><pre><span></span>
+1. 타이타닉호 승객의 평균 나이를 구하라.
+1. 타이타닉호 승객중 여성 승객의 평균 나이를 구하라.
+1. 타이타닉호 승객중 1등실 선실의 여성 승객의 평균 나이를 구하라.
+</pre></div>
+</div>
 </div>
 <div class="section" id="apply">
 <h2><code class="docutils literal notranslate"><span class="pre">apply</span></code> 변환<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h2>
@@ -1642,7 +1807,7 @@ dtype: int64
 </div>
 </div>
 </div>
-<p>각 열에 대해 어떤 값이 얼마나 사용되었는지 알고 싶다면 <code class="docutils literal notranslate"><span class="pre">value_counts</span></code> 함수를 넣을 수도 있다.</p>
+<p>각 열에 대해 어떤 값이 얼마나 사용되었는지 알고 싶다면 <code class="docutils literal notranslate"><span class="pre">value_counts</span></code> 함수를 넣으면 된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">value_counts</span><span class="p">)</span>
@@ -1708,7 +1873,237 @@ dtype: int64
 </table>
 </div></div></div>
 </div>
-<p>NaN 값은 <code class="docutils literal notranslate"><span class="pre">fillna</span></code> 메서드를 사용하여 원하는 값으로 바꿀 수 있다. <code class="docutils literal notranslate"><span class="pre">astype</span></code> 메서드로 전체 데이터의 자료형을 바꾸는 것도 가능하다.</p>
+<p>다음과 같이 타이타닉호의 승객 중 나이 20살을 기준으로 성인(adult)과 미성년자(child)를 구별하는 라벨 열을 만들 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;adult/child&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">titanic</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="s2">&quot;adult&quot;</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">20</span> <span class="k">else</span> <span class="s2">&quot;child&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>survived</th>
+      <th>pclass</th>
+      <th>sex</th>
+      <th>age</th>
+      <th>sibsp</th>
+      <th>parch</th>
+      <th>fare</th>
+      <th>embarked</th>
+      <th>class</th>
+      <th>who</th>
+      <th>adult_male</th>
+      <th>deck</th>
+      <th>embark_town</th>
+      <th>alive</th>
+      <th>alone</th>
+      <th>adult/child</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>0</td>
+      <td>2</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13.00</td>
+      <td>S</td>
+      <td>Second</td>
+      <td>man</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>Southampton</td>
+      <td>no</td>
+      <td>True</td>
+      <td>adult</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>30.00</td>
+      <td>S</td>
+      <td>First</td>
+      <td>woman</td>
+      <td>False</td>
+      <td>B</td>
+      <td>Southampton</td>
+      <td>yes</td>
+      <td>True</td>
+      <td>child</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>0</td>
+      <td>3</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>23.45</td>
+      <td>S</td>
+      <td>Third</td>
+      <td>woman</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>Southampton</td>
+      <td>no</td>
+      <td>False</td>
+      <td>child</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>1</td>
+      <td>1</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>30.00</td>
+      <td>C</td>
+      <td>First</td>
+      <td>man</td>
+      <td>True</td>
+      <td>C</td>
+      <td>Cherbourg</td>
+      <td>yes</td>
+      <td>True</td>
+      <td>adult</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.75</td>
+      <td>Q</td>
+      <td>Third</td>
+      <td>man</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>Queenstown</td>
+      <td>no</td>
+      <td>True</td>
+      <td>adult</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="highlight-연습 notranslate"><div class="highlight"><pre><span></span>
+타이타닉호의 승객에 대해 나이와 성별에 의한 카테고리 열인 `category1` 열을 만들어라. `category1` 카테고리는 다음과 같이 정의된다.
+
+(1) 20살이 넘으면 성별을 그대로 사용한다.
+(2) 20살 미만이면 성별에 관계없이 &quot;child&quot;라고 한다.
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="fillna">
+<h2><code class="docutils literal notranslate"><span class="pre">fillna</span></code> 메서드<a class="headerlink" href="#fillna" title="Permalink to this headline">¶</a></h2>
+<p>NaN 값은 <code class="docutils literal notranslate"><span class="pre">fillna</span></code> 메서드를 사용하여 원하는 값으로 바꿀 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">value_counts</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="highlight-연습 notranslate"><div class="highlight"><pre><span></span>
+타이타닉호의 승객 중 나이를 명시하지 않은 고객은 나이를 명시한 고객의 평균 나이 값이 되도록 titanic 데이터프레임을 고쳐라.
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="astype">
+<h2><code class="docutils literal notranslate"><span class="pre">astype</span></code> 메서드<a class="headerlink" href="#astype" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">astype</span></code> 메서드로 전체 데이터의 자료형을 바꾸는 것도 가능하다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">value_counts</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -1774,9 +2169,18 @@ dtype: int64
 </table>
 </div></div></div>
 </div>
+<div class="highlight-연습 notranslate"><div class="highlight"><pre><span></span>
+타이타닉호의 승객에 대해 나이와 성별에 의한 카테고리 열인 `category2` 열을 만들어라. `category2` 카테고리는 다음과 같이 정의된다.
+
+1. 성별을 나타내는 문자열 `male` 또는 `female`로 시작한다.
+2. 성별을 나타내는 문자열 뒤에 나이를 나타내는 문자열이 온다.
+3. 예를 들어 27살 남성은 `male27` 값이 된다.
+
+</pre></div>
 </div>
-<div class="section" id="id8">
-<h2>실수 값을 카테고리 값으로 변환<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id6">
+<h2>실수 값을 카테고리 값으로 변환<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>실수 값을 크기 기준으로 하여 카테고리 값으로 변환하고 싶을 때는 다음과 같은 명령을 사용한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cut</span></code>: 실수 값의 경계선을 지정하는 경우</p></li>
@@ -1785,7 +2189,7 @@ dtype: int64
 <p>예를 들어 다음과 같은 나이 데이터가 있다고 하자.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">101</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1793,7 +2197,7 @@ dtype: int64
 <p><code class="docutils literal notranslate"><span class="pre">cut</span></code> 명령을 사용하면 실수값을 다음처럼 카테고리 값으로 바꿀 수 있다. <code class="docutils literal notranslate"><span class="pre">bins</span></code> 인수는 카테고리를 나누는 기준값이 된다. 영역을 넘는 값은 NaN으로 처리된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">99</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;미성년자&quot;</span><span class="p">,</span> <span class="s2">&quot;청년&quot;</span><span class="p">,</span> <span class="s2">&quot;중년&quot;</span><span class="p">,</span> <span class="s2">&quot;장년&quot;</span><span class="p">,</span> <span class="s2">&quot;노년&quot;</span><span class="p">]</span>
 <span class="n">cats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">ages</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
 <span class="n">cats</span>
@@ -1801,7 +2205,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[NaN, 미성년자, 미성년자, 청년, 청년, ..., 노년, 청년, 장년, 중년, NaN]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[NaN, 미성년자, 미성년자, 청년, 청년, ..., 장년, 미성년자, 중년, 중년, NaN]
 Length: 12
 Categories (5, object): [미성년자 &lt; 청년 &lt; 중년 &lt; 장년 &lt; 노년]
 </pre></div>
@@ -1840,7 +2244,7 @@ Categories (5, object): [미성년자 &lt; 청년 &lt; 중년 &lt; 장년 &lt; �
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1,  0,  0,  1,  1,  3,  2,  4,  1,  3,  2, -1], dtype=int8)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1,  0,  0,  1,  1,  2,  2,  3,  0,  2,  2, -1], dtype=int8)
 </pre></div>
 </div>
 </div>
@@ -1905,7 +2309,7 @@ Categories (5, object): [미성년자 &lt; 청년 &lt; 중년 &lt; 장년 &lt; �
     <tr>
       <th>5</th>
       <td>37</td>
-      <td>장년</td>
+      <td>중년</td>
     </tr>
     <tr>
       <th>6</th>
@@ -1915,17 +2319,17 @@ Categories (5, object): [미성년자 &lt; 청년 &lt; 중년 &lt; 장년 &lt; �
     <tr>
       <th>7</th>
       <td>61</td>
-      <td>노년</td>
+      <td>장년</td>
     </tr>
     <tr>
       <th>8</th>
       <td>20</td>
-      <td>청년</td>
+      <td>미성년자</td>
     </tr>
     <tr>
       <th>9</th>
       <td>41</td>
-      <td>장년</td>
+      <td>중년</td>
     </tr>
     <tr>
       <th>10</th>
@@ -1934,12 +2338,37 @@ Categories (5, object): [미성년자 &lt; 청년 &lt; 중년 &lt; 장년 &lt; �
     </tr>
     <tr>
       <th>11</th>
-      <td>100</td>
+      <td>101</td>
       <td>NaN</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+<p>따라서 위 데이터프레임의 age_cat 열값은 문자열이 아니다. 이를 문자열로 만들려면 <code class="docutils literal notranslate"><span class="pre">astype</span></code> 메서드를 사용해야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">age_cat</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="n">df4</span><span class="o">.</span><span class="n">ages</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       nan0
+1      미성년자2
+2     미성년자10
+3       청년21
+4       청년23
+5       중년37
+6       중년31
+7       장년61
+8     미성년자20
+9       중년41
+10      중년32
+11    nan101
+dtype: object
+</pre></div>
+</div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">qcut</span></code> 명령은 구간 경계선을 지정하지 않고 데이터 갯수가 같도록 지정한 수의 구간으로 나눈다. 예를 들어 다음 코드는 1000개의 데이터를 4개의 구간으로 나누는데 각 구간은 250개씩의 데이터를 가진다.</p>
 <div class="cell docutils container">
@@ -1974,13 +2403,24 @@ dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h3>연습 문제 3<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">99</span><span class="p">]</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;미성년자&quot;</span><span class="p">,</span> <span class="s2">&quot;청년&quot;</span><span class="p">,</span> <span class="s2">&quot;중년&quot;</span><span class="p">,</span> <span class="s2">&quot;장년&quot;</span><span class="p">,</span> <span class="s2">&quot;노년&quot;</span><span class="p">]</span>
+<div class="highlight-연습 notranslate"><div class="highlight"><pre><span></span>
+타이타닉호 승객을 &#39;미성년자&#39;, &#39;청년&#39;, &#39;중년&#39;, &#39;장년&#39;, &#39;노년&#39; 나이 그룹으로 나눈다.
+
+```
+bins = [1, 20, 30, 50, 70, 100]
+labels = [&quot;미성년자&quot;, &quot;청년&quot;, &quot;중년&quot;, &quot;장년&quot;, &quot;노년&quot;]
+```
+
+그리고 각 나이 그룹의 승객 비율을 구한다. 비율의 전체 합은 1이 되어야 한다.
 </pre></div>
 </div>
-<p>타이타닉호 승객을 사망자와 생존자 그룹으로 나누고 각 그룹에 대해 ‘미성년자’, ‘청년’, ‘중년’, ‘장년’, ‘노년’ 승객의 비율을 구한다. 각 그룹 별로 비율의 전체 합은 1이 되어야 한다.</p>
+<div class="highlight-연습 notranslate"><div class="highlight"><pre><span></span>
+타이타닉호의 승객에 대해 나이와 성별에 의한 카테고리 열인 `category3` 열을 만들어라. `category3` 카테고리는 다음과 같이 정의된다.
+
+1. 20살 미만이면 성별에 관계없이 &quot;미성년자&quot;라고 한다.
+2. 20살 이상이면 나이에 따라 &quot;청년&quot;, &quot;중년&quot;, &quot;장년&quot;, &quot;노년&quot;을 구분하고 그 뒤에 성별을 나타내는 &quot;남성&quot;, &quot;여성&quot;을 붙인다.
+
+</pre></div>
 </div>
 </div>
 </div>
@@ -2013,7 +2453,7 @@ dtype: int64
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="04.03 데이터프레임 고급 인덱싱.html" title="previous page">데이터프레임 고급 인덱싱</a>
+    <a class='left-prev' id="prev-link" href="04.03 데이터프레임 고급 인덱싱.html" title="previous page">4.3 데이터프레임 고급 인덱싱</a>
     <a class='right-next' id="next-link" href="04.05 데이터프레임 인덱스 조작.html" title="next page">데이터프레임 인덱스 조작</a>
 
     </div>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>데이터프레임 인덱스 조작 &#8212; 데이터 사이언스 스쿨</title>
+    <title>4.5 데이터프레임 인덱스 조작 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -93,7 +93,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="데이터프레임 병합" href="04.06 데이터프레임 합성.html" />
-    <link rel="prev" title="데이터프레임의 데이터 조작" href="04.04 데이터프레임의 데이터 조작.html" />
+    <link rel="prev" title="4.4 데이터프레임의 데이터 조작" href="04.04 데이터프레임의 데이터 조작.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -166,27 +166,27 @@ commentsRunWhenDOMLoaded(addUtterances);
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="04.01 판다스 패키지의 소개.html">
-     판다스 패키지의 소개
+     4.1 판다스 패키지의 소개
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.02 데이터 입출력.html">
-     데이터 입출력
+     4.2 데이터 입출력
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.03 데이터프레임 고급 인덱싱.html">
-     데이터프레임 고급 인덱싱
+     4.3 데이터프레임 고급 인덱싱
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.04 데이터프레임의 데이터 조작.html">
-     데이터프레임의 데이터 조작
+     4.4 데이터프레임의 데이터 조작
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     데이터프레임 인덱스 조작
+     4.5 데이터프레임 인덱스 조작
     </a>
    </li>
    <li class="toctree-l2">
@@ -755,45 +755,31 @@ commentsRunWhenDOMLoaded(addUtterances);
   <a class="reference internal nav-link" href="#id2">
    데이터프레임 인덱스 설정 및 제거
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     연습 문제 1
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
+  <a class="reference internal nav-link" href="#id3">
    다중 인덱스
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
+  <a class="reference internal nav-link" href="#id4">
    행 인덱스와 열 인덱스 교환
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id5">
    다중 인덱스가 있는 경우의 인덱싱
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
+  <a class="reference internal nav-link" href="#id6">
    다중 인덱스의 인덱스 순서 교환
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
+  <a class="reference internal nav-link" href="#id7">
    다중 인덱스가 있는 경우의 정렬
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     연습 문제 2
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -807,7 +793,7 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>데이터프레임 인덱스 조작<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>4.5 데이터프레임 인덱스 조작<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>데이터프레임 인덱스 설정 및 제거<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>때로는 데이터프레임에 인덱스로 들어가 있어야 할 데이터가 일반 데이터 열에 들어가 있거나 반대로 일반 데이터 열이어야 할 것이 인덱스로 되어 있을 수 있다. 이 때는 <code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령으로 인덱스와 일반 데이터 열을 교환할 수 있다.</p>
@@ -890,7 +876,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령으로 C1열을 인덱스로 설정할 수 있다. 이 때 기존 인덱스는 없어진다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">set_index</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">set_index</span></code> 메서드로 특정한 열을 인덱스로 설정할 수 있다. 이 때 기존의 인덱스는 없어진다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
@@ -1028,7 +1018,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령으로 인덱스를 보통의 자료열로 바꿀 수도 있다. 이 때 인덱스 열은 자료열의 가장 선두로 삽입된다. 데이터프레임의 인덱스는 정수로 된 디폴트 인덱스로 바뀐다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code></p>
+</div>
+<p>반대로 <code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 메서드를 쓰면 인덱스를 보통의 자료열로 바꿀 수도 있다. 이 때 인덱스 열은 자료열의 가장 선두로 삽입된다. 데이터프레임의 인덱스는 정수로 된 디폴트 인덱스로 바뀐다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -1100,7 +1094,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령 사용시에 <code class="docutils literal notranslate"><span class="pre">drop=True</span></code> 로 설정하면 인덱스 열을 보통의 자료열로 올리는 것이 아니라 그냥 버리게 된다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 메서드를 호출할 때 인수 <code class="docutils literal notranslate"><span class="pre">drop=True</span></code> 로 설정하면 인덱스 열을 보통의 자료열로 올리는 것이 아니라 그냥 버리게 된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1166,8 +1160,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
-<div class="section" id="id3">
-<h3>연습 문제 1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4.5.1</p>
 <p>5명의 학생의 국어, 영어, 수학 점수를 나타내는 데이터프레임을 다음과 같이 만든다.</p>
 <ol class="simple">
 <li><p>학생 이름을 나타내는 열을 포함시키지 않고 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score1</span></code> 을 생성한 후, <code class="docutils literal notranslate"><span class="pre">df_score1.index</span></code> 속성에 학생 이름을 나타내는 열을 지정하여 인덱스를 지정한다. <code class="docutils literal notranslate"><span class="pre">reset_index</span></code> 명령으로 이 인덱스 열을 명령으로 일반 데이터열로 바꾸여 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score2</span></code>을 만든다.</p></li>
@@ -1175,9 +1169,13 @@ commentsRunWhenDOMLoaded(addUtterances);
 </ol>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>다중 인덱스<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>행이나 열에 여러 계층을 가지는 인덱스 즉, **다중 인덱스(multi-index)**를 설정할 수도 있다. 데이터프레임을 생성할 때 <code class="docutils literal notranslate"><span class="pre">columns</span></code> 인수에 다음 예제처럼 리스트의 리스트(행렬) 형태로 인덱스를 넣으면 다중 열 인덱스를 가지게 된다.</p>
+<div class="section" id="id3">
+<h2>다중 인덱스<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>다중 인덱스(multi-index)</p>
+</div>
+<p>행이나 열에 여러 계층을 가지는 인덱스 즉, 다중 인덱스(multi-index)를 설정할 수도 있다. 데이터프레임을 생성할 때 <code class="docutils literal notranslate"><span class="pre">columns</span></code> 인수에 다음 예제처럼 리스트의 리스트(행렬) 형태로 인덱스를 넣으면 다중 열 인덱스를 가지게 된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1258,6 +1256,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">columns.names</span></code></p>
+</div>
 <p>다중 인덱스는 이름을 지정하면 더 편리하게 사용할 수 있다. 열 인덱스들의 이름 지정은 <code class="docutils literal notranslate"><span class="pre">columns</span></code> 객체의 <code class="docutils literal notranslate"><span class="pre">names</span></code> 속성에 리스트를 넣어서 지정한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1335,6 +1337,10 @@ commentsRunWhenDOMLoaded(addUtterances);
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">index.names</span></code></p>
 </div>
 <p>마찬가지로 데이터프레임을 생성할 때 <code class="docutils literal notranslate"><span class="pre">index</span></code> 인수에 리스트의 리스트(행렬) 형태로 인덱스를 넣으면 다중 (행) 인덱스를 가진다. 행 인덱스들의 이름 지정은 <code class="docutils literal notranslate"><span class="pre">index</span></code> 객체의 <code class="docutils literal notranslate"><span class="pre">names</span></code> 속성에 리스트를 넣어서 지정한다.</p>
 <div class="cell docutils container">
@@ -1445,16 +1451,24 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div></div></div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>행 인덱스와 열 인덱스 교환<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">stack</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령을 쓰면 열 인덱스를 행 인덱스로 바꾸거나 반대로 행 인덱스를 열 인덱스로 바꿀 수 있다.</p>
+<div class="section" id="id4">
+<h2>행 인덱스와 열 인덱스 교환<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">stack</span></code></p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">unstack</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">stack</span></code> 메서드나 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 메서드를 쓰면 열 인덱스를 행 인덱스로 바꾸거나 반대로 행 인덱스를 열 인덱스로 바꿀 수 있다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">stack()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stack</span></code></p></li>
 <li><p>열 인덱스 -&gt; 행 인덱스로 변환</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">unstack()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unstack</span></code></p></li>
 <li><p>행 인덱스 -&gt; 열 인덱스로 변환</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">stack</span></code> 명령을 실행하면 열 인덱스가 반시계 방향으로 90도 회전한 것과 비슷한 모양이 된다. 마찬가지로 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령을 실행하면 행 인덱스가 시계 방향으로 90도 회전한 것과 비슷하다. 인덱스를 지정할 때는 문자열 이름과 순서를 표시하는 숫자 인덱스를 모두 사용할 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stack</span></code> 메서드를 실행하면 열 인덱스가 반시계 방향으로 90도 회전한 것과 비슷한 모양이 된다. 마찬가지로 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 메서드를 실행하면 행 인덱스가 시계 방향으로 90도 회전한 것과 비슷하다. 인덱스를 지정할 때는 문자열 이름과 순서를 표시하는 숫자 인덱스를 모두 사용할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="s2">&quot;Cidx1&quot;</span><span class="p">)</span>
@@ -1883,9 +1897,9 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div></div></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>다중 인덱스가 있는 경우의 인덱싱<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>데이터프레임이 다중 인덱스를 가지는 경우에는 인덱스가 하나의 라벨이나 숫자가 아니라 <code class="docutils literal notranslate"><span class="pre">()</span></code>로 둘러싸인 튜플이 되어야 한다. 예를 들어 앞에서 만든 <code class="docutils literal notranslate"><span class="pre">df3</span></code> 데이터프레임의 경우 다음과 같이 인덱싱할 수 있다.</p>
+<div class="section" id="id5">
+<h2>다중 인덱스가 있는 경우의 인덱싱<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>데이터프레임이 다중 인덱스를 가지는 경우에는 인덱스 값이 하나의 라벨이나 숫자가 아니라 <code class="docutils literal notranslate"><span class="pre">()</span></code>로 둘러싸인 튜플이 되어야 한다. 예를 들어 앞에서 만든 <code class="docutils literal notranslate"><span class="pre">df3</span></code> 데이터프레임의 경우 다음과 같이 인덱싱할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span>
@@ -1979,6 +1993,7 @@ Name: (B, C1), dtype: float64
 </div>
 </div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">loc</span></code> 인덱스를 사용하는 경우에도 마찬가지로 튜플을 써야 한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">)]</span>
@@ -2397,9 +2412,236 @@ Name: (M, id_1), dtype: float64
 </table>
 </div></div></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">loc</span></code>를 사용하는 경우에도 튜플이 아닌 하나의 값만 쓰면 가장 상위의 인덱스를 지정한 것과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;M&quot;</span><span class="p">]</span>
+</pre></div>
 </div>
-<div class="section" id="id7">
-<h2>다중 인덱스의 인덱스 순서 교환<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">slice(None)</span></code></p>
+</div>
+<p>특정 레벨의 모든 인덱스 값을 인덱싱할 때는 슬라이스를 사용한다. 다만 다중 인덱스의 튜플 내에서는 <code class="docutils literal notranslate"><span class="pre">:</span></code> 슬라이스 기호를 사용할 수 없고 대신 <code class="docutils literal notranslate"><span class="pre">slice(None)</span></code> 값을 사용해야 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">M</th>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>id_2</th>
+      <td>1.87</td>
+      <td>-0.98</td>
+      <td>0.95</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>id_3</th>
+      <td>-0.10</td>
+      <td>0.41</td>
+      <td>0.14</td>
+      <td>1.45</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;id_1&quot;</span><span class="p">),</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Cidx1</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Cidx2</th>
+      <th>C</th>
+      <th>D</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+    <tr>
+      <th>Ridx1</th>
+      <th>Ridx2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>M</th>
+      <th>id_1</th>
+      <td>1.76</td>
+      <td>0.40</td>
+      <td>0.98</td>
+      <td>2.24</td>
+    </tr>
+    <tr>
+      <th>F</th>
+      <th>id_1</th>
+      <td>0.76</td>
+      <td>0.12</td>
+      <td>0.44</td>
+      <td>0.33</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>다중 인덱스의 인덱스 순서 교환<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>다중 인덱스의 인덱스 순서를 바꾸고 싶으면 <code class="docutils literal notranslate"><span class="pre">swaplevel</span></code> 명령을 사용한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">swaplevel(i,</span> <span class="pre">j,</span> <span class="pre">axis)</span></code></p></li>
@@ -2628,8 +2870,8 @@ Name: (M, id_1), dtype: float64
 </div></div></div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>다중 인덱스가 있는 경우의 정렬<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>다중 인덱스가 있는 경우의 정렬<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>다중 인덱스가 있는 데이터프레임을 <code class="docutils literal notranslate"><span class="pre">sort_index</span></code>로 정렬할 때는 <code class="docutils literal notranslate"><span class="pre">level</span></code> 인수를 사용하여 어떤 인덱스를 기준으로 정렬하는지 알려주어야 한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2846,8 +3088,8 @@ Name: (M, id_1), dtype: float64
 </table>
 </div></div></div>
 </div>
-<div class="section" id="id9">
-<h3>연습 문제 2<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 2</p>
 <p>A 반 학생 5명과 B반 학생 5명의 국어, 영어, 수학 점수를 나타내는 데이터프레임을 다음과 같이 만든다.</p>
 <ol class="simple">
 <li><p>“반”, “번호”, “국어”, “영어”, “수학” 을 열로 가지는 데이터프레임 <code class="docutils literal notranslate"><span class="pre">df_score3</span></code>을 만든다.</p></li>
@@ -2888,7 +3130,7 @@ Name: (M, id_1), dtype: float64
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="04.04 데이터프레임의 데이터 조작.html" title="previous page">데이터프레임의 데이터 조작</a>
+    <a class='left-prev' id="prev-link" href="04.04 데이터프레임의 데이터 조작.html" title="previous page">4.4 데이터프레임의 데이터 조작</a>
     <a class='right-next' id="next-link" href="04.06 데이터프레임 합성.html" title="next page">데이터프레임 병합</a>
 
     </div>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>시계열 자료 다루기 &#8212; 데이터 사이언스 스쿨</title>
+    <title>4.8 시계열 자료 다루기 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -92,8 +92,8 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Dask 사용법 기초" href="04.09 Dask 사용법 기초.html" />
-    <link rel="prev" title="피봇테이블과 그룹분석" href="04.07 피봇테이블과 그룹분석.html" />
+    <link rel="next" title="5장 데이터 시각화" href="05.00 5장 데이터 시각화.html" />
+    <link rel="prev" title="4.7 피봇테이블과 그룹분석" href="04.07 피봇테이블과 그룹분석.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -166,47 +166,42 @@ commentsRunWhenDOMLoaded(addUtterances);
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="04.01 판다스 패키지의 소개.html">
-     판다스 패키지의 소개
+     4.1 판다스 패키지의 소개
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.02 데이터 입출력.html">
-     데이터 입출력
+     4.2 데이터 입출력
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.03 데이터프레임 고급 인덱싱.html">
-     데이터프레임 고급 인덱싱
+     4.3 데이터프레임 고급 인덱싱
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.04 데이터프레임의 데이터 조작.html">
-     데이터프레임의 데이터 조작
+     4.4 데이터프레임의 데이터 조작
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.05 데이터프레임 인덱스 조작.html">
-     데이터프레임 인덱스 조작
+     4.5 데이터프레임 인덱스 조작
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.06 데이터프레임 합성.html">
-     데이터프레임 병합
+     4.6 데이터프레임 합성
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.07 피봇테이블과 그룹분석.html">
-     피봇테이블과 그룹분석
+     4.7 피봇테이블과 그룹분석
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     시계열 자료 다루기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.09 Dask 사용법 기초.html">
-     Dask 사용법 기초
+     4.8 시계열 자료 다루기
     </a>
    </li>
   </ul>
@@ -773,6 +768,16 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dt">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     dt
+    </span>
+   </code>
+   접근자
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -785,13 +790,21 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>시계열 자료 다루기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>시계열 자료는 인덱스가 날짜 혹은 시간인 데이터를 말한다. Pandas에서 시계열 자료를 생성하려면 인덱스를 <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> 자료형으로 만들어야 한다. <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>는 특정한 순간에 기록된 타임스탬프(timestamp) 형식의 시계열 자료를 다루기 위한 인덱스이다. 타임스탬프 인덱스의 라벨값이 반드시 일정한 간격일 필요는 없다.</p>
+<h1>4.8 시계열 자료 다루기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code></p>
+</div>
+<p>시계열 자료는 인덱스가 날짜 혹은 시간인 데이터를 말한다. 판다스에서 시계열 자료를 생성하려면 인덱스를 <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> 자료형으로 만들어야 한다. <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>는 특정한 순간에 기록된 타임스탬프(timestamp) 형식의 시계열 자료를 다루기 위한 인덱스이다. 타임스탬프 인덱스의 라벨값이 반드시 일정한 간격일 필요는 없다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> 인덱스는 다음과 같은 보조 함수를 사용하여 생성한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> 함수</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pd.date_range</span></code> 함수</p></li>
 </ul>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>to_datetime</p>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> 함수를 쓰면 날짜/시간을 나타내는 문자열을 자동으로 datetime 자료형으로 바꾼 후 <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> 자료형 인덱스를 생성한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -825,6 +838,10 @@ dtype: float64
 </pre></div>
 </div>
 </div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>date_range</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">pd.date_range</span></code> 함수를 쓰면 모든 날짜/시간을 일일히 입력할 필요없이 시작일과 종료일 또는 시작일과 기간을 입력하면 범위 내의 인덱스를 생성해 준다.</p>
 <div class="cell docutils container">
@@ -886,7 +903,7 @@ dtype: float64
 </ul>
 <p>보다 자세한 내용은 다음 웹사이트를 참조한다.</p>
 <ul class="simple">
-<li><p>http://pandas.pydata.org/pandas-docs/stable/timeseries.html#offset-aliases</p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects">https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects</a></p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1137,7 +1154,7 @@ Freq: M, dtype: float64
 2018-03-04    0.400157
 2018-04-01    0.978738
 2018-05-06    2.240893
-Freq: WOM-1SUN, dtype: float64
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -1484,6 +1501,105 @@ Freq: 30S, dtype: float64
 </div>
 </div>
 </div>
+<div class="section" id="dt">
+<h2><code class="docutils literal notranslate"><span class="pre">dt</span></code> 접근자<a class="headerlink" href="#dt" title="Permalink to this headline">¶</a></h2>
+<p>datetime 자료형 시리즈에는 dt 접근자가 있어 datetime 자료형이 가진 몇가지 유용한 속성과 메서드를 사용할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2020-12-25&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">))</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    2020-12-25
+1    2020-12-26
+2    2020-12-27
+3    2020-12-28
+4    2020-12-29
+        ...    
+95   2021-03-30
+96   2021-03-31
+97   2021-04-01
+98   2021-04-02
+99   2021-04-03
+Length: 100, dtype: datetime64[ns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, <code class="docutils literal notranslate"><span class="pre">day</span></code>, <code class="docutils literal notranslate"><span class="pre">weekday</span></code> 등의 속성을 이용하면 년, 월, 일, 요일 정보를 빼낼 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     2020
+1     2020
+2     2020
+3     2020
+4     2020
+      ... 
+95    2021
+96    2021
+97    2021
+98    2021
+99    2021
+Length: 100, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">weekday</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     4
+1     5
+2     6
+3     0
+4     1
+     ..
+95    1
+96    2
+97    3
+98    4
+99    5
+Length: 100, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">strftime</span></code> 메서드를 이용하여 문자열을 만드는 것도 가능하다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y년 %m월 </span><span class="si">%d</span><span class="s2">일&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     2020년 12월 25일
+1     2020년 12월 26일
+2     2020년 12월 27일
+3     2020년 12월 28일
+4     2020년 12월 29일
+          ...      
+95    2021년 03월 30일
+96    2021년 03월 31일
+97    2021년 04월 01일
+98    2021년 04월 02일
+99    2021년 04월 03일
+Length: 100, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1514,8 +1630,8 @@ Freq: 30S, dtype: float64
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="04.07 피봇테이블과 그룹분석.html" title="previous page">피봇테이블과 그룹분석</a>
-    <a class='right-next' id="next-link" href="04.09 Dask 사용법 기초.html" title="next page">Dask 사용법 기초</a>
+    <a class='left-prev' id="prev-link" href="04.07 피봇테이블과 그룹분석.html" title="previous page">4.7 피봇테이블과 그룹분석</a>
+    <a class='right-next' id="next-link" href="05.00 5장 데이터 시각화.html" title="next page">5장 데이터 시각화</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

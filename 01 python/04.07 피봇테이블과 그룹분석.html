@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>피봇테이블과 그룹분석 &#8212; 데이터 사이언스 스쿨</title>
+    <title>4.7 피봇테이블과 그룹분석 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -166,27 +166,27 @@ commentsRunWhenDOMLoaded(addUtterances);
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="04.01 판다스 패키지의 소개.html">
-     판다스 패키지의 소개
+     4.1 판다스 패키지의 소개
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.02 데이터 입출력.html">
-     데이터 입출력
+     4.2 데이터 입출력
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.03 데이터프레임 고급 인덱싱.html">
-     데이터프레임 고급 인덱싱
+     4.3 데이터프레임 고급 인덱싱
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.04 데이터프레임의 데이터 조작.html">
-     데이터프레임의 데이터 조작
+     4.4 데이터프레임의 데이터 조작
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="04.05 데이터프레임 인덱스 조작.html">
-     데이터프레임 인덱스 조작
+     4.5 데이터프레임 인덱스 조작
     </a>
    </li>
    <li class="toctree-l2">
@@ -196,7 +196,7 @@ commentsRunWhenDOMLoaded(addUtterances);
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     피봇테이블과 그룹분석
+     4.7 피봇테이블과 그룹분석
     </a>
    </li>
    <li class="toctree-l2">
@@ -775,18 +775,6 @@ commentsRunWhenDOMLoaded(addUtterances);
     <a class="reference internal nav-link" href="#id4">
      그룹연산 메서드
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id5">
-       연습 문제 1
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id6">
-       연습 문제 2
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
@@ -798,30 +786,6 @@ commentsRunWhenDOMLoaded(addUtterances);
     </span>
    </code>
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tip">
-     TIP 데이터 예제
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     그룹별 통계
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id8">
-       연습 문제 3
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
-       연습 문제 4
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -835,12 +799,16 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>피봇테이블과 그룹분석<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>4.7 피봇테이블과 그룹분석<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>피봇테이블<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">pivot</span></code></p>
+</div>
 <p>피봇테이블(pivot table)이란 데이터 열 중에서 두 개의 열을 각각 행 인덱스, 열 인덱스로 사용하여 데이터를 조회하여 펼쳐놓은 것을 말한다.</p>
-<p>Pandas는 피봇테이블을 만들기 위한  <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 메서드를 제공한다. 첫번째 인수로는 행 인덱스로 사용할 열 이름, 두번째 인수로는 열 인덱스로 사용할 열 이름, 그리고 마지막으로 데이터로 사용할 열 이름을 넣는다.</p>
-<p>Pandas는 지정된 두 열을 각각 행 인덱스와 열 인덱스로 바꾼 후 행 인덱스의 라벨 값이 첫번째 키의 값과 같고 열 인덱스의 라벨 값이 두번째 키의 값과 같은 데이터를 찾아서 해당 칸에 넣는다. 만약 주어진 데이터가 존재하지 않으면 해당 칸에 <code class="docutils literal notranslate"><span class="pre">NaN</span></code> 값을 넣는다.</p>
+<p>판다스는 피봇테이블을 만들기 위한  <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 메서드를 제공한다. 첫번째 인수로는 행 인덱스로 사용할 열 이름, 두번째 인수로는 열 인덱스로 사용할 열 이름, 그리고 마지막으로 데이터로 사용할 열 이름을 넣는다.</p>
+<p>판다스는 지정된 두 열을 각각 행 인덱스와 열 인덱스로 바꾼 후 행 인덱스의 라벨 값이 첫번째 키의 값과 같고 열 인덱스의 라벨 값이 두번째 키의 값과 같은 데이터를 찾아서 해당 칸에 넣는다. 만약 주어진 데이터가 존재하지 않으면 해당 칸에 <code class="docutils literal notranslate"><span class="pre">NaN</span></code> 값을 넣는다.</p>
 <p>다음 데이터는 각 도시의 연도별 인구를 나타낸 것이다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1003,7 +971,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div></div></div>
 </div>
 <p>이 피봇테이블의 값 3512547은 “도시”가 부산이고 “연도”가 2005년인 데이터를 “인구”열에서 찾은 값이다. 2005년 인천의 인구는 데이터에 없기 때문에 <code class="docutils literal notranslate"><span class="pre">NaN</span></code>으로 표시된다.</p>
-<p>사실 피봇테이블은 다음과 같이 <code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령을 사용해서 만들 수도 있다.</p>
+<p>피봇테이블은 다음과 같이 <code class="docutils literal notranslate"><span class="pre">set_index</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">unstack</span></code> 명령을 사용해서 만들 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;도시&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">])[[</span><span class="s2">&quot;인구&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
@@ -1071,19 +1039,83 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
-<p>행 인덱스와 열 인덱스는 **데이터를 찾는 키(key)**의 역할을 한다. 따라서 키 값으로 데이터가 <strong>단 하나만 찾아져야 한다.</strong>
+<p>행 인덱스나 열 인덱스를 리스트로 주는 경우에는 다중 인덱스 피봇 테이블을 생성한다. (주의: 판다스 버전 1.1 미만에서는 버그로 인해 동작하지 않는다.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">pivot</span><span class="p">([</span><span class="s2">&quot;지역&quot;</span><span class="p">,</span> <span class="s2">&quot;도시&quot;</span><span class="p">],</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;인구&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>연도</th>
+      <th>2005</th>
+      <th>2010</th>
+      <th>2015</th>
+    </tr>
+    <tr>
+      <th>지역</th>
+      <th>도시</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>경상권</th>
+      <th>부산</th>
+      <td>3512547.0</td>
+      <td>3393191.0</td>
+      <td>3448737.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">수도권</th>
+      <th>서울</th>
+      <td>9762546.0</td>
+      <td>9631482.0</td>
+      <td>9904312.0</td>
+    </tr>
+    <tr>
+      <th>인천</th>
+      <td>NaN</td>
+      <td>263203.0</td>
+      <td>2890451.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>행 인덱스와 열 인덱스는 데이터를 찾는 키(key)의 역할을 한다. 따라서 키 값으로 데이터가 단 하나만 찾아져야 한다.
 만약 행 인덱스와 열 인덱스 조건을 만족하는 데이터가 2개 이상인 경우에는 에러가 발생한다. 예를 들어 위 데이터프레임에서 (“지역”, “연도”)를 키로 하면 (“수도권”, “2015”)에 해당하는 값이 두 개 이상이므로 다음과 같이 에러가 발생한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">df1</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;지역&quot;</span><span class="p">,</span> <span class="s2">&quot;연도&quot;</span><span class="p">,</span> <span class="s2">&quot;인구&quot;</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ValueError:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error: Index contains duplicate entries, cannot reshape
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ValueError: Index contains duplicate entries, cannot reshape
 </pre></div>
 </div>
 </div>
@@ -1091,12 +1123,16 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id3">
 <h2>그룹분석<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>만약 키가 지정하는 조건에 맞는 데이터가 하나 이상이라서 데이터 그룹을 이루는 경우에는 그룹의 특성을 보여주는 **그룹분석(group analysis)**을 한다.</p>
-<p>그룹분석은 피봇테이블과 달리 키에 의해서 결정되는 데이터가 여러개가 있을 경우 미리 지정한 연산을 통해 그 그룹 데이터의 대표값을 계산한. Pandas에서는 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령을 사용하여 다음처럼 그룹분석을 한다.</p>
+<p>만약 키가 지정하는 조건에 맞는 데이터가 하나 이상이라서 데이터 그룹을 이루는 경우에는 그룹의 특성을 보여주는 그룹분석(group analysis)을 해야 한다.</p>
+<p>그룹분석은 피봇테이블과 달리 키에 의해서 결정되는 데이터가 여러개가 있을 경우 미리 지정한 연산을 통해 그 그룹 데이터의 대표값을 계산한다. 판다스에서는 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드를 사용하여 다음처럼 그룹분석을 한다.</p>
 <ol class="simple">
 <li><p>분석하고자 하는 시리즈나 데이터프레임에 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드를 호출하여 그룹화를 한다.</p></li>
 <li><p>그룹 객체에 대해 그룹연산을 수행한다.</p></li>
 </ol>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code></p>
+</div>
 <div class="section" id="groupby">
 <h3><code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드<a class="headerlink" href="#groupby" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드는 데이터를 그룹 별로 분류하는 역할을 한다. <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드의 인수로는 다음과 같은 값을 사용한다.</p>
@@ -1227,7 +1263,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.groupby.DataFrameGroupBy object at 0x7f61e06efef0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7fc4910a00d0&gt;
 </pre></div>
 </div>
 </div>
@@ -1240,8 +1276,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;A&#39;: Int64Index([0, 1, 4], dtype=&#39;int64&#39;),
- &#39;B&#39;: Int64Index([2, 3], dtype=&#39;int64&#39;)}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;A&#39;: [0, 1, 4], &#39;B&#39;: [2, 3]}
 </pre></div>
 </div>
 </div>
@@ -1343,9 +1378,10 @@ Name: data1, dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="id5">
-<h4>연습 문제 1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4.7.1</p>
 <p>key1의 값을 기준으로 data1의 값을 분류하여 합계를 구한 결과를 시리즈가 아닌 데이터프레임으로 구한다.</p>
+</div>
 <p>이번에는 복합 키 (key1, key2) 값에 따른 data1의 합계를 구하자.
 분석하고자 하는 키가 복수이면 리스트를 사용한다.</p>
 <div class="cell docutils container">
@@ -1469,7 +1505,7 @@ Name: data1, dtype: int64
 </table>
 </div></div></div>
 </div>
-<p>다음 데이터는 150 송이의 붓꽃(iris)에 대해 붓꽃 종(species)별로 꽃잎길이(sepal_length), 꽃잎폭(sepal_width), 꽃잎폭(sepal_width), 꽃잎폭(sepal_width)을 측정한 데이터이다. (Seaborn 패키지가 설치되어 있어야 한다.</p>
+<p>다음 데이터는 150 송이의 붓꽃(iris)에 대해 붓꽃 종(species)별로 꽃잎길이(sepal_length), 꽃잎폭(sepal_width), 꽃잎폭(sepal_width), 꽃잎폭(sepal_width)을 측정한 데이터이다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -1546,6 +1582,10 @@ Name: data1, dtype: int64
 </table>
 </div></div></div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">describe</span></code></p>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">describe</span></code> 메서드를 사용하면 다양한 기술 통계(descriptive statistics)값을 한 번에 구한다. 그룹별로 하나의 스칼라 값이 아니라 하나의 데이터프레임이 생성된다는 점에 주의하라.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1579,104 +1619,6 @@ Name: data1, dtype: int64
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th rowspan="8" valign="top">petal_length</th>
-      <th>count</th>
-      <td>50.000000</td>
-      <td>50.000000</td>
-      <td>50.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>1.462000</td>
-      <td>4.260000</td>
-      <td>5.552000</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>0.173664</td>
-      <td>0.469911</td>
-      <td>0.551895</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>1.000000</td>
-      <td>3.000000</td>
-      <td>4.500000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>1.400000</td>
-      <td>4.000000</td>
-      <td>5.100000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>1.500000</td>
-      <td>4.350000</td>
-      <td>5.550000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>1.575000</td>
-      <td>4.600000</td>
-      <td>5.875000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>1.900000</td>
-      <td>5.100000</td>
-      <td>6.900000</td>
-    </tr>
-    <tr>
-      <th rowspan="8" valign="top">petal_width</th>
-      <th>count</th>
-      <td>50.000000</td>
-      <td>50.000000</td>
-      <td>50.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>0.246000</td>
-      <td>1.326000</td>
-      <td>2.026000</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>0.105386</td>
-      <td>0.197753</td>
-      <td>0.274650</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>0.100000</td>
-      <td>1.000000</td>
-      <td>1.400000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>0.200000</td>
-      <td>1.200000</td>
-      <td>1.800000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>0.200000</td>
-      <td>1.300000</td>
-      <td>2.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>0.300000</td>
-      <td>1.500000</td>
-      <td>2.300000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>0.600000</td>
-      <td>1.800000</td>
-      <td>2.500000</td>
-    </tr>
     <tr>
       <th rowspan="8" valign="top">sepal_length</th>
       <th>count</th>
@@ -1775,9 +1717,111 @@ Name: data1, dtype: int64
       <td>3.400000</td>
       <td>3.800000</td>
     </tr>
+    <tr>
+      <th rowspan="8" valign="top">petal_length</th>
+      <th>count</th>
+      <td>50.000000</td>
+      <td>50.000000</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1.462000</td>
+      <td>4.260000</td>
+      <td>5.552000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.173664</td>
+      <td>0.469911</td>
+      <td>0.551895</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>4.500000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.400000</td>
+      <td>4.000000</td>
+      <td>5.100000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1.500000</td>
+      <td>4.350000</td>
+      <td>5.550000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.575000</td>
+      <td>4.600000</td>
+      <td>5.875000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.900000</td>
+      <td>5.100000</td>
+      <td>6.900000</td>
+    </tr>
+    <tr>
+      <th rowspan="8" valign="top">petal_width</th>
+      <th>count</th>
+      <td>50.000000</td>
+      <td>50.000000</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.246000</td>
+      <td>1.326000</td>
+      <td>2.026000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.105386</td>
+      <td>0.197753</td>
+      <td>0.274650</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.100000</td>
+      <td>1.000000</td>
+      <td>1.400000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.200000</td>
+      <td>1.200000</td>
+      <td>1.800000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.200000</td>
+      <td>1.300000</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.300000</td>
+      <td>1.500000</td>
+      <td>2.300000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>0.600000</td>
+      <td>1.800000</td>
+      <td>2.500000</td>
+    </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">apply</span></code></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">apply</span></code> 메서드를 사용하면 <code class="docutils literal notranslate"><span class="pre">describe</span></code> 메서드처럼 하나의 그룹에 대해 하나의 대표값(스칼라 값)을 구하는 게 아니라 데이터프레임을 만들 수 있다. 예를 들어 다음처럼 각 붓꽃 종별로 가장 꽃잎 길이(petal length)가 큰 3개의 데이터를 뽑아낼 수도 있다.</p>
 <div class="cell docutils container">
@@ -1905,14 +1949,18 @@ Name: data1, dtype: int64
 </table>
 </div></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">transform</span></code> 메서드는 그룹별 대표값을 만드는 것이 아니라 그룹별 계산을 통해 데이터프레임 자체를 변화시킨다. 따라서 만들어진 데이터프레임의 크기는 원래 데이터프레임과 같다. 예를 들어 다음처럼 각 붓꽃이 해당 종 중에서 꽃잎길이가 대/중/소 어느 것에 해당되는지에 대한 데이터프레임을 만들 수도 있다.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">transform</span></code></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">transform</span></code> 메서드는 그룹별 대표값을 만드는 것이 아니라 그룹별 계산을 통해 데이터프레임 자체를 변화시킨다. 따라서 만들어진 데이터프레임의 크기는 원래 데이터프레임과 같다. 예를 들어 다음처럼 각 붓꽃 꽃잎길이가 해당 종 내에서  대/중/소 어느 것에 해당되는지에 대한 데이터프레임을 만들 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">q3cut</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;소&quot;</span><span class="p">,</span> <span class="s2">&quot;중&quot;</span><span class="p">,</span> <span class="s2">&quot;대&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;소&quot;</span><span class="p">,</span> <span class="s2">&quot;중&quot;</span><span class="p">,</span> <span class="s2">&quot;대&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
 
-<span class="n">iris</span><span class="p">[</span><span class="s2">&quot;petal_length_class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">species</span><span class="p">)[</span><span class="s2">&quot;petal_length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">q3cut</span><span class="p">)</span>
+<span class="n">iris</span><span class="p">[</span><span class="s2">&quot;petal_length_class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">species</span><span class="p">)</span><span class="o">.</span><span class="n">petal_length</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">q3cut</span><span class="p">)</span>
 <span class="n">iris</span><span class="p">[[</span><span class="s2">&quot;petal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal_length_class&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1995,9 +2043,8 @@ Name: data1, dtype: int64
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="id6">
-<h4>연습 문제 2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4.7.2</p>
 <p>붓꽃(iris) 데이터에서 붓꽃 종(species)별로 꽃잎길이(sepal_length), 꽃잎폭(sepal_width) 등의 평균을 구하라.
 만약 붓꽃 종(species)이 표시되지 않았을 때 이 수치들을 이용하여 붓꽃 종을 찾아낼 수 있을지 생각하라.</p>
 </div>
@@ -2005,6 +2052,10 @@ Name: data1, dtype: int64
 </div>
 <div class="section" id="pivot-table">
 <h2><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code><a class="headerlink" href="#pivot-table" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code></p>
+</div>
 <p>Pandas는 <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령의 중간 성격을 가지는 <code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> 명령도 제공한다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pivot_table</span></code> 명령은 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령처럼 그룹분석을 하지만 최종적으로는 <code class="docutils literal notranslate"><span class="pre">pivot</span></code> 명령처럼 피봇테이블을 만든다. 즉 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 명령의 결과에 <code class="docutils literal notranslate"><span class="pre">unstack</span></code>을 자동 적용하여 2차원적인 형태로 변형한다. 사용 방법은 다음과 같다.</p>
 <ul class="simple">
@@ -2243,8 +2294,6 @@ Name: data1, dtype: int64
 </table>
 </div></div></div>
 </div>
-<div class="section" id="tip">
-<h3>TIP 데이터 예제<a class="headerlink" href="#tip" title="Permalink to this headline">¶</a></h3>
 <p>식당에서 식사 후 내는 팁(tip)과 관련된 데이터를 이용하여 좀더 구체적으로 그룹분석 방법을 살펴본다. 우선 Seaborn 패키지에 설치된 샘플 데이터를 로드한다. 이 데이터프레임에서 각각의 컬럼은 다음을 뜻한다.</p>
 <ul class="simple">
 <li><p>total_bill: 식사대금</p></li>
@@ -2535,9 +2584,6 @@ Name: data1, dtype: int64
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="id7">
-<h3>그룹별 통계<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>우선 성별로 나누어 데이터 갯수를 세어본다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3216,12 +3262,13 @@ dtype: int64
 </table>
 </div></div></div>
 </div>
-<div class="section" id="id8">
-<h4>연습 문제 3<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4.7.3</p>
 <ol class="simple">
 <li><p>팁의 비율이 요일과 점심/저녁 여부, 인원수에 어떤 영향을 받는지 살펴본다.</p></li>
 <li><p>어떤 요인이 가장 크게 작용하는지 판단할 수 있는 방법이 있는가?</p></li>
 </ol>
+</div>
 <p>이번에는 각 그룹에서 가장 많은 팁과 가장 적은 팁의 차이를 알아보자. 이 계산을 해 줄 수 있는 그룹연산 함수가 없으므로 함수를 직접 만들고 <code class="docutils literal notranslate"><span class="pre">agg</span></code> 메서드를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3646,9 +3693,8 @@ dtype: int64
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="id9">
-<h4>연습 문제 4<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4</p>
 <p>타이타닉 승객 데이터를 이용하여 다음 분석을 실시하라. 데이터는 다음과 같이 받을 수 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">)</span>
 </pre></div>
@@ -3659,7 +3705,6 @@ dtype: int64
 행에는 성별 및 나이 그룹에 대한 다중 인덱스를 사용하고 열에는 선실 인덱스를 사용한다.</p></li>
 <li><p>성별 및 선실에 의한 생존율을 피봇 데이터 형태로 만든다.</p></li>
 </ol>
-</div>
 </div>
 </div>
 </div>

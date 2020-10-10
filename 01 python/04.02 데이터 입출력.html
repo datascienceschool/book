@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>데이터 입출력 &#8212; 데이터 사이언스 스쿨</title>
+    <title>4.2 데이터 입출력 &#8212; 데이터 사이언스 스쿨</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -93,7 +93,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="데이터프레임 고급 인덱싱" href="04.03 데이터프레임 고급 인덱싱.html" />
-    <link rel="prev" title="판다스 패키지의 소개" href="04.01 판다스 패키지의 소개.html" />
+    <link rel="prev" title="4.1 판다스 패키지의 소개" href="04.01 판다스 패키지의 소개.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -166,12 +166,12 @@ commentsRunWhenDOMLoaded(addUtterances);
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="04.01 판다스 패키지의 소개.html">
-     판다스 패키지의 소개
+     4.1 판다스 패키지의 소개
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     데이터 입출력
+     4.2 데이터 입출력
     </a>
    </li>
    <li class="toctree-l2">
@@ -793,7 +793,7 @@ commentsRunWhenDOMLoaded(addUtterances);
               <div>
                 
   <div class="section" id="id1">
-<h1>데이터 입출력<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>4.2 데이터 입출력<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>Pandas는 데이터 파일을 읽어 데이터프레임을 만들 수 있다. 다음처럼 여러가지 포맷을 지원한다.</p>
 <ul class="simple">
 <li><p>CSV</p></li>
@@ -809,13 +809,6 @@ commentsRunWhenDOMLoaded(addUtterances);
 <div class="section" id="writefile">
 <h2><code class="docutils literal notranslate"><span class="pre">%%writefile</span></code> 명령<a class="headerlink" href="#writefile" title="Permalink to this headline">¶</a></h2>
 <p>샘플 데이터로 사용할 CSV 파일을 <code class="docutils literal notranslate"><span class="pre">%%writefile</span></code> 매직(magic) 명령으로 만들어보자. 이 명령은 셀에 서술한 내용대로 텍스트 파일을 만드는 명령이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm -rf sample?.*
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> sample1.csv
@@ -835,7 +828,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="csv">
 <h2>CSV 파일 입력<a class="headerlink" href="#csv" title="Permalink to this headline">¶</a></h2>
-<p>CSV 파일로부터 데이터를 읽어 데이터프레임을 만들 때는 <code class="docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code> 명령을 사용한다.</p>
+<p>CSV 파일로부터 데이터를 읽어 데이터프레임을 만들 때는 <code class="docutils literal notranslate"><span class="pre">pandas.read_csv</span></code> 함수를 사용한다. 함수의 입력값으로 파일 이름을 넣는다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sample1.csv&#39;</span><span class="p">)</span>
@@ -889,7 +882,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
-<p>위에서 읽은 데이터에는 열 인덱스는 있지만 행 인덱스 정보가 없으므로 0부터 시작하는 정수 인덱스가 자동으로 추가되었다. 만약, 위의 경우와 달리, 데이터 파일에 열 인덱스 정보가 없는 경우에는 <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> 명령의 <code class="docutils literal notranslate"><span class="pre">names</span></code> 인수로 설정할 수 있다.</p>
+<p>위에서 읽은 데이터에는 열 인덱스는 있지만 행 인덱스 정보가 없으므로 0부터 시작하는 정수 인덱스가 자동으로 추가되었다.</p>
+<p>만약 데이터 파일에 열 인덱스 정보가 없는 경우에는 <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> 명령의 <code class="docutils literal notranslate"><span class="pre">names</span></code> 인수로 설정할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> sample2.csv
@@ -1013,7 +1007,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </table>
 </div></div></div>
 </div>
-<p>확장자가 CSV가 아닌 파일 즉, 데이터를 구분하는 구분자(separator)가 쉼표(comma)가 아니면 <code class="docutils literal notranslate"><span class="pre">sep</span></code> 인수를 써서 구분자를 사용자가 지정해준다. 만약 구분자가 길이가 정해지지 않은 공백인 경우에는 <code class="docutils literal notranslate"><span class="pre">\s+</span></code>라는 정규식(regular expression) 문자열을 사용한다.</p>
+<p>확장자가 CSV가 아닌 파일 즉, 데이터를 구분하는 구분자(separator)가 쉼표(comma)가 아니면 <code class="docutils literal notranslate"><span class="pre">sep</span></code> 인수를 써서 구분자를 사용자가 지정해준다. 만약 길이가 정해지지 않은 공백이 구분자인 경우에는 <code class="docutils literal notranslate"><span class="pre">\s+</span></code> 정규식(regular expression) 문자열을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> sample3.txt
@@ -1233,7 +1227,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="section" id="id2">
 <h2>CSV 파일 출력<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>지금까지와 반대로 파이썬의 데이터프레임 값을 CSV 파일로 출력하고 싶으면 <code class="docutils literal notranslate"><span class="pre">to_csv()</span></code> 메서드를 사용한다.</p>
+<p>지금까지와 반대로 파이썬의 데이터프레임 값을 CSV 파일로 출력하고 싶으면 <code class="docutils literal notranslate"><span class="pre">to_csv</span></code> 메서드를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sample6.csv&#39;</span><span class="p">)</span>
@@ -1241,10 +1235,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 </div>
-<p>리눅스나 맥에서는 <code class="docutils literal notranslate"><span class="pre">cat</span></code> 셸 명령으로 파일의 내용을 확인할 수 있다. 윈도우에서는 <code class="docutils literal notranslate"><span class="pre">type</span></code> 명령을 사용한다. 느낌표(!)는 셸 명령을 사용하기 위한 IPython 매직 명령이다.</p>
+<p>리눅스나 맥에서는 <code class="docutils literal notranslate"><span class="pre">cat</span></code> 셸 명령으로 파일의 내용을 확인할 수 있다. 윈도우에서는 <code class="docutils literal notranslate"><span class="pre">type</span></code> 함수를 사용한다. 느낌표(!)는 셸 함수를 사용하기 위한 아이파이썬(IPython) 매직 명령이다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat sample6.csv  # 윈도우에서는 !type sample6.csv 명령을 사용
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat sample6.csv  # 윈도우에서는 !type sample6.csv 함수를 사용
 </pre></div>
 </div>
 </div>
@@ -1367,7 +1361,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat sample9.csv  # 윈도우에서는 !type sample6.csv 명령을 사용
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat sample9.csv  # 윈도우에서는 !type sample6.csv 함수를 사용
 </pre></div>
 </div>
 </div>
@@ -1508,81 +1502,6 @@ commentsRunWhenDOMLoaded(addUtterances);
       <td>S</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>6</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Moran, Mr. James</td>
-      <td>male</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0</td>
-      <td>330877</td>
-      <td>8.4583</td>
-      <td>NaN</td>
-      <td>Q</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>7</td>
-      <td>0</td>
-      <td>1</td>
-      <td>McCarthy, Mr. Timothy J</td>
-      <td>male</td>
-      <td>54.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>17463</td>
-      <td>51.8625</td>
-      <td>E46</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>8</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Palsson, Master. Gosta Leonard</td>
-      <td>male</td>
-      <td>2.0</td>
-      <td>3</td>
-      <td>1</td>
-      <td>349909</td>
-      <td>21.0750</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>9</td>
-      <td>1</td>
-      <td>3</td>
-      <td>Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)</td>
-      <td>female</td>
-      <td>27.0</td>
-      <td>0</td>
-      <td>2</td>
-      <td>347742</td>
-      <td>11.1333</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>10</td>
-      <td>1</td>
-      <td>2</td>
-      <td>Nasser, Mrs. Nicholas (Adele Achem)</td>
-      <td>female</td>
-      <td>14.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>237736</td>
-      <td>30.0708</td>
-      <td>NaN</td>
-      <td>C</td>
-    </tr>
-    <tr>
       <th>...</th>
       <td>...</td>
       <td>...</td>
@@ -1596,81 +1515,6 @@ commentsRunWhenDOMLoaded(addUtterances);
       <td>...</td>
       <td>...</td>
       <td>...</td>
-    </tr>
-    <tr>
-      <th>881</th>
-      <td>882</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Markun, Mr. Johann</td>
-      <td>male</td>
-      <td>33.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>349257</td>
-      <td>7.8958</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>882</th>
-      <td>883</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Dahlberg, Miss. Gerda Ulrika</td>
-      <td>female</td>
-      <td>22.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>7552</td>
-      <td>10.5167</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>883</th>
-      <td>884</td>
-      <td>0</td>
-      <td>2</td>
-      <td>Banfield, Mr. Frederick James</td>
-      <td>male</td>
-      <td>28.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>C.A./SOTON 34068</td>
-      <td>10.5000</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>884</th>
-      <td>885</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Sutehall, Mr. Henry Jr</td>
-      <td>male</td>
-      <td>25.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>SOTON/OQ 392076</td>
-      <td>7.0500</td>
-      <td>NaN</td>
-      <td>S</td>
-    </tr>
-    <tr>
-      <th>885</th>
-      <td>886</td>
-      <td>0</td>
-      <td>3</td>
-      <td>Rice, Mrs. William (Margaret Norton)</td>
-      <td>female</td>
-      <td>39.0</td>
-      <td>0</td>
-      <td>5</td>
-      <td>382652</td>
-      <td>29.1250</td>
-      <td>NaN</td>
-      <td>Q</td>
     </tr>
     <tr>
       <th>886</th>
@@ -2019,23 +1863,23 @@ commentsRunWhenDOMLoaded(addUtterances);
   <tbody>
     <tr>
       <th>2015-04-01</th>
-      <td>18219.405</td>
+      <td>18223.577</td>
     </tr>
     <tr>
       <th>2015-07-01</th>
-      <td>18344.713</td>
+      <td>18347.425</td>
     </tr>
     <tr>
       <th>2015-10-01</th>
-      <td>18350.825</td>
+      <td>18378.803</td>
     </tr>
     <tr>
       <th>2016-01-01</th>
-      <td>18424.283</td>
+      <td>18470.156</td>
     </tr>
     <tr>
       <th>2016-04-01</th>
-      <td>18637.253</td>
+      <td>18656.207</td>
     </tr>
   </tbody>
 </table>
@@ -2080,39 +1924,32 @@ commentsRunWhenDOMLoaded(addUtterances);
   <tbody>
     <tr>
       <th>2016-02-01</th>
-      <td>237.469</td>
-      <td>245.684</td>
+      <td>237.514</td>
+      <td>245.644</td>
     </tr>
     <tr>
       <th>2016-03-01</th>
-      <td>238.038</td>
-      <td>245.986</td>
+      <td>237.990</td>
+      <td>245.964</td>
     </tr>
     <tr>
       <th>2016-04-01</th>
-      <td>238.827</td>
-      <td>246.477</td>
+      <td>238.835</td>
+      <td>246.467</td>
     </tr>
     <tr>
       <th>2016-05-01</th>
-      <td>239.464</td>
-      <td>247.018</td>
+      <td>239.440</td>
+      <td>247.036</td>
     </tr>
     <tr>
       <th>2016-06-01</th>
-      <td>240.167</td>
-      <td>247.431</td>
+      <td>240.144</td>
+      <td>247.435</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm -rf sample?.*
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -2145,7 +1982,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="04.01 판다스 패키지의 소개.html" title="previous page">판다스 패키지의 소개</a>
+    <a class='left-prev' id="prev-link" href="04.01 판다스 패키지의 소개.html" title="previous page">4.1 판다스 패키지의 소개</a>
     <a class='right-next' id="next-link" href="04.03 데이터프레임 고급 인덱싱.html" title="next page">데이터프레임 고급 인덱싱</a>
 
     </div>

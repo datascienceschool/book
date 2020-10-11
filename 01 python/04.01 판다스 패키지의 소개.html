@@ -748,68 +748,73 @@ commentsRunWhenDOMLoaded(addUtterances);
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
+   판다스 패키지 임포트
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
    시리즈 클래스
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id4">
      시리즈 생성
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id5">
      시리즈 연산
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id6">
      시리즈 인덱싱
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id7">
      시리즈와 딕셔너리 자료형
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id8">
      인덱스 기반 연산
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id9">
      데이터의 갱신, 추가, 삭제
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
+  <a class="reference internal nav-link" href="#id10">
    데이터프레임 클래스
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
+    <a class="reference internal nav-link" href="#id11">
      데이터프레임 생성
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#id12">
      열 데이터의 갱신, 추가, 삭제
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
+    <a class="reference internal nav-link" href="#id13">
      열 인덱싱
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
+    <a class="reference internal nav-link" href="#id14">
      행 인덱싱
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id15">
      개별 데이터 인덱싱
     </a>
    </li>
@@ -830,7 +835,18 @@ commentsRunWhenDOMLoaded(addUtterances);
 <h1>4.1 판다스 패키지의 소개<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>대부분의 데이터는 시계열(series)이나 표(table)의 형태로 나타낼 수 있다. 판다스(Pandas) 패키지는 이러한 데이터를 다루기 위한 시리즈(<code class="docutils literal notranslate"><span class="pre">Series</span></code>) 클래스와 데이터프레임(<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>) 클래스를 제공한다.</p>
 <div class="section" id="id2">
-<h2>시리즈 클래스<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>판다스 패키지 임포트<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>판다스 패키지를 사용하기 위해 우선 임포트를 해야 한다. 판다스 패키지는 <code class="docutils literal notranslate"><span class="pre">pd</span></code>라는 별칭으로 임포트하는 것이 관례이므로 여기에서도 해당 관례를 따르도록 한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>시리즈 클래스<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">Series</span></code></p>
@@ -847,8 +863,8 @@ commentsRunWhenDOMLoaded(addUtterances);
 <blockquote>
 <div><p>시리즈 = 값(value) + 인덱스(index)</p>
 </div></blockquote>
-<div class="section" id="id3">
-<h3>시리즈 생성<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>시리즈 생성<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>인덱스 라벨(index label)</p>
@@ -952,8 +968,8 @@ Name: 인구, dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="id4">
-<h3>시리즈 연산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>시리즈 연산<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>넘파이 배열처럼 시리즈도 벡터화 연산을 할 수 있다. 다만 연산은 시리즈의 값에만 적용되며 인덱스 값은 변하지 않는다. 예를 들어 인구 숫자를 백만 단위로 만들기 위해 시리즈 객체를 1,000,000 으로 나누어도 인덱스 라벨에는 영향을 미치지 않는 것을 볼 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -973,8 +989,8 @@ Name: 인구, dtype: float64
 </div>
 </div>
 </div>
-<div class="section" id="id5">
-<h3>시리즈 인덱싱<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>시리즈 인덱싱<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>시리즈는 넘파이 배열에서 가능한 인덱스 방법 이외에도 인덱스 라벨을 이용한 인덱싱도 할 수 있다. 배열 인덱싱이나 인덱스 라벨을 이용한 슬라이싱(slicing)도 가능하다.</p>
 <p>시리즈 데이터를 인덱싱하면 값이 나온다.</p>
 <div class="cell docutils container">
@@ -1123,8 +1139,8 @@ dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="id6">
-<h3>시리즈와 딕셔너리 자료형<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>시리즈와 딕셔너리 자료형<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>시리즈 객체는 라벨 값에 의해 인덱싱이 가능하므로 실질적으로 인덱스 라벨 값을 키(key)로 가지는 딕셔너리 자료형과 같다고 볼 수 있다. 따라서 딕셔너리 자료형에서 제공하는 <code class="docutils literal notranslate"><span class="pre">in</span></code> 연산도 가능하고 <code class="docutils literal notranslate"><span class="pre">items</span></code> 메서드를 사용하면 <code class="docutils literal notranslate"><span class="pre">for</span></code> 루프를 통해 각 원소의 키(key)와 값(value)을 접근할 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1204,8 +1220,8 @@ dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>인덱스 기반 연산<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>인덱스 기반 연산<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>이번에는 2015년도와 2010년의 인구 증가를 계산해 보자. 두 개의 시리즈의 차이를 구하면 된다. 두 시리즈에 대해 연산을 하는 경우 인덱스가 같은 데이터에 대해서만 차이를 구한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1293,8 +1309,8 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="section" id="id8">
-<h3>데이터의 갱신, 추가, 삭제<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>데이터의 갱신, 추가, 삭제<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>인덱싱을 이용하면 딕셔너리처럼 데이터를 갱신(update)하거나 추가(add)할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1353,8 +1369,8 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>데이터프레임 클래스<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>데이터프레임 클래스<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
@@ -1368,8 +1384,8 @@ dtype: float64
 <p>열 인덱스(cplumn index, columns)</p>
 </div>
 <p>시리즈가 1차원 벡터 데이터에 행방향 인덱스(row index)를 붙인 것이라면 데이터프레임 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> 클래스는 2차원 행렬 데이터에 인덱스를 붙인 것과 비슷하다. 2차원이므로 각각의 행 데이터의 이름이 되는 행 인덱스(row index) 뿐 아니라 각각의 열 데이터의 이름이 되는 열 인덱스(column index)도 붙일 수 있다.</p>
-<div class="section" id="id10">
-<h3>데이터프레임 생성<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>데이터프레임 생성<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>데이터프레임을 만드는 방법은 다양하다. 가장 간단한 방법은 다음과 같다.</p>
 <ol class="simple">
 <li><p>우선 하나의 열이 되는 데이터를 리스트나 일차원 배열을 준비한다.</p></li>
@@ -1701,8 +1717,8 @@ dtype: float64
 </div></div></div>
 </div>
 </div>
-<div class="section" id="id11">
-<h3>열 데이터의 갱신, 추가, 삭제<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3>열 데이터의 갱신, 추가, 삭제<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>데이터프레임은 열 시리즈의 딕셔너리으로 볼 수 있으므로 열 단위로 데이터를 갱신하거나 추가, 삭제할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1966,8 +1982,8 @@ dtype: float64
 </div></div></div>
 </div>
 </div>
-<div class="section" id="id12">
-<h3>열 인덱싱<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3>열 인덱싱<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>데이터프레임은 열 라벨을 키로, 열 시리즈를 값으로 가지는 딕셔너리와 비슷하다고 하였다. 따라서 데이터프레임을 인덱싱을 할 때도 열 라벨(column label)을 키값으로 생각하여 인덱싱을 할 수 있다. 인덱스로 라벨 값을 하나만 넣으면 시리즈 객체가 반환되고 라벨의 배열 또는 리스트를 넣으면 부분적인 데이터프레임이 반환된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2275,8 +2291,8 @@ Name: 2, dtype: int64
 </div></div></div>
 </div>
 </div>
-<div class="section" id="id13">
-<h3>행 인덱싱<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>행 인덱싱<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>만약 행 단위로 인덱싱을 하고자 하면 항상 슬라이싱(slicing)을 해야 한다. 인덱스의 값이 문자 라벨이면 라벨 슬라이싱도 가능하다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2521,8 +2537,8 @@ Name: 2, dtype: int64
 </div></div></div>
 </div>
 </div>
-<div class="section" id="id14">
-<h3>개별 데이터 인덱싱<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3>개별 데이터 인덱싱<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>데이터프레임에서 열 라벨로 시리즈를 인덱싱하면 시리즈가 된다. 이 시리즈를 다시 행 라벨로 인덱싱하면 개별 데이터가 나온다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pandas의 시각화 기능 &#8212; 데이터 사이언스 스쿨</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "datascienceschool/book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="소개의 글" href="../02 mathematics/00.00 소개의 글.html" />
+    <link rel="prev" title="Seaborn을 사용한 데이터 분포 시각화" href="05.04 시본을 사용한 데이터 분포 시각화.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   데이터 사이언스 스쿨
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  파이썬 편
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.00 1장 파이썬 설치와 설정.html">
+   1장 파이썬 설치와 설정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.00 2장 파이썬 기초 문법.html">
+   2장 파이썬 기초문법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.00 3장 넘파이 배열 프로그래밍.html">
+   3장 넘파이 배열 프로그래밍
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.00 4장 판다스 데이터 분석.html">
+   4장 판다스 데이터 분석
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="05.00 5장 데이터 시각화.html">
+   5장 데이터 시각화
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="05.01 시각화 패키지 맷플롯리브 소개.html">
+     시각화 패키지 맷플롯리브 소개
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05.02 맷플롯리브의 여러가지 플롯.html">
+     Matplotlib의 여러가지 플롯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05.03 맷플롯리브의 삼각 그리드 사용법.html">
+     Matplotlib의 triangular grid 사용법
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05.04 시본을 사용한 데이터 분포 시각화.html">
+     Seaborn을 사용한 데이터 분포 시각화
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Pandas의 시각화 기능
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  수학 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+   소개의 글
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+   1장 수학 기호
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+   2장 넘파이(NumPy)로 공부하는 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+   3장 고급 선형대수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+   4장 심파이(SymPy)로 공부하는 미적분
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+   5장 사이파이(SciPy)로 공부하는 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+   6장 피지엠파이(pgmpy)로 공부하는 확률론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+   7장 확률변수와 상관관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+   8장 사이파이로 공부하는 확률분포
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+   9장 추정과 검정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+   10장 엔트로피
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  머신러닝 편
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/01.01 데이터 분석의 소개.html">
+   1.1 데이터 분석의 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/01.02 머신러닝용 파이썬 패키지.html">
+   1.2 머신러닝용 파이썬 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/02.01 데이터 전처리 기초.html">
+   2.1 데이터 전처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/02.02 범주형 데이터 처리.html">
+   2.2 범주형 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.01.01 NLTK 자연어 처리 패키지.html">
+   NLTK 자연어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.01.02 KoNLPy 한국어 처리 패키지.html">
+   KoNLPy 한국어 처리 패키지
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+   Scikit-Learn의 문서 전처리 기능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.01.04 soynlp.html">
+   Soynlp 소개
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.01.05 확률론적 언어 모형.html">
+   확률론적 언어 모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.02.01 이미지 처리 기초.html">
+   이미지 처리 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.02.02 이미지 필터링.html">
+   이미지 필터링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.02.03 이미지 컨투어.html">
+   이미지 컨투어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.02.04 이미지 변환.html">
+   이미지 변환
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.02.05 이미지 특징 추출.html">
+   이미지 특징 추출
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.03.01 사운드 프로세싱 기초.html">
+   사운드 프로세싱 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.03.02 푸리에 변환과 스펙트럼.html">
+   푸리에 변환과 스펙트럼
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.04.01 지리 정보 데이터 처리.html">
+   지리 정보 데이터 처리
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/03.04.02 지오코딩.html">
+   Geocoding
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/04.01 회귀분석 예제.html">
+   4.1 회귀분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/04.02 선형회귀분석의 기초.html">
+   4.2 선형회귀분석의 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/04.03 스케일링.html">
+   4.3 스케일링
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/04.04 범주형 독립변수.html">
+   4.4 범주형 독립변수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/04.05 부분회귀.html">
+   4.5 부분회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/05.01 확률론적 선형 회귀모형.html">
+   5.1 확률론적 선형 회귀모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/05.02 회귀분석의 기하학.html">
+   5.2 회귀분석의 기하학
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/05.03 레버리지와 아웃라이어.html">
+   5.3 레버리지와 아웃라이어
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/05.04 분산 분석과 모형 성능.html">
+   5.4 분산 분석과 모형 성능
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.01 모형 진단과 수정.html">
+   6.1 모형 진단과 수정
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.01 모형 진단과 수정.html#id2">
+   잔차 정규성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.01 모형 진단과 수정.html#id3">
+   잔차와 독립 변수의 관계
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.01 모형 진단과 수정.html#id4">
+   이분산성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.01 모형 진단과 수정.html#id5">
+   자기 상관 계수
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.02 기저함수 모형과 과최적화.html">
+   6.2 기저함수 모형과 과최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.03 교차검증.html">
+   6.3 교차검증
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.04 다중공선성과 변수 선택.html">
+   6.4 다중공선성과 변수 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.04 다중공선성과 변수 선택.html#vif">
+   VIF
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.04 다중공선성과 변수 선택.html#id2">
+   보스턴 집값 예측 문제에 응용
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/06.05 정규화 선형회귀.html">
+   6.5 정규화 선형회귀
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/07.01 추천 시스템.html">
+   13.1 추천 시스템
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/09.01 분류용 예제 데이터.html">
+   5.1 분류용 예제 데이터
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/09.02 분류용 가상 데이터 생성.html">
+   5.2 분류용 가상 데이터 생성
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/09.02 분류용 가상 데이터 생성.html#make-blobs">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_blobs
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/09.02 분류용 가상 데이터 생성.html#make-moons">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_moons
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     make_gaussian_quantiles
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/09.03 분류모형.html">
+   5.3 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/09.04 분류 성능평가.html">
+   5.4 분류 성능평가
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/10.01 로지스틱 회귀분석.html">
+   6.1 로지스틱 회귀분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/11.01 선형판별분석법과 이차판별분석법.html">
+   7.1 선형판별분석법과 이차판별분석법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/11.02 나이브베이즈 분류모형.html">
+   7.2 나이브베이즈 분류모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/11.03 감성 분석.html">
+   감성 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/12.01 의사결정나무.html">
+   8.1 의사결정나무
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/12.02 모형 결합.html">
+   12.02 모형 결합
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/12.03 부스팅 방법.html">
+   부스팅 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/13.02 서포트 벡터 머신.html">
+   서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/13.03 커널 서포트 벡터 머신.html">
+   커널 서포트 벡터 머신
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/14.01 모형 최적화.html">
+   모형 최적화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/14.02 비대칭 데이터 문제.html">
+   비대칭 데이터 문제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/14.03 특징 선택.html">
+   특징 선택
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/14.04 대규모 데이터 학습.html">
+   대규모 데이터 학습
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/16.01 군집화.html">
+   군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/16.02 K-평균 군집화.html">
+   K-평균 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/16.03 디비스캔 군집화.html">
+   디비스캔 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/16.04 계층적 군집화.html">
+   계층적 군집화
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/16.05 Affinity Propagation.html">
+   Affinity Propagation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/17.01 그래프 이론 기초.html">
+   그래프 이론 기초
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/17.02 그래프 확률모형.html">
+   그래프 확률모형
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/17.03 네트워크 추론.html">
+   네트워크 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/18.01 가우시안 혼합모형과 EM 방법.html">
+   가우시안 혼합모형과 EM 방법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/18.02 변분법적 추론.html">
+   변분법적 추론
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/19.01 몬테카를로 베이지안 분석.html">
+   몬테카를로 베이지안 분석
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/19.02 베이지안 회귀 분석 예제.html">
+   베이지안 회귀 분석 예제
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03 machine learning/20.01 히든 마코프 모형.html">
+   히든 마코프 모형
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/01 python/05.05 판다스의 시각화 기능.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/datascienceschool/book/master?urlpath=tree/ds/01 python/05.05 판다스의 시각화 기능.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/datascienceschool/book/blob/master/ds/01 python/05.05 판다스의 시각화 기능.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="pandas">
+<h1>Pandas의 시각화 기능<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h1>
+<p>Pandas의 시리즈나 데이터프레임은 <code class="docutils literal notranslate"><span class="pre">plot</span></code>이라는 시각화 메서드를 내장하고 있다. <code class="docutils literal notranslate"><span class="pre">plot</span></code>은 matplotlib를 내부에서 임포트하여 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                   <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;1/1/2018&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+                   <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018-04-06</th>
+      <td>9.396256</td>
+      <td>6.282026</td>
+      <td>-11.198087</td>
+    </tr>
+    <tr>
+      <th>2018-04-07</th>
+      <td>10.086074</td>
+      <td>7.583872</td>
+      <td>-11.826175</td>
+    </tr>
+    <tr>
+      <th>2018-04-08</th>
+      <td>9.605047</td>
+      <td>9.887789</td>
+      <td>-12.886190</td>
+    </tr>
+    <tr>
+      <th>2018-04-09</th>
+      <td>9.469097</td>
+      <td>11.024680</td>
+      <td>-12.788465</td>
+    </tr>
+    <tr>
+      <th>2018-04-10</th>
+      <td>10.052051</td>
+      <td>10.625231</td>
+      <td>-12.418409</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Pandas의 Plot메소드 사용 예&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;시간&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_3_0.png" src="../_images/05.05 판다스의 시각화 기능_3_0.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">plot</span></code> 메서드의 <code class="docutils literal notranslate"><span class="pre">kind</span></code>라는 인수를 바꾸면 여러가지 플롯을 그릴 수 있다. 다음과 같은 인수값을 지원한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bar</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pie</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hist</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kde</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">box</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scatter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">area</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>    <span class="c1"># 붓꽃 데이터</span>
+<span class="n">titanic</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">)</span>    <span class="c1"># 타이타닉호 데이터</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">sepal_length</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;꽃받침의 길이 시각화&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;꽃받침의 길이&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_5_0.png" src="../_images/05.05 판다스의 시각화 기능_5_0.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">kind</span></code> 인수에 문자열을 쓰는 대신 <code class="docutils literal notranslate"><span class="pre">plot.bar</span></code>처럼 직접 메서드로 사용할 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Iris 데이터의 Bar Plot&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;각 Feature의 값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_7_0.png" src="../_images/05.05 판다스의 시각화 기능_7_0.png" />
+</div>
+</div>
+<p>다음은 그룹분석으로 각 붓꽃종의 특징값의 평균을 구한 것이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">species</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;feature&quot;</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>feature</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+    </tr>
+    <tr>
+      <th>species</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>setosa</th>
+      <td>5.006</td>
+      <td>3.428</td>
+      <td>1.462</td>
+      <td>0.246</td>
+    </tr>
+    <tr>
+      <th>versicolor</th>
+      <td>5.936</td>
+      <td>2.770</td>
+      <td>4.260</td>
+      <td>1.326</td>
+    </tr>
+    <tr>
+      <th>virginica</th>
+      <td>6.588</td>
+      <td>2.974</td>
+      <td>5.552</td>
+      <td>2.026</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>그룹분석 결과도 데이터프레임이므로 같은 방식으로 시각화할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;각 종의 Feature별 평균&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;평균&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;종&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_11_0.png" src="../_images/05.05 판다스의 시각화 기능_11_0.png" />
+</div>
+</div>
+<p>전치연산으로 시각화 방법을 다르게 할 수도 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;각 Feature의 종 별 평균&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;평균&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_13_0.png" src="../_images/05.05 판다스의 시각화 기능_13_0.png" />
+</div>
+</div>
+<p>다음은 <code class="docutils literal notranslate"><span class="pre">pie</span></code>,  <code class="docutils literal notranslate"><span class="pre">hist</span></code>, <code class="docutils literal notranslate"><span class="pre">kde</span></code>, <code class="docutils literal notranslate"><span class="pre">box</span></code>, <code class="docutils literal notranslate"><span class="pre">scatter</span></code> 플롯 예제이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">titanic</span><span class="o">.</span><span class="n">pclass</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.2f%%</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;선실별 승객 수 비율&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_15_0.png" src="../_images/05.05 판다스의 시각화 기능_15_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;각 Feature 값들의 빈도수 Histogram&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;데이터 값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_16_0.png" src="../_images/05.05 판다스의 시각화 기능_16_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">kde</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;각 Feature 값들의 빈도수에 대한 Kernel Density Plot&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;데이터 값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_17_0.png" src="../_images/05.05 판다스의 시각화 기능_17_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;각 Feature 값들의 빈도수에 대한 Box Plot&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;데이터 값&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_18_0.png" src="../_images/05.05 판다스의 시각화 기능_18_0.png" />
+</div>
+</div>
+<p>박스플롯에 대해서는 추가적인 기능을 가진 <code class="docutils literal notranslate"><span class="pre">boxplot</span></code> 명령이 별도로 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">h_pad</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;각 Feature의 종 별 데이터에 대한 Box Plot&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05.05 판다스의 시각화 기능_20_0.png" src="../_images/05.05 판다스의 시각화 기능_20_0.png" />
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01 python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="05.04 시본을 사용한 데이터 분포 시각화.html" title="previous page">Seaborn을 사용한 데이터 분포 시각화</a>
+    <a class='right-next' id="next-link" href="../02 mathematics/00.00 소개의 글.html" title="next page">소개의 글</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-77195005-1', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>

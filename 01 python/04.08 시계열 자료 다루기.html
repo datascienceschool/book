@@ -1599,6 +1599,18 @@ Length: 100, dtype: object
 </div>
 </div>
 </div>
+<div class="admonition- admonition">
+<p class="admonition-title">연습 문제 4.8.1</p>
+<p>다음 명령으로 만들어진 데이터프레임에 대해 월별 value의 합계를 구하라.
+(힌트: <code class="docutils literal notranslate"><span class="pre">groupby</span></code> 메서드와 <code class="docutils literal notranslate"><span class="pre">dt</span></code> 접근자를 사용하라)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2020-12-25&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">),</span> 
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,))</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

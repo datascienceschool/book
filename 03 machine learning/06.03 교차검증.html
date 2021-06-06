@@ -1,12 +1,14 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>6.3 교차검증 &#8212; 데이터 사이언스 스쿨</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -18,13 +20,9 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -34,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -80,8 +78,8 @@ var addUtterances = () => {
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
@@ -92,16 +90,16 @@ commentsRunWhenDOMLoaded(addUtterances);
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.4 다중공선성과 변수 선택" href="06.04 다중공선성과 변수 선택.html" />
-    <link rel="prev" title="6.2 기저함수 모형과 과최적화" href="06.02 기저함수 모형과 과최적화.html" />
-
+    <link rel="next" title="6.4 다중공선성과 변수 선택" href="06.04%20%EB%8B%A4%EC%A4%91%EA%B3%B5%EC%84%A0%EC%84%B1%EA%B3%BC%20%EB%B3%80%EC%88%98%20%EC%84%A0%ED%83%9D.html" />
+    <link rel="prev" title="6.2 기저함수 모형과 과최적화" href="06.02%20%EA%B8%B0%EC%A0%80%ED%95%A8%EC%88%98%20%EB%AA%A8%ED%98%95%EA%B3%BC%20%EA%B3%BC%EC%B5%9C%EC%A0%81%ED%99%94.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
-
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
     
 
     <div class="container-xl">
@@ -110,23 +108,20 @@ commentsRunWhenDOMLoaded(addUtterances);
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
-  
-  <img src="../_static/logo.svg" class="logo" alt="logo">
-  
-  
-  <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
-  
-</a>
-</div>
-
-<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/logo.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form>
-
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
    데이터 사이언스 스쿨
@@ -138,36 +133,261 @@ commentsRunWhenDOMLoaded(addUtterances);
   파이썬 편
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../01 python/00.00 소개의 글.html">
+  <a class="reference internal" href="../01%20python/00.00%20%EC%86%8C%EA%B0%9C%EC%9D%98%20%EA%B8%80.html">
    소개의 글
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01 python/01.00 1장 파이썬 설치와 설정.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01%20python/01.00%201%EC%9E%A5%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%84%A4%EC%B9%98%EC%99%80%20%EC%84%A4%EC%A0%95.html">
    1장 파이썬 설치와 설정
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/01.01%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0.html">
+     1.1 파이썬 설치하기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/01.02%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%B2%98%EC%9D%8C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
+     1.2 파이썬 처음 사용하기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/01.03%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0.html">
+     1.3 파이썬 패키지 설치하기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/01.04%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%EC%9A%A9%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%86%8C%EA%B0%9C.html">
+     1.4 데이터 분석용 파이썬 패키지 소개
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/01.05%20%EC%95%84%EC%9D%B4%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EB%B0%8F%20%EC%A3%BC%ED%94%BC%ED%84%B0%20%EC%84%A4%EC%A0%95.html">
+     1.5 아이파이썬 및 주피터 설정
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01 python/02.00 2장 파이썬 기초 문법.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01%20python/02.00%202%EC%9E%A5%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%20%EB%AC%B8%EB%B2%95.html">
    2장 파이썬 기초문법
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.01%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%84%20%EA%B3%84%EC%82%B0%EA%B8%B0%EB%A1%9C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
+     2.1 파이썬을 계산기로 사용하기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.02%20%EB%B6%80%EB%8F%99%EC%86%8C%EC%88%98%EC%A0%90%20%EC%8B%A4%EC%88%98%20%EC%9E%90%EB%A3%8C%ED%98%95.html">
+     2.2 부동소수점 실수 자료형
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.03%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9C%BC%EB%A1%9C%20%EA%B8%80%EC%9E%90%EB%A5%BC%20%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0.html">
+     2.3 파이썬으로 글자를 출력하기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.04%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%98%20%EB%AC%B8%EC%9E%90%EC%97%B4%20%ED%98%95%EC%8B%9D%ED%99%94.html">
+     2.4 파이썬의 문자열 형식화
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.05%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A1%B0%EA%B1%B4%EB%AC%B8%20%EA%B8%B0%EC%B4%88.html">
+     2.5 파이썬 조건문 기초
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.06%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%95%A8%EC%88%98.html">
+     2.6 파이썬 함수
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.07%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20for%20%EB%B0%98%EB%B3%B5%EB%AC%B8.html">
+     2.7 파이썬 for 반복문
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.08%20%EC%97%AC%EB%9F%AC%20%EA%B0%9C%EC%9D%98%20%EC%9E%90%EB%A3%8C%EB%A5%BC%20%ED%95%9C%20%EB%B3%80%EC%88%98%EC%97%90%20%EB%8B%B4%EA%B8%B0.html">
+     2.8 여러 개의 자료를 한 변수에 담기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.09%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%20%EC%9E%90%EB%A3%8C%ED%98%95%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
+     2.9 파이썬에서 리스트 자료형 다루기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.10%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%EC%99%80%20%EB%B0%98%EB%B3%B5%EB%AC%B8%EC%9D%84%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html">
+     2.10 리스트와 반복문을 사용하여 계산하기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.11%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC%20%EC%9E%90%EB%A3%8C%ED%98%95%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
+     2.11 파이썬에서 딕셔너리 자료형 다루기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.12%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.html">
+     2.12 파이썬 객체지향 프로그래밍
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.13%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
+     2.13 파이썬 패키지 사용하기
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.14%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%98%20%EC%9E%90%EB%A3%8C%ED%98%95.html">
+     2.14 파이썬의 자료형
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/02.15%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%82%A0%EC%A7%9C%EC%99%80%20%EC%8B%9C%EA%B0%84%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
+     2.15 파이썬에서 날짜와 시간 다루기
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01 python/03.00 3장 넘파이 배열 프로그래밍.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01%20python/03.00%203%EC%9E%A5%20%EB%84%98%ED%8C%8C%EC%9D%B4%20%EB%B0%B0%EC%97%B4%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.html">
    3장 넘파이 배열 프로그래밍
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/03.01%20%EB%84%98%ED%8C%8C%EC%9D%B4%20%EB%B0%B0%EC%97%B4.html">
+     3.1 넘파이 배열
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/03.02%20%EB%B0%B0%EC%97%B4%EC%9D%98%20%EC%83%9D%EC%84%B1%EA%B3%BC%20%EB%B3%80%ED%98%95.html">
+     3.2 배열의 생성과 변형
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/03.03%20%EB%B0%B0%EC%97%B4%EC%9D%98%20%EC%97%B0%EC%82%B0.html">
+     3.3 배열의 연산
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/03.04%20%EA%B8%B0%EC%88%A0%20%ED%86%B5%EA%B3%84.html">
+     3.4 기술 통계
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/03.05%20%EB%82%9C%EC%88%98%20%EB%B0%9C%EC%83%9D%EA%B3%BC%20%EC%B9%B4%EC%9A%B4%ED%8C%85.html">
+     3.5 난수 발생과 카운팅
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01 python/04.00 4장 판다스 데이터 분석.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01%20python/04.00%204%EC%9E%A5%20%ED%8C%90%EB%8B%A4%EC%8A%A4%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D.html">
    4장 판다스 데이터 분석
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.01%20%ED%8C%90%EB%8B%A4%EC%8A%A4%20%ED%8C%A8%ED%82%A4%EC%A7%80%EC%9D%98%20%EC%86%8C%EA%B0%9C.html">
+     4.1 판다스 패키지의 소개
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.02%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%9E%85%EC%B6%9C%EB%A0%A5.html">
+     4.2 데이터 입출력
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.03%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%EA%B3%A0%EA%B8%89%20%EC%9D%B8%EB%8D%B1%EC%8B%B1.html">
+     4.3 데이터프레임 고급 인덱싱
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.04%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%EC%9D%98%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%EC%9E%91.html">
+     4.4 데이터프레임의 데이터 조작
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.05%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%EC%9D%B8%EB%8D%B1%EC%8A%A4%20%EC%A1%B0%EC%9E%91.html">
+     4.5 데이터프레임 인덱스 조작
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.06%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%ED%95%A9%EC%84%B1.html">
+     4.6 데이터프레임 합성
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.07%20%ED%94%BC%EB%B4%87%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC%20%EA%B7%B8%EB%A3%B9%EB%B6%84%EC%84%9D.html">
+     4.7 피봇테이블과 그룹분석
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/04.08%20%EC%8B%9C%EA%B3%84%EC%97%B4%20%EC%9E%90%EB%A3%8C%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
+     4.8 시계열 자료 다루기
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01 python/05.00 5장 데이터 시각화.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01%20python/05.00%205%EC%9E%A5%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%8B%9C%EA%B0%81%ED%99%94.html">
    5장 데이터 시각화
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/05.01%20%EC%8B%9C%EA%B0%81%ED%99%94%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%20%EC%86%8C%EA%B0%9C.html">
+     5.1 시각화 패키지 맷플롯리브 소개
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/05.02%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80%20%ED%94%8C%EB%A1%AF.html">
+     Matplotlib의 여러가지 플롯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/05.03%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%82%BC%EA%B0%81%20%EA%B7%B8%EB%A6%AC%EB%93%9C%20%EC%82%AC%EC%9A%A9%EB%B2%95.html">
+     Matplotlib의 triangular grid 사용법
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/05.04%20%EC%8B%9C%EB%B3%B8%EC%9D%84%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%ED%8F%AC%20%EC%8B%9C%EA%B0%81%ED%99%94.html">
+     Seaborn을 사용한 데이터 분포 시각화
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20python/05.05%20%ED%8C%90%EB%8B%A4%EC%8A%A4%EC%9D%98%20%EC%8B%9C%EA%B0%81%ED%99%94%20%EA%B8%B0%EB%8A%A5.html">
+     Pandas의 시각화 기능
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 <p class="caption">
@@ -175,61 +395,366 @@ commentsRunWhenDOMLoaded(addUtterances);
   수학 편
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/00.00 소개의 글.html">
+  <a class="reference internal" href="../02%20mathematics/00.00%20%EC%86%8C%EA%B0%9C%EC%9D%98%20%EA%B8%80.html">
    소개의 글
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/01.00 1장 수학 기호.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/01.00%201%EC%9E%A5%20%EC%88%98%ED%95%99%20%EA%B8%B0%ED%98%B8.html">
    1장 수학 기호
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/01.01%20%EA%B7%B8%EB%A6%AC%EC%8A%A4%20%EB%AC%B8%EC%9E%90.html">
+     1.1 그리스 문자
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/01.02%20%EC%88%98%EC%97%B4%EA%B3%BC%20%EC%A7%91%ED%95%A9%EC%9D%98%20%ED%95%A9%EA%B3%BC%20%EA%B3%B1.html">
+     1.2 수열과 집합의 합과 곱
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/02.00 2장 넘파이(NumPy)로 공부하는 선형대수.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/02.00%202%EC%9E%A5%20%EB%84%98%ED%8C%8C%EC%9D%B4%28NumPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.html">
    2장 넘파이(NumPy)로 공부하는 선형대수
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/02.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80%20%ED%96%89%EB%A0%AC.html">
+     2.1 데이터와 행렬
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/02.02%20%EB%B2%A1%ED%84%B0%EC%99%80%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EC%97%B0%EC%82%B0.html">
+     2.2 벡터와 행렬의 연산
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/02.03%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EC%84%B1%EC%A7%88.html">
+     2.3 행렬의 성질
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/02.04%20%EC%84%A0%ED%98%95%20%EC%97%B0%EB%A6%BD%EB%B0%A9%EC%A0%95%EC%8B%9D%EA%B3%BC%20%EC%97%AD%ED%96%89%EB%A0%AC.html">
+     2.4 선형 연립방정식과 역행렬
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/03.00 3장 고급 선형대수.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/03.00%203%EC%9E%A5%20%EA%B3%A0%EA%B8%89%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.html">
    3장 고급 선형대수
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/03.01%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98%EC%99%80%20%ED%95%B4%EC%84%9D%EA%B8%B0%ED%95%98%EC%9D%98%20%EA%B8%B0%EC%B4%88.html">
+     3.1 선형대수와 해석기하의 기초
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/03.02%20%EC%A2%8C%ED%91%9C%EC%99%80%20%EB%B3%80%ED%99%98.html">
+     3.2 좌표와 변환
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/03.03%20%EA%B3%A0%EC%9C%B3%EA%B0%92%20%EB%B6%84%ED%95%B4.html">
+     3.3 고윳값 분해
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/03.04%20%ED%8A%B9%EC%9E%87%EA%B0%92%20%EB%B6%84%ED%95%B4.html">
+     3.4 특잇값 분해
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/03.05%20PCA.html">
+     3.5 PCA
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/04.00 4장 심파이(SymPy)로 공부하는 미적분.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/04.00%204%EC%9E%A5%20%EC%8B%AC%ED%8C%8C%EC%9D%B4%28SymPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EB%AF%B8%EC%A0%81%EB%B6%84.html">
    4장 심파이(SymPy)로 공부하는 미적분
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/04.01%20%ED%95%A8%EC%88%98.html">
+     4.1 함수
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/04.02%20%EC%8B%AC%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%ED%95%A8%EC%88%98%20%EB%AF%B8%EB%B6%84.html">
+     4.2 심파이를 사용한 함수 미분
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/04.03%20%EC%A0%81%EB%B6%84.html">
+     4.3 적분
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/04.04%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EB%AF%B8%EB%B6%84.html">
+     4.4 행렬의 미분
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/04.05%20%EB%B3%80%EB%B6%84%EB%B2%95.html">
+     4.5 변분법
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/05.00 5장 사이파이(SciPy)로 공부하는 최적화.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/05.00%205%EC%9E%A5%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%28SciPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EC%B5%9C%EC%A0%81%ED%99%94.html">
    5장 사이파이(SciPy)로 공부하는 최적화
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/05.01%20%EC%B5%9C%EC%A0%81%ED%99%94%20%EA%B8%B0%EC%B4%88.html">
+     5.1 최적화 기초
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/05.02%20%EC%A0%9C%ED%95%9C%EC%A1%B0%EA%B1%B4%EC%9D%B4%20%EC%9E%88%EB%8A%94%20%EC%B5%9C%EC%A0%81%ED%99%94%20%EB%AC%B8%EC%A0%9C.html">
+     5.2 제한조건이 있는 최적화 문제
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/05.03%20%EC%84%A0%ED%98%95%EA%B3%84%ED%9A%8D%EB%B2%95%20%EB%AC%B8%EC%A0%9C%EC%99%80%20%EC%9D%B4%EC%B0%A8%EA%B3%84%ED%9A%8D%EB%B2%95%20%EB%AC%B8%EC%A0%9C.html">
+     5.3 선형계획법 문제와 이차계획법 문제
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/06.00 6장 피지엠파이(pgmpy)로 공부하는 확률론.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/06.00%206%EC%9E%A5%20%ED%94%BC%EC%A7%80%EC%97%A0%ED%8C%8C%EC%9D%B4%28pgmpy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%ED%99%95%EB%A5%A0%EB%A1%A0.html">
    6장 피지엠파이(pgmpy)로 공부하는 확률론
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/06.01%20%EC%A7%91%ED%95%A9.html">
+     6.1 집합
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/06.02%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EC%88%98%ED%95%99%EC%A0%81%20%EC%A0%95%EC%9D%98%EC%99%80%20%EC%9D%98%EB%AF%B8.html">
+     6.2 확률의 수학적 정의와 의미
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/06.03%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EC%84%B1%EC%A7%88.html">
+     6.3 확률의 성질
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/06.04%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%ED%95%A8%EC%88%98.html">
+     6.4 확률분포함수
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/06.05%20%EA%B2%B0%ED%95%A9%ED%99%95%EB%A5%A0%EA%B3%BC%20%EC%A1%B0%EA%B1%B4%EB%B6%80%ED%99%95%EB%A5%A0.html">
+     6.5 결합확률과 조건부확률
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/06.06%20%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EC%A0%95%EB%A6%AC.html">
+     6.6 베이즈 정리
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/07.00 7장 확률변수와 상관관계.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/07.00%207%EC%9E%A5%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98%EC%99%80%20%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84.html">
    7장 확률변수와 상관관계
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/07.01%20%ED%99%95%EB%A5%A0%EC%A0%81%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98.html">
+     7.1 확률적 데이터와 확률변수
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/07.02%20%EA%B8%B0%EB%8C%93%EA%B0%92%EA%B3%BC%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98%EC%9D%98%20%EB%B3%80%ED%99%98.html">
+     7.2 기댓값과 확률변수의 변환
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/07.03%20%EB%B6%84%EC%82%B0%EA%B3%BC%20%ED%91%9C%EC%A4%80%ED%8E%B8%EC%B0%A8.html">
+     7.3 분산과 표준편차
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/07.04%20%EB%8B%A4%EB%B3%80%EC%88%98%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98.html">
+     7.4 다변수 확률변수
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/07.05%20%EA%B3%B5%EB%B6%84%EC%82%B0%EA%B3%BC%20%EC%83%81%EA%B4%80%EA%B3%84%EC%88%98.html">
+     7.5 공분산과 상관계수
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/07.06%20%EC%A1%B0%EA%B1%B4%EB%B6%80%EA%B8%B0%EB%8C%93%EA%B0%92%EA%B3%BC%20%EC%98%88%EC%B8%A1%20%EB%AC%B8%EC%A0%9C.html">
+     7.6 조건부기댓값과 예측 문제
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/08.00 8장 사이파이로 공부하는 확률분포.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/08.00%208%EC%9E%A5%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html">
    8장 사이파이로 공부하는 확률분포
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/08.01%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%20%EB%B6%84%EC%84%9D.html">
+     8.1 사이파이를 이용한 확률분포 분석
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/08.02%20%EB%B2%A0%EB%A5%B4%EB%88%84%EC%9D%B4%EB%B6%84%ED%8F%AC%EC%99%80%20%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC.html">
+     8.2 베르누이분포와 이항분포
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/08.03%20%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%EB%B6%84%ED%8F%AC%EC%99%80%20%EB%8B%A4%ED%95%AD%EB%B6%84%ED%8F%AC.html">
+     8.3 카테고리분포와 다항분포
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/08.04%20%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC%EC%99%80%20%EC%A4%91%EC%8B%AC%EA%B7%B9%ED%95%9C%EC%A0%95%EB%A6%AC.html">
+     8.4 정규분포와 중심극한정리
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/08.05%20%EC%8A%A4%ED%8A%9C%EB%8D%98%ED%8A%B8%20t%EB%B6%84%ED%8F%AC%2C%20%EC%B9%B4%EC%9D%B4%EC%A0%9C%EA%B3%B1%EB%B6%84%ED%8F%AC%2C%20F%EB%B6%84%ED%8F%AC.html">
+     8.5 스튜던트 t분포, 카이제곱분포, F분포
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/08.06%20%EB%8B%A4%EB%B3%80%EC%88%98%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC.html">
+     8.6 다변수정규분포
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/08.07%20%EB%B2%A0%ED%83%80%EB%B6%84%ED%8F%AC%2C%20%EA%B0%90%EB%A7%88%EB%B6%84%ED%8F%AC%2C%20%EB%94%94%EB%A6%AC%ED%81%B4%EB%A0%88%20%EB%B6%84%ED%8F%AC.html">
+     8.7 베타분포, 감마분포, 디리클레분포
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/09.00 9장 추정과 검정.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/09.00%209%EC%9E%A5%20%EC%B6%94%EC%A0%95%EA%B3%BC%20%EA%B2%80%EC%A0%95.html">
    9장 추정과 검정
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/09.01%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%EC%9D%98%20%EC%B6%94%EC%A0%95.html">
+     9.1 확률분포의 추정
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/09.02%20%EC%B5%9C%EB%8C%80%EA%B0%80%EB%8A%A5%EB%8F%84%20%EC%B6%94%EC%A0%95%EB%B2%95.html">
+     9.2 최대가능도 추정법
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/09.03%20%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EC%B6%94%EC%A0%95%EB%B2%95.html">
+     9.3 베이즈 추정법
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/09.04%20%EA%B2%80%EC%A0%95%EA%B3%BC%20%EC%9C%A0%EC%9D%98%ED%99%95%EB%A5%A0.html">
+     9.4 검정과 유의확률
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/09.05%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%EA%B2%80%EC%A0%95.html">
+     9.5 사이파이를 사용한 검정
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../02 mathematics/10.00 10장 엔트로피.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20mathematics/10.00%2010%EC%9E%A5%20%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">
    10장 엔트로피
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/10.01%20%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">
+     10.1 엔트로피
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/10.02%20%EC%A1%B0%EA%B1%B4%EB%B6%80%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">
+     10.2 조건부엔트로피
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/10.03%20%EA%B5%90%EC%B0%A8%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC%EC%99%80%20%EC%BF%A8%EB%B0%B1-%EB%9D%BC%EC%9D%B4%EB%B8%94%EB%9F%AC%20%EB%B0%9C%EC%82%B0.html">
+     10.3 교차엔트로피와 쿨백-라이블러 발산
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20mathematics/10.04%20%EC%83%81%ED%98%B8%EC%A0%95%EB%B3%B4%EB%9F%89.html">
+     10.4 상호정보량
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 <p class="caption">
@@ -237,169 +762,149 @@ commentsRunWhenDOMLoaded(addUtterances);
   머신러닝 편
  </span>
 </p>
-<ul class="current nav sidenav_l1">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="01.01 데이터 분석의 소개.html">
+  <a class="reference internal" href="01.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%EC%9D%98%20%EC%86%8C%EA%B0%9C.html">
    1.1 데이터 분석의 소개
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="01.02 머신러닝용 파이썬 패키지.html">
+  <a class="reference internal" href="01.02%20%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D%EC%9A%A9%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">
    1.2 머신러닝용 파이썬 패키지
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="02.01 데이터 전처리 기초.html">
+  <a class="reference internal" href="02.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A0%84%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EC%B4%88.html">
    2.1 데이터 전처리 기초
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="02.02 범주형 데이터 처리.html">
+  <a class="reference internal" href="02.02%20%EB%B2%94%EC%A3%BC%ED%98%95%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B2%98%EB%A6%AC.html">
    2.2 범주형 데이터 처리
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.01.01 NLTK 자연어 처리 패키지.html">
+  <a class="reference internal" href="03.01.01%20NLTK%20%EC%9E%90%EC%97%B0%EC%96%B4%20%EC%B2%98%EB%A6%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">
    NLTK 자연어 처리 패키지
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.01.02 KoNLPy 한국어 처리 패키지.html">
+  <a class="reference internal" href="03.01.02%20KoNLPy%20%ED%95%9C%EA%B5%AD%EC%96%B4%20%EC%B2%98%EB%A6%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">
    KoNLPy 한국어 처리 패키지
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.01.03 Scikit-Learn의 문서 전처리 기능.html">
+  <a class="reference internal" href="03.01.03%20Scikit-Learn%EC%9D%98%20%EB%AC%B8%EC%84%9C%20%EC%A0%84%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EB%8A%A5.html">
    Scikit-Learn의 문서 전처리 기능
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.01.04 soynlp.html">
+  <a class="reference internal" href="03.01.04%20soynlp.html">
    Soynlp 소개
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.01.05 확률론적 언어 모형.html">
+  <a class="reference internal" href="03.01.05%20%ED%99%95%EB%A5%A0%EB%A1%A0%EC%A0%81%20%EC%96%B8%EC%96%B4%20%EB%AA%A8%ED%98%95.html">
    확률론적 언어 모형
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.02.01 이미지 처리 기초.html">
+  <a class="reference internal" href="03.02.01%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EC%B4%88.html">
    이미지 처리 기초
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.02.02 이미지 필터링.html">
+  <a class="reference internal" href="03.02.02%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%ED%95%84%ED%84%B0%EB%A7%81.html">
    이미지 필터링
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.02.03 이미지 컨투어.html">
+  <a class="reference internal" href="03.02.03%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%BB%A8%ED%88%AC%EC%96%B4.html">
    이미지 컨투어
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.02.04 이미지 변환.html">
+  <a class="reference internal" href="03.02.04%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EB%B3%80%ED%99%98.html">
    이미지 변환
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.02.05 이미지 특징 추출.html">
+  <a class="reference internal" href="03.02.05%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%ED%8A%B9%EC%A7%95%20%EC%B6%94%EC%B6%9C.html">
    이미지 특징 추출
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.03.01 사운드 프로세싱 기초.html">
+  <a class="reference internal" href="03.03.01%20%EC%82%AC%EC%9A%B4%EB%93%9C%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8B%B1%20%EA%B8%B0%EC%B4%88.html">
    사운드 프로세싱 기초
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.03.02 푸리에 변환과 스펙트럼.html">
+  <a class="reference internal" href="03.03.02%20%ED%91%B8%EB%A6%AC%EC%97%90%20%EB%B3%80%ED%99%98%EA%B3%BC%20%EC%8A%A4%ED%8E%99%ED%8A%B8%EB%9F%BC.html">
    푸리에 변환과 스펙트럼
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.04.01 지리 정보 데이터 처리.html">
+  <a class="reference internal" href="03.04.01%20%EC%A7%80%EB%A6%AC%20%EC%A0%95%EB%B3%B4%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B2%98%EB%A6%AC.html">
    지리 정보 데이터 처리
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.04.02 지오코딩.html">
+  <a class="reference internal" href="03.04.02%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">
    Geocoding
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="04.01 회귀분석 예제.html">
+  <a class="reference internal" href="04.01%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%20%EC%98%88%EC%A0%9C.html">
    4.1 회귀분석 예제
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="04.02 선형회귀분석의 기초.html">
+  <a class="reference internal" href="04.02%20%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%EC%9D%98%20%EA%B8%B0%EC%B4%88.html">
    4.2 선형회귀분석의 기초
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="04.03 스케일링.html">
+  <a class="reference internal" href="04.03%20%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81.html">
    4.3 스케일링
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="04.04 범주형 독립변수.html">
+  <a class="reference internal" href="04.04%20%EB%B2%94%EC%A3%BC%ED%98%95%20%EB%8F%85%EB%A6%BD%EB%B3%80%EC%88%98.html">
    4.4 범주형 독립변수
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="04.05 부분회귀.html">
+  <a class="reference internal" href="04.05%20%EB%B6%80%EB%B6%84%ED%9A%8C%EA%B7%80.html">
    4.5 부분회귀
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05.01 확률론적 선형 회귀모형.html">
+  <a class="reference internal" href="05.01%20%ED%99%95%EB%A5%A0%EB%A1%A0%EC%A0%81%20%EC%84%A0%ED%98%95%20%ED%9A%8C%EA%B7%80%EB%AA%A8%ED%98%95.html">
    5.1 확률론적 선형 회귀모형
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05.02 회귀분석의 기하학.html">
+  <a class="reference internal" href="05.02%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%EC%9D%98%20%EA%B8%B0%ED%95%98%ED%95%99.html">
    5.2 회귀분석의 기하학
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05.03 레버리지와 아웃라이어.html">
+  <a class="reference internal" href="05.03%20%EB%A0%88%EB%B2%84%EB%A6%AC%EC%A7%80%EC%99%80%20%EC%95%84%EC%9B%83%EB%9D%BC%EC%9D%B4%EC%96%B4.html">
    5.3 레버리지와 아웃라이어
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05.04 분산 분석과 모형 성능.html">
+  <a class="reference internal" href="05.04%20%EB%B6%84%EC%82%B0%20%EB%B6%84%EC%84%9D%EA%B3%BC%20%EB%AA%A8%ED%98%95%20%EC%84%B1%EB%8A%A5.html">
    5.4 분산 분석과 모형 성능
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06.01 모형 진단과 수정.html">
+  <a class="reference internal" href="06.01%20%EB%AA%A8%ED%98%95%20%EC%A7%84%EB%8B%A8%EA%B3%BC%20%EC%88%98%EC%A0%95.html">
    6.1 모형 진단과 수정
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06.01 모형 진단과 수정.html#id2">
-   잔차 정규성
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06.01 모형 진단과 수정.html#id3">
-   잔차와 독립 변수의 관계
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06.01 모형 진단과 수정.html#id4">
-   이분산성
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06.01 모형 진단과 수정.html#id5">
-   자기 상관 계수
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06.02 기저함수 모형과 과최적화.html">
+  <a class="reference internal" href="06.02%20%EA%B8%B0%EC%A0%80%ED%95%A8%EC%88%98%20%EB%AA%A8%ED%98%95%EA%B3%BC%20%EA%B3%BC%EC%B5%9C%EC%A0%81%ED%99%94.html">
    6.2 기저함수 모형과 과최적화
   </a>
  </li>
@@ -409,212 +914,174 @@ commentsRunWhenDOMLoaded(addUtterances);
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html">
+  <a class="reference internal" href="06.04%20%EB%8B%A4%EC%A4%91%EA%B3%B5%EC%84%A0%EC%84%B1%EA%B3%BC%20%EB%B3%80%EC%88%98%20%EC%84%A0%ED%83%9D.html">
    6.4 다중공선성과 변수 선택
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#vif">
-   VIF
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06.04 다중공선성과 변수 선택.html#id2">
-   보스턴 집값 예측 문제에 응용
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06.05 정규화 선형회귀.html">
+  <a class="reference internal" href="06.05%20%EC%A0%95%EA%B7%9C%ED%99%94%20%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80.html">
    6.5 정규화 선형회귀
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="07.01 추천 시스템.html">
+  <a class="reference internal" href="07.01%20%EC%B6%94%EC%B2%9C%20%EC%8B%9C%EC%8A%A4%ED%85%9C.html">
    13.1 추천 시스템
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="09.01 분류용 예제 데이터.html">
+  <a class="reference internal" href="09.01%20%EB%B6%84%EB%A5%98%EC%9A%A9%20%EC%98%88%EC%A0%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0.html">
    5.1 분류용 예제 데이터
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html">
+  <a class="reference internal" href="09.02%20%EB%B6%84%EB%A5%98%EC%9A%A9%20%EA%B0%80%EC%83%81%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%83%9D%EC%84%B1.html">
    5.2 분류용 가상 데이터 생성
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-blobs">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     make_blobs
-    </span>
-   </code>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-moons">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     make_moons
-    </span>
-   </code>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09.02 분류용 가상 데이터 생성.html#make-gaussian-quantiles">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     make_gaussian_quantiles
-    </span>
-   </code>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09.03 분류모형.html">
+  <a class="reference internal" href="09.03%20%EB%B6%84%EB%A5%98%EB%AA%A8%ED%98%95.html">
    5.3 분류모형
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="09.04 분류 성능평가.html">
+  <a class="reference internal" href="09.04%20%EB%B6%84%EB%A5%98%20%EC%84%B1%EB%8A%A5%ED%8F%89%EA%B0%80.html">
    5.4 분류 성능평가
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="10.01 로지스틱 회귀분석.html">
+  <a class="reference internal" href="10.01%20%EB%A1%9C%EC%A7%80%EC%8A%A4%ED%8B%B1%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D.html">
    6.1 로지스틱 회귀분석
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11.01 선형판별분석법과 이차판별분석법.html">
+  <a class="reference internal" href="11.01%20%EC%84%A0%ED%98%95%ED%8C%90%EB%B3%84%EB%B6%84%EC%84%9D%EB%B2%95%EA%B3%BC%20%EC%9D%B4%EC%B0%A8%ED%8C%90%EB%B3%84%EB%B6%84%EC%84%9D%EB%B2%95.html">
    7.1 선형판별분석법과 이차판별분석법
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11.02 나이브베이즈 분류모형.html">
+  <a class="reference internal" href="11.02%20%EB%82%98%EC%9D%B4%EB%B8%8C%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EB%B6%84%EB%A5%98%EB%AA%A8%ED%98%95.html">
    7.2 나이브베이즈 분류모형
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11.03 감성 분석.html">
+  <a class="reference internal" href="11.03%20%EA%B0%90%EC%84%B1%20%EB%B6%84%EC%84%9D.html">
    감성 분석
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12.01 의사결정나무.html">
+  <a class="reference internal" href="12.01%20%EC%9D%98%EC%82%AC%EA%B2%B0%EC%A0%95%EB%82%98%EB%AC%B4.html">
    8.1 의사결정나무
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12.02 모형 결합.html">
+  <a class="reference internal" href="12.02%20%EB%AA%A8%ED%98%95%20%EA%B2%B0%ED%95%A9.html">
    12.02 모형 결합
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12.03 부스팅 방법.html">
+  <a class="reference internal" href="12.03%20%EB%B6%80%EC%8A%A4%ED%8C%85%20%EB%B0%A9%EB%B2%95.html">
    부스팅 방법
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="13.02 서포트 벡터 머신.html">
+  <a class="reference internal" href="13.02%20%EC%84%9C%ED%8F%AC%ED%8A%B8%20%EB%B2%A1%ED%84%B0%20%EB%A8%B8%EC%8B%A0.html">
    서포트 벡터 머신
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="13.03 커널 서포트 벡터 머신.html">
+  <a class="reference internal" href="13.03%20%EC%BB%A4%EB%84%90%20%EC%84%9C%ED%8F%AC%ED%8A%B8%20%EB%B2%A1%ED%84%B0%20%EB%A8%B8%EC%8B%A0.html">
    커널 서포트 벡터 머신
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14.01 모형 최적화.html">
+  <a class="reference internal" href="14.01%20%EB%AA%A8%ED%98%95%20%EC%B5%9C%EC%A0%81%ED%99%94.html">
    모형 최적화
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14.02 비대칭 데이터 문제.html">
+  <a class="reference internal" href="14.02%20%EB%B9%84%EB%8C%80%EC%B9%AD%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AC%B8%EC%A0%9C.html">
    비대칭 데이터 문제
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14.03 특징 선택.html">
+  <a class="reference internal" href="14.03%20%ED%8A%B9%EC%A7%95%20%EC%84%A0%ED%83%9D.html">
    특징 선택
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14.04 대규모 데이터 학습.html">
+  <a class="reference internal" href="14.04%20%EB%8C%80%EA%B7%9C%EB%AA%A8%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%95%99%EC%8A%B5.html">
    대규모 데이터 학습
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16.01 군집화.html">
+  <a class="reference internal" href="16.01%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
    군집화
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16.02 K-평균 군집화.html">
+  <a class="reference internal" href="16.02%20K-%ED%8F%89%EA%B7%A0%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
    K-평균 군집화
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16.03 디비스캔 군집화.html">
+  <a class="reference internal" href="16.03%20%EB%94%94%EB%B9%84%EC%8A%A4%EC%BA%94%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
    디비스캔 군집화
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16.04 계층적 군집화.html">
+  <a class="reference internal" href="16.04%20%EA%B3%84%EC%B8%B5%EC%A0%81%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
    계층적 군집화
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16.05 Affinity Propagation.html">
+  <a class="reference internal" href="16.05%20Affinity%20Propagation.html">
    Affinity Propagation
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="17.01 그래프 이론 기초.html">
+  <a class="reference internal" href="17.01%20%EA%B7%B8%EB%9E%98%ED%94%84%20%EC%9D%B4%EB%A1%A0%20%EA%B8%B0%EC%B4%88.html">
    그래프 이론 기초
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="17.02 그래프 확률모형.html">
+  <a class="reference internal" href="17.02%20%EA%B7%B8%EB%9E%98%ED%94%84%20%ED%99%95%EB%A5%A0%EB%AA%A8%ED%98%95.html">
    그래프 확률모형
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="17.03 네트워크 추론.html">
+  <a class="reference internal" href="17.03%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EC%B6%94%EB%A1%A0.html">
    네트워크 추론
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="18.01 가우시안 혼합모형과 EM 방법.html">
+  <a class="reference internal" href="18.01%20%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88%20%ED%98%BC%ED%95%A9%EB%AA%A8%ED%98%95%EA%B3%BC%20EM%20%EB%B0%A9%EB%B2%95.html">
    가우시안 혼합모형과 EM 방법
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="18.02 변분법적 추론.html">
+  <a class="reference internal" href="18.02%20%EB%B3%80%EB%B6%84%EB%B2%95%EC%A0%81%20%EC%B6%94%EB%A1%A0.html">
    변분법적 추론
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="19.01 몬테카를로 베이지안 분석.html">
+  <a class="reference internal" href="19.01%20%EB%AA%AC%ED%85%8C%EC%B9%B4%EB%A5%BC%EB%A1%9C%20%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88%20%EB%B6%84%EC%84%9D.html">
    몬테카를로 베이지안 분석
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="19.02 베이지안 회귀 분석 예제.html">
+  <a class="reference internal" href="19.02%20%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88%20%ED%9A%8C%EA%B7%80%20%EB%B6%84%EC%84%9D%20%EC%98%88%EC%A0%9C.html">
    베이지안 회귀 분석 예제
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="20.01 히든 마코프 모형.html">
+  <a class="reference internal" href="20.01%20%ED%9E%88%EB%93%A0%20%EB%A7%88%EC%BD%94%ED%94%84%20%EB%AA%A8%ED%98%95.html">
    히든 마코프 모형
   </a>
  </li>
 </ul>
 
-</nav>
-
- <!-- To handle the deprecated key -->
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
   Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
@@ -629,25 +1096,25 @@ commentsRunWhenDOMLoaded(addUtterances);
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
-    
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         
@@ -659,18 +1126,18 @@ commentsRunWhenDOMLoaded(addUtterances);
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
-    
 </div>
-        <!-- Source interaction buttons -->
 
+            <!-- Source interaction buttons -->
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
 
-        <!-- Launch buttons -->
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -685,25 +1152,20 @@ commentsRunWhenDOMLoaded(addUtterances);
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/datascienceschool/book/blob/master/ds/03 machine learning/06.03 교차검증.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
         
     </div>
 </div>
 
-    </div>
-
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
         </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    표본내 성능과 표본외 성능
@@ -756,8 +1218,8 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
 </ul>
 
-        </nav>
-        
+            </nav>
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -1197,19 +1659,21 @@ draw, shape=rectangle, minimum height=2em, minimum width=3em, node distance=4cm,
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="06.02 기저함수 모형과 과최적화.html" title="previous page">6.2 기저함수 모형과 과최적화</a>
-    <a class='right-next' id="next-link" href="06.04 다중공선성과 변수 선택.html" title="next page">6.4 다중공선성과 변수 선택</a>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="06.02%20%EA%B8%B0%EC%A0%80%ED%95%A8%EC%88%98%20%EB%AA%A8%ED%98%95%EA%B3%BC%20%EA%B3%BC%EC%B5%9C%EC%A0%81%ED%99%94.html" title="previous page">6.2 기저함수 모형과 과최적화</a>
+    <a class='right-next' id="next-link" href="06.04%20%EB%8B%A4%EC%A4%91%EA%B3%B5%EC%84%A0%EC%84%B1%EA%B3%BC%20%EB%B3%80%EC%88%98%20%EC%84%A0%ED%83%9D.html" title="next page">6.4 다중공선성과 변수 선택</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
       <p>
+        
+          By 김도형<br/>
         
       </p>
     </div>
@@ -1219,21 +1683,19 @@ draw, shape=rectangle, minimum height=2em, minimum width=3em, node distance=4cm,
 
       </div>
     </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-77195005-1', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
 
-
-    
-    <!-- Google Analytics -->
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-77195005-1', 'auto');
-      ga('set', 'anonymizeIp', true);
-      ga('send', 'pageview');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-    
   </body>
 </html>

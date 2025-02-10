@@ -1,47 +1,60 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>5.1 시각화 패키지 맷플롯리브 소개 &#8212; 데이터 사이언스 스쿨</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-      
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/myfile.css?v=8f29c9ce" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/myfile.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
-
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
     <script kind="utterances">
 
@@ -77,1213 +90,526 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-77195005-1"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'UA-77195005-1');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'UA-77195005-1');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01 python/05.01 시각화 패키지 맷플롯리브 소개';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Matplotlib의 여러가지 플롯" href="05.02%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80%20%ED%94%8C%EB%A1%AF.html" />
     <link rel="prev" title="5장 데이터 시각화" href="05.00%205%EC%9E%A5%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%8B%9C%EA%B0%81%ED%99%94.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <dialog id="pst-search-dialog">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-      <img src="../_static/logo.svg" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">데이터 사이언스 스쿨</h1>
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   데이터 사이언스 스쿨
-  </a>
- </li>
-</ul>
-<p class="caption">
- <span class="caption-text">
-  파이썬 편
- </span>
-</p>
+    
+    
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="데이터 사이언스 스쿨 - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="데이터 사이언스 스쿨 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    데이터 사이언스 스쿨
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">파이썬 편</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="00.00%20%EC%86%8C%EA%B0%9C%EC%9D%98%20%EA%B8%80.html">
-   소개의 글
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="01.00%201%EC%9E%A5%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%84%A4%EC%B9%98%EC%99%80%20%EC%84%A4%EC%A0%95.html">
-   1장 파이썬 설치와 설정
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01.01%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0.html">
-     1.1 파이썬 설치하기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01.02%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%B2%98%EC%9D%8C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
-     1.2 파이썬 처음 사용하기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01.03%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0.html">
-     1.3 파이썬 패키지 설치하기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01.04%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%EC%9A%A9%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%86%8C%EA%B0%9C.html">
-     1.4 데이터 분석용 파이썬 패키지 소개
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01.05%20%EC%95%84%EC%9D%B4%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EB%B0%8F%20%EC%A3%BC%ED%94%BC%ED%84%B0%20%EC%84%A4%EC%A0%95.html">
-     1.5 아이파이썬 및 주피터 설정
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="02.00%202%EC%9E%A5%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%20%EB%AC%B8%EB%B2%95.html">
-   2장 파이썬 기초문법
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.01%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%84%20%EA%B3%84%EC%82%B0%EA%B8%B0%EB%A1%9C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
-     2.1 파이썬을 계산기로 사용하기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.02%20%EB%B6%80%EB%8F%99%EC%86%8C%EC%88%98%EC%A0%90%20%EC%8B%A4%EC%88%98%20%EC%9E%90%EB%A3%8C%ED%98%95.html">
-     2.2 부동소수점 실수 자료형
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.03%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9C%BC%EB%A1%9C%20%EA%B8%80%EC%9E%90%EB%A5%BC%20%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0.html">
-     2.3 파이썬으로 글자를 출력하기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.04%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%98%20%EB%AC%B8%EC%9E%90%EC%97%B4%20%ED%98%95%EC%8B%9D%ED%99%94.html">
-     2.4 파이썬의 문자열 형식화
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.05%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A1%B0%EA%B1%B4%EB%AC%B8%20%EA%B8%B0%EC%B4%88.html">
-     2.5 파이썬 조건문 기초
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.06%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%95%A8%EC%88%98.html">
-     2.6 파이썬 함수
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.07%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20for%20%EB%B0%98%EB%B3%B5%EB%AC%B8.html">
-     2.7 파이썬 for 반복문
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.08%20%EC%97%AC%EB%9F%AC%20%EA%B0%9C%EC%9D%98%20%EC%9E%90%EB%A3%8C%EB%A5%BC%20%ED%95%9C%20%EB%B3%80%EC%88%98%EC%97%90%20%EB%8B%B4%EA%B8%B0.html">
-     2.8 여러 개의 자료를 한 변수에 담기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.09%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%20%EC%9E%90%EB%A3%8C%ED%98%95%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
-     2.9 파이썬에서 리스트 자료형 다루기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.10%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%EC%99%80%20%EB%B0%98%EB%B3%B5%EB%AC%B8%EC%9D%84%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html">
-     2.10 리스트와 반복문을 사용하여 계산하기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.11%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC%20%EC%9E%90%EB%A3%8C%ED%98%95%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
-     2.11 파이썬에서 딕셔너리 자료형 다루기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.12%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.html">
-     2.12 파이썬 객체지향 프로그래밍
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.13%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
-     2.13 파이썬 패키지 사용하기
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.14%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%98%20%EC%9E%90%EB%A3%8C%ED%98%95.html">
-     2.14 파이썬의 자료형
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02.15%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%82%A0%EC%A7%9C%EC%99%80%20%EC%8B%9C%EA%B0%84%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
-     2.15 파이썬에서 날짜와 시간 다루기
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="03.00%203%EC%9E%A5%20%EB%84%98%ED%8C%8C%EC%9D%B4%20%EB%B0%B0%EC%97%B4%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.html">
-   3장 넘파이 배열 프로그래밍
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03.01%20%EB%84%98%ED%8C%8C%EC%9D%B4%20%EB%B0%B0%EC%97%B4.html">
-     3.1 넘파이 배열
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03.02%20%EB%B0%B0%EC%97%B4%EC%9D%98%20%EC%83%9D%EC%84%B1%EA%B3%BC%20%EB%B3%80%ED%98%95.html">
-     3.2 배열의 생성과 변형
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03.03%20%EB%B0%B0%EC%97%B4%EC%9D%98%20%EC%97%B0%EC%82%B0.html">
-     3.3 배열의 연산
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03.04%20%EA%B8%B0%EC%88%A0%20%ED%86%B5%EA%B3%84.html">
-     3.4 기술 통계
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03.05%20%EB%82%9C%EC%88%98%20%EB%B0%9C%EC%83%9D%EA%B3%BC%20%EC%B9%B4%EC%9A%B4%ED%8C%85.html">
-     3.5 난수 발생과 카운팅
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="04.00%204%EC%9E%A5%20%ED%8C%90%EB%8B%A4%EC%8A%A4%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D.html">
-   4장 판다스 데이터 분석
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.01%20%ED%8C%90%EB%8B%A4%EC%8A%A4%20%ED%8C%A8%ED%82%A4%EC%A7%80%EC%9D%98%20%EC%86%8C%EA%B0%9C.html">
-     4.1 판다스 패키지의 소개
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.02%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%9E%85%EC%B6%9C%EB%A0%A5.html">
-     4.2 데이터 입출력
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.03%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%EA%B3%A0%EA%B8%89%20%EC%9D%B8%EB%8D%B1%EC%8B%B1.html">
-     4.3 데이터프레임 고급 인덱싱
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.04%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%EC%9D%98%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%EC%9E%91.html">
-     4.4 데이터프레임의 데이터 조작
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.05%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%EC%9D%B8%EB%8D%B1%EC%8A%A4%20%EC%A1%B0%EC%9E%91.html">
-     4.5 데이터프레임 인덱스 조작
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.06%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%ED%95%A9%EC%84%B1.html">
-     4.6 데이터프레임 합성
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.07%20%ED%94%BC%EB%B4%87%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC%20%EA%B7%B8%EB%A3%B9%EB%B6%84%EC%84%9D.html">
-     4.7 피봇테이블과 그룹분석
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="04.08%20%EC%8B%9C%EA%B3%84%EC%97%B4%20%EC%9E%90%EB%A3%8C%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">
-     4.8 시계열 자료 다루기
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="05.00%205%EC%9E%A5%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%8B%9C%EA%B0%81%ED%99%94.html">
-   5장 데이터 시각화
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     5.1 시각화 패키지 맷플롯리브 소개
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05.02%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80%20%ED%94%8C%EB%A1%AF.html">
-     Matplotlib의 여러가지 플롯
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05.03%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%82%BC%EA%B0%81%20%EA%B7%B8%EB%A6%AC%EB%93%9C%20%EC%82%AC%EC%9A%A9%EB%B2%95.html">
-     Matplotlib의 triangular grid 사용법
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05.04%20%EC%8B%9C%EB%B3%B8%EC%9D%84%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%ED%8F%AC%20%EC%8B%9C%EA%B0%81%ED%99%94.html">
-     Seaborn을 사용한 데이터 분포 시각화
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="05.05%20%ED%8C%90%EB%8B%A4%EC%8A%A4%EC%9D%98%20%EC%8B%9C%EA%B0%81%ED%99%94%20%EA%B8%B0%EB%8A%A5.html">
-     Pandas의 시각화 기능
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="00.00%20%EC%86%8C%EA%B0%9C%EC%9D%98%20%EA%B8%80.html">소개의 글</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="01.00%201%EC%9E%A5%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%84%A4%EC%B9%98%EC%99%80%20%EC%84%A4%EC%A0%95.html">1장 파이썬 설치와 설정</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.01%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0.html">1.1 파이썬 설치하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.02%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%B2%98%EC%9D%8C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">1.2 파이썬 처음 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.03%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0.html">1.3 파이썬 패키지 설치하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.04%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%EC%9A%A9%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%86%8C%EA%B0%9C.html">1.4 데이터 분석용 파이썬 패키지 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.05%20%EC%95%84%EC%9D%B4%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EB%B0%8F%20%EC%A3%BC%ED%94%BC%ED%84%B0%20%EC%84%A4%EC%A0%95.html">1.5 아이파이썬 및 주피터 설정</a></li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  수학 편
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02.00%202%EC%9E%A5%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B8%B0%EC%B4%88%20%EB%AC%B8%EB%B2%95.html">2장 파이썬 기초문법</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.01%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%84%20%EA%B3%84%EC%82%B0%EA%B8%B0%EB%A1%9C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">2.1 파이썬을 계산기로 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.02%20%EB%B6%80%EB%8F%99%EC%86%8C%EC%88%98%EC%A0%90%20%EC%8B%A4%EC%88%98%20%EC%9E%90%EB%A3%8C%ED%98%95.html">2.2 부동소수점 실수 자료형</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.03%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9C%BC%EB%A1%9C%20%EA%B8%80%EC%9E%90%EB%A5%BC%20%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0.html">2.3 파이썬으로 글자를 출력하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.04%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%98%20%EB%AC%B8%EC%9E%90%EC%97%B4%20%ED%98%95%EC%8B%9D%ED%99%94.html">2.4 파이썬의 문자열 형식화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.05%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%A1%B0%EA%B1%B4%EB%AC%B8%20%EA%B8%B0%EC%B4%88.html">2.5 파이썬 조건문 기초</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.06%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%95%A8%EC%88%98.html">2.6 파이썬 함수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.07%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20for%20%EB%B0%98%EB%B3%B5%EB%AC%B8.html">2.7 파이썬 for 반복문</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.08%20%EC%97%AC%EB%9F%AC%20%EA%B0%9C%EC%9D%98%20%EC%9E%90%EB%A3%8C%EB%A5%BC%20%ED%95%9C%20%EB%B3%80%EC%88%98%EC%97%90%20%EB%8B%B4%EA%B8%B0.html">2.8 여러 개의 자료를 한 변수에 담기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.09%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%20%EC%9E%90%EB%A3%8C%ED%98%95%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">2.9 파이썬에서 리스트 자료형 다루기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.10%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%EC%99%80%20%EB%B0%98%EB%B3%B5%EB%AC%B8%EC%9D%84%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20%EA%B3%84%EC%82%B0%ED%95%98%EA%B8%B0.html">2.10 리스트와 반복문을 사용하여 계산하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.11%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC%20%EC%9E%90%EB%A3%8C%ED%98%95%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">2.11 파이썬에서 딕셔너리 자료형 다루기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.12%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.html">2.12 파이썬 객체지향 프로그래밍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.13%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">2.13 파이썬 패키지 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.14%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9D%98%20%EC%9E%90%EB%A3%8C%ED%98%95.html">2.14 파이썬의 자료형</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.15%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%20%EB%82%A0%EC%A7%9C%EC%99%80%20%EC%8B%9C%EA%B0%84%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">2.15 파이썬에서 날짜와 시간 다루기</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03.00%203%EC%9E%A5%20%EB%84%98%ED%8C%8C%EC%9D%B4%20%EB%B0%B0%EC%97%B4%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.html">3장 넘파이 배열 프로그래밍</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.01%20%EB%84%98%ED%8C%8C%EC%9D%B4%20%EB%B0%B0%EC%97%B4.html">3.1 넘파이 배열</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.02%20%EB%B0%B0%EC%97%B4%EC%9D%98%20%EC%83%9D%EC%84%B1%EA%B3%BC%20%EB%B3%80%ED%98%95.html">3.2 배열의 생성과 변형</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.03%20%EB%B0%B0%EC%97%B4%EC%9D%98%20%EC%97%B0%EC%82%B0.html">3.3 배열의 연산</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.04%20%EA%B8%B0%EC%88%A0%20%ED%86%B5%EA%B3%84.html">3.4 기술 통계</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.05%20%EB%82%9C%EC%88%98%20%EB%B0%9C%EC%83%9D%EA%B3%BC%20%EC%B9%B4%EC%9A%B4%ED%8C%85.html">3.5 난수 발생과 카운팅</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="04.00%204%EC%9E%A5%20%ED%8C%90%EB%8B%A4%EC%8A%A4%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D.html">4장 판다스 데이터 분석</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="04.01%20%ED%8C%90%EB%8B%A4%EC%8A%A4%20%ED%8C%A8%ED%82%A4%EC%A7%80%EC%9D%98%20%EC%86%8C%EA%B0%9C.html">4.1 판다스 패키지의 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%9E%85%EC%B6%9C%EB%A0%A5.html">4.2 데이터 입출력</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.03%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%EA%B3%A0%EA%B8%89%20%EC%9D%B8%EB%8D%B1%EC%8B%B1.html">4.3 데이터프레임 고급 인덱싱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.04%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%EC%9D%98%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%EC%9E%91.html">4.4 데이터프레임의 데이터 조작</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.05%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%EC%9D%B8%EB%8D%B1%EC%8A%A4%20%EC%A1%B0%EC%9E%91.html">4.5 데이터프레임 인덱스 조작</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.06%20%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84%20%ED%95%A9%EC%84%B1.html">4.6 데이터프레임 합성</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.07%20%ED%94%BC%EB%B4%87%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B3%BC%20%EA%B7%B8%EB%A3%B9%EB%B6%84%EC%84%9D.html">4.7 피봇테이블과 그룹분석</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.08%20%EC%8B%9C%EA%B3%84%EC%97%B4%20%EC%9E%90%EB%A3%8C%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.html">4.8 시계열 자료 다루기</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="05.00%205%EC%9E%A5%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%8B%9C%EA%B0%81%ED%99%94.html">5장 데이터 시각화</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.1 시각화 패키지 맷플롯리브 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.02%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80%20%ED%94%8C%EB%A1%AF.html">Matplotlib의 여러가지 플롯</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.03%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%82%BC%EA%B0%81%20%EA%B7%B8%EB%A6%AC%EB%93%9C%20%EC%82%AC%EC%9A%A9%EB%B2%95.html">Matplotlib의 triangular grid 사용법</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.04%20%EC%8B%9C%EB%B3%B8%EC%9D%84%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%ED%8F%AC%20%EC%8B%9C%EA%B0%81%ED%99%94.html">Seaborn을 사용한 데이터 분포 시각화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.05%20%ED%8C%90%EB%8B%A4%EC%8A%A4%EC%9D%98%20%EC%8B%9C%EA%B0%81%ED%99%94%20%EA%B8%B0%EB%8A%A5.html">Pandas의 시각화 기능</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">수학 편</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../02%20mathematics/00.00%20%EC%86%8C%EA%B0%9C%EC%9D%98%20%EA%B8%80.html">
-   소개의 글
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/01.00%201%EC%9E%A5%20%EC%88%98%ED%95%99%20%EA%B8%B0%ED%98%B8.html">
-   1장 수학 기호
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/01.01%20%EA%B7%B8%EB%A6%AC%EC%8A%A4%20%EB%AC%B8%EC%9E%90.html">
-     1.1 그리스 문자
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/01.02%20%EC%88%98%EC%97%B4%EA%B3%BC%20%EC%A7%91%ED%95%A9%EC%9D%98%20%ED%95%A9%EA%B3%BC%20%EA%B3%B1.html">
-     1.2 수열과 집합의 합과 곱
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/02.00%202%EC%9E%A5%20%EB%84%98%ED%8C%8C%EC%9D%B4%28NumPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.html">
-   2장 넘파이(NumPy)로 공부하는 선형대수
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/02.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80%20%ED%96%89%EB%A0%AC.html">
-     2.1 데이터와 행렬
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/02.02%20%EB%B2%A1%ED%84%B0%EC%99%80%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EC%97%B0%EC%82%B0.html">
-     2.2 벡터와 행렬의 연산
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/02.03%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EC%84%B1%EC%A7%88.html">
-     2.3 행렬의 성질
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/02.04%20%EC%84%A0%ED%98%95%20%EC%97%B0%EB%A6%BD%EB%B0%A9%EC%A0%95%EC%8B%9D%EA%B3%BC%20%EC%97%AD%ED%96%89%EB%A0%AC.html">
-     2.4 선형 연립방정식과 역행렬
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/03.00%203%EC%9E%A5%20%EA%B3%A0%EA%B8%89%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.html">
-   3장 고급 선형대수
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/03.01%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98%EC%99%80%20%ED%95%B4%EC%84%9D%EA%B8%B0%ED%95%98%EC%9D%98%20%EA%B8%B0%EC%B4%88.html">
-     3.1 선형대수와 해석기하의 기초
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/03.02%20%EC%A2%8C%ED%91%9C%EC%99%80%20%EB%B3%80%ED%99%98.html">
-     3.2 좌표와 변환
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/03.03%20%EA%B3%A0%EC%9C%B3%EA%B0%92%20%EB%B6%84%ED%95%B4.html">
-     3.3 고윳값 분해
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/03.04%20%ED%8A%B9%EC%9E%87%EA%B0%92%20%EB%B6%84%ED%95%B4.html">
-     3.4 특잇값 분해
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/03.05%20PCA.html">
-     3.5 PCA
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/04.00%204%EC%9E%A5%20%EC%8B%AC%ED%8C%8C%EC%9D%B4%28SymPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EB%AF%B8%EC%A0%81%EB%B6%84.html">
-   4장 심파이(SymPy)로 공부하는 미적분
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-  <label for="toctree-checkbox-9">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/04.01%20%ED%95%A8%EC%88%98.html">
-     4.1 함수
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/04.02%20%EC%8B%AC%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%ED%95%A8%EC%88%98%20%EB%AF%B8%EB%B6%84.html">
-     4.2 심파이를 사용한 함수 미분
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/04.03%20%EC%A0%81%EB%B6%84.html">
-     4.3 적분
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/04.04%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EB%AF%B8%EB%B6%84.html">
-     4.4 행렬의 미분
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/04.05%20%EB%B3%80%EB%B6%84%EB%B2%95.html">
-     4.5 변분법
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/05.00%205%EC%9E%A5%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%28SciPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EC%B5%9C%EC%A0%81%ED%99%94.html">
-   5장 사이파이(SciPy)로 공부하는 최적화
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-  <label for="toctree-checkbox-10">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/05.01%20%EC%B5%9C%EC%A0%81%ED%99%94%20%EA%B8%B0%EC%B4%88.html">
-     5.1 최적화 기초
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/05.02%20%EC%A0%9C%ED%95%9C%EC%A1%B0%EA%B1%B4%EC%9D%B4%20%EC%9E%88%EB%8A%94%20%EC%B5%9C%EC%A0%81%ED%99%94%20%EB%AC%B8%EC%A0%9C.html">
-     5.2 제한조건이 있는 최적화 문제
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/05.03%20%EC%84%A0%ED%98%95%EA%B3%84%ED%9A%8D%EB%B2%95%20%EB%AC%B8%EC%A0%9C%EC%99%80%20%EC%9D%B4%EC%B0%A8%EA%B3%84%ED%9A%8D%EB%B2%95%20%EB%AC%B8%EC%A0%9C.html">
-     5.3 선형계획법 문제와 이차계획법 문제
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/06.00%206%EC%9E%A5%20%ED%94%BC%EC%A7%80%EC%97%A0%ED%8C%8C%EC%9D%B4%28pgmpy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%ED%99%95%EB%A5%A0%EB%A1%A0.html">
-   6장 피지엠파이(pgmpy)로 공부하는 확률론
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-  <label for="toctree-checkbox-11">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/06.01%20%EC%A7%91%ED%95%A9.html">
-     6.1 집합
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/06.02%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EC%88%98%ED%95%99%EC%A0%81%20%EC%A0%95%EC%9D%98%EC%99%80%20%EC%9D%98%EB%AF%B8.html">
-     6.2 확률의 수학적 정의와 의미
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/06.03%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EC%84%B1%EC%A7%88.html">
-     6.3 확률의 성질
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/06.04%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%ED%95%A8%EC%88%98.html">
-     6.4 확률분포함수
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/06.05%20%EA%B2%B0%ED%95%A9%ED%99%95%EB%A5%A0%EA%B3%BC%20%EC%A1%B0%EA%B1%B4%EB%B6%80%ED%99%95%EB%A5%A0.html">
-     6.5 결합확률과 조건부확률
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/06.06%20%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EC%A0%95%EB%A6%AC.html">
-     6.6 베이즈 정리
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/07.00%207%EC%9E%A5%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98%EC%99%80%20%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84.html">
-   7장 확률변수와 상관관계
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-  <label for="toctree-checkbox-12">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/07.01%20%ED%99%95%EB%A5%A0%EC%A0%81%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98.html">
-     7.1 확률적 데이터와 확률변수
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/07.02%20%EA%B8%B0%EB%8C%93%EA%B0%92%EA%B3%BC%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98%EC%9D%98%20%EB%B3%80%ED%99%98.html">
-     7.2 기댓값과 확률변수의 변환
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/07.03%20%EB%B6%84%EC%82%B0%EA%B3%BC%20%ED%91%9C%EC%A4%80%ED%8E%B8%EC%B0%A8.html">
-     7.3 분산과 표준편차
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/07.04%20%EB%8B%A4%EB%B3%80%EC%88%98%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98.html">
-     7.4 다변수 확률변수
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/07.05%20%EA%B3%B5%EB%B6%84%EC%82%B0%EA%B3%BC%20%EC%83%81%EA%B4%80%EA%B3%84%EC%88%98.html">
-     7.5 공분산과 상관계수
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/07.06%20%EC%A1%B0%EA%B1%B4%EB%B6%80%EA%B8%B0%EB%8C%93%EA%B0%92%EA%B3%BC%20%EC%98%88%EC%B8%A1%20%EB%AC%B8%EC%A0%9C.html">
-     7.6 조건부기댓값과 예측 문제
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/08.00%208%EC%9E%A5%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html">
-   8장 사이파이로 공부하는 확률분포
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-  <label for="toctree-checkbox-13">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/08.01%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%20%EB%B6%84%EC%84%9D.html">
-     8.1 사이파이를 이용한 확률분포 분석
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/08.02%20%EB%B2%A0%EB%A5%B4%EB%88%84%EC%9D%B4%EB%B6%84%ED%8F%AC%EC%99%80%20%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC.html">
-     8.2 베르누이분포와 이항분포
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/08.03%20%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%EB%B6%84%ED%8F%AC%EC%99%80%20%EB%8B%A4%ED%95%AD%EB%B6%84%ED%8F%AC.html">
-     8.3 카테고리분포와 다항분포
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/08.04%20%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC%EC%99%80%20%EC%A4%91%EC%8B%AC%EA%B7%B9%ED%95%9C%EC%A0%95%EB%A6%AC.html">
-     8.4 정규분포와 중심극한정리
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/08.05%20%EC%8A%A4%ED%8A%9C%EB%8D%98%ED%8A%B8%20t%EB%B6%84%ED%8F%AC%2C%20%EC%B9%B4%EC%9D%B4%EC%A0%9C%EA%B3%B1%EB%B6%84%ED%8F%AC%2C%20F%EB%B6%84%ED%8F%AC.html">
-     8.5 스튜던트 t분포, 카이제곱분포, F분포
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/08.06%20%EB%8B%A4%EB%B3%80%EC%88%98%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC.html">
-     8.6 다변수정규분포
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/08.07%20%EB%B2%A0%ED%83%80%EB%B6%84%ED%8F%AC%2C%20%EA%B0%90%EB%A7%88%EB%B6%84%ED%8F%AC%2C%20%EB%94%94%EB%A6%AC%ED%81%B4%EB%A0%88%20%EB%B6%84%ED%8F%AC.html">
-     8.7 베타분포, 감마분포, 디리클레분포
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/09.00%209%EC%9E%A5%20%EC%B6%94%EC%A0%95%EA%B3%BC%20%EA%B2%80%EC%A0%95.html">
-   9장 추정과 검정
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/09.01%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%EC%9D%98%20%EC%B6%94%EC%A0%95.html">
-     9.1 확률분포의 추정
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/09.02%20%EC%B5%9C%EB%8C%80%EA%B0%80%EB%8A%A5%EB%8F%84%20%EC%B6%94%EC%A0%95%EB%B2%95.html">
-     9.2 최대가능도 추정법
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/09.03%20%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EC%B6%94%EC%A0%95%EB%B2%95.html">
-     9.3 베이즈 추정법
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/09.04%20%EA%B2%80%EC%A0%95%EA%B3%BC%20%EC%9C%A0%EC%9D%98%ED%99%95%EB%A5%A0.html">
-     9.4 검정과 유의확률
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/09.05%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%EA%B2%80%EC%A0%95.html">
-     9.5 사이파이를 사용한 검정
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02%20mathematics/10.00%2010%EC%9E%A5%20%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">
-   10장 엔트로피
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/10.01%20%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">
-     10.1 엔트로피
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/10.02%20%EC%A1%B0%EA%B1%B4%EB%B6%80%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">
-     10.2 조건부엔트로피
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/10.03%20%EA%B5%90%EC%B0%A8%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC%EC%99%80%20%EC%BF%A8%EB%B0%B1-%EB%9D%BC%EC%9D%B4%EB%B8%94%EB%9F%AC%20%EB%B0%9C%EC%82%B0.html">
-     10.3 교차엔트로피와 쿨백-라이블러 발산
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02%20mathematics/10.04%20%EC%83%81%ED%98%B8%EC%A0%95%EB%B3%B4%EB%9F%89.html">
-     10.4 상호정보량
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../02%20mathematics/00.00%20%EC%86%8C%EA%B0%9C%EC%9D%98%20%EA%B8%80.html">소개의 글</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/01.00%201%EC%9E%A5%20%EC%88%98%ED%95%99%20%EA%B8%B0%ED%98%B8.html">1장 수학 기호</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/01.01%20%EA%B7%B8%EB%A6%AC%EC%8A%A4%20%EB%AC%B8%EC%9E%90.html">1.1 그리스 문자</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/01.02%20%EC%88%98%EC%97%B4%EA%B3%BC%20%EC%A7%91%ED%95%A9%EC%9D%98%20%ED%95%A9%EA%B3%BC%20%EA%B3%B1.html">1.2 수열과 집합의 합과 곱</a></li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  머신러닝 편
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/02.00%202%EC%9E%A5%20%EB%84%98%ED%8C%8C%EC%9D%B4%28NumPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.html">2장 넘파이(NumPy)로 공부하는 선형대수</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/02.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80%20%ED%96%89%EB%A0%AC.html">2.1 데이터와 행렬</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/02.02%20%EB%B2%A1%ED%84%B0%EC%99%80%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EC%97%B0%EC%82%B0.html">2.2 벡터와 행렬의 연산</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/02.03%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EC%84%B1%EC%A7%88.html">2.3 행렬의 성질</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/02.04%20%EC%84%A0%ED%98%95%20%EC%97%B0%EB%A6%BD%EB%B0%A9%EC%A0%95%EC%8B%9D%EA%B3%BC%20%EC%97%AD%ED%96%89%EB%A0%AC.html">2.4 선형 연립방정식과 역행렬</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/03.00%203%EC%9E%A5%20%EA%B3%A0%EA%B8%89%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.html">3장 고급 선형대수</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/03.01%20%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98%EC%99%80%20%ED%95%B4%EC%84%9D%EA%B8%B0%ED%95%98%EC%9D%98%20%EA%B8%B0%EC%B4%88.html">3.1 선형대수와 해석기하의 기초</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/03.02%20%EC%A2%8C%ED%91%9C%EC%99%80%20%EB%B3%80%ED%99%98.html">3.2 좌표와 변환</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/03.03%20%EA%B3%A0%EC%9C%B3%EA%B0%92%20%EB%B6%84%ED%95%B4.html">3.3 고윳값 분해</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/03.04%20%ED%8A%B9%EC%9E%87%EA%B0%92%20%EB%B6%84%ED%95%B4.html">3.4 특잇값 분해</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/03.05%20PCA.html">3.5 PCA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/04.00%204%EC%9E%A5%20%EC%8B%AC%ED%8C%8C%EC%9D%B4%28SymPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EB%AF%B8%EC%A0%81%EB%B6%84.html">4장 심파이(SymPy)로 공부하는 미적분</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/04.01%20%ED%95%A8%EC%88%98.html">4.1 함수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/04.02%20%EC%8B%AC%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%ED%95%A8%EC%88%98%20%EB%AF%B8%EB%B6%84.html">4.2 심파이를 사용한 함수 미분</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/04.03%20%EC%A0%81%EB%B6%84.html">4.3 적분</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/04.04%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EB%AF%B8%EB%B6%84.html">4.4 행렬의 미분</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/04.05%20%EB%B3%80%EB%B6%84%EB%B2%95.html">4.5 변분법</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/05.00%205%EC%9E%A5%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%28SciPy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%EC%B5%9C%EC%A0%81%ED%99%94.html">5장 사이파이(SciPy)로 공부하는 최적화</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/05.01%20%EC%B5%9C%EC%A0%81%ED%99%94%20%EA%B8%B0%EC%B4%88.html">5.1 최적화 기초</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/05.02%20%EC%A0%9C%ED%95%9C%EC%A1%B0%EA%B1%B4%EC%9D%B4%20%EC%9E%88%EB%8A%94%20%EC%B5%9C%EC%A0%81%ED%99%94%20%EB%AC%B8%EC%A0%9C.html">5.2 제한조건이 있는 최적화 문제</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/05.03%20%EC%84%A0%ED%98%95%EA%B3%84%ED%9A%8D%EB%B2%95%20%EB%AC%B8%EC%A0%9C%EC%99%80%20%EC%9D%B4%EC%B0%A8%EA%B3%84%ED%9A%8D%EB%B2%95%20%EB%AC%B8%EC%A0%9C.html">5.3 선형계획법 문제와 이차계획법 문제</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/06.00%206%EC%9E%A5%20%ED%94%BC%EC%A7%80%EC%97%A0%ED%8C%8C%EC%9D%B4%28pgmpy%29%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%ED%99%95%EB%A5%A0%EB%A1%A0.html">6장 피지엠파이(pgmpy)로 공부하는 확률론</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/06.01%20%EC%A7%91%ED%95%A9.html">6.1 집합</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/06.02%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EC%88%98%ED%95%99%EC%A0%81%20%EC%A0%95%EC%9D%98%EC%99%80%20%EC%9D%98%EB%AF%B8.html">6.2 확률의 수학적 정의와 의미</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/06.03%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EC%84%B1%EC%A7%88.html">6.3 확률의 성질</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/06.04%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%ED%95%A8%EC%88%98.html">6.4 확률분포함수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/06.05%20%EA%B2%B0%ED%95%A9%ED%99%95%EB%A5%A0%EA%B3%BC%20%EC%A1%B0%EA%B1%B4%EB%B6%80%ED%99%95%EB%A5%A0.html">6.5 결합확률과 조건부확률</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/06.06%20%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EC%A0%95%EB%A6%AC.html">6.6 베이즈 정리</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/07.00%207%EC%9E%A5%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98%EC%99%80%20%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84.html">7장 확률변수와 상관관계</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/07.01%20%ED%99%95%EB%A5%A0%EC%A0%81%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98.html">7.1 확률적 데이터와 확률변수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/07.02%20%EA%B8%B0%EB%8C%93%EA%B0%92%EA%B3%BC%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98%EC%9D%98%20%EB%B3%80%ED%99%98.html">7.2 기댓값과 확률변수의 변환</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/07.03%20%EB%B6%84%EC%82%B0%EA%B3%BC%20%ED%91%9C%EC%A4%80%ED%8E%B8%EC%B0%A8.html">7.3 분산과 표준편차</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/07.04%20%EB%8B%A4%EB%B3%80%EC%88%98%20%ED%99%95%EB%A5%A0%EB%B3%80%EC%88%98.html">7.4 다변수 확률변수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/07.05%20%EA%B3%B5%EB%B6%84%EC%82%B0%EA%B3%BC%20%EC%83%81%EA%B4%80%EA%B3%84%EC%88%98.html">7.5 공분산과 상관계수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/07.06%20%EC%A1%B0%EA%B1%B4%EB%B6%80%EA%B8%B0%EB%8C%93%EA%B0%92%EA%B3%BC%20%EC%98%88%EC%B8%A1%20%EB%AC%B8%EC%A0%9C.html">7.6 조건부기댓값과 예측 문제</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/08.00%208%EC%9E%A5%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A1%9C%20%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html">8장 사이파이로 공부하는 확률분포</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/08.01%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%20%EB%B6%84%EC%84%9D.html">8.1 사이파이를 이용한 확률분포 분석</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/08.02%20%EB%B2%A0%EB%A5%B4%EB%88%84%EC%9D%B4%EB%B6%84%ED%8F%AC%EC%99%80%20%EC%9D%B4%ED%95%AD%EB%B6%84%ED%8F%AC.html">8.2 베르누이분포와 이항분포</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/08.03%20%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%EB%B6%84%ED%8F%AC%EC%99%80%20%EB%8B%A4%ED%95%AD%EB%B6%84%ED%8F%AC.html">8.3 카테고리분포와 다항분포</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/08.04%20%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC%EC%99%80%20%EC%A4%91%EC%8B%AC%EA%B7%B9%ED%95%9C%EC%A0%95%EB%A6%AC.html">8.4 정규분포와 중심극한정리</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/08.05%20%EC%8A%A4%ED%8A%9C%EB%8D%98%ED%8A%B8%20t%EB%B6%84%ED%8F%AC%2C%20%EC%B9%B4%EC%9D%B4%EC%A0%9C%EA%B3%B1%EB%B6%84%ED%8F%AC%2C%20F%EB%B6%84%ED%8F%AC.html">8.5 스튜던트 t분포, 카이제곱분포, F분포</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/08.06%20%EB%8B%A4%EB%B3%80%EC%88%98%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC.html">8.6 다변수정규분포</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/08.07%20%EB%B2%A0%ED%83%80%EB%B6%84%ED%8F%AC%2C%20%EA%B0%90%EB%A7%88%EB%B6%84%ED%8F%AC%2C%20%EB%94%94%EB%A6%AC%ED%81%B4%EB%A0%88%20%EB%B6%84%ED%8F%AC.html">8.7 베타분포, 감마분포, 디리클레분포</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/09.00%209%EC%9E%A5%20%EC%B6%94%EC%A0%95%EA%B3%BC%20%EA%B2%80%EC%A0%95.html">9장 추정과 검정</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/09.01%20%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC%EC%9D%98%20%EC%B6%94%EC%A0%95.html">9.1 확률분포의 추정</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/09.02%20%EC%B5%9C%EB%8C%80%EA%B0%80%EB%8A%A5%EB%8F%84%20%EC%B6%94%EC%A0%95%EB%B2%95.html">9.2 최대가능도 추정법</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/09.03%20%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EC%B6%94%EC%A0%95%EB%B2%95.html">9.3 베이즈 추정법</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/09.04%20%EA%B2%80%EC%A0%95%EA%B3%BC%20%EC%9C%A0%EC%9D%98%ED%99%95%EB%A5%A0.html">9.4 검정과 유의확률</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/09.05%20%EC%82%AC%EC%9D%B4%ED%8C%8C%EC%9D%B4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%9C%20%EA%B2%80%EC%A0%95.html">9.5 사이파이를 사용한 검정</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02%20mathematics/10.00%2010%EC%9E%A5%20%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">10장 엔트로피</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/10.01%20%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">10.1 엔트로피</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/10.02%20%EC%A1%B0%EA%B1%B4%EB%B6%80%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC.html">10.2 조건부엔트로피</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/10.03%20%EA%B5%90%EC%B0%A8%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC%EC%99%80%20%EC%BF%A8%EB%B0%B1-%EB%9D%BC%EC%9D%B4%EB%B8%94%EB%9F%AC%20%EB%B0%9C%EC%82%B0.html">10.3 교차엔트로피와 쿨백-라이블러 발산</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20mathematics/10.04%20%EC%83%81%ED%98%B8%EC%A0%95%EB%B3%B4%EB%9F%89.html">10.4 상호정보량</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">머신러닝 편</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/01.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%EC%9D%98%20%EC%86%8C%EA%B0%9C.html">
-   1.1 데이터 분석의 소개
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/01.02%20%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D%EC%9A%A9%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">
-   1.2 머신러닝용 파이썬 패키지
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/02.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A0%84%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EC%B4%88.html">
-   2.1 데이터 전처리 기초
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/02.02%20%EB%B2%94%EC%A3%BC%ED%98%95%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B2%98%EB%A6%AC.html">
-   2.2 범주형 데이터 처리
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.01.01%20NLTK%20%EC%9E%90%EC%97%B0%EC%96%B4%20%EC%B2%98%EB%A6%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">
-   NLTK 자연어 처리 패키지
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.01.02%20KoNLPy%20%ED%95%9C%EA%B5%AD%EC%96%B4%20%EC%B2%98%EB%A6%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">
-   KoNLPy 한국어 처리 패키지
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.01.03%20Scikit-Learn%EC%9D%98%20%EB%AC%B8%EC%84%9C%20%EC%A0%84%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EB%8A%A5.html">
-   Scikit-Learn의 문서 전처리 기능
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.01.04%20soynlp.html">
-   Soynlp 소개
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.01.05%20%ED%99%95%EB%A5%A0%EB%A1%A0%EC%A0%81%20%EC%96%B8%EC%96%B4%20%EB%AA%A8%ED%98%95.html">
-   확률론적 언어 모형
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.02.01%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EC%B4%88.html">
-   이미지 처리 기초
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.02.02%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%ED%95%84%ED%84%B0%EB%A7%81.html">
-   이미지 필터링
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.02.03%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%BB%A8%ED%88%AC%EC%96%B4.html">
-   이미지 컨투어
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.02.04%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EB%B3%80%ED%99%98.html">
-   이미지 변환
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.02.05%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%ED%8A%B9%EC%A7%95%20%EC%B6%94%EC%B6%9C.html">
-   이미지 특징 추출
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.03.01%20%EC%82%AC%EC%9A%B4%EB%93%9C%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8B%B1%20%EA%B8%B0%EC%B4%88.html">
-   사운드 프로세싱 기초
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.03.02%20%ED%91%B8%EB%A6%AC%EC%97%90%20%EB%B3%80%ED%99%98%EA%B3%BC%20%EC%8A%A4%ED%8E%99%ED%8A%B8%EB%9F%BC.html">
-   푸리에 변환과 스펙트럼
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.04.01%20%EC%A7%80%EB%A6%AC%20%EC%A0%95%EB%B3%B4%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B2%98%EB%A6%AC.html">
-   지리 정보 데이터 처리
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/03.04.02%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">
-   Geocoding
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/04.01%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%20%EC%98%88%EC%A0%9C.html">
-   4.1 회귀분석 예제
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/04.02%20%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%EC%9D%98%20%EA%B8%B0%EC%B4%88.html">
-   4.2 선형회귀분석의 기초
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/04.03%20%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81.html">
-   4.3 스케일링
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/04.04%20%EB%B2%94%EC%A3%BC%ED%98%95%20%EB%8F%85%EB%A6%BD%EB%B3%80%EC%88%98.html">
-   4.4 범주형 독립변수
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/04.05%20%EB%B6%80%EB%B6%84%ED%9A%8C%EA%B7%80.html">
-   4.5 부분회귀
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/05.01%20%ED%99%95%EB%A5%A0%EB%A1%A0%EC%A0%81%20%EC%84%A0%ED%98%95%20%ED%9A%8C%EA%B7%80%EB%AA%A8%ED%98%95.html">
-   5.1 확률론적 선형 회귀모형
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/05.02%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%EC%9D%98%20%EA%B8%B0%ED%95%98%ED%95%99.html">
-   5.2 회귀분석의 기하학
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/05.03%20%EB%A0%88%EB%B2%84%EB%A6%AC%EC%A7%80%EC%99%80%20%EC%95%84%EC%9B%83%EB%9D%BC%EC%9D%B4%EC%96%B4.html">
-   5.3 레버리지와 아웃라이어
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/05.04%20%EB%B6%84%EC%82%B0%20%EB%B6%84%EC%84%9D%EA%B3%BC%20%EB%AA%A8%ED%98%95%20%EC%84%B1%EB%8A%A5.html">
-   5.4 분산 분석과 모형 성능
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/06.01%20%EB%AA%A8%ED%98%95%20%EC%A7%84%EB%8B%A8%EA%B3%BC%20%EC%88%98%EC%A0%95.html">
-   6.1 모형 진단과 수정
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/06.02%20%EA%B8%B0%EC%A0%80%ED%95%A8%EC%88%98%20%EB%AA%A8%ED%98%95%EA%B3%BC%20%EA%B3%BC%EC%B5%9C%EC%A0%81%ED%99%94.html">
-   6.2 기저함수 모형과 과최적화
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/06.03%20%EA%B5%90%EC%B0%A8%EA%B2%80%EC%A6%9D.html">
-   6.3 교차검증
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/06.04%20%EB%8B%A4%EC%A4%91%EA%B3%B5%EC%84%A0%EC%84%B1%EA%B3%BC%20%EB%B3%80%EC%88%98%20%EC%84%A0%ED%83%9D.html">
-   6.4 다중공선성과 변수 선택
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/06.05%20%EC%A0%95%EA%B7%9C%ED%99%94%20%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80.html">
-   6.5 정규화 선형회귀
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/07.01%20%EC%B6%94%EC%B2%9C%20%EC%8B%9C%EC%8A%A4%ED%85%9C.html">
-   13.1 추천 시스템
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/09.01%20%EB%B6%84%EB%A5%98%EC%9A%A9%20%EC%98%88%EC%A0%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0.html">
-   5.1 분류용 예제 데이터
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/09.02%20%EB%B6%84%EB%A5%98%EC%9A%A9%20%EA%B0%80%EC%83%81%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%83%9D%EC%84%B1.html">
-   5.2 분류용 가상 데이터 생성
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/09.03%20%EB%B6%84%EB%A5%98%EB%AA%A8%ED%98%95.html">
-   5.3 분류모형
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/09.04%20%EB%B6%84%EB%A5%98%20%EC%84%B1%EB%8A%A5%ED%8F%89%EA%B0%80.html">
-   5.4 분류 성능평가
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/10.01%20%EB%A1%9C%EC%A7%80%EC%8A%A4%ED%8B%B1%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D.html">
-   6.1 로지스틱 회귀분석
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/11.01%20%EC%84%A0%ED%98%95%ED%8C%90%EB%B3%84%EB%B6%84%EC%84%9D%EB%B2%95%EA%B3%BC%20%EC%9D%B4%EC%B0%A8%ED%8C%90%EB%B3%84%EB%B6%84%EC%84%9D%EB%B2%95.html">
-   7.1 선형판별분석법과 이차판별분석법
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/11.02%20%EB%82%98%EC%9D%B4%EB%B8%8C%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EB%B6%84%EB%A5%98%EB%AA%A8%ED%98%95.html">
-   7.2 나이브베이즈 분류모형
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/11.03%20%EA%B0%90%EC%84%B1%20%EB%B6%84%EC%84%9D.html">
-   감성 분석
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/12.01%20%EC%9D%98%EC%82%AC%EA%B2%B0%EC%A0%95%EB%82%98%EB%AC%B4.html">
-   8.1 의사결정나무
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/12.02%20%EB%AA%A8%ED%98%95%20%EA%B2%B0%ED%95%A9.html">
-   12.02 모형 결합
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/12.03%20%EB%B6%80%EC%8A%A4%ED%8C%85%20%EB%B0%A9%EB%B2%95.html">
-   부스팅 방법
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/13.02%20%EC%84%9C%ED%8F%AC%ED%8A%B8%20%EB%B2%A1%ED%84%B0%20%EB%A8%B8%EC%8B%A0.html">
-   서포트 벡터 머신
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/13.03%20%EC%BB%A4%EB%84%90%20%EC%84%9C%ED%8F%AC%ED%8A%B8%20%EB%B2%A1%ED%84%B0%20%EB%A8%B8%EC%8B%A0.html">
-   커널 서포트 벡터 머신
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/14.01%20%EB%AA%A8%ED%98%95%20%EC%B5%9C%EC%A0%81%ED%99%94.html">
-   모형 최적화
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/14.02%20%EB%B9%84%EB%8C%80%EC%B9%AD%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AC%B8%EC%A0%9C.html">
-   비대칭 데이터 문제
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/14.03%20%ED%8A%B9%EC%A7%95%20%EC%84%A0%ED%83%9D.html">
-   특징 선택
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/14.04%20%EB%8C%80%EA%B7%9C%EB%AA%A8%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%95%99%EC%8A%B5.html">
-   대규모 데이터 학습
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/16.01%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
-   군집화
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/16.02%20K-%ED%8F%89%EA%B7%A0%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
-   K-평균 군집화
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/16.03%20%EB%94%94%EB%B9%84%EC%8A%A4%EC%BA%94%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
-   디비스캔 군집화
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/16.04%20%EA%B3%84%EC%B8%B5%EC%A0%81%20%EA%B5%B0%EC%A7%91%ED%99%94.html">
-   계층적 군집화
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/16.05%20Affinity%20Propagation.html">
-   Affinity Propagation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/17.01%20%EA%B7%B8%EB%9E%98%ED%94%84%20%EC%9D%B4%EB%A1%A0%20%EA%B8%B0%EC%B4%88.html">
-   그래프 이론 기초
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/17.02%20%EA%B7%B8%EB%9E%98%ED%94%84%20%ED%99%95%EB%A5%A0%EB%AA%A8%ED%98%95.html">
-   그래프 확률모형
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/17.03%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EC%B6%94%EB%A1%A0.html">
-   네트워크 추론
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/18.01%20%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88%20%ED%98%BC%ED%95%A9%EB%AA%A8%ED%98%95%EA%B3%BC%20EM%20%EB%B0%A9%EB%B2%95.html">
-   가우시안 혼합모형과 EM 방법
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/18.02%20%EB%B3%80%EB%B6%84%EB%B2%95%EC%A0%81%20%EC%B6%94%EB%A1%A0.html">
-   변분법적 추론
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/19.01%20%EB%AA%AC%ED%85%8C%EC%B9%B4%EB%A5%BC%EB%A1%9C%20%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88%20%EB%B6%84%EC%84%9D.html">
-   몬테카를로 베이지안 분석
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/19.02%20%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88%20%ED%9A%8C%EA%B7%80%20%EB%B6%84%EC%84%9D%20%EC%98%88%EC%A0%9C.html">
-   베이지안 회귀 분석 예제
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../03%20machine%20learning/20.01%20%ED%9E%88%EB%93%A0%20%EB%A7%88%EC%BD%94%ED%94%84%20%EB%AA%A8%ED%98%95.html">
-   히든 마코프 모형
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/01.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%B6%84%EC%84%9D%EC%9D%98%20%EC%86%8C%EA%B0%9C.html">1.1 데이터 분석의 소개</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/01.02%20%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D%EC%9A%A9%20%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">1.2 머신러닝용 파이썬 패키지</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/02.01%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A0%84%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EC%B4%88.html">2.1 데이터 전처리 기초</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/02.02%20%EB%B2%94%EC%A3%BC%ED%98%95%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B2%98%EB%A6%AC.html">2.2 범주형 데이터 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.01.01%20NLTK%20%EC%9E%90%EC%97%B0%EC%96%B4%20%EC%B2%98%EB%A6%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">NLTK 자연어 처리 패키지</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.01.02%20KoNLPy%20%ED%95%9C%EA%B5%AD%EC%96%B4%20%EC%B2%98%EB%A6%AC%20%ED%8C%A8%ED%82%A4%EC%A7%80.html">KoNLPy 한국어 처리 패키지</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.01.03%20Scikit-Learn%EC%9D%98%20%EB%AC%B8%EC%84%9C%20%EC%A0%84%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EB%8A%A5.html">Scikit-Learn의 문서 전처리 기능</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.01.04%20soynlp.html">Soynlp 소개</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.01.05%20%ED%99%95%EB%A5%A0%EB%A1%A0%EC%A0%81%20%EC%96%B8%EC%96%B4%20%EB%AA%A8%ED%98%95.html">확률론적 언어 모형</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.02.01%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%B2%98%EB%A6%AC%20%EA%B8%B0%EC%B4%88.html">이미지 처리 기초</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.02.02%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%ED%95%84%ED%84%B0%EB%A7%81.html">이미지 필터링</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.02.03%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%BB%A8%ED%88%AC%EC%96%B4.html">이미지 컨투어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.02.04%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EB%B3%80%ED%99%98.html">이미지 변환</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.02.05%20%EC%9D%B4%EB%AF%B8%EC%A7%80%20%ED%8A%B9%EC%A7%95%20%EC%B6%94%EC%B6%9C.html">이미지 특징 추출</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.03.01%20%EC%82%AC%EC%9A%B4%EB%93%9C%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8B%B1%20%EA%B8%B0%EC%B4%88.html">사운드 프로세싱 기초</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.03.02%20%ED%91%B8%EB%A6%AC%EC%97%90%20%EB%B3%80%ED%99%98%EA%B3%BC%20%EC%8A%A4%ED%8E%99%ED%8A%B8%EB%9F%BC.html">푸리에 변환과 스펙트럼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.04.01%20%EC%A7%80%EB%A6%AC%20%EC%A0%95%EB%B3%B4%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B2%98%EB%A6%AC.html">지리 정보 데이터 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/03.04.02%20%EC%A7%80%EC%98%A4%EC%BD%94%EB%94%A9.html">Geocoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/04.01%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%20%EC%98%88%EC%A0%9C.html">4.1 회귀분석 예제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/04.02%20%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%EC%9D%98%20%EA%B8%B0%EC%B4%88.html">4.2 선형회귀분석의 기초</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/04.03%20%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81.html">4.3 스케일링</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/04.04%20%EB%B2%94%EC%A3%BC%ED%98%95%20%EB%8F%85%EB%A6%BD%EB%B3%80%EC%88%98.html">4.4 범주형 독립변수</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/04.05%20%EB%B6%80%EB%B6%84%ED%9A%8C%EA%B7%80.html">4.5 부분회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/05.01%20%ED%99%95%EB%A5%A0%EB%A1%A0%EC%A0%81%20%EC%84%A0%ED%98%95%20%ED%9A%8C%EA%B7%80%EB%AA%A8%ED%98%95.html">5.1 확률론적 선형 회귀모형</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/05.02%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D%EC%9D%98%20%EA%B8%B0%ED%95%98%ED%95%99.html">5.2 회귀분석의 기하학</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/05.03%20%EB%A0%88%EB%B2%84%EB%A6%AC%EC%A7%80%EC%99%80%20%EC%95%84%EC%9B%83%EB%9D%BC%EC%9D%B4%EC%96%B4.html">5.3 레버리지와 아웃라이어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/05.04%20%EB%B6%84%EC%82%B0%20%EB%B6%84%EC%84%9D%EA%B3%BC%20%EB%AA%A8%ED%98%95%20%EC%84%B1%EB%8A%A5.html">5.4 분산 분석과 모형 성능</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/06.01%20%EB%AA%A8%ED%98%95%20%EC%A7%84%EB%8B%A8%EA%B3%BC%20%EC%88%98%EC%A0%95.html">6.1 모형 진단과 수정</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/06.02%20%EA%B8%B0%EC%A0%80%ED%95%A8%EC%88%98%20%EB%AA%A8%ED%98%95%EA%B3%BC%20%EA%B3%BC%EC%B5%9C%EC%A0%81%ED%99%94.html">6.2 기저함수 모형과 과최적화</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/06.03%20%EA%B5%90%EC%B0%A8%EA%B2%80%EC%A6%9D.html">6.3 교차검증</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/06.04%20%EB%8B%A4%EC%A4%91%EA%B3%B5%EC%84%A0%EC%84%B1%EA%B3%BC%20%EB%B3%80%EC%88%98%20%EC%84%A0%ED%83%9D.html">6.4 다중공선성과 변수 선택</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/06.05%20%EC%A0%95%EA%B7%9C%ED%99%94%20%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80.html">6.5 정규화 선형회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/07.01%20%EC%B6%94%EC%B2%9C%20%EC%8B%9C%EC%8A%A4%ED%85%9C.html">13.1 추천 시스템</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/09.01%20%EB%B6%84%EB%A5%98%EC%9A%A9%20%EC%98%88%EC%A0%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0.html">5.1 분류용 예제 데이터</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/09.02%20%EB%B6%84%EB%A5%98%EC%9A%A9%20%EA%B0%80%EC%83%81%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%83%9D%EC%84%B1.html">5.2 분류용 가상 데이터 생성</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/09.03%20%EB%B6%84%EB%A5%98%EB%AA%A8%ED%98%95.html">5.3 분류모형</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/09.04%20%EB%B6%84%EB%A5%98%20%EC%84%B1%EB%8A%A5%ED%8F%89%EA%B0%80.html">5.4 분류 성능평가</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/10.01%20%EB%A1%9C%EC%A7%80%EC%8A%A4%ED%8B%B1%20%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D.html">6.1 로지스틱 회귀분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/11.01%20%EC%84%A0%ED%98%95%ED%8C%90%EB%B3%84%EB%B6%84%EC%84%9D%EB%B2%95%EA%B3%BC%20%EC%9D%B4%EC%B0%A8%ED%8C%90%EB%B3%84%EB%B6%84%EC%84%9D%EB%B2%95.html">7.1 선형판별분석법과 이차판별분석법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/11.02%20%EB%82%98%EC%9D%B4%EB%B8%8C%EB%B2%A0%EC%9D%B4%EC%A6%88%20%EB%B6%84%EB%A5%98%EB%AA%A8%ED%98%95.html">7.2 나이브베이즈 분류모형</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/11.03%20%EA%B0%90%EC%84%B1%20%EB%B6%84%EC%84%9D.html">감성 분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/12.01%20%EC%9D%98%EC%82%AC%EA%B2%B0%EC%A0%95%EB%82%98%EB%AC%B4.html">8.1 의사결정나무</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/12.02%20%EB%AA%A8%ED%98%95%20%EA%B2%B0%ED%95%A9.html">12.02 모형 결합</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/12.03%20%EB%B6%80%EC%8A%A4%ED%8C%85%20%EB%B0%A9%EB%B2%95.html">부스팅 방법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/13.02%20%EC%84%9C%ED%8F%AC%ED%8A%B8%20%EB%B2%A1%ED%84%B0%20%EB%A8%B8%EC%8B%A0.html">서포트 벡터 머신</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/13.03%20%EC%BB%A4%EB%84%90%20%EC%84%9C%ED%8F%AC%ED%8A%B8%20%EB%B2%A1%ED%84%B0%20%EB%A8%B8%EC%8B%A0.html">커널 서포트 벡터 머신</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/14.01%20%EB%AA%A8%ED%98%95%20%EC%B5%9C%EC%A0%81%ED%99%94.html">모형 최적화</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/14.02%20%EB%B9%84%EB%8C%80%EC%B9%AD%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AC%B8%EC%A0%9C.html">비대칭 데이터 문제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/14.03%20%ED%8A%B9%EC%A7%95%20%EC%84%A0%ED%83%9D.html">특징 선택</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/14.04%20%EB%8C%80%EA%B7%9C%EB%AA%A8%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%95%99%EC%8A%B5.html">대규모 데이터 학습</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/16.01%20%EA%B5%B0%EC%A7%91%ED%99%94.html">군집화</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/16.02%20K-%ED%8F%89%EA%B7%A0%20%EA%B5%B0%EC%A7%91%ED%99%94.html">K-평균 군집화</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/16.03%20%EB%94%94%EB%B9%84%EC%8A%A4%EC%BA%94%20%EA%B5%B0%EC%A7%91%ED%99%94.html">디비스캔 군집화</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/16.04%20%EA%B3%84%EC%B8%B5%EC%A0%81%20%EA%B5%B0%EC%A7%91%ED%99%94.html">계층적 군집화</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/16.05%20Affinity%20Propagation.html">Affinity Propagation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/17.01%20%EA%B7%B8%EB%9E%98%ED%94%84%20%EC%9D%B4%EB%A1%A0%20%EA%B8%B0%EC%B4%88.html">그래프 이론 기초</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/17.02%20%EA%B7%B8%EB%9E%98%ED%94%84%20%ED%99%95%EB%A5%A0%EB%AA%A8%ED%98%95.html">그래프 확률모형</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/17.03%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EC%B6%94%EB%A1%A0.html">네트워크 추론</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/18.01%20%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88%20%ED%98%BC%ED%95%A9%EB%AA%A8%ED%98%95%EA%B3%BC%20EM%20%EB%B0%A9%EB%B2%95.html">가우시안 혼합모형과 EM 방법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/18.02%20%EB%B3%80%EB%B6%84%EB%B2%95%EC%A0%81%20%EC%B6%94%EB%A1%A0.html">변분법적 추론</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/19.01%20%EB%AA%AC%ED%85%8C%EC%B9%B4%EB%A5%BC%EB%A1%9C%20%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88%20%EB%B6%84%EC%84%9D.html">몬테카를로 베이지안 분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/19.02%20%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88%20%ED%9A%8C%EA%B7%80%20%EB%B6%84%EC%84%9D%20%EC%98%88%EC%A0%9C.html">베이지안 회귀 분석 예제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03%20machine%20learning/20.01%20%ED%9E%88%EB%93%A0%20%EB%A7%88%EC%BD%94%ED%94%84%20%EB%AA%A8%ED%98%95.html">히든 마코프 모형</a></li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01 python/05.01 시각화 패키지 맷플롯리브 소개.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
 
-            <!-- Source interaction buttons -->
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/datascienceschool/book/master?urlpath=tree/ds/01 python/05.01 시각화 패키지 맷플롯리브 소개.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
         
         
-        
-        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
     </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/01 python/05.01 시각화 패키지 맷플롯리브 소개.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>5.1 시각화 패키지 맷플롯리브 소개</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div>
+                <h2> Contents </h2>
             </div>
-            <nav id="bd-toc-nav">
+            <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pyplot">
-   pyplot 서브패키지
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   라인 플롯
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   한글폰트 사용
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   스타일 지정
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     색깔
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     마커
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     선 스타일
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     기타 스타일
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
-   그림 범위 지정
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
-   틱 설정
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
-   그리드 설정
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id12">
-   여러개의 선을 그리기
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id13">
-   겹쳐그리기
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id14">
-   범례
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#x-y">
-   x축, y축 라벨, 타이틀
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id15">
-   그림의 구조
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#figure">
-     Figure 객체
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#axes-subplot">
-     Axes 객체와
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       subplot
-      </span>
-     </code>
-     명령
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#axis">
-     Axis 객체와 축
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyplot">pyplot 서브패키지</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">라인 플롯</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">한글폰트 사용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">스타일 지정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">색깔</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">마커</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">선 스타일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">기타 스타일</a></li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">그림 범위 지정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">틱 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">그리드 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">여러개의 선을 그리기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">겹쳐그리기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">범례</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#x-y">x축, y축 라벨, 타이틀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">그림의 구조</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure">Figure 객체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axes-subplot">Axes 객체와 <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 명령</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axis">Axis 객체와 축</a></li>
+</ul>
+</li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="section" id="id1">
-<h1>5.1 시각화 패키지 맷플롯리브 소개<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>5.1 시각화 패키지 맷플롯리브 소개<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <p>맷플롯리브(Matplotlib)는 파이썬에서 자료를 차트(chart)나 플롯(plot)으로 시각화하는 패키지이다.
 맷플롯리브는 다음과 같은 정형화된 차트나 플롯 이외에도 저수준 API를 사용한 다양한 시각화 기능을 제공한다.</p>
 <ul class="simple">
@@ -1299,33 +625,33 @@ commentsRunWhenDOMLoaded(addUtterances);
 <ul class="simple">
 <li><p><a class="reference external" href="http://matplotlib.org/gallery.html">http://matplotlib.org/gallery.html</a></p></li>
 </ul>
-<div class="section" id="pyplot">
-<h2>pyplot 서브패키지<a class="headerlink" href="#pyplot" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+<section id="pyplot">
+<h2>pyplot 서브패키지<a class="headerlink" href="#pyplot" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>pyplot 서브패키지</p>
-</div>
+</aside>
 <p>맷플롯리브 패키지에는 pyplot 라는 서브패키지가 존재한다. 이 pyplot 서브패키지는 매트랩(matlab) 이라는 수치해석 소프트웨어의 시각화 명령을 거의 그대로 사용할 수 있도록 맷플롯리브 의 하위 API를 포장(wrapping)한 명령어 집합을 제공한다. 간단한 시각화 프로그램을 만드는 경우에는 pyplot 서브패키지의 명령만으로도 충분하다. 다음에 설명할 명령어들도 별도의 설명이 없으면 pyplot 패키지의 명령라고 생각하면 된다.</p>
 <p>맷플롯리브 패키지를 사용할 때는 보통 다음과 같이 주 패키지는 <code class="docutils literal notranslate"><span class="pre">mpl</span></code> 이라는 별칭(alias)으로 임포트하고 pyplot 서브패키지는 <code class="docutils literal notranslate"><span class="pre">plt</span></code> 라는 다른 별칭으로 임포트하여 사용하는 것이 관례이므로 여기에서도 이러한 방법을 사용한다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code></p>
-</div>
+</aside>
 <p>주피터 노트북을 사용하는 경우에는 다음처럼 <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> 매직(magic) 명령으로 노트북 내부에 그림을 표시하도록 지정해야 한다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
-<h2>라인 플롯<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+</section>
+<section id="id2">
+<h2>라인 플롯<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
-</div>
+</aside>
 <p>가장 간단한 플롯은 선을 그리는 라인 플롯(line plot)이다. 라인 플롯은 데이터가 시간, 순서 등에 따라 어떻게 변화하는지 보여주기 위해 사용한다.</p>
 <p>명령은 pyplot 서브패키지의 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 명령을 사용한다.</p>
 <ul class="simple">
@@ -1341,19 +667,19 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_13_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_13_0.png" />
+<img alt="../_images/b7385aca91b00281ab593314101d133de4623220401cb3481ed788426c648e99.png" src="../_images/b7385aca91b00281ab593314101d133de4623220401cb3481ed788426c648e99.png" />
 </div>
 </div>
 <p>이 때 x 축의 자료 위치 즉, 틱(tick)은 자동으로 0, 1, 2, 3 이 된다. 만약 이 x tick 위치를 별도로 명시하고 싶다면 다음과 같이 두 개의 같은 길이의 리스트 혹은 배열 자료를 넣는다.</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">title</span></code></p>
-</div>
+</aside>
 <p><code class="docutils literal notranslate"><span class="pre">title</span></code> 함수는 제목을 표시한다.</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">show</span></code></p>
-</div>
+</aside>
 <p><code class="docutils literal notranslate"><span class="pre">show</span></code> 함수는 시각화 명령을 실제로 차트로 렌더링(rendering)하고 마우스 움직임 등의 이벤트를 기다리라는 지시이다.
 주피터 노트북에서는 셀 단위로 플롯 명령을 자동 렌더링 해주므로 <code class="docutils literal notranslate"><span class="pre">show</span></code> 명령이 필요없지만 일반 파이썬 인터프리터로 가동되는 경우를 대비하여 항상 마지막에 실행하도록 한다. <code class="docutils literal notranslate"><span class="pre">show</span></code> 명령을 주면 마지막 플롯 명령으로부터 반환된 플롯 객체의 표현도 가려주는 효과가 있다.</p>
 <div class="cell docutils container">
@@ -1365,12 +691,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_19_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_19_0.png" />
+<img alt="../_images/5d99c95e79c4fb1951b808127cd78f9eba544d4f15319a7a9521f1ffd3269fb9.png" src="../_images/5d99c95e79c4fb1951b808127cd78f9eba544d4f15319a7a9521f1ffd3269fb9.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id3">
-<h2>한글폰트 사용<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>한글폰트 사용<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <p>맷플롯리브에서 한글을 사용하려면 다음과 같이 한글 폰트를 적용해야 한다. 당연히 해당 폰트는 컴퓨터에 깔려 있어야 한다. 여기에서는 나눔고딕 폰트를 사용하였다. 나눔고딕 폰트 설치법은 다음과 같다.</p>
 <ul class="simple">
 <li><p>윈도우/맥</p>
@@ -1464,7 +790,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_28_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_28_0.png" />
+<img alt="../_images/ae33e5a01ced53921853a593c819664dfaa8af0edfc8ef79cd1a83b17c0bae0e.png" src="../_images/ae33e5a01ced53921853a593c819664dfaa8af0edfc8ef79cd1a83b17c0bae0e.png" />
 </div>
 </div>
 <p>만약 객체마다 별도의 폰트를 적용하고 싶을 때는 다음과 같이 폰트 패밀리, 색상, 크기를 정하여 플롯 명령의 <code class="docutils literal notranslate"><span class="pre">fontdict</span></code> 인수에 넣는다.</p>
@@ -1486,12 +812,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_30_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_30_0.png" />
+<img alt="../_images/4df58b232754d7e294be6b4c0636416354b735749a16d57964f68ac09b2532e8.png" src="../_images/4df58b232754d7e294be6b4c0636416354b735749a16d57964f68ac09b2532e8.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id4">
-<h2>스타일 지정<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id4">
+<h2>스타일 지정<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <p>플롯 명령어는 보는 사람이 그림을 더 알아보기 쉽게 하기 위해 다양한 스타일(style)을 지원한다. <code class="docutils literal notranslate"><span class="pre">plot</span></code> 명령어에서는 다음과 같이 추가 문자열 인수를 사용하여 스타일을 지원한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1502,18 +828,18 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_33_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_33_0.png" />
+<img alt="../_images/4f5214e354ba5bea6e847129b6b6007617a8549e57e0b5ddb316052f478131e7.png" src="../_images/4f5214e354ba5bea6e847129b6b6007617a8549e57e0b5ddb316052f478131e7.png" />
 </div>
 </div>
 <p>스타일 문자열은 색깔(color), 마커(marker), 선 종류(line style)의 순서로 지정한다. 만약 이 중 일부가 생략되면 디폴트값이 적용된다.</p>
-<div class="section" id="id5">
-<h3>색깔<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<section id="id5">
+<h3>색깔<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>색깔을 지정하는 방법은 색 이름 혹은 약자를 사용하거나 <code class="docutils literal notranslate"><span class="pre">#</span></code> 문자로 시작되는 RGB코드를 사용한다.</p>
 <p>자주 사용되는 색깔은 한글자 약자를 사용할 수 있으며 약자는 아래 표에 정리하였다. 전체 색깔 목록은 다음 웹사이트를 참조한다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://matplotlib.org/examples/color/named_colors.html">http://matplotlib.org/examples/color/named_colors.html</a></p></li>
 </ul>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>문자열</p></th>
 <th class="head"><p>약자</p></th>
@@ -1547,10 +873,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tbody>
 </table>
 </div>
-<div class="section" id="id6">
-<h3>마커<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id6">
+<h3>마커<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>데이터 위치를 나타내는 기호를 마커(marker)라고 한다. 마커의 종류는 다음과 같다.</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>마커 문자열</p></th>
 <th class="head"><p>의미</p></th>
@@ -1620,10 +947,11 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tbody>
 </table>
 </div>
-<div class="section" id="id7">
-<h3>선 스타일<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id7">
+<h3>선 스타일<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>선 스타일에는 실선(solid), 대시선(dashed), 점선(dotted), 대시-점선(dash-dit) 이 있다. 지정 문자열은 다음과 같다.</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>선 스타일 문자열</p></th>
 <th class="head"><p>의미</p></th>
@@ -1645,14 +973,15 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tbody>
 </table>
 </div>
-<div class="section" id="id8">
-<h3>기타 스타일<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3>기타 스타일<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>라인 플롯에서는 앞서 설명한 세 가지 스타일 이외에도 여러가지 스타일을 지정할 수 있지만 이 경우에는 인수 이름을 정확하게 지정해야 한다. 사용할 수 있는 스타일 인수의 목록은 <code class="docutils literal notranslate"><span class="pre">matplotlib.lines.Line2D</span></code> 클래스에 대한 다음 웹사이트를 참조한다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://matplotlib.org/api/lines_api.html#matplotlib.lines.Line2D">http://matplotlib.org/api/lines_api.html#matplotlib.lines.Line2D</a></p></li>
 </ul>
 <p>라인 플롯에서 자주 사용되는 기타 스타일은 다음과 같다.</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>스타일 문자열</p></th>
 <th class="head"><p>약자</p></th>
@@ -1694,6 +1023,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tr>
 </tbody>
 </table>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span>
@@ -1704,21 +1034,21 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_43_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_43_0.png" />
+<img alt="../_images/433d4105edfb6ec402924cbad6c299a0421b7f0faebf77e5b0767c5a60c518a8.png" src="../_images/433d4105edfb6ec402924cbad6c299a0421b7f0faebf77e5b0767c5a60c518a8.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="id9">
-<h2>그림 범위 지정<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+</section>
+</section>
+<section id="id9">
+<h2>그림 범위 지정<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">xlim</span></code></p>
-</div>
-<div class="margin sidebar">
+</aside>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">ylim</span></code></p>
-</div>
+</aside>
 <p>플롯 그림을 보면 몇몇 점들은 그림의 범위 경계선에 있어서 잘 보이지 않는 경우가 있을 수 있다. 그림의 범위를 수동으로 지정하려면 <code class="docutils literal notranslate"><span class="pre">xlim</span></code> 명령과 <code class="docutils literal notranslate"><span class="pre">ylim</span></code> 명령을 사용한다. 이 명령들은 그림의 범위가 되는 x축, y축의 최소값과 최대값을 지정한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1732,20 +1062,20 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_48_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_48_0.png" />
+<img alt="../_images/3b9a488c0cf51214ab48e3a50bb512ce43fa54f4dd113905c801a5e726d80c9d.png" src="../_images/3b9a488c0cf51214ab48e3a50bb512ce43fa54f4dd113905c801a5e726d80c9d.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id10">
-<h2>틱 설정<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+</section>
+<section id="id10">
+<h2>틱 설정<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">xticks</span></code></p>
-</div>
-<div class="margin sidebar">
+</aside>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">yticks</span></code></p>
-</div>
+</aside>
 <p>플롯이나 차트에서 축상의 위치 표시 지점을 틱(tick)이라고 하고 이 틱에 써진 숫자 혹은 글자를 틱 라벨(tick label)이라고 한다. 틱의 위치나 틱 라벨은 맷플롯리브가 자동으로 정해주지만 만약 수동으로 설정하고 싶다면 <code class="docutils literal notranslate"><span class="pre">xticks</span></code> 명령이나 <code class="docutils literal notranslate"><span class="pre">yticks</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1760,7 +1090,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_53_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_53_0.png" />
+<img alt="../_images/15c15414c341d56cce1ac923ff3f6ae0dab5c7ac52e823b34319aaca6e096de8.png" src="../_images/15c15414c341d56cce1ac923ff3f6ae0dab5c7ac52e823b34319aaca6e096de8.png" />
 </div>
 </div>
 <p>틱 라벨 문자열에는 <code class="docutils literal notranslate"><span class="pre">$$</span></code> 사이에 LaTeX 수학 문자식을 넣을 수도 있다.</p>
@@ -1778,16 +1108,16 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_55_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_55_0.png" />
+<img alt="../_images/06bd4288f4543a454fc2b87490173113ffe56f89aecd9dd4c31281b10d987ced.png" src="../_images/06bd4288f4543a454fc2b87490173113ffe56f89aecd9dd4c31281b10d987ced.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id11">
-<h2>그리드 설정<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+</section>
+<section id="id11">
+<h2>그리드 설정<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">grid</span></code></p>
-</div>
+</aside>
 <p>위 그림을 보면 틱 위치를 잘 보여주기 위해 그림 중간에 그리드 선(grid line)이 자동으로 그려진 것을 알 수 있다. 그리드를 사용하지 않으려면 <code class="docutils literal notranslate"><span class="pre">grid(False)</span></code> 명령을 사용한다. 다시 그리드를 사용하려면 <code class="docutils literal notranslate"><span class="pre">grid(True)</span></code>를 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1804,12 +1134,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_59_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_59_0.png" />
+<img alt="../_images/2b5369988b3002425b86cc405d1cdc3c3281bebad8e0fd2c09ecea6411981da4.png" src="../_images/2b5369988b3002425b86cc405d1cdc3c3281bebad8e0fd2c09ecea6411981da4.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id12">
-<h2>여러개의 선을 그리기<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id12">
+<h2>여러개의 선을 그리기<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
 <p>라인 플롯에서 선을 하나가 아니라 여러개를 그리고 싶은 경우에는 x 데이터, y 데이터, 스타일 문자열을 반복하여 인수로 넘긴다. 이 경우에는 하나의 선을 그릴 때 처럼 x 데이터나 스타일 문자열을 생략할 수 없다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1821,12 +1151,12 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_62_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_62_0.png" />
+<img alt="../_images/200397ec5331993d063279fdb9877985c9e0187d49b37e694570dad5dbec149b.png" src="../_images/200397ec5331993d063279fdb9877985c9e0187d49b37e694570dad5dbec149b.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id13">
-<h2>겹쳐그리기<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id13">
+<h2>겹쳐그리기<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
 <p>하나의 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 명령이 아니라 복수의 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 명령을 하나의 그림에 겹쳐서 그릴 수도 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1842,18 +1172,18 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_65_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_65_0.png" />
+<img alt="../_images/40d60ca4b966475d49e62e9bd21eec278c44374e3ea849e8a46cd0b1adde58e2.png" src="../_images/40d60ca4b966475d49e62e9bd21eec278c44374e3ea849e8a46cd0b1adde58e2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id14">
-<h2>범례<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+</section>
+<section id="id14">
+<h2>범례<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">legend</span></code></p>
-</div>
+</aside>
 <p>여러개의 라인 플롯을 동시에 그리는 경우에는 각 선이 무슨 자료를 표시하는지를 보여주기 위해 <code class="docutils literal notranslate"><span class="pre">legend</span></code> 명령으로  범례(legend)를 추가할 수 있다. 범례의 위치는 자동으로 정해지지만 수동으로 설정하고 싶으면 <code class="docutils literal notranslate"><span class="pre">loc</span></code> 인수를 사용한다. 인수에는 문자열 혹은 숫자가 들어가며 가능한 코드는 다음과 같다.</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>loc 문자열</p></th>
 <th class="head"><p>숫자</p></th>
@@ -1895,6 +1225,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </tr>
 </tbody>
 </table>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
@@ -1908,20 +1239,20 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_69_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_69_0.png" />
+<img alt="../_images/a2f3682286dc9751516556d025b16e618c0313b6407531d97b216bfca3274151.png" src="../_images/a2f3682286dc9751516556d025b16e618c0313b6407531d97b216bfca3274151.png" />
 </div>
 </div>
-</div>
-<div class="section" id="x-y">
-<h2>x축, y축 라벨, 타이틀<a class="headerlink" href="#x-y" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+</section>
+<section id="x-y">
+<h2>x축, y축 라벨, 타이틀<a class="headerlink" href="#x-y" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">xlabel</span></code></p>
-</div>
-<div class="margin sidebar">
+</aside>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">ylabel</span></code></p>
-</div>
+</aside>
 <p>플롯의 x축 위치와 y축 위치에는 각각 그 데이터가 의미하는 바를 표시하기 위해 라벨(label)를 추가할 수 있다. 라벨을 붙이려면 <code class="docutils literal notranslate"><span class="pre">xlabel</span></code>. <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> 명령을 사용한다. 또 플롯의 위에는 <code class="docutils literal notranslate"><span class="pre">title</span></code> 명령으로 제목(title)을 붙일 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1936,7 +1267,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_74_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_74_0.png" />
+<img alt="../_images/3b7b076297b889ad8c01e7b3c5122e5c972d7aa5577a3c2c8633689b9789fc10.png" src="../_images/3b7b076297b889ad8c01e7b3c5122e5c972d7aa5577a3c2c8633689b9789fc10.png" />
 </div>
 </div>
 <div class="admonition- admonition">
@@ -1949,21 +1280,21 @@ commentsRunWhenDOMLoaded(addUtterances);
 <li><p>legend는 그래프와 겹치지 않는 곳에 위치 시키도록 한다.</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="id15">
-<h2>그림의 구조<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id15">
+<h2>그림의 구조<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
 <p>맷플롯리브가 그리는 그림은 Figure 객체, Axes 객체, Axis 객체 등으로 구성된다. Figure 객체는 한 개 이상의  Axes 객체를 포함하고 Axes 객체는 다시 두 개 이상의 Axis 객체를 포함한다.</p>
 <p>Figure는 그림이 그려지는 캔버스나 종이를 뜻하고 Axes는 하나의 플롯, 그리고 Axis는 가로축이나 세로축 등의 축을 뜻한다. Axes와 Axis의 철자에 주의한다.</p>
-<div class="section" id="figure">
-<h3>Figure 객체<a class="headerlink" href="#figure" title="Permalink to this headline">¶</a></h3>
+<section id="figure">
+<h3>Figure 객체<a class="headerlink" href="#figure" title="Link to this heading">#</a></h3>
 <p>모든 그림은 Figure 객체. 정식으로는  <code class="docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code> 클래스 객체에 포함되어 있다. 내부 플롯(inline plot)이 아닌 경우에는 하나의 Figure는 하나의 아이디 숫자와 윈도우(Window)를 가진다. 주피터 노트북에서는 윈도우 객체가 생성되지 않지만 파이썬을 독립 실행하는 경우에는 하나의 Figure당 하나의 윈도우를 별도로 가진다. Figure 객체에 대한 자세한 설명은 다음 웹사이트를 참조한다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure">http://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure</a></p></li>
 </ul>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">figure</span></code></p>
-</div>
+</aside>
 <p>원래 Figure를 생성하려면 <code class="docutils literal notranslate"><span class="pre">figure</span></code> 명령을 사용하여 그 반환값으로 Figure 객체를 얻어야 한다. 그러나 일반적인 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 명령 등을 실행하면 자동으로 Figure를 생성해주기 때문에 일반적으로는 <code class="docutils literal notranslate"><span class="pre">figure</span></code> 명령을 잘 사용하지 않는다. <code class="docutils literal notranslate"><span class="pre">figure</span></code> 명령을 명시적으로 사용하는 경우는 여러개의 윈도우를 동시에 띄워야 하거나(line plot이 아닌 경우), Jupyter 노트북 등에서(line plot의 경우) 그림의 크기를 설정하고 싶을 때이다. 그림의 크기는 figsize 인수로 설정한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1976,13 +1307,13 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_82_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_82_0.png" />
+<img alt="../_images/960f022491656f654c45ba9273b1696eb558132a16a86a29fe3c4ba48693ccbd.png" src="../_images/960f022491656f654c45ba9273b1696eb558132a16a86a29fe3c4ba48693ccbd.png" />
 </div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">gcf</span></code></p>
-</div>
+</aside>
 <p>현재 사용하고 있는 Figure 객체를 얻으려면(다른 변수에 할당할 수도 있다.) <code class="docutils literal notranslate"><span class="pre">gcf</span></code> 명령을 사용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2002,20 +1333,20 @@ commentsRunWhenDOMLoaded(addUtterances);
 Figure(2400x1500) 140676427789072
 </pre></div>
 </div>
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_85_1.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_85_1.png" />
+<img alt="../_images/858b4e0ee5d5a1e41450933a93bc338e3e390b4a70c999c52f5afd122fd39ad5.png" src="../_images/858b4e0ee5d5a1e41450933a93bc338e3e390b4a70c999c52f5afd122fd39ad5.png" />
 </div>
 </div>
-</div>
-<div class="section" id="axes-subplot">
-<h3>Axes 객체와 <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 명령<a class="headerlink" href="#axes-subplot" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="axes-subplot">
+<h3>Axes 객체와 <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 명령<a class="headerlink" href="#axes-subplot" title="Link to this heading">#</a></h3>
 <p>때로는 다음과 같이 하나의 윈도우(Figure)안에 여러개의 플롯을 배열 형태로 보여야하는 경우도 있다. Figure 안에 있는 각각의 플롯은 Axes 라고 불리는 객체에 속한다. Axes 객체에 대한 자세한 설명은 다음 웹사이트를 참조한다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes">http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes</a></p></li>
 </ul>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">subplot</span></code></p>
-</div>
+</aside>
 <p>Figure 안에 Axes를 생성하려면 원래 <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 명령을 사용하여 명시적으로 Axes 객체를 얻어야 한다. 그러나 plot 명령을 바로 사용해도 자동으로 Axes를 생성해 준다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">subplot</span></code> 명령은 그리드(grid) 형태의 Axes 객체들을 생성하는데 Figure가 행렬(matrix)이고 Axes가 행렬의 원소라고 생각하면 된다. 예를 들어
 위와 아래 두 개의 플롯이 있는 경우 행이 2 이고 열이 1인 2x1 행렬이다.  <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 명령은 세개의 인수를 가지는데 처음 두개의 원소가 전체 그리드 행렬의 모양을 지시하는 두 숫자이고 세번째 인수가 네 개 중 어느것인지를 의미하는 숫자이다. 따라서 위/아래 두개의 플롯을 하나의 Figure 안에 그리려면 다음처럼 명령을 실행해야 한다. 여기에서 숫자 인덱싱은 파이썬이 아닌 Matlab 관행을 따르기 때문에 첫번째 플롯을 가리키는 숫자가 0이 아니라 1임에 주의하라.</p>
@@ -2025,10 +1356,10 @@ Figure(2400x1500) 140676427789072
 <span class="c1"># 여기에서 아랫부분에 그릴 플롯 명령 실행</span>
 </pre></div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">tight_layout</span></code></p>
-</div>
+</aside>
 <p><code class="docutils literal notranslate"><span class="pre">tight_layout</span></code> 명령을 실행하면 플롯간의 간격을 자동으로 맞춰준다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2053,7 +1384,7 @@ Figure(2400x1500) 140676427789072
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_92_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_92_0.png" />
+<img alt="../_images/08430a13acceed6bb93304ad561878cd1f4e80997d05337aaf3eb72b81df1a50.png" src="../_images/08430a13acceed6bb93304ad561878cd1f4e80997d05337aaf3eb72b81df1a50.png" />
 </div>
 </div>
 <p>만약 2x2 형태의 네 개의 플롯이라면 다음과 같이 그린다. 이 때 <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 의 인수는 (2,2,1)를 줄여서 221 라는 하나의 숫자로 표시할 수도 있다.
@@ -2084,13 +1415,13 @@ Axes의 위치는 위에서 부터 아래로, 왼쪽에서 오른쪽으로 카�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_94_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_94_0.png" />
+<img alt="../_images/2b38cf9c834bd24a279241a217674b0b01ea36e92ca8bd083e9d9bb1b4b97cad.png" src="../_images/2b38cf9c834bd24a279241a217674b0b01ea36e92ca8bd083e9d9bb1b4b97cad.png" />
 </div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">subplots</span></code></p>
-</div>
+</aside>
 <p><code class="docutils literal notranslate"><span class="pre">subplots</span></code> 명령으로 복수의 Axes 객체를 동시에 생성할 수도 있다. 이때는 2차원 ndarray 형태로 Axes 객체가 반환된다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2112,24 +1443,24 @@ Axes의 위치는 위에서 부터 아래로, 왼쪽에서 오른쪽으로 카�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_97_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_97_0.png" />
+<img alt="../_images/2b38cf9c834bd24a279241a217674b0b01ea36e92ca8bd083e9d9bb1b4b97cad.png" src="../_images/2b38cf9c834bd24a279241a217674b0b01ea36e92ca8bd083e9d9bb1b4b97cad.png" />
 </div>
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">연습 문제 5.1.2</p>
 <p>여러가지 함수를 사용하여 위와 같이 subplot들로 구성된 그림을 그려보자. 모든 subplot에 대해 xlabel, ylabel, title이 있어야 한다.</p>
 </div>
-</div>
-<div class="section" id="axis">
-<h3>Axis 객체와 축<a class="headerlink" href="#axis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="axis">
+<h3>Axis 객체와 축<a class="headerlink" href="#axis" title="Link to this heading">#</a></h3>
 <p>하나의 Axes 객체는 두 개 이상의 Axis 객체를 가진다. Axis 객체는 플롯의 가로축이나 세로축을 나타내는 객체이다. 보다 자세한 내용은 다음 웹사이트를 참조한다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://matplotlib.org/api/axis_api.html">https://matplotlib.org/api/axis_api.html</a></p></li>
 </ul>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><code class="docutils literal notranslate"><span class="pre">twinx</span></code></p>
-</div>
+</aside>
 <p>여러가지 플롯을 하나의 Axes 객체에 표시할 때 y값의 크기가 달라서 표시하기 힘든 경우가 있다. 이 때는 다음처럼 <code class="docutils literal notranslate"><span class="pre">twinx</span></code> 명령으로 대해 복수의 y 축을 가진 플롯을 만들수도 있다. <code class="docutils literal notranslate"><span class="pre">twinx</span></code> 명령은 x 축을 공유하는 새로운 Axes 객체를 만든다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2148,25 +1479,25 @@ Axes의 위치는 위에서 부터 아래로, 왼쪽에서 오른쪽으로 카�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05.01 시각화 패키지 맷플롯리브 소개_103_0.png" src="../_images/05.01 시각화 패키지 맷플롯리브 소개_103_0.png" />
+<img alt="../_images/e0f401b00dfaedbbfdd40c86ce1b52a7e346ae80d9bb1cbcf65f9471ed5a5c2f.png" src="../_images/e0f401b00dfaedbbfdd40c86ce1b52a7e346ae80d9bb1cbcf65f9471ed5a5c2f.png" />
 </div>
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">연습 문제 5.1.3</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>맷플롯리브 갤러리 웹사이트에서 관심있는 예제 코드를 하나 고른다.</p></li>
 </ol>
 <ul class="simple">
 <li><p><a class="reference external" href="http://matplotlib.org/gallery.html">http://matplotlib.org/gallery.html</a></p></li>
 </ul>
-<ol class="simple">
+<ol class="arabic simple" start="2">
 <li><p>예제 코드에 사용된 맷플롯리브 API 명령의 목록을 만들고 맷플롯리브 웹사이트에서 관련 링크를 찾아 내용을 정리한다.</p></li>
 <li><p>변형된 형태의 플롯을 만들어본다.</p></li>
 </ol>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2180,7 +1511,7 @@ Axes의 위치는 위에서 부터 아래로, 왼쪽에서 오른쪽으로 카�
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./01 python"
         },
         predefinedOutput: true
@@ -2188,45 +1519,119 @@ Axes의 위치는 위에서 부터 아래로, 왼쪽에서 오른쪽으로 카�
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-        
-        <div class='prev-next-bottom'>
-            
-    <a class='left-prev' id="prev-link" href="05.00%205%EC%9E%A5%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%8B%9C%EA%B0%81%ED%99%94.html" title="previous page">5장 데이터 시각화</a>
-    <a class='right-next' id="next-link" href="05.02%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80%20%ED%94%8C%EB%A1%AF.html" title="next page">Matplotlib의 여러가지 플롯</a>
 
-        </div>
-        
-        </div>
-    </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By 김도형<br/>
-        
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05.00%205%EC%9E%A5%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%8B%9C%EA%B0%81%ED%99%94.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">5장 데이터 시각화</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="05.02%20%EB%A7%B7%ED%94%8C%EB%A1%AF%EB%A6%AC%EB%B8%8C%EC%9D%98%20%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80%20%ED%94%8C%EB%A1%AF.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Matplotlib의 여러가지 플롯</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyplot">pyplot 서브패키지</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">라인 플롯</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">한글폰트 사용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">스타일 지정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">색깔</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">마커</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">선 스타일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">기타 스타일</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">그림 범위 지정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">틱 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">그리드 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">여러개의 선을 그리기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">겹쳐그리기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">범례</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#x-y">x축, y축 라벨, 타이틀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">그림의 구조</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#figure">Figure 객체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axes-subplot">Axes 객체와 <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 명령</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axis">Axis 객체와 축</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 김도형
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-  
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
-<script>
-                        window.ga = window.ga || function () {
-                            (ga.q = ga.q || []).push(arguments) };
-                        ga.l = +new Date;
-                        ga('create', 'UA-77195005-1', 'auto');
-                        ga('set', 'anonymizeIp', true);
-                        ga('send', 'pageview');
-                    </script>
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
